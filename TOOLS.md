@@ -4,10 +4,11 @@ This document provides detailed information about all available tools in the Dok
 
 ## 📊 Overview
 
-- **Total Tools**: 43
+- **Total Tools**: 52
 - **Project Tools**: 6
 - **Application Tools**: 24
 - **PostgreSQL Tools**: 13
+- **Compose Tools**: 9
 
 All tools include semantic annotations to help MCP clients understand their behavior and are designed to interact with the Dokploy API.
 
@@ -750,6 +751,121 @@ All tools include semantic annotations to help MCP clients understand their beha
   }
 }
 ```
+
+## 🐳 Docker Compose Tools
+
+### `compose-one`
+
+- **Description**: Gets a specific compose service by its ID in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `composeId`
+
+### `compose-create`
+
+- **Description**: Creates a new compose service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "name": "string",
+    "appName": "string|optional",
+    "description": "string|null",
+    "projectId": "string",
+    "serverId": "string|null",
+    "composeFile": "string|optional",
+    "env": "string|null",
+    "composeType": "docker-compose|stack"
+  }
+  ```
+- **Annotations**: Creation tool (non-destructive)
+- **Required Fields**: `name`, `projectId`
+- **Default Values**: `composeType` defaults to "docker-compose"
+
+### `compose-update`
+
+- **Description**: Updates an existing compose service in Dokploy
+- **Input Schema**: Complex schema with service configuration fields including name, environment, compose file content, and status
+- **Annotations**: Non-destructive, Idempotent
+- **Required Fields**: `composeId`
+
+### `compose-deploy`
+
+- **Description**: Deploys a compose service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string"
+  }
+  ```
+- **Annotations**: Non-destructive
+- **Required Fields**: `composeId`
+
+### `compose-start`
+
+- **Description**: Starts a compose service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string"
+  }
+  ```
+- **Annotations**: Non-destructive
+- **Required Fields**: `composeId`
+
+### `compose-stop`
+
+- **Description**: Stops a compose service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string"
+  }
+  ```
+- **Annotations**: Non-destructive, Idempotent
+- **Required Fields**: `composeId`
+
+### `compose-reload`
+
+- **Description**: Reloads a compose service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string",
+    "appName": "string"
+  }
+  ```
+- **Annotations**: Non-destructive
+- **Required Fields**: `composeId`, `appName`
+
+### `compose-remove`
+
+- **Description**: Removes/deletes a compose service from Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `composeId`
+
+### `compose-saveEnvironment`
+
+- **Description**: Saves environment variables for a compose service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string",
+    "env": "string|null"
+  }
+  ```
+- **Annotations**: Non-destructive, Idempotent
+- **Required Fields**: `composeId`
 
 ## 📝 Notes
 
