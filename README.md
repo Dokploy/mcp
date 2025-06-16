@@ -336,7 +336,7 @@ For detailed transport mode documentation and client examples, refer to the conf
 
 ## 📚 Available Tools
 
-This MCP server provides comprehensive tools for Dokploy project, application, and database management through **43 tools** organized into three main categories:
+This MCP server provides comprehensive tools for Dokploy project, application, and database management through **56 tools** organized into four main categories:
 
 ### 🗂️ Project Management (6 tools)
 
@@ -404,6 +404,34 @@ Complete PostgreSQL database lifecycle management:
 - **`postgres-saveExternalPort`** - Configure external database ports
 - **`postgres-saveEnvironment`** - Manage database environment variables
 
+### 🐬 MySQL Database Management (13 tools)
+
+Complete MySQL database lifecycle management with MySQL-specific features:
+
+#### Core Database Operations
+
+- **CRUD Operations**: Create, read, update, remove MySQL databases
+- **Lifecycle Management**: Deploy, start, stop, reload, rebuild databases
+- **Configuration Management**: External ports, environment variables, status changes
+- **Project Management**: Move databases between projects
+- **MySQL-Specific Features**: Root password management, MySQL 8.0 support
+
+#### Available MySQL Tools
+
+- **`mysql-create`** - Create new MySQL databases (includes root password setup)
+- **`mysql-one`** - Get database details
+- **`mysql-update`** - Update database configurations
+- **`mysql-remove`** - Delete databases
+- **`mysql-deploy`** - Deploy databases
+- **`mysql-start`** - Start database instances
+- **`mysql-stop`** - Stop database instances
+- **`mysql-reload`** - Reload database configurations
+- **`mysql-rebuild`** - Rebuild database instances
+- **`mysql-move`** - Move databases between projects
+- **`mysql-changeStatus`** - Change database status
+- **`mysql-saveExternalPort`** - Configure external database ports
+- **`mysql-saveEnvironment`** - Manage database environment variables
+
 For detailed information about each tool, including input schemas, required fields, and usage examples, see **[TOOLS.md](TOOLS.md)**.
 
 ### Tool Annotations
@@ -431,7 +459,8 @@ The Dokploy MCP Server is built using:
 
 The server architecture supports:
 
-- **43 Tools** covering all project, application, and database management operations
+- **56 Tools** covering all project, application, and database management operations
+- **Multiple Database Types** (PostgreSQL and MySQL with full lifecycle management)
 - **Multiple Git Providers** (GitHub, GitLab, Bitbucket, Gitea, custom Git)
 - **Flexible Configuration** for builds, deployments, and monitoring
 - **Type-Safe Operations** with comprehensive TypeScript support

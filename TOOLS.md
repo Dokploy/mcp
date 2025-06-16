@@ -4,10 +4,11 @@ This document provides detailed information about all available tools in the Dok
 
 ## 📊 Overview
 
-- **Total Tools**: 43
+- **Total Tools**: 56
 - **Project Tools**: 6
 - **Application Tools**: 24
 - **PostgreSQL Tools**: 13
+- **MySQL Tools**: 13
 
 All tools include semantic annotations to help MCP clients understand their behavior and are designed to interact with the Dokploy API.
 
@@ -631,6 +632,184 @@ All tools include semantic annotations to help MCP clients understand their beha
 - **Required Fields**: `postgresId`
 - **Optional Fields**: `env`
 
+## 🐬 MySQL Database Management Tools
+
+Dokploy includes comprehensive MySQL database management capabilities. These tools mirror the PostgreSQL functionality but are tailored for MySQL databases with MySQL-specific features like root password management.
+
+### Core Database Operations
+
+#### `mysql-create`
+
+- **Description**: Creates a new MySQL database in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "name": "string",
+    "appName": "string",
+    "databaseName": "string",
+    "databaseUser": "string",
+    "databasePassword": "string",
+    "databaseRootPassword": "string",
+    "dockerImage": "string",
+    "projectId": "string",
+    "description": "string|null",
+    "serverId": "string|null"
+  }
+  ```
+- **Annotations**: Creation tool (non-destructive)
+- **Required Fields**: `name`, `appName`, `databaseName`, `databaseUser`, `databasePassword`, `databaseRootPassword`, `projectId`
+- **Optional Fields**: `dockerImage` (defaults to "mysql:8"), `description`, `serverId`
+
+#### `mysql-one`
+
+- **Description**: Gets a specific MySQL database by its ID in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `mysqlId`
+
+#### `mysql-update`
+
+- **Description**: Updates an existing MySQL database in Dokploy
+- **Input Schema**: Complex schema with database configuration fields including name, credentials, resource limits, and Docker settings
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+- **Optional Fields**: All database configuration fields (name, credentials, memory/CPU limits, etc.)
+
+#### `mysql-remove`
+
+- **Description**: Removes/deletes a MySQL database from Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+
+#### `mysql-move`
+
+- **Description**: Moves a MySQL database to a different project
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string",
+    "targetProjectId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`, `targetProjectId`
+
+### Lifecycle Management
+
+#### `mysql-deploy`
+
+- **Description**: Deploys a MySQL database in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+
+#### `mysql-start`
+
+- **Description**: Starts a MySQL database in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+
+#### `mysql-stop`
+
+- **Description**: Stops a MySQL database in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+
+#### `mysql-reload`
+
+- **Description**: Reloads a MySQL database in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string",
+    "appName": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`, `appName`
+
+#### `mysql-rebuild`
+
+- **Description**: Rebuilds a MySQL database in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+
+### Configuration Management
+
+#### `mysql-changeStatus`
+
+- **Description**: Changes the status of a MySQL database
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string",
+    "applicationStatus": "idle|running|done|error"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`, `applicationStatus`
+
+#### `mysql-saveExternalPort`
+
+- **Description**: Saves external port configuration for a MySQL database
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string",
+    "externalPort": "number|null"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`, `externalPort`
+
+#### `mysql-saveEnvironment`
+
+- **Description**: Saves environment variables for a MySQL database
+- **Input Schema**:
+  ```json
+  {
+    "mysqlId": "string",
+    "env": "string|null"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `mysqlId`
+- **Optional Fields**: `env`
+
 ## 🏷️ Tool Annotations
 
 All tools include semantic annotations to help MCP clients understand their behavior:
@@ -641,7 +820,7 @@ All tools include semantic annotations to help MCP clients understand their beha
 
   - `project-all`, `project-one`, `application-one`
   - `application-readAppMonitoring`, `application-readTraefikConfig`
-  - `postgres-one`
+  - `postgres-one`, `mysql-one`
 
 - **Destructive Tools** (`destructiveHint: true`):
 
@@ -649,12 +828,13 @@ All tools include semantic annotations to help MCP clients understand their beha
   - All application configuration, deployment, and lifecycle operations
   - All provider configuration tools
   - All PostgreSQL lifecycle, configuration, and management operations
+  - All MySQL lifecycle, configuration, and management operations
 
 - **Creation Tools** (`destructiveHint: false`):
 
   - `project-create`, `project-duplicate`, `application-create`
   - `application-refreshToken`
-  - `postgres-create`
+  - `postgres-create`, `mysql-create`
 
 - **Idempotent Tools** (`idempotentHint: true`):
 
@@ -751,6 +931,42 @@ All tools include semantic annotations to help MCP clients understand their beha
 }
 ```
 
+### Creating and Managing MySQL Database
+
+```json
+// 1. Create a MySQL database
+{
+  "tool": "mysql-create",
+  "input": {
+    "name": "product-database",
+    "appName": "product-db",
+    "databaseName": "products",
+    "databaseUser": "dbuser",
+    "databasePassword": "secure-password",
+    "databaseRootPassword": "root-secure-password",
+    "projectId": "project-id",
+    "description": "Product catalog database"
+  }
+}
+
+// 2. Deploy the database
+{
+  "tool": "mysql-deploy",
+  "input": {
+    "mysqlId": "mysql-id-from-step-1"
+  }
+}
+
+// 3. Configure external port
+{
+  "tool": "mysql-saveExternalPort",
+  "input": {
+    "mysqlId": "mysql-id",
+    "externalPort": 3306
+  }
+}
+```
+
 ## 📝 Notes
 
 - All nullable fields can accept `null` values but must be provided if marked as required
@@ -758,3 +974,6 @@ All tools include semantic annotations to help MCP clients understand their beha
 - Some endpoints in the original API contain typos (e.g., `saveGitProdiver`) which are preserved for compatibility
 - Resource limits in application updates accept string values (e.g., "512m", "1g")
 - All tools include comprehensive error handling and validation
+- MySQL tools require both database user password and root password for security
+- PostgreSQL and MySQL tools follow identical patterns but use database-specific field names (`postgresId` vs `mysqlId`)
+- Default Docker images: PostgreSQL uses `postgres:latest`, MySQL uses `mysql:8`
