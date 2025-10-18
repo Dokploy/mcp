@@ -5,12 +5,12 @@ import { createTool } from "../toolFactory.js";
 
 export const mysqlMove = createTool({
   name: "mysql-move",
-  description: "Moves a MySQL database to a different project in Dokploy.",
+  description: "Moves a MySQL database to a different environment in Dokploy.",
   schema: z.object({
     mysqlId: z.string().describe("The ID of the MySQL database to move."),
-    targetProjectId: z
+    targetEnvironmentId: z
       .string()
-      .describe("The ID of the target project to move the database to."),
+      .describe("The ID of the target environment to move the database to."),
   }),
   annotations: {
     title: "Move MySQL Database",
