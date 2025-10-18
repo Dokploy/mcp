@@ -7,7 +7,7 @@ import { createTool } from "../toolFactory.js";
 export const projectAll = createTool({
   name: "project-all",
   description:
-    "Lists all projects in Dokploy with optimized response size suitable for LLM consumption. Returns summary data including project info, service counts, and basic service details.",
+    "Lists all projects in Dokploy with optimized response size suitable for LLM consumption. Returns summary data including project info, environment counts, and service counts per environment. Excludes large fields like env vars and compose files.",
   schema: z.object({}),
   annotations: {
     title: "List All Projects",
@@ -27,61 +27,141 @@ export const projectAll = createTool({
 
     const projects = response.data as DokployProject[];
 
-    // Always return optimized summary data
-    const optimizedProjects = projects.map((project) => ({
-      projectId: project.projectId,
-      name: project.name,
-      description: project.description,
-      createdAt: project.createdAt,
-      organizationId: project.organizationId,
+    // Return optimized summary data with environment structure
+    const optimizedProjects = projects.map((project) => {
+      // Calculate total services across all environments
+      const totalCounts = {
+        applications: 0,
+        postgres: 0,
+        mysql: 0,
+        mariadb: 0,
+        mongo: 0,
+        redis: 0,
+        compose: 0,
+      };
 
-      // Service counts instead of full data
-      serviceCounts: {
-        applications: project.applications?.length || 0,
-        postgres: project.postgres?.length || 0,
-        mysql: project.mysql?.length || 0,
-        mariadb: project.mariadb?.length || 0,
-        mongo: project.mongo?.length || 0,
-        redis: project.redis?.length || 0,
-        compose: project.compose?.length || 0,
-      },
+      const environments =
+        project.environments?.map((env) => {
+          const envCounts = {
+            applications: env.applications?.length || 0,
+            postgres: env.postgres?.length || 0,
+            mysql: env.mysql?.length || 0,
+            mariadb: env.mariadb?.length || 0,
+            mongo: env.mongo?.length || 0,
+            redis: env.redis?.length || 0,
+            compose: env.compose?.length || 0,
+          };
 
-      // Basic service summaries (only essential info)
-      services: {
-        applications:
-          project.applications?.map((app) => ({
-            applicationId: app.applicationId,
-            name: app.name,
-            appName: app.appName,
-            applicationStatus: app.applicationStatus,
-            sourceType: app.sourceType,
-            buildType: app.buildType,
-            domainCount: app.domains?.length || 0,
-          })) || [],
+          // Accumulate totals
+          totalCounts.applications += envCounts.applications;
+          totalCounts.postgres += envCounts.postgres;
+          totalCounts.mysql += envCounts.mysql;
+          totalCounts.mariadb += envCounts.mariadb;
+          totalCounts.mongo += envCounts.mongo;
+          totalCounts.redis += envCounts.redis;
+          totalCounts.compose += envCounts.compose;
 
-        postgres:
-          project.postgres?.map((db) => ({
-            postgresId: db.postgresId,
-            name: db.name,
-            appName: db.appName,
-            applicationStatus: db.applicationStatus,
-            databaseName: db.databaseName,
-          })) || [],
+          return {
+            environmentId: env.environmentId,
+            name: env.name,
+            description: env.description,
+            createdAt: env.createdAt,
 
-        compose:
-          project.compose?.map((comp) => ({
-            composeId: comp.composeId,
-            name: comp.name,
-            appName: comp.appName,
-            composeStatus: comp.composeStatus,
-            sourceType: comp.sourceType,
-            domainCount: comp.domains?.length || 0,
-          })) || [],
-      },
-    }));
+            // Service counts for this environment
+            serviceCounts: envCounts,
+
+            // Basic service details (only essential info, no env vars or large files)
+            services: {
+              applications:
+                env.applications?.map((app) => ({
+                  applicationId: app.applicationId,
+                  name: app.name,
+                  appName: app.appName,
+                  applicationStatus: app.applicationStatus,
+                  sourceType: app.sourceType,
+                  buildType: app.buildType,
+                  repository: app.repository,
+                  branch: app.branch,
+                  domainCount: app.domains?.length || 0,
+                })) || [],
+
+              postgres:
+                env.postgres?.map((db) => ({
+                  postgresId: db.postgresId,
+                  name: db.name,
+                  appName: db.appName,
+                  applicationStatus: db.applicationStatus,
+                  databaseName: db.databaseName,
+                })) || [],
+
+              mysql:
+                env.mysql?.map((db) => ({
+                  mysqlId: db.mysqlId,
+                  name: db.name,
+                  appName: db.appName,
+                  applicationStatus: db.applicationStatus,
+                  databaseName: db.databaseName,
+                })) || [],
+
+              mariadb:
+                env.mariadb?.map((db) => ({
+                  mariadbId: db.mariadbId,
+                  name: db.name,
+                  appName: db.appName,
+                  applicationStatus: db.applicationStatus,
+                  databaseName: db.databaseName,
+                })) || [],
+
+              mongo:
+                env.mongo?.map((db) => ({
+                  mongoId: db.mongoId,
+                  name: db.name,
+                  appName: db.appName,
+                  applicationStatus: db.applicationStatus,
+                  databaseName: db.databaseName,
+                })) || [],
+
+              redis:
+                env.redis?.map((db) => ({
+                  redisId: db.redisId,
+                  name: db.name,
+                  appName: db.appName,
+                  applicationStatus: db.applicationStatus,
+                })) || [],
+
+              compose:
+                env.compose?.map((comp) => ({
+                  composeId: comp.composeId,
+                  name: comp.name,
+                  appName: comp.appName,
+                  composeStatus: comp.composeStatus,
+                  sourceType: comp.sourceType,
+                  repository: comp.repository,
+                  branch: comp.branch,
+                  domainCount: comp.domains?.length || 0,
+                })) || [],
+            },
+          };
+        }) || [];
+
+      return {
+        projectId: project.projectId,
+        name: project.name,
+        description: project.description,
+        createdAt: project.createdAt,
+        organizationId: project.organizationId,
+
+        // Total service counts across all environments
+        totalServiceCounts: totalCounts,
+
+        // Environment details
+        environmentCount: environments.length,
+        environments,
+      };
+    });
 
     return ResponseFormatter.success(
-      "Successfully fetched projects summary",
+      `Successfully fetched ${optimizedProjects.length} project(s) with environment details`,
       optimizedProjects
     );
   },

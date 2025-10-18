@@ -5,7 +5,8 @@ import { ResponseFormatter } from "../../../utils/responseFormatter.js";
 
 export const projectUpdate = createTool({
   name: "project-update",
-  description: "Updates an existing project in Dokploy.",
+  description:
+    "Updates an existing project in Dokploy. Only provide the fields you want to update. System fields like createdAt and organizationId are typically not modified.",
   schema: z.object({
     projectId: z.string().min(1).describe("The ID of the project to update."),
     name: z.string().min(1).optional().describe("The new name of the project."),

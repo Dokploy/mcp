@@ -21,20 +21,20 @@ const serviceSchema = z.object({
 export const projectDuplicate = createTool({
   name: "project-duplicate",
   description:
-    "Duplicates an existing project in Dokploy with optional service selection.",
+    "Duplicates an existing environment in Dokploy with optional service selection. Creates a new environment with the same configuration and optionally the same services.",
   schema: z.object({
-    sourceProjectId: z
+    sourceEnvironmentId: z
       .string()
       .min(1)
-      .describe("The ID of the source project to duplicate."),
+      .describe("The ID of the source environment to duplicate."),
     name: z
       .string()
       .min(1)
-      .describe("The name for the new duplicated project."),
+      .describe("The name for the new duplicated environment."),
     description: z
       .string()
       .optional()
-      .describe("An optional description for the duplicated project."),
+      .describe("An optional description for the duplicated environment."),
     includeServices: z
       .boolean()
       .default(true)
@@ -45,11 +45,17 @@ export const projectDuplicate = createTool({
       .array(serviceSchema)
       .optional()
       .describe(
-        "Array of specific services to include. When includeServices is true and this is not provided, you MUST first retrieve all services from the source project and include ALL of them in this array. Services are not automatically included - you must explicitly list each service with its ID and type."
+        "Array of specific services to include. When includeServices is true and this is not provided, you MUST first retrieve all services from the source environment and include ALL of them in this array. Services are not automatically included - you must explicitly list each service with its ID and type."
+      ),
+    duplicateInSameProject: z
+      .boolean()
+      .default(false)
+      .describe(
+        "Whether to duplicate the environment within the same project. Defaults to false."
       ),
   }),
   annotations: {
-    title: "Duplicate Project",
+    title: "Duplicate Environment",
     destructiveHint: false,
     idempotentHint: false,
     openWorldHint: true,
@@ -58,7 +64,7 @@ export const projectDuplicate = createTool({
     const response = await apiClient.post("/project.duplicate", input);
 
     return ResponseFormatter.success(
-      `Project "${input.name}" duplicated successfully from source project "${input.sourceProjectId}"`,
+      `Environment "${input.name}" duplicated successfully from source environment "${input.sourceEnvironmentId}"`,
       response.data
     );
   },

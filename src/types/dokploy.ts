@@ -7,12 +7,32 @@ export interface DokployProject {
   description?: string | null;
   createdAt: string;
   organizationId: string;
+  env?: string;
+  environments?: DokployEnvironment[];
+  // Legacy fields for backward compatibility
   applications?: DokployApplication[];
   postgres?: DokployPostgres[];
-  mysql?: unknown[];
-  mariadb?: unknown[];
-  mongo?: unknown[];
-  redis?: unknown[];
+  mysql?: DokployMysql[];
+  mariadb?: DokployMariadb[];
+  mongo?: DokployMongo[];
+  redis?: DokployRedis[];
+  compose?: DokployCompose[];
+  [key: string]: unknown; // Allow additional properties
+}
+
+export interface DokployEnvironment {
+  environmentId: string;
+  name: string;
+  description?: string | null;
+  createdAt: string;
+  env?: string;
+  projectId: string;
+  applications?: DokployApplication[];
+  postgres?: DokployPostgres[];
+  mysql?: DokployMysql[];
+  mariadb?: DokployMariadb[];
+  mongo?: DokployMongo[];
+  redis?: DokployRedis[];
   compose?: DokployCompose[];
   [key: string]: unknown; // Allow additional properties
 }
@@ -24,6 +44,8 @@ export interface DokployApplication {
   applicationStatus: string;
   sourceType: string;
   buildType: string;
+  repository?: string | null;
+  branch?: string | null;
   domains?: { length?: number }[];
   [key: string]: unknown; // Allow additional properties
 }
@@ -43,7 +65,44 @@ export interface DokployCompose {
   appName: string;
   composeStatus: string;
   sourceType: string;
+  repository?: string | null;
+  branch?: string | null;
   domains?: { length?: number }[];
+  [key: string]: unknown; // Allow additional properties
+}
+
+export interface DokployMysql {
+  mysqlId: string;
+  name: string;
+  appName: string;
+  applicationStatus: string;
+  databaseName: string;
+  [key: string]: unknown; // Allow additional properties
+}
+
+export interface DokployMariadb {
+  mariadbId: string;
+  name: string;
+  appName: string;
+  applicationStatus: string;
+  databaseName: string;
+  [key: string]: unknown; // Allow additional properties
+}
+
+export interface DokployMongo {
+  mongoId: string;
+  name: string;
+  appName: string;
+  applicationStatus: string;
+  databaseName: string;
+  [key: string]: unknown; // Allow additional properties
+}
+
+export interface DokployRedis {
+  redisId: string;
+  name: string;
+  appName: string;
+  applicationStatus: string;
   [key: string]: unknown; // Allow additional properties
 }
 
