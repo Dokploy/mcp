@@ -38,11 +38,21 @@ export const applicationSaveBuildType = createTool({
       .nullable()
       .optional()
       .describe("Heroku version for heroku_buildpacks build type."),
+    railpackVersion: z
+      .string()
+      .nullable()
+      .optional()
+      .describe("Railpack version for railpack build type."),
     publishDirectory: z
       .string()
       .nullable()
       .optional()
       .describe("Directory to publish the built application."),
+    isStaticSpa: z
+      .boolean()
+      .nullable()
+      .optional()
+      .describe("Whether the application is a static SPA."),
   }),
   annotations: {
     title: "Save Application Build Type",

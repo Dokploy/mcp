@@ -1,7 +1,9 @@
+export { applicationCancelDeployment } from "./applicationCancelDeployment.js";
 export { applicationCleanQueues } from "./applicationCleanQueues.js";
 export { applicationCreate } from "./applicationCreate.js";
 export { applicationDelete } from "./applicationDelete.js";
 export { applicationDeploy } from "./applicationDeploy.js";
+export { applicationDisconnectGitProvider } from "./applicationDisconnectGitProvider.js";
 export { applicationMarkRunning } from "./applicationMarkRunning.js";
 export { applicationMove } from "./applicationMove.js";
 export { applicationOne } from "./applicationOne.js";

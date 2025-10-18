@@ -46,7 +46,7 @@ export const applicationSaveGitProvider = createTool({
   },
   handler: async (input) => {
     const response = await apiClient.post(
-      "/application.saveGitProdiver",
+      "/application.saveGitProvider",
       input
     );
 
