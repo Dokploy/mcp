@@ -336,136 +336,66 @@ For detailed transport mode documentation and client examples, refer to the conf
 
 ## 📚 Available Tools
 
-This MCP server provides comprehensive tools for Dokploy project, application, and database management through **56 tools** organized into four main categories:
+This MCP server provides **58 tools** organized into four main categories:
 
 ### 🗂️ Project Management (6 tools)
 
-Complete project lifecycle management including creation, updates, duplication, and deletion:
+- `project-all` - List all projects
+- `project-one` - Get project by ID
+- `project-create` - Create new project
+- `project-update` - Update project configuration
+- `project-duplicate` - Duplicate project with optional service selection
+- `project-remove` - Delete project
 
-- **`project-all`** - List all projects
-- **`project-one`** - Get project details
-- **`project-create`** - Create new projects
-- **`project-update`** - Update project configurations
-- **`project-duplicate`** - Duplicate projects with selective service copying
-- **`project-remove`** - Delete projects
+### 🚀 Application Management (26 tools)
 
-### 🚀 Application Management (24 tools)
+**Core Operations:**
+- `application-one`, `application-create`, `application-update`, `application-delete`
+- `application-deploy`, `application-redeploy`, `application-start`, `application-stop`, `application-reload`
+- `application-move`, `application-markRunning`, `application-cancelDeployment`
 
-Comprehensive application lifecycle and configuration management:
+**Git Providers:**
+- `application-saveGithubProvider`, `application-saveGitlabProvider`, `application-saveBitbucketProvider`
+- `application-saveGiteaProvider`, `application-saveGitProvider`, `application-disconnectGitProvider`
 
-#### Core Operations
-
-- **CRUD Operations**: Create, read, update, delete applications
-- **Lifecycle Management**: Deploy, redeploy, start, stop, reload applications
-- **Utility Operations**: Move between projects, clean queues, refresh tokens
-
-#### Git Provider Integrations
-
-Support for multiple Git providers with specific configurations:
-
-- **GitHub Provider** - Full GitHub integration with webhooks
-- **GitLab Provider** - Complete GitLab project integration
-- **Bitbucket Provider** - Bitbucket repository management
-- **Gitea Provider** - Self-hosted Gitea integration
-- **Git Provider** - Custom Git repository support
-- **Docker Provider** - Direct Docker image deployment
-
-#### Configuration Management
-
-- **Build Settings** - Configure build types (Dockerfile, Heroku, Nixpacks, etc.)
-- **Environment Management** - Environment variables and build arguments
-- **Monitoring Integration** - Application monitoring and metrics
-- **Traefik Configuration** - Load balancer and reverse proxy settings
+**Configuration:**
+- `application-saveBuildType`, `application-saveEnvironment`, `application-saveDockerProvider`
+- `application-readAppMonitoring`, `application-readTraefikConfig`, `application-updateTraefikConfig`
+- `application-refreshToken`, `application-cleanQueues`
 
 ### 🐘 PostgreSQL Database Management (13 tools)
 
-Complete PostgreSQL database lifecycle management:
+**Core Operations:**
+- `postgres-create`, `postgres-one`, `postgres-update`, `postgres-remove`, `postgres-move`
+- `postgres-deploy`, `postgres-start`, `postgres-stop`, `postgres-reload`, `postgres-rebuild`
 
-#### Core Database Operations
-
-- **CRUD Operations**: Create, read, update, remove PostgreSQL databases
-- **Lifecycle Management**: Deploy, start, stop, reload, rebuild databases
-- **Configuration Management**: External ports, environment variables, status changes
-- **Project Management**: Move databases between projects
-
-#### Available PostgreSQL Tools
-
-- **`postgres-create`** - Create new PostgreSQL databases
-- **`postgres-one`** - Get database details
-- **`postgres-update`** - Update database configurations
-- **`postgres-remove`** - Delete databases
-- **`postgres-deploy`** - Deploy databases
-- **`postgres-start`** - Start database instances
-- **`postgres-stop`** - Stop database instances
-- **`postgres-reload`** - Reload database configurations
-- **`postgres-rebuild`** - Rebuild database instances
-- **`postgres-move`** - Move databases between projects
-- **`postgres-changeStatus`** - Change database status
-- **`postgres-saveExternalPort`** - Configure external database ports
-- **`postgres-saveEnvironment`** - Manage database environment variables
+**Configuration:**
+- `postgres-changeStatus`, `postgres-saveExternalPort`, `postgres-saveEnvironment`
 
 ### 🐬 MySQL Database Management (13 tools)
 
-Complete MySQL database lifecycle management with MySQL-specific features:
+**Core Operations:**
+- `mysql-create`, `mysql-one`, `mysql-update`, `mysql-remove`, `mysql-move`
+- `mysql-deploy`, `mysql-start`, `mysql-stop`, `mysql-reload`, `mysql-rebuild`
 
-#### Core Database Operations
+**Configuration:**
+- `mysql-changeStatus`, `mysql-saveExternalPort`, `mysql-saveEnvironment`
 
-- **CRUD Operations**: Create, read, update, remove MySQL databases
-- **Lifecycle Management**: Deploy, start, stop, reload, rebuild databases
-- **Configuration Management**: External ports, environment variables, status changes
-- **Project Management**: Move databases between projects
-- **MySQL-Specific Features**: Root password management, MySQL 8.0 support
+**Tool Annotations:**
+All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior and safety characteristics.
 
-#### Available MySQL Tools
-
-- **`mysql-create`** - Create new MySQL databases (includes root password setup)
-- **`mysql-one`** - Get database details
-- **`mysql-update`** - Update database configurations
-- **`mysql-remove`** - Delete databases
-- **`mysql-deploy`** - Deploy databases
-- **`mysql-start`** - Start database instances
-- **`mysql-stop`** - Stop database instances
-- **`mysql-reload`** - Reload database configurations
-- **`mysql-rebuild`** - Rebuild database instances
-- **`mysql-move`** - Move databases between projects
-- **`mysql-changeStatus`** - Change database status
-- **`mysql-saveExternalPort`** - Configure external database ports
-- **`mysql-saveEnvironment`** - Manage database environment variables
-
-For detailed information about each tool, including input schemas, required fields, and usage examples, see **[TOOLS.md](TOOLS.md)**.
-
-### Tool Annotations
-
-All tools include semantic annotations to help MCP clients understand their behavior:
-
-- **Read-Only Tools** (`readOnlyHint: true`): Safe operations that only retrieve data
-- **Destructive Tools** (`destructiveHint: true`): Operations that modify or delete resources
-- **Creation Tools** (`destructiveHint: false`): Operations that create new resources
-- **Idempotent Tools** (`idempotentHint: true`): Operations safe to repeat
-- **External API Tools** (`openWorldHint: true`): All tools interact with Dokploy API
+For detailed schemas, parameters, and usage examples, see **[TOOLS.md](TOOLS.md)**.
 
 ## 🏗️ Architecture
 
-The Dokploy MCP Server is built using:
+Built with **@modelcontextprotocol/sdk**, **TypeScript**, and **Zod** for type-safe schema validation:
 
-- **`@modelcontextprotocol/sdk`**: For creating the MCP server and defining tools
-- **Node.js & TypeScript**: As the underlying runtime and language
-- **Stdio Transport**: Communicates with MCP clients over standard input/output (stdio)
-- **Dokploy API Integration**: Direct interaction with Dokploy server's REST API
-- **Comprehensive Tool Coverage**: Complete implementation of all Dokploy application and project endpoints
-- **Robust Error Handling**: Centralized HTTP client with retry logic and structured error responses
-- **Schema Validation**: Full Zod-based input validation matching OpenAPI specifications
-- **Tool Annotations**: Semantic annotations (readOnlyHint, destructiveHint, etc.) for enhanced MCP client understanding
-
-The server architecture supports:
-
-- **56 Tools** covering all project, application, and database management operations
-- **Multiple Database Types** (PostgreSQL and MySQL with full lifecycle management)
-- **Multiple Git Providers** (GitHub, GitLab, Bitbucket, Gitea, custom Git)
-- **Flexible Configuration** for builds, deployments, and monitoring
-- **Type-Safe Operations** with comprehensive TypeScript support
-
-Each tool includes input validation, API integration, and structured response formatting for consistent MCP client interaction.
+- **58 Tools** covering projects, applications, PostgreSQL, and MySQL management
+- **Multiple Transports**: Stdio (default) and HTTP (Streamable HTTP + legacy SSE)
+- **Multiple Git Providers**: GitHub, GitLab, Bitbucket, Gitea, custom Git
+- **Robust Error Handling**: Centralized API client with retry logic
+- **Type Safety**: Full TypeScript support with Zod schema validation
+- **Tool Annotations**: Semantic hints for MCP client behavior understanding
 
 ## 🔧 Development
 
