@@ -7,7 +7,15 @@ export const applicationDeploy = createTool({
   name: "application-deploy",
   description: "Deploys an application in Dokploy.",
   schema: z.object({
-    applicationId: z.string().describe("The ID of the application to deploy."),
+    applicationId: z
+      .string()
+      .min(1)
+      .describe("The ID of the application to deploy."),
+    title: z.string().optional().describe("Optional title for the deployment."),
+    description: z
+      .string()
+      .optional()
+      .describe("Optional description for the deployment."),
   }),
   annotations: {
     title: "Deploy Application",

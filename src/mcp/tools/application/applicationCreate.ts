@@ -17,10 +17,12 @@ export const applicationCreate = createTool({
       .nullable()
       .optional()
       .describe("An optional description for the application."),
-    projectId: z
+    environmentId: z
       .string()
       .min(1)
-      .describe("The ID of the project where the application will be created."),
+      .describe(
+        "The ID of the environment where the application will be created."
+      ),
     serverId: z
       .string()
       .nullable()
@@ -37,7 +39,7 @@ export const applicationCreate = createTool({
     const response = await apiClient.post("/application.create", input);
 
     return ResponseFormatter.success(
-      `Application "${input.name}" created successfully in project "${input.projectId}"`,
+      `Application "${input.name}" created successfully in environment "${input.environmentId}"`,
       response.data
     );
   },

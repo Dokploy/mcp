@@ -9,7 +9,16 @@ export const applicationRedeploy = createTool({
   schema: z.object({
     applicationId: z
       .string()
+      .min(1)
       .describe("The ID of the application to redeploy."),
+    title: z
+      .string()
+      .optional()
+      .describe("Optional title for the redeployment."),
+    description: z
+      .string()
+      .optional()
+      .describe("Optional description for the redeployment."),
   }),
   annotations: {
     title: "Redeploy Application",

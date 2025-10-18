@@ -5,10 +5,12 @@ import { createTool } from "../toolFactory.js";
 
 export const applicationMove = createTool({
   name: "application-move",
-  description: "Moves an application to a different project in Dokploy.",
+  description: "Moves an application to a different environment in Dokploy.",
   schema: z.object({
     applicationId: z.string().describe("The ID of the application to move."),
-    targetProjectId: z.string().describe("The ID of the destination project."),
+    targetEnvironmentId: z
+      .string()
+      .describe("The ID of the destination environment."),
   }),
   annotations: {
     title: "Move Application",
@@ -20,7 +22,7 @@ export const applicationMove = createTool({
     const response = await apiClient.post("/application.move", input);
 
     return ResponseFormatter.success(
-      `Application "${input.applicationId}" moved to project "${input.targetProjectId}" successfully`,
+      `Application "${input.applicationId}" moved to environment "${input.targetEnvironmentId}" successfully`,
       response.data
     );
   },

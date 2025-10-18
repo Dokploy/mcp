@@ -32,6 +32,7 @@ export const postgresUpdate = createTool({
       .describe("The new database username."),
     databasePassword: z
       .string()
+      .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
       .optional()
       .describe("The new database password."),
     description: z
@@ -41,6 +42,7 @@ export const postgresUpdate = createTool({
       .describe("The new description for the PostgreSQL database."),
     dockerImage: z
       .string()
+      .default("postgres:15")
       .optional()
       .describe("The new Docker image for PostgreSQL."),
     command: z
@@ -82,8 +84,116 @@ export const postgresUpdate = createTool({
       .enum(["idle", "running", "done", "error"])
       .optional()
       .describe("Application status."),
+    healthCheckSwarm: z
+      .object({
+        Test: z.array(z.string()),
+        Interval: z.number(),
+        Timeout: z.number(),
+        StartPeriod: z.number(),
+        Retries: z.number(),
+      })
+      .nullable()
+      .optional()
+      .describe("Docker Swarm health check configuration."),
+    restartPolicySwarm: z
+      .object({
+        Condition: z.string(),
+        Delay: z.number(),
+        MaxAttempts: z.number(),
+        Window: z.number(),
+      })
+      .nullable()
+      .optional()
+      .describe("Docker Swarm restart policy configuration."),
+    placementSwarm: z
+      .object({
+        Constraints: z.array(z.string()),
+        Preferences: z.array(
+          z.object({
+            Spread: z.object({
+              SpreadDescriptor: z.string(),
+            }),
+          })
+        ),
+        MaxReplicas: z.number(),
+        Platforms: z.array(
+          z.object({
+            Architecture: z.string(),
+            OS: z.string(),
+          })
+        ),
+      })
+      .nullable()
+      .optional()
+      .describe("Docker Swarm placement configuration."),
+    updateConfigSwarm: z
+      .object({
+        Parallelism: z.number(),
+        Delay: z.number(),
+        FailureAction: z.string(),
+        Monitor: z.number(),
+        MaxFailureRatio: z.number(),
+        Order: z.string(),
+      })
+      .nullable()
+      .optional()
+      .describe("Docker Swarm update configuration."),
+    rollbackConfigSwarm: z
+      .object({
+        Parallelism: z.number(),
+        Delay: z.number(),
+        FailureAction: z.string(),
+        Monitor: z.number(),
+        MaxFailureRatio: z.number(),
+        Order: z.string(),
+      })
+      .nullable()
+      .optional()
+      .describe("Docker Swarm rollback configuration."),
+    modeSwarm: z
+      .object({
+        Replicated: z
+          .object({
+            Replicas: z.number(),
+          })
+          .optional(),
+        Global: z.object({}).optional(),
+        ReplicatedJob: z
+          .object({
+            MaxConcurrent: z.number(),
+            TotalCompletions: z.number(),
+          })
+          .optional(),
+        GlobalJob: z.object({}).optional(),
+      })
+      .nullable()
+      .optional()
+      .describe("Docker Swarm mode configuration."),
+    labelsSwarm: z
+      .record(z.string())
+      .nullable()
+      .optional()
+      .describe("Docker Swarm labels."),
+    networkSwarm: z
+      .array(
+        z.object({
+          Target: z.string(),
+          Aliases: z.array(z.string()),
+          DriverOpts: z.object({}),
+        })
+      )
+      .nullable()
+      .optional()
+      .describe("Docker Swarm network configuration."),
+    stopGracePeriodSwarm: z
+      .number()
+      .int()
+      .nullable()
+      .optional()
+      .describe("Docker Swarm stop grace period in seconds."),
+    replicas: z.number().optional().describe("Number of replicas."),
     createdAt: z.string().optional().describe("Creation date."),
-    projectId: z.string().optional().describe("Project ID."),
+    environmentId: z.string().optional().describe("Environment ID."),
   }),
   annotations: {
     title: "Update PostgreSQL Database",

@@ -17,14 +17,20 @@ export const postgresCreate = createTool({
       .string()
       .min(1)
       .describe("The username for database access."),
-    databasePassword: z.string().describe("The password for database access."),
+    databasePassword: z
+      .string()
+      .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
+      .describe("The password for database access."),
     dockerImage: z
       .string()
+      .default("postgres:15")
       .optional()
       .describe("Docker image to use for PostgreSQL."),
-    projectId: z
+    environmentId: z
       .string()
-      .describe("The ID of the project where the database will be created."),
+      .describe(
+        "The ID of the environment where the database will be created."
+      ),
     description: z
       .string()
       .nullable()

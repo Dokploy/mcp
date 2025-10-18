@@ -4,13 +4,13 @@ This document provides detailed information about all available tools in the Dok
 
 ## 📊 Overview
 
-- **Total Tools**: 56
+- **Total Tools**: 58
 - **Project Tools**: 6
-- **Application Tools**: 24
+- **Application Tools**: 26
 - **PostgreSQL Tools**: 13
 - **MySQL Tools**: 13
 
-All tools include semantic annotations to help MCP clients understand their behavior and are designed to interact with the Dokploy API.
+All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior.
 
 ## 🗂️ Project Management Tools
 
@@ -44,7 +44,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "env": "string"
   }
   ```
-- **Annotations**: Creation tool (non-destructive)
+- **Annotations**: Non-destructive, Non-idempotent
 - **Required Fields**: `name`
 - **Optional Fields**: `description`, `env`
 
@@ -129,7 +129,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "serverId": "string|null"
   }
   ```
-- **Annotations**: Creation tool (non-destructive)
+- **Annotations**: Non-destructive, Non-idempotent
 - **Required Fields**: `name`, `projectId`
 - **Optional Fields**: `appName`, `description`, `serverId`
 
@@ -177,7 +177,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "applicationId": "string"
   }
   ```
-- **Annotations**: Destructive
+- **Annotations**: Non-destructive, Non-idempotent
 - **Required Fields**: `applicationId`
 
 #### `application-redeploy`
@@ -189,7 +189,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "applicationId": "string"
   }
   ```
-- **Annotations**: Destructive
+- **Annotations**: Non-destructive, Non-idempotent
 - **Required Fields**: `applicationId`
 
 #### `application-start`
@@ -201,7 +201,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "applicationId": "string"
   }
   ```
-- **Annotations**: Destructive
+- **Annotations**: Non-destructive, Non-idempotent
 - **Required Fields**: `applicationId`
 
 #### `application-stop`
@@ -213,7 +213,19 @@ All tools include semantic annotations to help MCP clients understand their beha
     "applicationId": "string"
   }
   ```
-- **Annotations**: Destructive
+- **Annotations**: Destructive, Non-idempotent
+- **Required Fields**: `applicationId`
+
+#### `application-cancelDeployment`
+
+- **Description**: Cancels an ongoing deployment for an application
+- **Input Schema**:
+  ```json
+  {
+    "applicationId": "string"
+  }
+  ```
+- **Annotations**: Destructive, Non-idempotent
 - **Required Fields**: `applicationId`
 
 #### `application-reload`
@@ -226,7 +238,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "appName": "string"
   }
   ```
-- **Annotations**: Destructive
+- **Annotations**: Non-destructive, Non-idempotent
 - **Required Fields**: `applicationId`, `appName`
 
 #### `application-markRunning`
@@ -238,7 +250,7 @@ All tools include semantic annotations to help MCP clients understand their beha
     "applicationId": "string"
   }
   ```
-- **Annotations**: Destructive
+- **Annotations**: Destructive, Non-idempotent
 - **Required Fields**: `applicationId`
 
 ### Configuration Management
@@ -392,6 +404,18 @@ All tools include semantic annotations to help MCP clients understand their beha
 - **Annotations**: Destructive
 - **Required Fields**: `applicationId`, `dockerImage`
 
+#### `application-disconnectGitProvider`
+
+- **Description**: Disconnects Git provider configuration from an application
+- **Input Schema**:
+  ```json
+  {
+    "applicationId": "string"
+  }
+  ```
+- **Annotations**: Destructive
+- **Required Fields**: `applicationId`
+
 ### Monitoring & Configuration
 
 #### `application-readAppMonitoring`
@@ -400,11 +424,11 @@ All tools include semantic annotations to help MCP clients understand their beha
 - **Input Schema**:
   ```json
   {
-    "applicationId": "string"
+    "appName": "string"
   }
   ```
 - **Annotations**: Read-only, Idempotent
-- **Required Fields**: `applicationId`
+- **Required Fields**: `appName`
 
 #### `application-readTraefikConfig`
 
@@ -814,166 +838,44 @@ Dokploy includes comprehensive MySQL database management capabilities. These too
 
 All tools include semantic annotations to help MCP clients understand their behavior:
 
-### Annotation Types
+- **Read-Only** (`readOnlyHint: true`): Safe operations that only retrieve data
+  - Examples: `project-all`, `project-one`, `application-one`, `application-readTraefikConfig`, `postgres-one`, `mysql-one`
 
-- **Read-Only Tools** (`readOnlyHint: true`):
+- **Destructive** (`destructiveHint: true`): Operations that modify or delete resources irreversibly
+  - Examples: `project-update`, `project-remove`, `application-delete`, `application-stop`, `application-cancelDeployment`
 
-  - `project-all`, `project-one`, `application-one`
-  - `application-readAppMonitoring`, `application-readTraefikConfig`
-  - `postgres-one`, `mysql-one`
+- **Non-Destructive** (`destructiveHint: false`): Operations that create resources or perform safe actions
+  - Examples: All create operations, deploy, start, reload operations
 
-- **Destructive Tools** (`destructiveHint: true`):
+- **Idempotent** (`idempotentHint: true`): Operations safe to repeat without side effects
+  - Examples: All read-only operations
 
-  - `project-update`, `project-remove`
-  - All application configuration, deployment, and lifecycle operations
-  - All provider configuration tools
-  - All PostgreSQL lifecycle, configuration, and management operations
-  - All MySQL lifecycle, configuration, and management operations
+- **External API** (`openWorldHint: true`): All tools interact with external Dokploy API
 
-- **Creation Tools** (`destructiveHint: false`):
+## 🔧 Quick Start Examples
 
-  - `project-create`, `project-duplicate`, `application-create`
-  - `application-refreshToken`
-  - `postgres-create`, `mysql-create`
-
-- **Idempotent Tools** (`idempotentHint: true`):
-
-  - All read-only operations
-
-- **External API Tools** (`openWorldHint: true`):
-  - All tools (interact with Dokploy API)
-
-## 🔧 Usage Examples
-
-### Creating a Project and Application
-
+### Project & Application Workflow
 ```json
-// 1. Create a project
-{
-  "tool": "project-create",
-  "input": {
-    "name": "my-web-app",
-    "description": "My web application project"
-  }
-}
-
-// 2. Create an application in the project
-{
-  "tool": "application-create",
-  "input": {
-    "name": "frontend",
-    "projectId": "project-id-from-step-1",
-    "description": "Frontend application"
-  }
-}
+// Create project → Create application → Configure Git → Deploy
+{"tool": "project-create", "input": {"name": "my-project"}}
+{"tool": "application-create", "input": {"name": "my-app", "projectId": "..."}}
+{"tool": "application-saveGithubProvider", "input": {"applicationId": "...", "repository": "owner/repo", "branch": "main"}}
+{"tool": "application-deploy", "input": {"applicationId": "..."}}
 ```
 
-### Configuring Git Provider
-
+### Database Workflow
 ```json
-{
-  "tool": "application-saveGithubProvider",
-  "input": {
-    "applicationId": "app-id",
-    "owner": "my-username",
-    "repository": "my-repo",
-    "branch": "main",
-    "githubId": "github-integration-id",
-    "enableSubmodules": false,
-    "triggerType": "push"
-  }
-}
+// Create → Deploy → Configure
+{"tool": "postgres-create", "input": {"name": "my-db", "databaseName": "app", "databaseUser": "user", "databasePassword": "pass", "projectId": "..."}}
+{"tool": "postgres-deploy", "input": {"postgresId": "..."}}
+{"tool": "postgres-saveExternalPort", "input": {"postgresId": "...", "externalPort": 5432}}
 ```
 
-### Deploying an Application
+## 📝 Important Notes
 
-```json
-{
-  "tool": "application-deploy",
-  "input": {
-    "applicationId": "app-id"
-  }
-}
-```
-
-### Creating and Managing PostgreSQL Database
-
-```json
-// 1. Create a PostgreSQL database
-{
-  "tool": "postgres-create",
-  "input": {
-    "name": "user-database",
-    "appName": "user-db",
-    "databaseName": "users",
-    "databaseUser": "dbuser",
-    "databasePassword": "secure-password",
-    "projectId": "project-id",
-    "description": "User management database"
-  }
-}
-
-// 2. Deploy the database
-{
-  "tool": "postgres-deploy",
-  "input": {
-    "postgresId": "postgres-id-from-step-1"
-  }
-}
-
-// 3. Configure external port
-{
-  "tool": "postgres-saveExternalPort",
-  "input": {
-    "postgresId": "postgres-id",
-    "externalPort": 5432
-  }
-}
-```
-
-### Creating and Managing MySQL Database
-
-```json
-// 1. Create a MySQL database
-{
-  "tool": "mysql-create",
-  "input": {
-    "name": "product-database",
-    "appName": "product-db",
-    "databaseName": "products",
-    "databaseUser": "dbuser",
-    "databasePassword": "secure-password",
-    "databaseRootPassword": "root-secure-password",
-    "projectId": "project-id",
-    "description": "Product catalog database"
-  }
-}
-
-// 2. Deploy the database
-{
-  "tool": "mysql-deploy",
-  "input": {
-    "mysqlId": "mysql-id-from-step-1"
-  }
-}
-
-// 3. Configure external port
-{
-  "tool": "mysql-saveExternalPort",
-  "input": {
-    "mysqlId": "mysql-id",
-    "externalPort": 3306
-  }
-}
-```
-
-## 📝 Notes
-
-- All nullable fields can accept `null` values but must be provided if marked as required
-- Provider-specific tools use prefixed field names (e.g., `gitlabBranch`, `giteaOwner`)
-- Some endpoints in the original API contain typos (e.g., `saveGitProdiver`) which are preserved for compatibility
-- Resource limits in application updates accept string values (e.g., "512m", "1g")
-- All tools include comprehensive error handling and validation
-- MySQL tools require both database user password and root password for security
-- PostgreSQL and MySQL tools follow identical patterns but use database-specific field names (`postgresId` vs `mysqlId`)
-- Default Docker images: PostgreSQL uses `postgres:latest`, MySQL uses `mysql:8`
+- Nullable fields accept `null` but must be provided if marked required
+- Provider tools use prefixed fields: `gitlabBranch`, `giteaOwner`, `bitbucketRepository`
+- Resource limits use string format: `"512m"`, `"1g"`, `"0.5"`
+- MySQL requires both `databasePassword` and `databaseRootPassword`
+- Default images: PostgreSQL `postgres:latest`, MySQL `mysql:8`
+- All tools include comprehensive error handling and Zod validation
