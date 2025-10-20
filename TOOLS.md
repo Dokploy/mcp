@@ -4,9 +4,10 @@ This document provides detailed information about all available tools in the Dok
 
 ## 📊 Overview
 
-- **Total Tools**: 58
+- **Total Tools**: 67
 - **Project Tools**: 6
 - **Application Tools**: 26
+- **Domain Tools**: 9
 - **PostgreSQL Tools**: 13
 - **MySQL Tools**: 13
 
@@ -480,6 +481,146 @@ All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idem
   ```
 - **Annotations**: Destructive
 - **Required Fields**: `applicationId`
+
+## 🌐 Domain Management Tools
+
+These tools manage domains for applications, compose services, and preview deployments, including SSL/TLS, routing, validation, and automatic suggestions.
+
+### `domain-byApplicationId`
+
+- **Description**: Retrieves all domains associated with a specific application in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "applicationId": "string"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `applicationId`
+
+### `domain-byComposeId`
+
+- **Description**: Retrieves all domains associated with a specific compose stack/service in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "composeId": "string"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `composeId`
+
+### `domain-one`
+
+- **Description**: Retrieves a specific domain configuration by its ID in Dokploy
+- **Input Schema**:
+  ```json
+  {
+    "domainId": "string"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `domainId`
+
+### `domain-create`
+
+- **Description**: Creates a new domain configuration (application, compose, or preview) with SSL options
+- **Input Schema**:
+  ```json
+  {
+    "host": "string",
+    "path": "string|null",
+    "port": "number|null",
+    "https": "boolean",
+    "applicationId": "string|null",
+    "certificateType": "letsencrypt|none|custom",
+    "customCertResolver": "string|null",
+    "composeId": "string|null",
+    "serviceName": "string|null",
+    "domainType": "compose|application|preview|null",
+    "previewDeploymentId": "string|null",
+    "internalPath": "string|null",
+    "stripPath": "boolean"
+  }
+  ```
+- **Annotations**: Non-destructive, Non-idempotent
+- **Required Fields**: `host`, `https`, `certificateType`, `stripPath`
+- **Optional Fields**: `path`, `port`, `applicationId`, `customCertResolver`, `composeId`, `serviceName`, `domainType`, `previewDeploymentId`, `internalPath`
+
+### `domain-update`
+
+- **Description**: Updates an existing domain configuration (host, SSL, routing, service associations)
+- **Input Schema**:
+  ```json
+  {
+    "domainId": "string",
+    "host": "string",
+    "path": "string|null",
+    "port": "number|null",
+    "https": "boolean",
+    "certificateType": "letsencrypt|none|custom",
+    "customCertResolver": "string|null",
+    "serviceName": "string|null",
+    "domainType": "compose|application|preview|null",
+    "internalPath": "string|null",
+    "stripPath": "boolean"
+  }
+  ```
+- **Annotations**: Non-destructive, Idempotent
+- **Required Fields**: `domainId`, `host`, `https`, `certificateType`, `stripPath`
+- **Optional Fields**: `path`, `port`, `customCertResolver`, `serviceName`, `domainType`, `internalPath`
+
+### `domain-delete`
+
+- **Description**: Deletes a domain configuration by ID
+- **Input Schema**:
+  ```json
+  {
+    "domainId": "string"
+  }
+  ```
+- **Annotations**: Destructive, Non-idempotent
+- **Required Fields**: `domainId`
+
+### `domain-validateDomain`
+
+- **Description**: Validates if a domain is correctly configured, optionally against a specific server IP
+- **Input Schema**:
+  ```json
+  {
+    "domain": "string",
+    "serverIp": "string(optional)"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `domain`
+- **Optional Fields**: `serverIp`
+
+### `domain-generateDomain`
+
+- **Description**: Generates a suggested domain for an application name, optionally scoped to a server
+- **Input Schema**:
+  ```json
+  {
+    "appName": "string",
+    "serverId": "string(optional)"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `appName`
+- **Optional Fields**: `serverId`
+
+### `domain-canGenerateTraefikMeDomains`
+
+- **Description**: Checks whether Traefik.me domains can be generated for a specific server
+- **Input Schema**:
+  ```json
+  {
+    "serverId": "string"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `serverId`
 
 ## 🐘 PostgreSQL Database Management Tools
 
