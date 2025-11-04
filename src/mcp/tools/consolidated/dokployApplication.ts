@@ -2,7 +2,7 @@ import { z } from "zod";
 import { ResponseFormatter } from "../../../utils/responseFormatter.js";
 import { createTool } from "../toolFactory.js";
 
-// Import all individual tool schemas for reuse
+// Import all individual application tool schemas for reuse
 import { applicationCancelDeployment } from "../application/applicationCancelDeployment.js";
 import { applicationCleanQueues } from "../application/applicationCleanQueues.js";
 import { applicationCreate } from "../application/applicationCreate.js";
@@ -30,10 +30,21 @@ import { applicationStop } from "../application/applicationStop.js";
 import { applicationUpdate } from "../application/applicationUpdate.js";
 import { applicationUpdateTraefikConfig } from "../application/applicationUpdateTraefikConfig.js";
 
+// Import all individual domain tool schemas for reuse
+import { domainByApplicationId } from "../domain/domainByApplicationId.js";
+import { domainByComposeId } from "../domain/domainByComposeId.js";
+import { domainCanGenerateTraefikMeDomains } from "../domain/domainCanGenerateTraefikMeDomains.js";
+import { domainCreate } from "../domain/domainCreate.js";
+import { domainDelete } from "../domain/domainDelete.js";
+import { domainGenerateDomain } from "../domain/domainGenerateDomain.js";
+import { domainOne } from "../domain/domainOne.js";
+import { domainUpdate } from "../domain/domainUpdate.js";
+import { domainValidateDomain } from "../domain/domainValidateDomain.js";
+
 export const dokployApplication = createTool({
   name: "dokploy_application",
   description:
-    "Consolidated tool for managing Dokploy applications. Supports multiple actions: create, delete, deploy, start, stop, update, get, redeploy, reload, move, cancelDeployment, cleanQueues, disconnectGitProvider, markRunning, readAppMonitoring, readTraefikConfig, refreshToken, saveBitbucketProvider, saveBuildType, saveDockerProvider, saveEnvironment, saveGitProvider, saveGiteaProvider, saveGithubProvider, saveGitlabProvider, updateTraefikConfig.",
+    "Consolidated tool for managing Dokploy applications and domains. Supports multiple actions for applications: create, delete, deploy, start, stop, update, get, redeploy, reload, move, cancelDeployment, cleanQueues, disconnectGitProvider, markRunning, readAppMonitoring, readTraefikConfig, refreshToken, saveBitbucketProvider, saveBuildType, saveDockerProvider, saveEnvironment, saveGitProvider, saveGiteaProvider, saveGithubProvider, saveGitlabProvider, updateTraefikConfig. Supports domain actions: domainCreate, domainDelete, domainUpdate, domainGet, domainByApplicationId, domainByComposeId, domainGenerateDomain, domainCanGenerateTraefikMeDomains, domainValidate.",
   schema: z.object({
     action: z
       .enum([
@@ -63,9 +74,18 @@ export const dokployApplication = createTool({
         "saveGithubProvider",
         "saveGitlabProvider",
         "updateTraefikConfig",
+        "domainCreate",
+        "domainDelete",
+        "domainUpdate",
+        "domainGet",
+        "domainByApplicationId",
+        "domainByComposeId",
+        "domainGenerateDomain",
+        "domainCanGenerateTraefikMeDomains",
+        "domainValidate",
       ])
       .describe(
-        "The action to perform on the application: create, delete, deploy, start, stop, update, get, redeploy, reload, move, cancelDeployment, cleanQueues, disconnectGitProvider, markRunning, readAppMonitoring, readTraefikConfig, refreshToken, saveBitbucketProvider, saveBuildType, saveDockerProvider, saveEnvironment, saveGitProvider, saveGiteaProvider, saveGithubProvider, saveGitlabProvider, updateTraefikConfig"
+        "The action to perform. Application actions: create, delete, deploy, start, stop, update, get, redeploy, reload, move, cancelDeployment, cleanQueues, disconnectGitProvider, markRunning, readAppMonitoring, readTraefikConfig, refreshToken, saveBitbucketProvider, saveBuildType, saveDockerProvider, saveEnvironment, saveGitProvider, saveGiteaProvider, saveGithubProvider, saveGitlabProvider, updateTraefikConfig. Domain actions: domainCreate, domainDelete, domainUpdate, domainGet, domainByApplicationId, domainByComposeId, domainGenerateDomain, domainCanGenerateTraefikMeDomains, domainValidate"
       ),
     // Make parameters optional so they can be passed based on the action
     params: z
@@ -112,6 +132,15 @@ export const dokployApplication = createTool({
       saveGithubProvider: applicationSaveGithubProvider,
       saveGitlabProvider: applicationSaveGitlabProvider,
       updateTraefikConfig: applicationUpdateTraefikConfig,
+      domainCreate: domainCreate,
+      domainDelete: domainDelete,
+      domainUpdate: domainUpdate,
+      domainGet: domainOne,
+      domainByApplicationId: domainByApplicationId,
+      domainByComposeId: domainByComposeId,
+      domainGenerateDomain: domainGenerateDomain,
+      domainCanGenerateTraefikMeDomains: domainCanGenerateTraefikMeDomains,
+      domainValidate: domainValidateDomain,
     };
 
     const tool = actionMap[action];
