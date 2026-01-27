@@ -1,0 +1,9 @@
+export { aiOne } from "./aiOne.js";
+export { aiGetModels } from "./aiGetModels.js";
+export { aiCreate } from "./aiCreate.js";
+export { aiUpdate } from "./aiUpdate.js";
+export { aiGetAll } from "./aiGetAll.js";
+export { aiGet } from "./aiGet.js";
+export { aiDelete } from "./aiDelete.js";
+export { aiSuggest } from "./aiSuggest.js";
+export { aiDeploy } from "./aiDeploy.js";

@@ -131,3 +131,10 @@ junit.xml
 # Misc
 *.tgz
 *.tar.gz
+
+# Local MCP configuration (contains credentials)
+.mcp.json
+mcp.json
+
+# Bun lockfile
+bun.lock
