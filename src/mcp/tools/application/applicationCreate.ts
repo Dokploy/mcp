@@ -31,7 +31,10 @@ export const applicationCreate = createTool({
   outputSchema: z.object({
     success: z.boolean().describe("Whether the operation was successful"),
     message: z.string().describe("A message describing the result"),
-    data: z.record(z.any()).optional().describe("The application data returned from the API"),
+    data: z
+      .record(z.any())
+      .optional()
+      .describe("The application data returned from the API"),
   }),
   annotations: {
     title: "Create Application",

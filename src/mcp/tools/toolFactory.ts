@@ -14,7 +14,7 @@ export type ToolHandler<T> = (input: T) => Promise<{
 // TOutputShape is the optional output schema ZodRawShape
 export interface ToolDefinition<
   TShape extends ZodRawShape,
-  TOutputShape extends ZodRawShape = ZodRawShape
+  TOutputShape extends ZodRawShape = ZodRawShape,
 > {
   name: string;
   description: string;
@@ -46,7 +46,7 @@ export function createToolContext(): ToolContext {
 
 export function createTool<
   TShape extends import("zod").ZodRawShape,
-  TOutputShape extends import("zod").ZodRawShape = import("zod").ZodRawShape
+  TOutputShape extends import("zod").ZodRawShape = import("zod").ZodRawShape,
 >(
   definition: ToolDefinition<TShape, TOutputShape>
 ): ToolDefinition<TShape, TOutputShape> {
