@@ -1,7 +1,6 @@
 import { z } from "zod";
 import apiClient from "../../../utils/apiClient.js";
 import { createTool } from "../toolFactory.js";
-import { ResponseFormatter } from "../../../utils/responseFormatter.js";
 
 export const applicationCreate = createTool({
   name: "application-create",
@@ -29,6 +28,11 @@ export const applicationCreate = createTool({
       .optional()
       .describe("The ID of the server where the application will be deployed."),
   }),
+  outputSchema: z.object({
+    success: z.boolean().describe("Whether the operation was successful"),
+    message: z.string().describe("A message describing the result"),
+    data: z.record(z.any()).optional().describe("The application data returned from the API"),
+  }),
   annotations: {
     title: "Create Application",
     destructiveHint: false,
@@ -38,9 +42,20 @@ export const applicationCreate = createTool({
   handler: async (input) => {
     const response = await apiClient.post("/application.create", input);
 
-    return ResponseFormatter.success(
-      `Application "${input.name}" created successfully in environment "${input.environmentId}"`,
-      response.data
-    );
+    const structuredData = {
+      success: true,
+      message: `Application "${input.name}" created successfully in environment "${input.environmentId}"`,
+      data: response.data,
+    };
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(structuredData, null, 2),
+        },
+      ],
+      structuredContent: structuredData,
+    };
   },
 });

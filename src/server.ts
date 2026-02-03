@@ -8,7 +8,16 @@ export function createServer() {
   });
 
   for (const tool of allTools) {
-    server.tool(tool.name, tool.description, tool.schema.shape, tool.handler);
+    server.registerTool(
+      tool.name,
+      {
+        description: tool.description,
+        inputSchema: tool.schema.shape,
+        ...(tool.outputSchema && { outputSchema: tool.outputSchema.shape }),
+        ...(tool.annotations && { annotations: tool.annotations }),
+      },
+      tool.handler
+    );
   }
 
   return server;

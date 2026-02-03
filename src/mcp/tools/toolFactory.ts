@@ -11,10 +11,15 @@ export type ToolHandler<T> = (input: T) => Promise<{
 
 // Defines the structure for a tool.
 // TShape is the ZodRawShape (the object passed to z.object()).
-export interface ToolDefinition<TShape extends ZodRawShape> {
+// TOutputShape is the optional output schema ZodRawShape
+export interface ToolDefinition<
+  TShape extends ZodRawShape,
+  TOutputShape extends ZodRawShape = ZodRawShape
+> {
   name: string;
   description: string;
   schema: ZodObject<TShape>; // The schema must be a ZodObject
+  outputSchema?: ZodObject<TOutputShape>; // Optional output schema for validation
   handler: ToolHandler<z.infer<ZodObject<TShape>>>; // Handler input is inferred from the ZodObject
   annotations?: {
     title?: string;
@@ -39,9 +44,12 @@ export function createToolContext(): ToolContext {
   };
 }
 
-export function createTool<TShape extends import("zod").ZodRawShape>(
-  definition: ToolDefinition<TShape>
-): ToolDefinition<TShape> {
+export function createTool<
+  TShape extends import("zod").ZodRawShape,
+  TOutputShape extends import("zod").ZodRawShape = import("zod").ZodRawShape
+>(
+  definition: ToolDefinition<TShape, TOutputShape>
+): ToolDefinition<TShape, TOutputShape> {
   return {
     ...definition,
     handler: async (input) => {
