@@ -8,6 +8,8 @@ export { applicationMarkRunning } from "./applicationMarkRunning.js";
 export { applicationMove } from "./applicationMove.js";
 export { applicationOne } from "./applicationOne.js";
 export { applicationReadAppMonitoring } from "./applicationReadAppMonitoring.js";
+export { applicationReadContainerLogs } from "./applicationReadContainerLogs.js";
+export { applicationReadDeploymentLogs } from "./applicationReadDeploymentLogs.js";
 export { applicationReadTraefikConfig } from "./applicationReadTraefikConfig.js";
 export { applicationRedeploy } from "./applicationRedeploy.js";
 export { applicationRefreshToken } from "./applicationRefreshToken.js";

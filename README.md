@@ -336,7 +336,7 @@ For detailed transport mode documentation and client examples, refer to the conf
 
 ## 📚 Available Tools
 
-This MCP server provides **67 tools** organized into five main categories:
+This MCP server provides **69 tools** organized into five main categories:
 
 ### 🗂️ Project Management (6 tools)
 
@@ -347,7 +347,7 @@ This MCP server provides **67 tools** organized into five main categories:
 - `project-duplicate` - Duplicate project with optional service selection
 - `project-remove` - Delete project
 
-### 🚀 Application Management (26 tools)
+### 🚀 Application Management (28 tools)
 
 **Core Operations:**
 - `application-one`, `application-create`, `application-update`, `application-delete`
@@ -360,7 +360,8 @@ This MCP server provides **67 tools** organized into five main categories:
 
 **Configuration:**
 - `application-saveBuildType`, `application-saveEnvironment`, `application-saveDockerProvider`
-- `application-readAppMonitoring`, `application-readTraefikConfig`, `application-updateTraefikConfig`
+- `application-readAppMonitoring`, `application-readContainerLogs`, `application-readDeploymentLogs`
+- `application-readTraefikConfig`, `application-updateTraefikConfig`
 - `application-refreshToken`, `application-cleanQueues`
 
 ### 🌐 Domain Management (9 tools)
@@ -402,7 +403,7 @@ For detailed schemas, parameters, and usage examples, see **[TOOLS.md](TOOLS.md)
 
 Built with **@modelcontextprotocol/sdk**, **TypeScript**, and **Zod** for type-safe schema validation:
 
-- **67 Tools** covering projects, applications, domains, PostgreSQL, and MySQL management
+- **69 Tools** covering projects, applications, domains, PostgreSQL, and MySQL management
 - **Multiple Transports**: Stdio (default) and HTTP (Streamable HTTP + legacy SSE)
 - **Multiple Git Providers**: GitHub, GitLab, Bitbucket, Gitea, custom Git
 - **Robust Error Handling**: Centralized API client with retry logic

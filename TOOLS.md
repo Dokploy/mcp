@@ -4,9 +4,9 @@ This document provides detailed information about all available tools in the Dok
 
 ## 📊 Overview
 
-- **Total Tools**: 67
+- **Total Tools**: 69
 - **Project Tools**: 6
-- **Application Tools**: 26
+- **Application Tools**: 28
 - **Domain Tools**: 9
 - **PostgreSQL Tools**: 13
 - **MySQL Tools**: 13
@@ -430,6 +430,42 @@ All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idem
   ```
 - **Annotations**: Read-only, Idempotent
 - **Required Fields**: `appName`
+
+#### `application-readContainerLogs`
+
+- **Description**: Reads real-time container logs via Dokploy websocket and returns a snapshot
+- **Input Schema**:
+  ```json
+  {
+    "containerId": "string",
+    "runType": "native|swarm",
+    "serverId": "string",
+    "tail": "string",
+    "since": "string",
+    "search": "string",
+    "timeoutMs": "number",
+    "maxChars": "number"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `containerId`
+- **Optional Fields**: `runType`, `serverId`, `tail`, `since`, `search`, `timeoutMs`, `maxChars`
+
+#### `application-readDeploymentLogs`
+
+- **Description**: Reads deployment logs via Dokploy websocket and returns a snapshot
+- **Input Schema**:
+  ```json
+  {
+    "logPath": "string",
+    "serverId": "string",
+    "timeoutMs": "number",
+    "maxChars": "number"
+  }
+  ```
+- **Annotations**: Read-only, Idempotent
+- **Required Fields**: `logPath`
+- **Optional Fields**: `serverId`, `timeoutMs`, `maxChars`
 
 #### `application-readTraefikConfig`
 
