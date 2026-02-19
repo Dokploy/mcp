@@ -63,7 +63,7 @@ export async function main() {
         const server = createServer();
         // The transport will have sessionId after initialization
         await server.connect(
-          transport as StreamableHTTPServerTransport & { sessionId: string }
+          transport as unknown as Parameters<typeof server.connect>[0]
         );
 
         // Log after successful connection
