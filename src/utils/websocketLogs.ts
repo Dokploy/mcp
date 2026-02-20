@@ -17,6 +17,8 @@ export interface WebSocketLogResult {
   timedOut: boolean;
   truncated: boolean;
   messageCount: number;
+  closeCode?: number;
+  closeReason?: string;
 }
 
 function getWebSocketBaseUrl(): string {
@@ -57,6 +59,30 @@ export async function collectWebSocketLogs(
     let truncated = false;
     let timedOut = false;
     let messageCount = 0;
+    let settled = false;
+    let closeCode: number | undefined;
+    let closeReason: string | undefined;
+
+    const finalizeResolve = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve({
+        logs: logs.trim(),
+        timedOut,
+        truncated,
+        messageCount,
+        ...(closeCode !== undefined ? { closeCode } : {}),
+        ...(closeReason !== undefined ? { closeReason } : {}),
+      });
+    };
+
+    const finalizeReject = (error: Error) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(error);
+    };
 
     logger.info("Opening logs websocket", {
       path: options.path,
@@ -67,9 +93,14 @@ export async function collectWebSocketLogs(
     });
 
     const ws = new WebSocket(wsUrl, {
-      headers: {
-        "x-api-key": config.authToken,
-      },
+      ...(config.authToken
+        ? {
+            headers: {
+              "x-api-key": config.authToken,
+            },
+          }
+        : {}),
+      handshakeTimeout: Math.min(timeoutMs, 15000),
     });
 
     const timer = setTimeout(() => {
@@ -92,23 +123,18 @@ export async function collectWebSocketLogs(
       logs += chunk;
     });
 
-    ws.on("close", () => {
-      clearTimeout(timer);
-      resolve({
-        logs: logs.trim(),
-        timedOut,
-        truncated,
-        messageCount,
-      });
+    ws.on("close", (code, reasonBuffer) => {
+      closeCode = code;
+      closeReason = reasonBuffer.toString();
+      finalizeResolve();
     });
 
     ws.on("error", (error: Error) => {
-      clearTimeout(timer);
       logger.error("WebSocket logs collection failed", {
         path: options.path,
         error: error.message,
       });
-      reject(error);
+      finalizeReject(error);
     });
   });
 }

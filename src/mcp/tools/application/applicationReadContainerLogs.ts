@@ -20,8 +20,9 @@ export const applicationReadContainerLogs = createTool({
       .optional()
       .describe("Optional Dokploy server ID for remote hosts."),
     tail: z
-      .string()
+      .union([z.string(), z.number().int().positive()])
       .optional()
+      .transform((value) => (value === undefined ? undefined : String(value)))
       .describe("Number of lines to read from end before follow (default: 100)."),
     since: z
       .string()
