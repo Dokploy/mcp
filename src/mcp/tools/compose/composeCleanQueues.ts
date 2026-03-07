@@ -10,6 +10,7 @@ export const composeCleanQueues = createTool({
   schema: z.object({
     composeId: z
       .string()
+      .min(1)
       .describe("The ID of the compose stack to clean queues for."),
   }),
   annotations: {

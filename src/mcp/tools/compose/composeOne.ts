@@ -9,10 +9,12 @@ export const composeOne = createTool({
   schema: z.object({
     composeId: z
       .string()
+      .min(1)
       .describe("The ID of the compose stack to retrieve."),
   }),
   annotations: {
     title: "Get Compose Stack",
+    readOnlyHint: true,
     destructiveHint: false,
     idempotentHint: true,
     openWorldHint: true,

@@ -9,6 +9,7 @@ export const composeStart = createTool({
   schema: z.object({
     composeId: z
       .string()
+      .min(1)
       .describe("The ID of the compose stack to start."),
   }),
   annotations: {
