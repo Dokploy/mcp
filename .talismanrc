@@ -1,0 +1,12 @@
+fileignoreconfig:
+- filename: src/utils/responseFormatter.ts
+  checksum: 7a57965c3c892b019d338897aec8e840bdb734838e39e25272155546a0b5fec7
+- filename: TOOLS.md
+  checksum: a753018f7274e1cd71930d9db29c66dfa670ca2cb6b4d9a0ba35774e630058f7
+- filename: docs/superpowers/specs/2026-03-11-single-api-tool-design.md
+  checksum: 8d95cc27cd4f944a57299c1dc5b4042b3c5c5d384de3b9c28e1cd6b263feb3c3
+- filename: README.md
+  checksum: 47ea5aeca35aa2f4987ccdbf193947554a9d80179f66ec03bd5ea13a5916285d
+- filename: docs/superpowers/plans/2026-03-11-single-api-tool.md
+  checksum: 032dd223ad408bc67a8929e647b4d8088b0ff5bc9ebcb1f20b2caf52cd881103
+version: "1.0"
