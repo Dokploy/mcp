@@ -1,20 +1,9 @@
 import { z } from "zod";
-import apiClient from "../../utils/apiClient.js";
 import { createLogger } from "../../utils/logger.js";
 import { ResponseFormatter } from "../../utils/responseFormatter.js";
+import { getOpenApiSpec } from "../../utils/openApiSpec.js";
 
 const logger = createLogger("DokployApiSchema");
-
-let cachedSpec: Record<string, unknown> | null = null;
-
-async function getOpenApiSpec(): Promise<Record<string, unknown>> {
-  if (cachedSpec) return cachedSpec;
-
-  logger.info("Fetching OpenAPI spec from Dokploy server");
-  const response = await apiClient.get("/settings.getOpenApiDocument");
-  cachedSpec = response.data;
-  return cachedSpec!;
-}
 
 interface OperationInfo {
   name: string;

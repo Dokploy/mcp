@@ -3,181 +3,16 @@ import { AxiosError } from "axios";
 import apiClient from "../../utils/apiClient.js";
 import { createLogger } from "../../utils/logger.js";
 import { ResponseFormatter } from "../../utils/responseFormatter.js";
+import {
+  getGetOperations,
+  getOperationsList,
+} from "../../utils/openApiSpec.js";
 
 const logger = createLogger("DokployApi");
 
-const OPERATIONS_LIST = `Available operations (use dokploy-api-schema for parameter details):
-admin: setupMonitoring
-ai: create, delete, deploy, get, getAll, getModels, one, suggest, update
-application: cancelDeployment, cleanQueues, create, delete, deploy, disconnectGitProvider, markRunning, move, one, readAppMonitoring, readTraefikConfig, redeploy, refreshToken, reload, saveBitbucketProvider, saveBuildType, saveDockerProvider, saveEnvironment, saveGitProvider, saveGiteaProvider, saveGithubProvider, saveGitlabProvider, start, stop, update, updateTraefikConfig
-backup: create, listBackupFiles, one, remove, update
-bitbucket: getBitbucketBranches, getBitbucketRepositories
-certificates: all, create, one, remove
-cluster: addManager, addWorker, getNodes, removeWorker
-compose: cancelDeployment, cleanQueues, create, delete, deploy, deployTemplate, disconnectGitProvider, fetchSourceType, getConvertedCompose, getDefaultCommand, getTags, import, isolatedDeployment, killBuild, loadMountsByService, loadServices, move, one, processTemplate, randomizeCompose, redeploy, refreshToken, start, stop, templates, update
-deployment: all, allByCompose, allByServer, allByType, killProcess
-destination: all, create, one, remove, testConnection, update
-docker: getConfig, getContainers, getContainersByAppLabel, getContainersByAppNameMatch, getServiceContainersByAppName, getStackContainersByAppName, restartContainer
-domain: byApplicationId, byComposeId, canGenerateTraefikMeDomains, create, delete, generateDomain, one, update, validateDomain
-environment: byProjectId, create, duplicate, one, remove, update
-gitea: getGiteaBranches, getGiteaRepositories, getGiteaUrl
-github: getGithubBranches, getGithubRepositories, githubProviders
-gitlab: getGitlabBranches, getGitlabRepositories
-gitProvider: create, getAll, one, remove, testConnection, update
-mariadb: changeStatus, create, deploy, move, one, rebuild, reload, remove, saveEnvironment, saveExternalPort, start, stop, update
-mongo: changeStatus, create, deploy, move, one, rebuild, reload, remove, saveEnvironment, saveExternalPort, start, stop, update
-mounts: create, one, remove, update
-mysql: changeStatus, create, deploy, move, one, rebuild, reload, remove, saveEnvironment, saveExternalPort, start, stop, update
-notification: all, create, getEmailProviders, one, receiveNotification, remove, test, update
-organization: all, allInvitations, create, delete, one, removeInvitation, setDefault, update
-port: create, delete, one, update
-postgres: changeStatus, create, deploy, move, one, rebuild, reload, remove, saveEnvironment, saveExternalPort, start, stop, update
-previewDeployment: all, delete, one
-project: all, create, duplicate, one, remove, update
-redirects: create, delete, one, update
-redis: changeStatus, create, deploy, move, one, rebuild, reload, remove, saveEnvironment, saveExternalPort, start, stop, update
-registry: all, create, one, remove, testRegistry, update
-rollback: delete, rollback
-schedule: create, delete, list, one, runManually, update
-security: create, delete, one, update
-server: all, buildServers, count, create, getDefaultCommand, getServerMetrics, getServerTime, one, publicIp, remove, security, setup, setupMonitoring, update, validate, withSSHKey
-settings: assignDomainServer, checkGPUStatus, cleanAll, cleanDockerBuilder, cleanDockerPrune, cleanMonitoring, cleanRedis, cleanSSHPrivateKey, cleanStoppedContainers, cleanUnusedImages, cleanUnusedVolumes, getDokployCloudIps, getDokployVersion, getIp, getLogCleanupStatus, getOpenApiDocument, getReleaseTag, getTraefikPorts, getUpdateData, haveActivateRequests, haveTraefikDashboardPortEnabled, health, isCloud, isUserSubscribed, readDirectories, readMiddlewareTraefikConfig, readTraefikConfig, readTraefikEnv, readTraefikFile, readWebServerTraefikConfig, reloadRedis, reloadServer, reloadTraefik, saveSSHPrivateKey, setupGPU, toggleDashboard, toggleRequests, updateDockerCleanup, updateLogCleanup, updateMiddlewareTraefikConfig, updateServer, updateTraefikConfig, updateTraefikFile, updateTraefikPorts, updateWebServerTraefikConfig, writeTraefikEnv
-sshKey: all, create, generate, one, remove, update
-stripe: canCreateMoreServers, createCheckoutSession, createCustomerPortalSession, getProducts
-swarm: getNodeApps, getNodeInfo, getNodes
-user: all, assignPermissions, checkUserOrganizations, createApiKey, deleteApiKey, generateToken, get, getBackups, getUserByToken, getContainerMetrics, getInvitations, getMetricsToken, getServerMetrics, haveRootAccess, one, remove, sendInvitation, update
-volumeBackups: create, delete, list, one, runManually, update`;
-
-// Operations that use GET. Everything else uses POST.
-const GET_OPERATIONS = new Set([
-  "ai.get",
-  "ai.getAll",
-  "ai.getModels",
-  "ai.one",
-  "application.one",
-  "application.readAppMonitoring",
-  "application.readTraefikConfig",
-  "backup.listBackupFiles",
-  "backup.one",
-  "bitbucket.getBitbucketBranches",
-  "bitbucket.getBitbucketRepositories",
-  "certificates.all",
-  "certificates.one",
-  "cluster.addManager",
-  "cluster.addWorker",
-  "cluster.getNodes",
-  "compose.getConvertedCompose",
-  "compose.getDefaultCommand",
-  "compose.getTags",
-  "compose.loadMountsByService",
-  "compose.loadServices",
-  "compose.one",
-  "compose.templates",
-  "deployment.all",
-  "deployment.allByCompose",
-  "deployment.allByServer",
-  "deployment.allByType",
-  "destination.all",
-  "destination.one",
-  "docker.getConfig",
-  "docker.getContainers",
-  "docker.getContainersByAppLabel",
-  "docker.getContainersByAppNameMatch",
-  "docker.getServiceContainersByAppName",
-  "docker.getStackContainersByAppName",
-  "domain.byApplicationId",
-  "domain.byComposeId",
-  "domain.canGenerateTraefikMeDomains",
-  "domain.one",
-  "environment.byProjectId",
-  "environment.one",
-  "gitea.getGiteaBranches",
-  "gitea.getGiteaRepositories",
-  "gitea.getGiteaUrl",
-  "github.getGithubBranches",
-  "github.getGithubRepositories",
-  "github.githubProviders",
-  "gitlab.getGitlabBranches",
-  "gitlab.getGitlabRepositories",
-  "gitProvider.getAll",
-  "gitProvider.one",
-  "mariadb.one",
-  "mongo.one",
-  "mounts.one",
-  "mysql.one",
-  "notification.all",
-  "notification.getEmailProviders",
-  "notification.one",
-  "organization.all",
-  "organization.allInvitations",
-  "organization.one",
-  "port.one",
-  "postgres.one",
-  "previewDeployment.all",
-  "previewDeployment.one",
-  "project.all",
-  "project.one",
-  "redirects.one",
-  "redis.one",
-  "registry.all",
-  "registry.one",
-  "schedule.list",
-  "schedule.one",
-  "security.one",
-  "server.all",
-  "server.buildServers",
-  "server.count",
-  "server.getDefaultCommand",
-  "server.getServerMetrics",
-  "server.getServerTime",
-  "server.one",
-  "server.publicIp",
-  "server.security",
-  "server.validate",
-  "server.withSSHKey",
-  "settings.checkGPUStatus",
-  "settings.getDokployCloudIps",
-  "settings.getDokployVersion",
-  "settings.getIp",
-  "settings.getLogCleanupStatus",
-  "settings.getOpenApiDocument",
-  "settings.getReleaseTag",
-  "settings.getTraefikPorts",
-  "settings.haveActivateRequests",
-  "settings.haveTraefikDashboardPortEnabled",
-  "settings.health",
-  "settings.isCloud",
-  "settings.isUserSubscribed",
-  "settings.readDirectories",
-  "settings.readMiddlewareTraefikConfig",
-  "settings.readTraefikConfig",
-  "settings.readTraefikEnv",
-  "settings.readTraefikFile",
-  "settings.readWebServerTraefikConfig",
-  "sshKey.all",
-  "sshKey.one",
-  "stripe.canCreateMoreServers",
-  "stripe.getProducts",
-  "swarm.getNodeApps",
-  "swarm.getNodeInfo",
-  "swarm.getNodes",
-  "user.all",
-  "user.checkUserOrganizations",
-  "user.get",
-  "user.getBackups",
-  "user.getUserByToken",
-  "user.getContainerMetrics",
-  "user.getInvitations",
-  "user.getMetricsToken",
-  "user.getServerMetrics",
-  "user.haveRootAccess",
-  "user.one",
-  "volumeBackups.list",
-  "volumeBackups.one",
-]);
-
-function getMethod(operation: string): "GET" | "POST" {
-  return GET_OPERATIONS.has(operation) ? "GET" : "POST";
+async function getMethod(operation: string): Promise<"GET" | "POST"> {
+  const getOps = await getGetOperations();
+  return getOps.has(operation) ? "GET" : "POST";
 }
 
 export const schema = {
@@ -197,9 +32,25 @@ export const schema = {
 
 export const name = "dokploy-api";
 
-export const description = `Execute any Dokploy API operation. HTTP method is auto-detected. Use dokploy-api-schema to discover parameters for an operation.
+// The description is built dynamically on first use, but we need a static
+// string for tool registration. We use a base description and the tool
+// handler enriches error messages with available operations when needed.
+export let description =
+  "Execute any Dokploy API operation. HTTP method is auto-detected from the OpenAPI spec. Use dokploy-api-schema to discover parameters for an operation.";
 
-${OPERATIONS_LIST}`;
+// Lazy-initialize the full description with operations list on first call
+let descriptionInitialized = false;
+async function ensureDescription(): Promise<void> {
+  if (descriptionInitialized) return;
+  try {
+    const opsList = await getOperationsList();
+    description = `Execute any Dokploy API operation. HTTP method is auto-detected from the OpenAPI spec. Use dokploy-api-schema to discover parameters for an operation.\n\n${opsList}`;
+    descriptionInitialized = true;
+  } catch {
+    // If spec fetch fails, keep the base description — tool still works
+    logger.warn("Could not fetch operations list for description");
+  }
+}
 
 export const annotations = {
   title: "Dokploy API",
@@ -211,8 +62,11 @@ export async function handler(input: {
   operation: string;
   params?: Record<string, unknown>;
 }) {
+  // Ensure description is populated for future registrations
+  await ensureDescription();
+
   const { operation, params } = input;
-  const method = getMethod(operation);
+  const method = await getMethod(operation);
   const endpoint = `/${operation}`;
 
   logger.info(`Executing ${method} ${endpoint}`, { hasParams: !!params });
@@ -238,6 +92,12 @@ export async function handler(input: {
       const detail =
         (data?.message as string) || (data?.error as string) || error.message;
 
+      if (status === 400) {
+        return ResponseFormatter.error(
+          `Bad request for ${operation}`,
+          detail
+        );
+      }
       if (status === 401) {
         return ResponseFormatter.error(
           "Authentication failed",
