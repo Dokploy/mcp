@@ -13,11 +13,11 @@ The Dokploy MCP server currently registers 313 tools across 33 categories. Every
 Executes any Dokploy API operation.
 
 **Parameters:**
-- `method` (required): `"GET"` or `"POST"`
 - `operation` (required): The API operation path, e.g. `"application.create"`, `"server.one"`
 - `params` (optional): Object — forwarded as JSON body (POST) or query string (GET)
 
 **Behavior:**
+- HTTP method is auto-detected: a static set of known GET operations is hardcoded (derived from inventory). Everything else defaults to POST.
 - POST: `apiClient.post(`/${operation}`, params)`
 - GET: `apiClient.get(`/${operation}`, { params })` — uses axios params serialization (differs from old tools which manually built query strings, but functionally equivalent for flat key-value params)
 - Response formatted via `ResponseFormatter.success/error`

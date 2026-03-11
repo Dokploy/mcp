@@ -85,8 +85,139 @@ swarm: getNodeApps, getNodeInfo, getNodes
 user: all, assignPermissions, checkUserOrganizations, createApiKey, deleteApiKey, generateToken, get, getBackups, getUserByToken, getContainerMetrics, getInvitations, getMetricsToken, getServerMetrics, haveRootAccess, one, remove, sendInvitation, update
 volumeBackups: create, delete, list, one, runManually, update`;
 
+// Operations that use GET. Everything else uses POST.
+const GET_OPERATIONS = new Set([
+  "ai.get",
+  "ai.getAll",
+  "ai.getModels",
+  "ai.one",
+  "application.one",
+  "application.readAppMonitoring",
+  "application.readTraefikConfig",
+  "backup.listBackupFiles",
+  "backup.one",
+  "bitbucket.getBitbucketBranches",
+  "bitbucket.getBitbucketRepositories",
+  "certificates.all",
+  "certificates.one",
+  "cluster.addManager",
+  "cluster.addWorker",
+  "cluster.getNodes",
+  "compose.getConvertedCompose",
+  "compose.getDefaultCommand",
+  "compose.getTags",
+  "compose.loadMountsByService",
+  "compose.loadServices",
+  "compose.one",
+  "compose.templates",
+  "deployment.all",
+  "deployment.allByCompose",
+  "deployment.allByServer",
+  "deployment.allByType",
+  "destination.all",
+  "destination.one",
+  "docker.getConfig",
+  "docker.getContainers",
+  "docker.getContainersByAppLabel",
+  "docker.getContainersByAppNameMatch",
+  "docker.getServiceContainersByAppName",
+  "docker.getStackContainersByAppName",
+  "domain.byApplicationId",
+  "domain.byComposeId",
+  "domain.canGenerateTraefikMeDomains",
+  "domain.one",
+  "environment.byProjectId",
+  "environment.one",
+  "gitea.getGiteaBranches",
+  "gitea.getGiteaRepositories",
+  "gitea.getGiteaUrl",
+  "github.getGithubBranches",
+  "github.getGithubRepositories",
+  "github.githubProviders",
+  "gitlab.getGitlabBranches",
+  "gitlab.getGitlabRepositories",
+  "gitProvider.getAll",
+  "gitProvider.one",
+  "mariadb.one",
+  "mongo.one",
+  "mounts.one",
+  "mysql.one",
+  "notification.all",
+  "notification.getEmailProviders",
+  "notification.one",
+  "organization.all",
+  "organization.allInvitations",
+  "organization.one",
+  "port.one",
+  "postgres.one",
+  "previewDeployment.all",
+  "previewDeployment.one",
+  "project.all",
+  "project.one",
+  "redirects.one",
+  "redis.one",
+  "registry.all",
+  "registry.one",
+  "schedule.list",
+  "schedule.one",
+  "security.one",
+  "server.all",
+  "server.buildServers",
+  "server.count",
+  "server.getDefaultCommand",
+  "server.getServerMetrics",
+  "server.getServerTime",
+  "server.one",
+  "server.publicIp",
+  "server.security",
+  "server.validate",
+  "server.withSSHKey",
+  "settings.checkGPUStatus",
+  "settings.getDokployCloudIps",
+  "settings.getDokployVersion",
+  "settings.getIp",
+  "settings.getLogCleanupStatus",
+  "settings.getOpenApiDocument",
+  "settings.getReleaseTag",
+  "settings.getTraefikPorts",
+  "settings.haveActivateRequests",
+  "settings.haveTraefikDashboardPortEnabled",
+  "settings.health",
+  "settings.isCloud",
+  "settings.isUserSubscribed",
+  "settings.readDirectories",
+  "settings.readMiddlewareTraefikConfig",
+  "settings.readTraefikConfig",
+  "settings.readTraefikEnv",
+  "settings.readTraefikFile",
+  "settings.readWebServerTraefikConfig",
+  "sshKey.all",
+  "sshKey.one",
+  "stripe.canCreateMoreServers",
+  "stripe.getProducts",
+  "swarm.getNodeApps",
+  "swarm.getNodeInfo",
+  "swarm.getNodes",
+  "user.all",
+  "user.checkUserOrganizations",
+  "user.get",
+  "user.getBackups",
+  "user.getUserByToken",
+  "user.getContainerMetrics",
+  "user.getInvitations",
+  "user.getMetricsToken",
+  "user.getServerMetrics",
+  "user.haveRootAccess",
+  "user.one",
+  "volumeBackups.list",
+  "volumeBackups.one",
+]);
+
+function getMethod(operation: string): "GET" | "POST" {
+  return GET_OPERATIONS.has(operation) ? "GET" : "POST";
+}
+
 export const schema = {
-  method: z.enum(["GET", "POST"]).describe("HTTP method"),
   operation: z
     .string()
     .min(1)
@@ -97,13 +228,13 @@ export const schema = {
     .record(z.any())
     .optional()
     .describe(
-      "Parameters object. POST: sent as JSON body. GET: sent as query string."
+      "Parameters object. Sent as JSON body for mutations, query string for reads."
     ),
 };
 
 export const name = "dokploy-api";
 
-export const description = `Execute any Dokploy API operation. Use dokploy-api-schema to discover parameters for an operation.
+export const description = `Execute any Dokploy API operation. HTTP method is auto-detected. Use dokploy-api-schema to discover parameters for an operation.
 
 ${OPERATIONS_LIST}`;
 
@@ -114,11 +245,11 @@ export const annotations = {
 };
 
 export async function handler(input: {
-  method: "GET" | "POST";
   operation: string;
   params?: Record<string, unknown>;
 }) {
-  const { method, operation, params } = input;
+  const { operation, params } = input;
+  const method = getMethod(operation);
   const endpoint = `/${operation}`;
 
   logger.info(`Executing ${method} ${endpoint}`, { hasParams: !!params });
@@ -177,7 +308,7 @@ export async function handler(input: {
     }
 
     return ResponseFormatter.error(
-      `Failed: ${method} ${operation}`,
+      `Failed: ${operation}`,
       `Error: ${error instanceof Error ? error.message : "Unknown error"}`
     );
   }
