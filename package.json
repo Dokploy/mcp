@@ -43,10 +43,10 @@
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@modelcontextprotocol/sdk": "1.12.0",
     "axios": "^1.9.0",
     "express": "^5.1.0",
-    "zod": "^3.25.28"
+    "zod": "3.25.28"
   },
   "devDependencies": {
     "@types/eslint": "^9.6.1",

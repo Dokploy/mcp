@@ -336,78 +336,66 @@ For detailed transport mode documentation and client examples, refer to the conf
 
 ## 📚 Available Tools
 
-This MCP server provides **67 tools** organized into five main categories:
+This MCP server exposes **2 tools** that provide full coverage of the entire Dokploy API (300+ operations):
 
-### 🗂️ Project Management (6 tools)
+### `dokploy-api` — Execute any Dokploy API operation
 
-- `project-all` - List all projects
-- `project-one` - Get project by ID
-- `project-create` - Create new project
-- `project-update` - Update project configuration
-- `project-duplicate` - Duplicate project with optional service selection
-- `project-remove` - Delete project
+A single, generic tool that can call any Dokploy API endpoint. The HTTP method (GET/POST) is **auto-detected from the live OpenAPI spec** — no static configuration to maintain.
 
-### 🚀 Application Management (26 tools)
+```json
+{ "operation": "application.create", "params": { "name": "my-app", "projectId": "..." } }
+{ "operation": "project.all" }
+{ "operation": "settings.health" }
+```
 
-**Core Operations:**
-- `application-one`, `application-create`, `application-update`, `application-delete`
-- `application-deploy`, `application-redeploy`, `application-start`, `application-stop`, `application-reload`
-- `application-move`, `application-markRunning`, `application-cancelDeployment`
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `operation` | string | Yes | API operation path, e.g. `"application.create"`, `"server.one"` |
+| `params` | object | No | Parameters — sent as JSON body (POST) or query string (GET) |
 
-**Git Providers:**
-- `application-saveGithubProvider`, `application-saveGitlabProvider`, `application-saveBitbucketProvider`
-- `application-saveGiteaProvider`, `application-saveGitProvider`, `application-disconnectGitProvider`
+### `dokploy-api-schema` — Discover operations and parameters
 
-**Configuration:**
-- `application-saveBuildType`, `application-saveEnvironment`, `application-saveDockerProvider`
-- `application-readAppMonitoring`, `application-readTraefikConfig`, `application-updateTraefikConfig`
-- `application-refreshToken`, `application-cleanQueues`
+Introspects the Dokploy OpenAPI spec to list available categories, operations, and their full parameter schemas. Call with no params for a category overview, with `category` to list operations, or with `operation` for full parameter details.
 
-### 🌐 Domain Management (9 tools)
+```json
+{}                                          // → list all categories
+{ "category": "application" }               // → list operations in category
+{ "operation": "application.create" }       // → full parameter schema
+```
 
-- `domain-byApplicationId` - List domains by application ID
-- `domain-byComposeId` - List domains by compose service ID
-- `domain-one` - Get domain by ID
-- `domain-create` - Create domain (application/compose/preview)
-- `domain-update` - Update domain configuration
-- `domain-delete` - Delete domain
-- `domain-validateDomain` - Validate domain DNS/target
-- `domain-generateDomain` - Suggest a domain for an app
-- `domain-canGenerateTraefikMeDomains` - Check Traefik.me availability on a server
+### Why 2 tools instead of 300+?
 
-### 🐘 PostgreSQL Database Management (13 tools)
+Previous versions registered a separate MCP tool for every API endpoint. This created maintenance overhead — every Dokploy update required manually adding new tools. The current architecture derives everything from the live OpenAPI spec at startup:
 
-**Core Operations:**
-- `postgres-create`, `postgres-one`, `postgres-update`, `postgres-remove`, `postgres-move`
-- `postgres-deploy`, `postgres-start`, `postgres-stop`, `postgres-reload`, `postgres-rebuild`
+- **Zero maintenance**: New Dokploy API endpoints are available automatically
+- **Accurate method detection**: GET vs POST determined from the spec, not a static list
+- **Rich discovery**: The schema tool resolves `$ref`, `allOf`, `oneOf` so AI clients get complete parameter information
+- **Full coverage**: Every operation Dokploy exposes is accessible, not just a curated subset
 
-**Configuration:**
-- `postgres-changeStatus`, `postgres-saveExternalPort`, `postgres-saveEnvironment`
+**Tool Annotations:** Both tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`) to help MCP clients understand their behavior.
 
-### 🐬 MySQL Database Management (13 tools)
-
-**Core Operations:**
-- `mysql-create`, `mysql-one`, `mysql-update`, `mysql-remove`, `mysql-move`
-- `mysql-deploy`, `mysql-start`, `mysql-stop`, `mysql-reload`, `mysql-rebuild`
-
-**Configuration:**
-- `mysql-changeStatus`, `mysql-saveExternalPort`, `mysql-saveEnvironment`
-
-**Tool Annotations:**
-All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior and safety characteristics.
-
-For detailed schemas, parameters, and usage examples, see **[TOOLS.md](TOOLS.md)**.
+For detailed documentation, see **[TOOLS.md](TOOLS.md)**.
 
 ## 🏗️ Architecture
 
 Built with **@modelcontextprotocol/sdk**, **TypeScript**, and **Zod** for type-safe schema validation:
 
-- **67 Tools** covering projects, applications, domains, PostgreSQL, and MySQL management
+- **2 Tools, Full API Coverage**: A generic executor + schema discovery tool covering 300+ Dokploy operations
+- **Dynamic OpenAPI Spec Derivation**: GET/POST method detection, operation lists, and parameter schemas are all derived from the live Dokploy OpenAPI spec at startup — cached after first fetch
 - **Multiple Transports**: Stdio (default) and HTTP (Streamable HTTP + legacy SSE)
-- **Multiple Git Providers**: GitHub, GitLab, Bitbucket, Gitea, custom Git
-- **Robust Error Handling**: Centralized API client with retry logic
+- **Structured Error Handling**: Status-specific error messages (400/401/403/404/422/5xx) that surface Dokploy's actual validation details
 - **Type Safety**: Full TypeScript support with Zod schema validation
 - **Tool Annotations**: Semantic hints for MCP client behavior understanding
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `src/mcp/tools/api.ts` | Generic API executor — routes any operation to the correct endpoint |
+| `src/mcp/tools/apiSchema.ts` | Schema discovery — resolves `$ref`, `allOf`, `oneOf` from OpenAPI spec |
+| `src/utils/openApiSpec.ts` | Shared OpenAPI spec cache — single fetch, used by both tools |
+| `src/server.ts` | MCP server setup and tool registration |
+| `src/http-server.ts` | Express server with Streamable HTTP + legacy SSE transport |
 
 ## 🔧 Development
 
