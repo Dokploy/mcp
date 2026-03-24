@@ -122,20 +122,16 @@ Add this to your VS Code MCP config file. See [VS Code MCP docs](https://code.vi
 Add this to your Zed `settings.json`. See [Zed Context Server docs](https://zed.dev/docs/assistant/context-servers) for more info.
 
 ```json
-{
-  "context_servers": {
+"context_servers": {
     "dokploy-mcp": {
-      "command": {
-        "path": "npx",
-        "args": ["-y", "@ahdev/dokploy-mcp"]
-      },
-      "settings": {
+      "command": "npx",
+      "args": ["-y", "@ahdev/dokploy-mcp"],
+      "env": {
         "DOKPLOY_URL": "https://your-dokploy-server.com/api",
         "DOKPLOY_API_KEY": "your-dokploy-api-token"
-      }
-    }
+      },
+    },
   }
-}
 ```
 
 ### Install in Claude Desktop
