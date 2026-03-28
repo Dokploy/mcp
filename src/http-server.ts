@@ -62,8 +62,9 @@ export async function main() {
         // Create and connect server first
         const server = createServer();
         // The transport will have sessionId after initialization
+        // Type assertion needed due to MCP SDK type variance issue
         await server.connect(
-          transport as StreamableHTTPServerTransport & { sessionId: string }
+          transport as unknown as Parameters<typeof server.connect>[0]
         );
 
         // Log after successful connection
