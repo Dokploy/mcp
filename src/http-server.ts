@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
+import { randomUUID } from "node:crypto";
 import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import express from "express";
-import { randomUUID } from "node:crypto";
 import { createServer } from "./server.js";
 import { createLogger } from "./utils/logger.js";
 
@@ -63,7 +63,7 @@ export async function main() {
         const server = createServer();
         // The transport will have sessionId after initialization
         await server.connect(
-          transport as StreamableHTTPServerTransport & { sessionId: string }
+          transport as unknown as import("@modelcontextprotocol/sdk/shared/transport.js").Transport,
         );
 
         // Log after successful connection
@@ -105,10 +105,7 @@ export async function main() {
   });
 
   // Reusable handler for GET and DELETE requests (Streamable HTTP)
-  const handleSessionRequest = async (
-    req: express.Request,
-    res: express.Response
-  ) => {
+  const handleSessionRequest = async (req: express.Request, res: express.Response) => {
     const sessionId = req.headers["mcp-session-id"] as string | undefined;
 
     if (!sessionId || !transports.streamable[sessionId]) {
@@ -284,10 +281,7 @@ export async function main() {
   app.listen(PORT, () => {
     logger.info("MCP Dokploy server started", {
       port: PORT,
-      protocols: [
-        "Streamable HTTP (MCP 2025-03-26)",
-        "Legacy SSE (MCP 2024-11-05)",
-      ],
+      protocols: ["Streamable HTTP (MCP 2025-03-26)", "Legacy SSE (MCP 2024-11-05)"],
       endpoints: {
         modern: {
           mcp: `http://localhost:${PORT}/mcp`,

@@ -15,11 +15,7 @@ interface LogEntry {
 class Logger {
   constructor(private context: string = "MCP-Server") {}
 
-  private log(
-    level: LogLevel,
-    message: string,
-    meta?: Record<string, unknown>
-  ) {
+  private log(level: LogLevel, message: string, meta?: Record<string, unknown>) {
     const entry: LogEntry = {
       level,
       message,
