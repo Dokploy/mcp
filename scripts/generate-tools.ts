@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { jsonSchemaToZod } from "json-schema-to-zod";
-import { resolve } from "path";
 
 interface OpenAPISpec {
   paths: Record<string, Record<string, OperationObject>>;

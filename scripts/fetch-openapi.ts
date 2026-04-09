@@ -1,5 +1,5 @@
-import { writeFileSync } from "fs";
-import { resolve } from "path";
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const OPENAPI_URL = "https://docs.dokploy.com/openapi.json";
 const OUTPUT_PATH = resolve(import.meta.dirname, "../src/generated/openapi.json");
