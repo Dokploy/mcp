@@ -139,11 +139,9 @@ Add this to your Zed `settings.json`. See [Zed Context Server docs](https://zed.
 {
   "context_servers": {
     "dokploy-mcp": {
-      "command": {
-        "path": "npx",
-        "args": ["-y", "@dokploy/mcp"]
-      },
-      "settings": {
+      "command": "npx",
+      "args": ["-y", "@dokploy/mcp"],
+      "env": {
         "DOKPLOY_URL": "https://your-dokploy-server.com",
         "DOKPLOY_API_KEY": "your-dokploy-api-token"
       }
