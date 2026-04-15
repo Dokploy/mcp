@@ -1,4 +1,4 @@
-# Arquivos e diretórios ignorados durante o build Docker
+# Files and directories ignored during Docker build
 
 # Node.js
 node_modules/
@@ -6,7 +6,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build outputs (será recriado no container)
+# Build outputs (recreated inside the container)
 build/
 dist/
 *.tsbuildinfo
@@ -93,7 +93,7 @@ Makefile
 .travis.yml
 .circleci/
 
-# Package locks (podem ser regenerados)
+# Package locks (can be regenerated)
 package-lock.json
 yarn.lock
 pnpm-lock.yaml

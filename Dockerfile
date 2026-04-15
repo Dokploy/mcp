@@ -2,27 +2,33 @@
 FROM node:lts-alpine AS builder
 WORKDIR /app
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Copy package and configuration
-COPY package.json tsconfig.json ./
+COPY package.json pnpm-lock.yaml tsconfig.json ./
 
 # Copy source code
 COPY src ./src
 
 # Install dependencies and build
-RUN npm install && npm run build
+RUN pnpm install --frozen-lockfile && pnpm run build
 
 # ----- Production Stage -----
 FROM node:lts-alpine
 WORKDIR /app
 
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Copy built artifacts
 COPY --from=builder /app/build ./build
 
-# Copy package.json for production install
-COPY package.json ./
+# Copy package.json and lockfile for production install
+COPY package.json pnpm-lock.yaml ./
 
 # Install only production dependencies
-RUN npm install --production --ignore-scripts
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
 # Expose port 3000 (internal container port)
 EXPOSE 3000

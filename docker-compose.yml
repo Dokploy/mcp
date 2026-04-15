@@ -6,8 +6,8 @@ services:
       - "${EXTERNAL_PORT:-3000}:3000"
     environment:
       - MCP_TRANSPORT=${MCP_TRANSPORT:-http}
-      - DOKPLOY_URL=${DOKPLOY_URL:-https://your-dokploy-server.com/api}
-      - DOKPLOY_AUTH_TOKEN=${DOKPLOY_AUTH_TOKEN:-your_token_here}
+      - DOKPLOY_URL=${DOKPLOY_URL:-https://your-dokploy-server.com}
+      - DOKPLOY_API_KEY=${DOKPLOY_API_KEY:-your_token_here}
     restart: unless-stopped
     networks:
       - mcp-network
@@ -16,8 +16,8 @@ services:
     build: .
     container_name: dokploy-mcp-stdio
     environment:
-      - DOKPLOY_URL=${DOKPLOY_URL:-https://your-dokploy-server.com/api}
-      - DOKPLOY_AUTH_TOKEN=${DOKPLOY_AUTH_TOKEN:-your_token_here}
+      - DOKPLOY_URL=${DOKPLOY_URL:-https://your-dokploy-server.com}
+      - DOKPLOY_API_KEY=${DOKPLOY_API_KEY:-your_token_here}
     restart: "no"
     stdin_open: true
     tty: true

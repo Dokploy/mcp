@@ -1,10 +1,5 @@
 # Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
 
 # Build outputs
 /build/
@@ -14,9 +9,7 @@ yarn.lock
 # Environment variables
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
 # IDE/Editor files
 .vscode/
@@ -27,106 +20,23 @@ yarn.lock
 
 # OS generated files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
 # Logs
-logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 
 # Runtime data
-pids/
 *.pid
-*.seed
 *.pid.lock
+*.seed
 
-# Coverage directory used by tools like istanbul
+# Coverage
 coverage/
-*.lcov
-
-# nyc test coverage
 .nyc_output/
 
-# Grunt intermediate storage
-.grunt/
-
-# Bower dependency directory
-bower_components/
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons
-build/Release
-
-# Dependency directories
-jspm_packages/
-
-# TypeScript cache
-*.tsbuildinfo
-
-# Optional npm cache directory
+# Package manager
 .npm
-
-# Optional eslint cache
-.eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
 *.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# parcel-bundler cache
-.cache
-.parcel-cache
-
-# Next.js build output
-.next/
-
-# Nuxt.js build / generate output
-.nuxt/
-dist/
-
-# Gatsby files
-.cache/
-public/
-
-# Storybook build outputs
-.out
-.storybook-out
-
-# Temporary folders
-tmp/
-temp/
-
-# Docker
-# .dockerignore should be versioned
 
 # Generated files
 swagger.json
-
-# Testing
-.coverage/
-junit.xml
-
-# Misc
-*.tgz
-*.tar.gz
