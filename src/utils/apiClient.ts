@@ -23,8 +23,11 @@ const DEFAULT_HEADERS = {
 } as const;
 
 // Create axios instance with configuration from clientConfig
+// Ensure baseURL includes /api prefix for Dokploy API routes
+const baseURL = `${config.dokployUrl.replace(/\/+$/, "")}/api`;
+
 const apiClient = axios.create({
-  baseURL: config.dokployUrl,
+  baseURL,
   timeout: config.timeout,
   headers: DEFAULT_HEADERS,
 });

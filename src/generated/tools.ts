@@ -45,7 +45,12 @@ export const generatedTools: ToolDefinition[] = [
     path: "/application.create",
     schema: z.object({
       name: z.string().min(1),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       environmentId: z.string(),
       serverId: z.union([z.string(), z.null()]).optional(),
@@ -74,7 +79,11 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/application.reload",
     schema: z.object({
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63),
       applicationId: z.string(),
     }),
     annotations: {
@@ -340,7 +349,12 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       applicationId: z.string().min(1),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       env: z.union([z.string(), z.null()]).optional(),
       previewEnv: z.union([z.string(), z.null()]).optional(),
@@ -966,9 +980,7 @@ export const generatedTools: ToolDefinition[] = [
         .string()
         .email()
         .regex(
-          new RegExp(
-            "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-          ),
+          /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
         )
         .optional(),
       appPassword: z.string().optional(),
@@ -1044,9 +1056,7 @@ export const generatedTools: ToolDefinition[] = [
         .string()
         .email()
         .regex(
-          new RegExp(
-            "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-          ),
+          /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
         )
         .optional(),
       workspaceName: z.string().optional(),
@@ -1071,9 +1081,7 @@ export const generatedTools: ToolDefinition[] = [
         .string()
         .email()
         .regex(
-          new RegExp(
-            "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-          ),
+          /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
         )
         .optional(),
       appPassword: z.string().optional(),
@@ -1221,7 +1229,12 @@ export const generatedTools: ToolDefinition[] = [
       description: z.union([z.string(), z.null()]).optional(),
       environmentId: z.string(),
       composeType: z.enum(["docker-compose", "stack"]).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       serverId: z.union([z.string(), z.null()]).optional(),
       composeFile: z.string().optional(),
     }),
@@ -1251,7 +1264,12 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       composeId: z.string(),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       env: z.union([z.string(), z.null()]).optional(),
       composeFile: z.string().optional(),
@@ -1758,9 +1776,7 @@ export const generatedTools: ToolDefinition[] = [
       endpoint: z.string(),
       secretAccessKey: z.string(),
       additionalFlags: z.union([
-        z
-          .array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$")))
-          .default([]),
+        z.array(z.string().regex(/^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$/)).default([]),
         z.null(),
       ]),
       serverId: z.string().optional(),
@@ -1785,9 +1801,7 @@ export const generatedTools: ToolDefinition[] = [
       endpoint: z.string(),
       secretAccessKey: z.string(),
       additionalFlags: z.union([
-        z
-          .array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$")))
-          .default([]),
+        z.array(z.string().regex(/^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$/)).default([]),
         z.null(),
       ]),
       serverId: z.string().optional(),
@@ -1849,9 +1863,7 @@ export const generatedTools: ToolDefinition[] = [
       destinationId: z.string(),
       provider: z.union([z.string(), z.null()]),
       additionalFlags: z.union([
-        z
-          .array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$")))
-          .default([]),
+        z.array(z.string().regex(/^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$/)).default([]),
         z.null(),
       ]),
       serverId: z.string().optional(),
@@ -1879,7 +1891,12 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.restartContainer",
-    schema: z.object({ containerId: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1) }),
+    schema: z.object({
+      containerId: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
+    }),
     annotations: {
       title: "Docker RestartContainer",
       ...{ idempotentHint: true, openWorldHint: true },
@@ -1892,7 +1909,10 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/docker.removeContainer",
     schema: z.object({
-      containerId: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1),
+      containerId: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
       serverId: z.string().optional(),
     }),
     annotations: {
@@ -1907,7 +1927,10 @@ export const generatedTools: ToolDefinition[] = [
     method: "GET",
     path: "/docker.getConfig",
     schema: z.object({
-      containerId: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1),
+      containerId: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
       serverId: z.string().optional(),
     }),
     annotations: {
@@ -1923,7 +1946,10 @@ export const generatedTools: ToolDefinition[] = [
     path: "/docker.getContainersByAppNameMatch",
     schema: z.object({
       appType: z.enum(["stack", "docker-compose"]).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
       serverId: z.string().optional(),
     }),
     annotations: {
@@ -1938,7 +1964,10 @@ export const generatedTools: ToolDefinition[] = [
     method: "GET",
     path: "/docker.getContainersByAppLabel",
     schema: z.object({
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
       serverId: z.string().optional(),
       type: z.enum(["standalone", "swarm"]),
     }),
@@ -1954,7 +1983,10 @@ export const generatedTools: ToolDefinition[] = [
     method: "GET",
     path: "/docker.getStackContainersByAppName",
     schema: z.object({
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
       serverId: z.string().optional(),
     }),
     annotations: {
@@ -1969,7 +2001,10 @@ export const generatedTools: ToolDefinition[] = [
     method: "GET",
     path: "/docker.getServiceContainersByAppName",
     schema: z.object({
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9.\-_]+$/)
+        .min(1),
       serverId: z.string().optional(),
     }),
     annotations: {
@@ -2510,9 +2545,7 @@ export const generatedTools: ToolDefinition[] = [
       environmentId: z.string(),
       description: z.union([z.string(), z.null()]),
       databaseUser: z.string().min(1),
-      databasePassword: z
-        .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")),
+      databasePassword: z.string().regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/),
       sqldNode: z.enum(["primary", "replica"]),
       sqldPrimaryUrl: z.union([z.union([z.string(), z.null()]), z.null()]),
       enableNamespaces: z.boolean().default(false),
@@ -2653,7 +2686,7 @@ export const generatedTools: ToolDefinition[] = [
       databaseUser: z.string().min(1).optional(),
       databasePassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       sqldNode: z.enum(["primary", "replica"]).optional(),
       sqldPrimaryUrl: z.union([z.union([z.string(), z.null()]), z.null()]).optional(),
@@ -2867,19 +2900,22 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mariadb.create",
     schema: z.object({
       name: z.string().min(1),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       dockerImage: z.string().default("mariadb:6"),
       databaseRootPassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       environmentId: z.string(),
       description: z.union([z.string(), z.null()]).optional(),
       databaseName: z.string().min(1),
       databaseUser: z.string().min(1),
-      databasePassword: z
-        .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")),
+      databasePassword: z.string().regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/),
       serverId: z.union([z.string(), z.null()]).optional(),
     }),
     annotations: {
@@ -2994,7 +3030,11 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mariadb.reload",
     schema: z.object({
       mariadbId: z.string(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63),
     }),
     annotations: {
       title: "Mariadb Reload",
@@ -3010,17 +3050,22 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       mariadbId: z.string().min(1),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       databaseName: z.string().min(1).optional(),
       databaseUser: z.string().min(1).optional(),
       databasePassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       databaseRootPassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       dockerImage: z.string().optional(),
       command: z.union([z.string(), z.null()]).optional(),
@@ -3223,7 +3268,10 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mariadb.changePassword",
     schema: z.object({
       mariadbId: z.string().min(1),
-      password: z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1),
+      password: z
+        .string()
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
+        .min(1),
       type: z.enum(["user", "root"]).default("user"),
     }),
     annotations: {
@@ -3284,14 +3332,17 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mongo.create",
     schema: z.object({
       name: z.string().min(1),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       dockerImage: z.string().default("mongo:15"),
       environmentId: z.string(),
       description: z.union([z.string(), z.null()]).optional(),
       databaseUser: z.string().min(1),
-      databasePassword: z
-        .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")),
+      databasePassword: z.string().regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/),
       serverId: z.union([z.string(), z.null()]).optional(),
       replicaSets: z.union([z.boolean().default(false), z.null()]).optional(),
     }),
@@ -3383,7 +3434,11 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mongo.reload",
     schema: z.object({
       mongoId: z.string(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63),
     }),
     annotations: {
       title: "Mongo Reload",
@@ -3423,12 +3478,17 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       mongoId: z.string().min(1),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       databaseUser: z.string().min(1).optional(),
       databasePassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       dockerImage: z.string().optional(),
       command: z.union([z.string(), z.null()]).optional(),
@@ -3632,7 +3692,10 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mongo.changePassword",
     schema: z.object({
       mongoId: z.string().min(1),
-      password: z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1),
+      password: z
+        .string()
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
+        .min(1),
     }),
     annotations: {
       title: "Mongo ChangePassword",
@@ -3812,18 +3875,21 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mysql.create",
     schema: z.object({
       name: z.string().min(1),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       dockerImage: z.string().default("mysql:8"),
       environmentId: z.string(),
       description: z.union([z.string(), z.null()]).optional(),
       databaseName: z.string().min(1),
       databaseUser: z.string().min(1),
-      databasePassword: z
-        .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")),
+      databasePassword: z.string().regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/),
       databaseRootPassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       serverId: z.union([z.string(), z.null()]).optional(),
     }),
@@ -3915,7 +3981,11 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mysql.reload",
     schema: z.object({
       mysqlId: z.string(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63),
     }),
     annotations: {
       title: "Mysql Reload",
@@ -3955,17 +4025,22 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       mysqlId: z.string().min(1),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       databaseName: z.string().min(1).optional(),
       databaseUser: z.string().min(1).optional(),
       databasePassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       databaseRootPassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       dockerImage: z.string().optional(),
       command: z.union([z.string(), z.null()]).optional(),
@@ -4168,7 +4243,10 @@ export const generatedTools: ToolDefinition[] = [
     path: "/mysql.changePassword",
     schema: z.object({
       mysqlId: z.string().min(1),
-      password: z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1),
+      password: z
+        .string()
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
+        .min(1),
       type: z.enum(["user", "root"]).default("user"),
     }),
     annotations: {
@@ -5171,12 +5249,15 @@ export const generatedTools: ToolDefinition[] = [
     path: "/postgres.create",
     schema: z.object({
       name: z.string().min(1),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       databaseName: z.string().min(1),
       databaseUser: z.string().min(1),
-      databasePassword: z
-        .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")),
+      databasePassword: z.string().regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/),
       dockerImage: z.string().default("postgres:18"),
       environmentId: z.string(),
       description: z.union([z.string(), z.null()]).optional(),
@@ -5294,7 +5375,11 @@ export const generatedTools: ToolDefinition[] = [
     path: "/postgres.reload",
     schema: z.object({
       postgresId: z.string(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63),
     }),
     annotations: {
       title: "Postgres Reload",
@@ -5310,12 +5395,17 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       postgresId: z.string().min(1),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       databaseName: z.string().min(1).optional(),
       databaseUser: z.string().min(1).optional(),
       databasePassword: z
         .string()
-        .regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"))
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
         .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       dockerImage: z.string().optional(),
@@ -5519,7 +5609,10 @@ export const generatedTools: ToolDefinition[] = [
     path: "/postgres.changePassword",
     schema: z.object({
       postgresId: z.string().min(1),
-      password: z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1),
+      password: z
+        .string()
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
+        .min(1),
     }),
     annotations: {
       title: "Postgres ChangePassword",
@@ -5825,7 +5918,12 @@ export const generatedTools: ToolDefinition[] = [
     path: "/redis.create",
     schema: z.object({
       name: z.string().min(1),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       databasePassword: z.string(),
       dockerImage: z.string().default("redis:8"),
       environmentId: z.string(),
@@ -5869,7 +5967,11 @@ export const generatedTools: ToolDefinition[] = [
     path: "/redis.reload",
     schema: z.object({
       redisId: z.string(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63),
     }),
     annotations: {
       title: "Redis Reload",
@@ -5960,7 +6062,12 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({
       redisId: z.string().min(1),
       name: z.string().min(1).optional(),
-      appName: z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(),
+      appName: z
+        .string()
+        .regex(/^[a-zA-Z0-9._-]+$/)
+        .min(1)
+        .max(63)
+        .optional(),
       description: z.union([z.string(), z.null()]).optional(),
       databasePassword: z.string().optional(),
       dockerImage: z.string().optional(),
@@ -6164,7 +6271,10 @@ export const generatedTools: ToolDefinition[] = [
     path: "/redis.changePassword",
     schema: z.object({
       redisId: z.string().min(1),
-      password: z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1),
+      password: z
+        .string()
+        .regex(/^[a-zA-Z0-9@#%^&*()_+\-=[\]{}|;:,.<>?~`]*$/)
+        .min(1),
     }),
     annotations: {
       title: "Redis ChangePassword",
@@ -6833,9 +6943,7 @@ export const generatedTools: ToolDefinition[] = [
               .string()
               .email()
               .regex(
-                new RegExp(
-                  "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-                ),
+                /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
               ),
             z.literal(""),
           ]),
@@ -7621,9 +7729,7 @@ export const generatedTools: ToolDefinition[] = [
         .string()
         .email()
         .regex(
-          new RegExp(
-            "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-          ),
+          /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
         )
         .min(1)
         .optional(),
@@ -7813,9 +7919,7 @@ export const generatedTools: ToolDefinition[] = [
         .string()
         .email()
         .regex(
-          new RegExp(
-            "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-          ),
+          /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
         ),
       password: z.string().min(8),
       role: z.string().min(1),
@@ -8074,9 +8178,7 @@ export const generatedTools: ToolDefinition[] = [
         .string()
         .email()
         .regex(
-          new RegExp(
-            "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
-          ),
+          /^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z]{2,}$/,
         ),
       role: z.string().min(1),
     }),

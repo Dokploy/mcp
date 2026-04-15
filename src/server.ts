@@ -39,7 +39,13 @@ export function createServer() {
   const tools = getEnabledTools();
 
   for (const tool of tools) {
-    server.tool(tool.name, tool.description, tool.schema.shape, tool.annotations ?? {}, createHandler(tool));
+    server.tool(
+      tool.name,
+      tool.description,
+      tool.schema.shape,
+      tool.annotations ?? {},
+      createHandler(tool),
+    );
   }
 
   return server;

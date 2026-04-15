@@ -12,9 +12,9 @@
   "scripts": {
     "build": "pnpm run clean && tsc && chmod 755 build/index.js",
     "dev": "tsc --watch",
-    "start:stdio": "node build/index.js",
-    "start:http": "node build/index.js --http",
-    "start:sse": "node build/index.js --sse",
+    "start:stdio": "node --env-file=.env build/index.js",
+    "start:http": "node --env-file=.env build/index.js --http",
+    "start:sse": "node --env-file=.env build/index.js --sse",
     "dev:http": "pnpm run build && pnpm run start:http",
     "dev:sse": "pnpm run build && pnpm run start:sse",
     "fetch-openapi": "tsx scripts/fetch-openapi.ts",
@@ -46,14 +46,14 @@
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
+    "@hono/node-server": "^1.19.13",
     "@modelcontextprotocol/sdk": "^1.12.0",
     "axios": "^1.9.0",
-    "express": "^5.1.0",
+    "hono": "^4.12.12",
     "zod": "^3.25.28"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.10",
-    "@types/express": "^5.0.2",
     "@types/node": "^22.15.21",
     "json-schema-to-zod": "^2.8.1",
     "tsx": "^4.21.0",
