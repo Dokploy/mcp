@@ -1,6 +1,6 @@
 {
-  "name": "@ahdev/dokploy-mcp",
-  "version": "1.5.0",
+  "name": "@dokploy/mcp",
+  "version": "0.0.1",
   "description": "MCP Server for Dokploy API",
   "main": "build/index.js",
   "bin": {
@@ -10,20 +10,23 @@
     "build"
   ],
   "scripts": {
-    "build": "npm run clean && tsc && chmod 755 build/index.js",
+    "build": "pnpm run clean && tsc && chmod 755 build/index.js",
     "dev": "tsc --watch",
-    "start:stdio": "node build/index.js",
-    "start:http": "node build/index.js --http",
-    "start:sse": "node build/index.js --sse",
-    "dev:http": "npm run build && npm run start:http",
-    "dev:sse": "npm run build && npm run start:sse",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "format": "prettier --write src/**/*.{ts,js,json}",
-    "format:check": "prettier --check src/**/*.{ts,js,json}",
+    "start:stdio": "node --env-file=.env build/index.js",
+    "start:http": "node --env-file=.env build/index.js --http",
+    "start:sse": "node --env-file=.env build/index.js --sse",
+    "dev:http": "pnpm run build && pnpm run start:http",
+    "dev:sse": "pnpm run build && pnpm run start:sse",
+    "fetch-openapi": "tsx scripts/fetch-openapi.ts",
+    "generate": "tsx scripts/generate-tools.ts",
+    "generate:all": "pnpm fetch-openapi && pnpm generate",
+    "lint": "biome check",
+    "lint:fix": "biome check --fix",
+    "format": "biome format --write",
+    "format:check": "biome format",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf build",
-    "precommit": "npm run lint && npm run format:check && npm run type-check",
+    "precommit": "biome check && pnpm run type-check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -43,21 +46,17 @@
   "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
+    "@hono/node-server": "^1.19.13",
     "@modelcontextprotocol/sdk": "^1.12.0",
     "axios": "^1.9.0",
-    "express": "^5.1.0",
+    "hono": "^4.12.12",
     "zod": "^3.25.28"
   },
   "devDependencies": {
-    "@types/eslint": "^9.6.1",
-    "@types/express": "^5.0.2",
+    "@biomejs/biome": "^2.4.10",
     "@types/node": "^22.15.21",
-    "@typescript-eslint/eslint-plugin": "^8.32.1",
-    "@typescript-eslint/parser": "^8.32.1",
-    "eslint": "^9.27.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.4.1",
-    "prettier": "^3.5.3",
+    "json-schema-to-zod": "^2.8.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3"
   }
 }

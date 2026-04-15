@@ -1,8 +1,4 @@
-import axios, {
-  AxiosError,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from "axios";
+import axios, { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
 import { getClientConfig } from "./clientConfig.js";
 import { createLogger } from "./logger.js";
 
@@ -27,8 +23,11 @@ const DEFAULT_HEADERS = {
 } as const;
 
 // Create axios instance with configuration from clientConfig
+// Ensure baseURL includes /api prefix for Dokploy API routes
+const baseURL = `${config.dokployUrl.replace(/\/+$/, "")}/api`;
+
 const apiClient = axios.create({
-  baseURL: config.dokployUrl,
+  baseURL,
   timeout: config.timeout,
   headers: DEFAULT_HEADERS,
 });
@@ -51,7 +50,7 @@ apiClient.interceptors.request.use(
   (error: AxiosError) => {
     logger.error("Request interceptor error", { error: error.message });
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor - Handle responses and errors with proper logging
@@ -89,7 +88,7 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 // Helper Functions
@@ -106,10 +105,7 @@ function handleServerError(response: AxiosResponse): void {
 
   switch (status) {
     case 401:
-      logger.error(
-        "Authentication failed - Invalid or expired API key",
-        errorContext
-      );
+      logger.error("Authentication failed - Invalid or expired API key", errorContext);
       break;
     case 403:
       logger.error("Access forbidden - Insufficient permissions", errorContext);
@@ -133,7 +129,7 @@ function handleServerError(response: AxiosResponse): void {
 
 function handleNetworkError(
   _request: XMLHttpRequest,
-  config: InternalAxiosRequestConfig | undefined
+  config: InternalAxiosRequestConfig | undefined,
 ): void {
   logger.error("Network error - Request failed", {
     method: config?.method?.toUpperCase(),

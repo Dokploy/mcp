@@ -1,4 +1,5 @@
 export interface FormattedResponse {
+  [key: string]: unknown;
   content: { type: "text"; text: string }[];
   isError?: boolean;
 }
