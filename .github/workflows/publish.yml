@@ -1,0 +1,66 @@
+name: Publish to npm
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "package.json"
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if version is new
+        id: check_version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists, skipping publish"
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "New version v$VERSION detected"
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        if: steps.check_version.outputs.should_publish == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install pnpm
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: pnpm install
+
+      - name: Build
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: pnpm run build
+
+      - name: Publish to npm
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: pnpm publish --no-git-checks --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: |
+          VERSION="v${{ steps.check_version.outputs.version }}"
+          gh release create "$VERSION" \
+            --title "$VERSION" \
+            --generate-notes
