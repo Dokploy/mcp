@@ -27,7 +27,7 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf build",
     "precommit": "biome check && pnpm run type-check",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test spcified\" && exit 1"
   },
   "repository": {
     "type": "git",
