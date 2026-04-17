@@ -2,20 +2,20 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 508
+- **Total Tools**: 519
 - **Categories**: 48
 
 ## Categories
 
 - [admin](#admin) (1 tools)
-- [ai](#ai) (9 tools)
-- [application](#application) (30 tools)
+- [ai](#ai) (12 tools)
+- [application](#application) (31 tools)
 - [auditLog](#auditLog) (1 tools)
 - [backup](#backup) (12 tools)
 - [bitbucket](#bitbucket) (7 tools)
 - [certificates](#certificates) (5 tools)
 - [cluster](#cluster) (4 tools)
-- [compose](#compose) (29 tools)
+- [compose](#compose) (30 tools)
 - [customRole](#customRole) (6 tools)
 - [deployment](#deployment) (8 tools)
 - [destination](#destination) (6 tools)
@@ -26,21 +26,21 @@
 - [github](#github) (6 tools)
 - [gitlab](#gitlab) (7 tools)
 - [gitProvider](#gitProvider) (4 tools)
-- [libsql](#libsql) (13 tools)
+- [libsql](#libsql) (14 tools)
 - [licenseKey](#licenseKey) (6 tools)
-- [mariadb](#mariadb) (15 tools)
-- [mongo](#mongo) (15 tools)
+- [mariadb](#mariadb) (16 tools)
+- [mongo](#mongo) (16 tools)
 - [mounts](#mounts) (6 tools)
-- [mysql](#mysql) (15 tools)
+- [mysql](#mysql) (16 tools)
 - [notification](#notification) (41 tools)
 - [organization](#organization) (11 tools)
 - [patch](#patch) (12 tools)
 - [port](#port) (4 tools)
-- [postgres](#postgres) (15 tools)
+- [postgres](#postgres) (16 tools)
 - [previewDeployment](#previewDeployment) (4 tools)
 - [project](#project) (8 tools)
 - [redirects](#redirects) (4 tools)
-- [redis](#redis) (15 tools)
+- [redis](#redis) (16 tools)
 - [registry](#registry) (7 tools)
 - [rollback](#rollback) (2 tools)
 - [schedule](#schedule) (6 tools)
@@ -73,6 +73,9 @@
 | `ai-getAll` | GET | None |
 | `ai-get` | GET | `aiId` (string) |
 | `ai-delete` | POST | `aiId` (string) |
+| `ai-getEnabledProviders` | GET | None |
+| `ai-analyzeLogs` | POST | `aiId` (string), `logs` (string), `context` ("build" | "runtime") |
+| `ai-testConnection` | POST | `apiUrl` (string), `apiKey` (string), `model` (string) |
 | `ai-suggest` | POST | `aiId` (string), `input` (string), `serverId`? |
 | `ai-deploy` | POST | `environmentId` (string), `id` (string), `dockerCompose` (string), `envVariables` (string), `name` (string), `description` (string), `serverId`?, `domains`?, `configFiles`? |
 
@@ -110,6 +113,7 @@
 | `application-move` | POST | `applicationId` (string), `targetEnvironmentId` (string) |
 | `application-cancelDeployment` | POST | `applicationId` (string) |
 | `application-search` | GET | +11 optional |
+| `application-readLogs` | GET | `applicationId` (string), `tail`?, `since`?, `search`? |
 
 ## auditLog
 
@@ -198,6 +202,7 @@
 | `compose-import` | POST | `base64` (string), `composeId` (string) |
 | `compose-cancelDeployment` | POST | `composeId` (string) |
 | `compose-search` | GET | +8 optional |
+| `compose-readLogs` | GET | `composeId` (string), `containerId` (string), `tail`?, `since`?, `search`? |
 
 ## customRole
 
@@ -336,6 +341,7 @@
 | `libsql-update` | POST | `libsqlId` (string), +32 optional |
 | `libsql-move` | POST | `libsqlId` (string), `targetEnvironmentId` (string) |
 | `libsql-rebuild` | POST | `libsqlId` (string) |
+| `libsql-readLogs` | GET | `libsqlId` (string), `tail`?, `since`?, `search`? |
 
 ## licenseKey
 
@@ -367,6 +373,7 @@
 | `mariadb-move` | POST | `mariadbId` (string), `targetEnvironmentId` (string) |
 | `mariadb-rebuild` | POST | `mariadbId` (string) |
 | `mariadb-search` | GET | +8 optional |
+| `mariadb-readLogs` | GET | `mariadbId` (string), `tail`?, `since`?, `search`? |
 
 ## mongo
 
@@ -387,6 +394,7 @@
 | `mongo-move` | POST | `mongoId` (string), `targetEnvironmentId` (string) |
 | `mongo-rebuild` | POST | `mongoId` (string) |
 | `mongo-search` | GET | +8 optional |
+| `mongo-readLogs` | GET | `mongoId` (string), `tail`?, `since`?, `search`? |
 
 ## mounts
 
@@ -418,6 +426,7 @@
 | `mysql-move` | POST | `mysqlId` (string), `targetEnvironmentId` (string) |
 | `mysql-rebuild` | POST | `mysqlId` (string) |
 | `mysql-search` | GET | +8 optional |
+| `mysql-readLogs` | GET | `mysqlId` (string), `tail`?, `since`?, `search`? |
 
 ## notification
 
@@ -526,6 +535,7 @@
 | `postgres-move` | POST | `postgresId` (string), `targetEnvironmentId` (string) |
 | `postgres-rebuild` | POST | `postgresId` (string) |
 | `postgres-search` | GET | +8 optional |
+| `postgres-readLogs` | GET | `postgresId` (string), `tail`?, `since`?, `search`? |
 
 ## previewDeployment
 
@@ -577,6 +587,7 @@
 | `redis-move` | POST | `redisId` (string), `targetEnvironmentId` (string) |
 | `redis-rebuild` | POST | `redisId` (string) |
 | `redis-search` | GET | +8 optional |
+| `redis-readLogs` | GET | `redisId` (string), `tail`?, `since`?, `search`? |
 
 ## registry
 
