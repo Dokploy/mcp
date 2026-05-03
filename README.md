@@ -291,6 +291,8 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_TIMEOUT` | No | Request timeout in milliseconds (default: `30000`) |
 | `DOKPLOY_RETRY_ATTEMPTS` | No | Number of retry attempts (default: `3`) |
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
+| `DOKPLOY_REDACT_ENV` | No | When `true`, redacts secret-bearing fields from API responses before they reach the MCP client (default: `false`). Useful when an LLM consumes responses and you don't want env vars or compose files in its context. |
+| `DOKPLOY_REDACT_FIELDS` | No | Comma-separated list of response field names to redact when `DOKPLOY_REDACT_ENV=true`. Matched case-insensitively at any nesting depth. Defaults to: `env`, `buildArgs`, `composeFile`, `dockerCompose`, `environment`, `password`, `token`, `secret`, `apiKey`, `privateKey`, `sshKey`, `customGitSSHKey`, `dockerAuth`, `registryPassword`, `databasePassword`, `redisPassword`, `mariadbPassword`, `mongoPassword`, `mysqlPassword`, `postgresPassword`. |
 
 ## Transport Modes
 
