@@ -52916,6 +52916,16 @@
                   "name": {
                     "type": "string"
                   },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "cronExpression": {
                     "type": "string"
                   },
@@ -53108,6 +53118,16 @@
                   },
                   "name": {
                     "type": "string"
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "cronExpression": {
                     "type": "string"
