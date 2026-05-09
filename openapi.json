@@ -1292,16 +1292,6 @@
                       }
                     ]
                   },
-                  "branch": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
                   "owner": {
                     "anyOf": [
                       {
@@ -1332,6 +1322,11 @@
                       }
                     ]
                   },
+                  "branch": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                  },
                   "triggerType": {
                     "default": "push",
                     "type": "string",
@@ -1360,10 +1355,10 @@
                 "required": [
                   "applicationId",
                   "repository",
-                  "branch",
                   "owner",
                   "buildPath",
                   "githubId",
+                  "branch",
                   "triggerType"
                 ]
               }
@@ -1448,16 +1443,6 @@
                   "applicationId": {
                     "type": "string"
                   },
-                  "gitlabBranch": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
                   "gitlabBuildPath": {
                     "anyOf": [
                       {
@@ -1518,6 +1503,11 @@
                       }
                     ]
                   },
+                  "gitlabBranch": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                  },
                   "enableSubmodules": {
                     "type": "boolean"
                   },
@@ -1537,13 +1527,13 @@
                 },
                 "required": [
                   "applicationId",
-                  "gitlabBranch",
                   "gitlabBuildPath",
                   "gitlabOwner",
                   "gitlabRepository",
                   "gitlabId",
                   "gitlabProjectId",
-                  "gitlabPathNamespace"
+                  "gitlabPathNamespace",
+                  "gitlabBranch"
                 ]
               }
             }
@@ -1624,16 +1614,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "bitbucketBranch": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
                   "bitbucketBuildPath": {
                     "anyOf": [
                       {
@@ -1687,6 +1667,11 @@
                   "applicationId": {
                     "type": "string"
                   },
+                  "bitbucketBranch": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                  },
                   "enableSubmodules": {
                     "type": "boolean"
                   },
@@ -1705,13 +1690,13 @@
                   }
                 },
                 "required": [
-                  "bitbucketBranch",
                   "bitbucketBuildPath",
                   "bitbucketOwner",
                   "bitbucketRepository",
                   "bitbucketRepositorySlug",
                   "bitbucketId",
-                  "applicationId"
+                  "applicationId",
+                  "bitbucketBranch"
                 ]
               }
             }
@@ -1795,16 +1780,6 @@
                   "applicationId": {
                     "type": "string"
                   },
-                  "giteaBranch": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
                   "giteaBuildPath": {
                     "anyOf": [
                       {
@@ -1845,6 +1820,11 @@
                       }
                     ]
                   },
+                  "giteaBranch": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                  },
                   "enableSubmodules": {
                     "type": "boolean"
                   },
@@ -1864,11 +1844,11 @@
                 },
                 "required": [
                   "applicationId",
-                  "giteaBranch",
                   "giteaBuildPath",
                   "giteaOwner",
                   "giteaRepository",
-                  "giteaId"
+                  "giteaId",
+                  "giteaBranch"
                 ]
               }
             }
@@ -2079,16 +2059,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "customGitBranch": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
                   "applicationId": {
                     "type": "string"
                   },
@@ -2128,6 +2098,11 @@
                   "enableSubmodules": {
                     "type": "boolean"
                   },
+                  "customGitBranch": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                  },
                   "customGitSSHKeyId": {
                     "anyOf": [
                       {
@@ -2140,11 +2115,11 @@
                   }
                 },
                 "required": [
-                  "customGitBranch",
                   "applicationId",
                   "customGitBuildPath",
                   "customGitUrl",
-                  "watchPaths"
+                  "watchPaths",
+                  "customGitBranch"
                 ]
               }
             }
