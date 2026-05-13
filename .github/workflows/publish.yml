@@ -41,11 +41,13 @@ jobs:
 
       - name: Install pnpm
         if: steps.check_version.outputs.should_publish == 'true'
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
 
       - name: Install dependencies
         if: steps.check_version.outputs.should_publish == 'true'
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         if: steps.check_version.outputs.should_publish == 'true'
