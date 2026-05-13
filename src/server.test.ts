@@ -29,38 +29,38 @@ describe("MCP server tools/list", () => {
     expect(tools.length).toBeGreaterThan(0);
   });
 
-  it("no tool inputSchema has a $schema key", async () => {
+  it("every tool inputSchema has $schema set to draft 2020-12", async () => {
     const tools = await getToolList();
     for (const tool of tools) {
       const schema = tool.inputSchema as Record<string, unknown>;
       expect(
         schema.$schema,
-        `Tool "${tool.name}" has forbidden $schema: ${schema.$schema}`,
-      ).toBeUndefined();
+        `Tool "${tool.name}" is missing $schema or has wrong draft`,
+      ).toBe("https://json-schema.org/draft/2020-12/schema");
     }
   });
 
-  it("no tool inputSchema contains any $schema key at any nesting level", async () => {
+  it("no tool inputSchema contains any $schema key at nested levels", async () => {
     const tools = await getToolList();
 
-    function findSchemaKeys(obj: unknown, path = ""): string[] {
+    function findNestedSchemaKeys(obj: unknown, path = ""): string[] {
       if (obj === null || typeof obj !== "object") return [];
       if (Array.isArray(obj)) {
-        return obj.flatMap((item, i) => findSchemaKeys(item, `${path}[${i}]`));
+        return obj.flatMap((item, i) => findNestedSchemaKeys(item, `${path}[${i}]`));
       }
       const record = obj as Record<string, unknown>;
       const found: string[] = [];
       for (const [key, value] of Object.entries(record)) {
         const currentPath = path ? `${path}.${key}` : key;
-        if (key === "$schema") found.push(currentPath);
-        found.push(...findSchemaKeys(value, currentPath));
+        if (key === "$schema" && path !== "") found.push(currentPath);
+        found.push(...findNestedSchemaKeys(value, currentPath));
       }
       return found;
     }
 
     for (const tool of tools) {
-      const found = findSchemaKeys(tool.inputSchema);
-      expect(found, `Tool "${tool.name}" has $schema keys at: ${found.join(", ")}`).toHaveLength(0);
+      const found = findNestedSchemaKeys(tool.inputSchema);
+      expect(found, `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`).toHaveLength(0);
     }
   });
 
