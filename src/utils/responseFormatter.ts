@@ -9,7 +9,7 @@ export class ResponseFormatter {
     const responseData = {
       success: true,
       message,
-      ...(data && typeof data === "object" && data !== null ? { data } : {}),
+      ...(data !== undefined && data !== null ? { data } : {}),
     };
 
     return {
