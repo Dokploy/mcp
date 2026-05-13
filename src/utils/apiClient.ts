@@ -19,7 +19,8 @@ const config = getClientConfig();
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
   Accept: "application/json",
-  "x-api-key": config.authToken, // Use the same auth mechanism as httpClient
+  ...config.customHeaders,
+  "x-api-key": config.authToken, // DOKPLOY_API_KEY remains authoritative.
 } as const;
 
 // Create axios instance with configuration from clientConfig
