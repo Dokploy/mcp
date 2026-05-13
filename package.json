@@ -27,7 +27,7 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf build",
     "precommit": "biome check && pnpm run type-check",
-    "test": "echo \"Error: no test spcified\" && exit 1"
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -57,6 +57,7 @@
     "@types/node": "^22.15.21",
     "json-schema-to-zod": "^2.8.1",
     "tsx": "^4.21.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.6"
   }
 }
