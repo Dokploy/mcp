@@ -53417,7 +53417,7 @@
                       }
                     ]
                   },
-                  "userId": {
+                  "organizationId": {
                     "anyOf": [
                       {
                         "type": "string"
@@ -53620,7 +53620,7 @@
                       }
                     ]
                   },
-                  "userId": {
+                  "organizationId": {
                     "anyOf": [
                       {
                         "type": "string"
