@@ -38437,6 +38437,10 @@
                       "deploy",
                       "build"
                     ]
+                  },
+                  "enableDockerCleanup": {
+                    "default": true,
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -39662,6 +39666,10 @@
                       "deploy",
                       "build"
                     ]
+                  },
+                  "enableDockerCleanup": {
+                    "default": true,
+                    "type": "boolean"
                   },
                   "command": {
                     "type": "string"
