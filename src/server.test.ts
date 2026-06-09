@@ -33,10 +33,9 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     for (const tool of tools) {
       const schema = tool.inputSchema as Record<string, unknown>;
-      expect(
-        schema.$schema,
-        `Tool "${tool.name}" is missing $schema or has wrong draft`,
-      ).toBe("https://json-schema.org/draft/2020-12/schema");
+      expect(schema.$schema, `Tool "${tool.name}" is missing $schema or has wrong draft`).toBe(
+        "https://json-schema.org/draft/2020-12/schema",
+      );
     }
   });
 
@@ -60,7 +59,10 @@ describe("MCP server tools/list", () => {
 
     for (const tool of tools) {
       const found = findNestedSchemaKeys(tool.inputSchema);
-      expect(found, `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`).toHaveLength(0);
+      expect(
+        found,
+        `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`,
+      ).toHaveLength(0);
     }
   });
 
@@ -73,6 +75,43 @@ describe("MCP server tools/list", () => {
         (tool.inputSchema as Record<string, unknown>).type,
         `tool "${tool.name}" inputSchema is missing type`,
       ).toBe("object");
+    }
+  });
+
+  it("does not emit provider-incompatible database password patterns", async () => {
+    const tools = await getToolList();
+    const toolsByName = new Map(tools.map((tool) => [tool.name, tool]));
+    const expectedPasswordFields: Record<string, string[]> = {
+      "libsql-create": ["databasePassword"],
+      "libsql-update": ["databasePassword"],
+      "mariadb-create": ["databaseRootPassword", "databasePassword"],
+      "mariadb-update": ["databasePassword", "databaseRootPassword"],
+      "mariadb-changePassword": ["password"],
+      "mongo-create": ["databasePassword"],
+      "mongo-update": ["databasePassword"],
+      "mongo-changePassword": ["password"],
+      "mysql-create": ["databasePassword", "databaseRootPassword"],
+      "mysql-update": ["databasePassword", "databaseRootPassword"],
+      "mysql-changePassword": ["password"],
+      "postgres-create": ["databasePassword"],
+      "postgres-update": ["databasePassword"],
+      "postgres-changePassword": ["password"],
+      "redis-changePassword": ["password"],
+    };
+
+    for (const [toolName, fields] of Object.entries(expectedPasswordFields)) {
+      const tool = toolsByName.get(toolName);
+      expect(tool, `Tool "${toolName}" should exist`).toBeDefined();
+      const schema = tool?.inputSchema as { properties?: Record<string, Record<string, unknown>> };
+
+      for (const field of fields) {
+        const property = schema.properties?.[field];
+        expect(property, `Tool "${toolName}" should include "${field}"`).toBeDefined();
+        expect(
+          property,
+          `Tool "${toolName}" should not emit a regex pattern for "${field}"`,
+        ).not.toHaveProperty("pattern");
+      }
     }
   });
 });
