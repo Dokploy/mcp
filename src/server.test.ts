@@ -1,6 +1,6 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 // Mock apiClient before server.ts is imported — it calls getClientConfig() at
 // module level which requires DOKPLOY_URL/DOKPLOY_API_KEY env vars.
@@ -13,6 +13,14 @@ vi.mock("./utils/apiClient.js", () => ({
 const { createServer } = await import("./server.js");
 
 describe("MCP server tools/list", () => {
+  const toolsetEnvVars = ["DOKPLOY_ENABLED_TAGS", "DOKPLOY_DISABLED_TAGS", "DOKPLOY_TOOL_PRESET"];
+
+  afterEach(() => {
+    for (const envVar of toolsetEnvVars) {
+      delete process.env[envVar];
+    }
+  });
+
   async function getToolList() {
     const server = createServer();
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
@@ -29,14 +37,69 @@ describe("MCP server tools/list", () => {
     expect(tools.length).toBeGreaterThan(0);
   });
 
+  it("returns all tools by default", async () => {
+    const tools = await getToolList();
+    expect(tools).toHaveLength(524);
+  });
+
+  it("supports DOKPLOY_TOOL_PRESET=minimal for clients sensitive to large toolsets", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+
+    const tools = await getToolList();
+    const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
+
+    expect(tools).toHaveLength(40);
+    expect(tags).toEqual(new Set(["application", "project"]));
+  });
+
+  it("supports DOKPLOY_TOOL_PRESET=core for common application workflows", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "core";
+
+    const tools = await getToolList();
+    const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
+
+    expect(tools).toHaveLength(57);
+    expect(tags).toEqual(new Set(["application", "project", "server"]));
+  });
+
+  it("lets DOKPLOY_ENABLED_TAGS override presets", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "core";
+    process.env.DOKPLOY_ENABLED_TAGS = "project,application";
+
+    const tools = await getToolList();
+    const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
+
+    expect(tools).toHaveLength(40);
+    expect(tags).toEqual(new Set(["application", "project"]));
+  });
+
+  it("excludes DOKPLOY_DISABLED_TAGS after selecting tools", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "deploy";
+    process.env.DOKPLOY_DISABLED_TAGS = "domain,deployment";
+
+    const tools = await getToolList();
+    const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
+
+    expect(tools).toHaveLength(64);
+    expect(tags.has("domain")).toBe(false);
+    expect(tags.has("deployment")).toBe(false);
+  });
+
+  it("falls back to all tools for an unknown preset", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "unknown";
+
+    const tools = await getToolList();
+
+    expect(tools).toHaveLength(524);
+  });
+
   it("every tool inputSchema has $schema set to draft 2020-12", async () => {
     const tools = await getToolList();
     for (const tool of tools) {
       const schema = tool.inputSchema as Record<string, unknown>;
-      expect(
-        schema.$schema,
-        `Tool "${tool.name}" is missing $schema or has wrong draft`,
-      ).toBe("https://json-schema.org/draft/2020-12/schema");
+      expect(schema.$schema, `Tool "${tool.name}" is missing $schema or has wrong draft`).toBe(
+        "https://json-schema.org/draft/2020-12/schema",
+      );
     }
   });
 
@@ -60,7 +123,10 @@ describe("MCP server tools/list", () => {
 
     for (const tool of tools) {
       const found = findNestedSchemaKeys(tool.inputSchema);
-      expect(found, `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`).toHaveLength(0);
+      expect(
+        found,
+        `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`,
+      ).toHaveLength(0);
     }
   });
 
