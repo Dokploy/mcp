@@ -9,28 +9,79 @@ import { createLogger } from "./utils/logger.js";
 const logger = createLogger("MCP-Server");
 
 const JSON_SCHEMA_2020_12 = "https://json-schema.org/draft/2020-12/schema";
+const LARGE_TOOLSET_WARNING_THRESHOLD = 150;
+
+const TOOL_PRESETS = {
+  all: null,
+  minimal: "project,application",
+  core: "project,server,application",
+  deploy: "project,environment,server,application,domain,deployment",
+  databases: "postgres,redis,mysql,mariadb,mongo,libsql",
+  git: "github,gitlab,bitbucket,gitea,gitProvider,registry,sshKey",
+} as const;
+
+type ToolPreset = keyof typeof TOOL_PRESETS;
+
+function parseTagList(value: string | undefined): Set<string> {
+  return new Set(
+    (value ?? "")
+      .split(",")
+      .map((tag) => tag.trim().toLowerCase())
+      .filter(Boolean),
+  );
+}
+
+function isToolPreset(value: string): value is ToolPreset {
+  return Object.hasOwn(TOOL_PRESETS, value);
+}
 
 function getEnabledTools() {
   const enabledTags = process.env.DOKPLOY_ENABLED_TAGS;
+  const disabledTags = parseTagList(process.env.DOKPLOY_DISABLED_TAGS);
+  const requestedPreset = process.env.DOKPLOY_TOOL_PRESET?.trim().toLowerCase() || "all";
+  const preset: ToolPreset = isToolPreset(requestedPreset) ? requestedPreset : "all";
 
-  if (!enabledTags) {
-    return generatedTools;
+  if (!isToolPreset(requestedPreset)) {
+    logger.warn("Unknown tool preset, falling back to all tools", {
+      requestedPreset,
+      availablePresets: Object.keys(TOOL_PRESETS),
+    });
   }
 
-  const tags = new Set(
-    enabledTags
-      .split(",")
-      .map((t) => t.trim().toLowerCase())
-      .filter(Boolean),
-  );
+  let selectedTags = parseTagList(enabledTags);
+  const source = selectedTags.size > 0 ? "enabled-tags" : "preset";
 
-  const filtered = generatedTools.filter((tool) => tags.has(tool.tag.toLowerCase()));
+  if (selectedTags.size === 0) {
+    selectedTags = parseTagList(TOOL_PRESETS[preset] ?? undefined);
+  }
 
-  logger.info("Filtered tools by tags", {
-    enabledTags: [...tags],
+  let filtered =
+    selectedTags.size > 0
+      ? generatedTools.filter((tool) => selectedTags.has(tool.tag.toLowerCase()))
+      : generatedTools;
+
+  if (disabledTags.size > 0) {
+    filtered = filtered.filter((tool) => !disabledTags.has(tool.tag.toLowerCase()));
+  }
+
+  const context = {
     total: generatedTools.length,
     loaded: filtered.length,
-  });
+    source,
+    preset,
+    enabledTags: [...selectedTags],
+    disabledTags: [...disabledTags],
+  };
+
+  logger.info("Loaded tools", context);
+
+  if (filtered.length > LARGE_TOOLSET_WARNING_THRESHOLD) {
+    logger.warn("Large toolset loaded; some MCP clients or LLM providers may time out", {
+      ...context,
+      recommendation:
+        "Set DOKPLOY_TOOL_PRESET=minimal or DOKPLOY_ENABLED_TAGS to reduce tool count",
+    });
+  }
 
   return filtered;
 }
