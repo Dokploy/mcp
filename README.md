@@ -288,7 +288,9 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_URL` | Yes | Your Dokploy server URL (e.g., `https://your-dokploy-server.com`) |
 | `DOKPLOY_API_KEY` | Yes | Your Dokploy API authentication token |
 | `DOKPLOY_CUSTOM_HEADERS` | No | JSON object of additional upstream request headers. Header names and values must be strings. Reserved headers cannot be set here: `x-api-key`, `content-type`, `accept`. |
+| `DOKPLOY_TOOL_PRESET` | No | Predefined toolset to load: `all` (default), `minimal`, `core`, `deploy`, `databases`, or `git`. Useful for clients/providers that struggle with very large tool lists. |
 | `DOKPLOY_ENABLED_TAGS` | No | Comma-separated list of tags to filter which tools are loaded (e.g., `project,application,postgres`) |
+| `DOKPLOY_DISABLED_TAGS` | No | Comma-separated list of tags to exclude from the selected toolset. Applied after `DOKPLOY_TOOL_PRESET` or `DOKPLOY_ENABLED_TAGS`. |
 | `DOKPLOY_TIMEOUT` | No | Request timeout in milliseconds (default: `30000`) |
 | `DOKPLOY_RETRY_ATTEMPTS` | No | Number of retry attempts (default: `3`) |
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
@@ -423,12 +425,39 @@ This MCP server provides **508 tools** covering the entire Dokploy API, organize
 
 ### Tool Filtering
 
-You can limit which tools are loaded by setting the `DOKPLOY_ENABLED_TAGS` environment variable. This is useful when you only need a subset of tools:
+By default, the server exposes all Dokploy API tools. Some MCP clients and LLM providers can be slower or less reliable when very large tool lists are sent to the model. You can reduce the loaded tools with presets or tag filters.
+
+Use `DOKPLOY_TOOL_PRESET` for common workflows:
+
+| Preset | Included tags |
+|--------|---------------|
+| `all` | All tools (default) |
+| `minimal` | `project`, `application` |
+| `core` | `project`, `server`, `application` |
+| `deploy` | `project`, `environment`, `server`, `application`, `domain`, `deployment` |
+| `databases` | `postgres`, `redis`, `mysql`, `mariadb`, `mongo`, `libsql` |
+| `git` | `github`, `gitlab`, `bitbucket`, `gitea`, `gitProvider`, `registry`, `sshKey` |
+
+```bash
+# Recommended starting point for clients/providers sensitive to large toolsets
+DOKPLOY_TOOL_PRESET=minimal
+```
+
+For exact control, set `DOKPLOY_ENABLED_TAGS`:
 
 ```bash
 # Only load project, application, and postgres tools
 DOKPLOY_ENABLED_TAGS=project,application,postgres
 ```
+
+You can also remove categories from a preset:
+
+```bash
+DOKPLOY_TOOL_PRESET=core
+DOKPLOY_DISABLED_TAGS=postgres,redis
+```
+
+If `DOKPLOY_ENABLED_TAGS` is set, it takes precedence over `DOKPLOY_TOOL_PRESET`. `DOKPLOY_DISABLED_TAGS` is applied last.
 
 All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior and safety characteristics.
 
@@ -499,7 +528,7 @@ npx -y @modelcontextprotocol/inspector npx @dokploy/mcp
 
 3. Verify your `DOKPLOY_URL` and `DOKPLOY_API_KEY` environment variables are correctly set.
 
-4. If too many tools are loading, use `DOKPLOY_ENABLED_TAGS` to filter by category.
+4. If too many tools are loading or your provider times out while processing tools, start with `DOKPLOY_TOOL_PRESET=minimal`, then use `DOKPLOY_ENABLED_TAGS` for exact category filtering if needed.
 
 ## Contributing
 
