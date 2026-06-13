@@ -65,7 +65,7 @@ function formatTitle(operationId: string): string {
 
 function getZodSchema(op: OperationObject, method: string): string {
   if (method === "post" && op.requestBody?.content?.["application/json"]?.schema) {
-    const schema = op.requestBody.content["application/json"].schema;
+    const schema = normalizeToolSchema(op.requestBody.content["application/json"].schema);
     return jsonSchemaToZod(schema);
   }
 
@@ -76,7 +76,10 @@ function getZodSchema(op: OperationObject, method: string): string {
     for (const param of op.parameters) {
       const paramSchema =
         typeof param.schema === "object" && param.schema !== null
-          ? { ...param.schema, ...(param.description ? { description: param.description } : {}) }
+          ? normalizeToolSchema({
+              ...param.schema,
+              ...(param.description ? { description: param.description } : {}),
+            })
           : param.schema;
       properties[param.name] = paramSchema;
       if (param.required) {
@@ -92,6 +95,33 @@ function getZodSchema(op: OperationObject, method: string): string {
   }
 
   return "z.object({})";
+}
+
+const DOKPLOY_EMAIL_LOOKAROUND_PATTERN =
+  "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$";
+
+function normalizeToolSchema(schema: JsonSchema): JsonSchema {
+  const normalized = structuredClone(schema) as JsonSchema;
+  stripProviderIncompatibleEmailPatterns(normalized);
+  return normalized;
+}
+
+function stripProviderIncompatibleEmailPatterns(schema: unknown): void {
+  if (schema === null || typeof schema !== "object") return;
+
+  if (Array.isArray(schema)) {
+    for (const item of schema) stripProviderIncompatibleEmailPatterns(item);
+    return;
+  }
+
+  const record = schema as Record<string, unknown>;
+  if (record.format === "email" && record.pattern === DOKPLOY_EMAIL_LOOKAROUND_PATTERN) {
+    delete record.pattern;
+  }
+
+  for (const value of Object.values(record)) {
+    stripProviderIncompatibleEmailPatterns(value);
+  }
 }
 
 interface JsonSchemaObject {
