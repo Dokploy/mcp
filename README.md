@@ -188,6 +188,26 @@ Open the "Settings" page of the app, navigate to "Plugins," and enter the follow
 }
 ```
 
+### Install in Opencode
+
+Add this to your OpenCode configuration (located by default in ~/.config/opencode/opencode.json or opencode.json for local/project config). See [Opencode MCP config](https://opencode.ai/docs/mcp-servers/) for more info.
+
+```json
+{
+  "mcp": {
+    "dokploy": {
+      "type": "local",
+      "command": ["npx", "-y", "@dokploy/mcp"],
+      "environment": {
+        "DOKPLOY_URL": "https://your-dokploy-server.com",
+        "DOKPLOY_API_KEY": "your-dokploy-api-token"
+      },
+      "enabled": true
+    }
+  }
+}
+```
+
 ### Using Docker
 
 The Docker container supports both **stdio** and **HTTP** transport modes, making it flexible for different deployment scenarios.
