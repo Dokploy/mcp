@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-04-25
+// Generated from openapi.json on 2026-06-01
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -540,7 +540,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.create",
-    schema: z.object({ "bitbucketId": z.string().optional(), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string().optional(), "authId": z.string().min(1), "name": z.string().min(1) }),
+    schema: z.object({ "bitbucketId": z.string().optional(), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string().optional(), "authId": z.string().min(1), "name": z.string().min(1) }),
     annotations: {
       title: "Bitbucket Create",
       ...{"openWorldHint":true},
@@ -600,7 +600,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.testConnection",
-    schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "workspaceName": z.string().optional(), "apiToken": z.string().optional(), "appPassword": z.string().optional() }),
+    schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().optional(), "workspaceName": z.string().optional(), "apiToken": z.string().optional(), "appPassword": z.string().optional() }),
     annotations: {
       title: "Bitbucket TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -612,7 +612,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.update",
-    schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string(), "name": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string(), "name": z.string().min(1), "organizationId": z.string().optional() }),
     annotations: {
       title: "Bitbucket Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4284,7 +4284,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.assignDomainServer",
-    schema: z.object({ "host": z.string(), "certificateType": z.enum(["letsencrypt","none","custom"]), "letsEncryptEmail": z.union([z.union([z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), z.literal("")]), z.null()]).optional(), "https": z.boolean().optional() }),
+    schema: z.object({ "host": z.string(), "certificateType": z.enum(["letsencrypt","none","custom"]), "letsEncryptEmail": z.union([z.union([z.string().email(), z.literal("")]), z.null()]).optional(), "https": z.boolean().optional() }),
     annotations: {
       title: "Settings AssignDomainServer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5028,7 +5028,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.update",
-    schema: z.object({ "id": z.string().min(1).optional(), "firstName": z.string().optional(), "lastName": z.string().optional(), "isRegistered": z.boolean().optional(), "expirationDate": z.string().optional(), "createdAt2": z.string().optional(), "createdAt": z.union([z.string(), z.null()]).optional(), "twoFactorEnabled": z.union([z.boolean(), z.null()]).optional(), "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).min(1).optional(), "emailVerified": z.boolean().optional(), "image": z.union([z.string(), z.null()]).optional(), "banned": z.union([z.boolean(), z.null()]).optional(), "banReason": z.union([z.string(), z.null()]).optional(), "banExpires": z.union([z.string(), z.null()]).optional(), "updatedAt": z.string().optional(), "enablePaidFeatures": z.boolean().optional(), "allowImpersonation": z.boolean().optional(), "enableEnterpriseFeatures": z.boolean().optional(), "licenseKey": z.union([z.string(), z.null()]).optional(), "stripeCustomerId": z.union([z.string(), z.null()]).optional(), "stripeSubscriptionId": z.union([z.string(), z.null()]).optional(), "serversQuantity": z.number().optional(), "sendInvoiceNotifications": z.boolean().optional(), "password": z.string().optional(), "currentPassword": z.string().optional() }),
+    schema: z.object({ "id": z.string().min(1).optional(), "firstName": z.string().optional(), "lastName": z.string().optional(), "isRegistered": z.boolean().optional(), "expirationDate": z.string().optional(), "createdAt2": z.string().optional(), "createdAt": z.union([z.string(), z.null()]).optional(), "twoFactorEnabled": z.union([z.boolean(), z.null()]).optional(), "email": z.string().email().min(1).optional(), "emailVerified": z.boolean().optional(), "image": z.union([z.string(), z.null()]).optional(), "banned": z.union([z.boolean(), z.null()]).optional(), "banReason": z.union([z.string(), z.null()]).optional(), "banExpires": z.union([z.string(), z.null()]).optional(), "updatedAt": z.string().optional(), "enablePaidFeatures": z.boolean().optional(), "allowImpersonation": z.boolean().optional(), "enableEnterpriseFeatures": z.boolean().optional(), "licenseKey": z.union([z.string(), z.null()]).optional(), "stripeCustomerId": z.union([z.string(), z.null()]).optional(), "stripeSubscriptionId": z.union([z.string(), z.null()]).optional(), "serversQuantity": z.number().optional(), "sendInvoiceNotifications": z.boolean().optional(), "password": z.string().optional(), "currentPassword": z.string().optional() }),
     annotations: {
       title: "User Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5160,7 +5160,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.createUserWithCredentials",
-    schema: z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "password": z.string().min(8), "role": z.string().min(1) }),
+    schema: z.object({ "email": z.string().email(), "password": z.string().min(8), "role": z.string().min(1) }),
     annotations: {
       title: "User CreateUserWithCredentials",
       ...{"openWorldHint":true},
@@ -5412,7 +5412,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.inviteMember",
-    schema: z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "role": z.string().min(1) }),
+    schema: z.object({ "email": z.string().email(), "role": z.string().min(1) }),
     annotations: {
       title: "Organization InviteMember",
       ...{"idempotentHint":true,"openWorldHint":true},
