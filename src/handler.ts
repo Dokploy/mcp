@@ -7,10 +7,27 @@ import { ResponseFormatter } from "./utils/responseFormatter.js";
 
 const logger = createLogger("ToolHandler");
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function getRedactFieldsForTool(tool: ToolDefinition, input: Record<string, unknown>) {
+  if (tool.name !== "application-env-upsert" || !isRecord(input.variables)) {
+    return [];
+  }
+
+  return Object.keys(input.variables);
+}
+
 export function createHandler(tool: ToolDefinition) {
   return async (input: Record<string, unknown>) => {
     const { redactEnv, redactFields } = getClientConfig();
-    const redact = <T>(value: T): T => (redactEnv ? redactSensitive(value, redactFields) : value);
+    const toolRedactFields = getRedactFieldsForTool(tool, input);
+    const effectiveRedactFields = redactEnv
+      ? [...new Set([...redactFields, ...toolRedactFields])]
+      : toolRedactFields;
+    const redact = <T>(value: T): T =>
+      effectiveRedactFields.length > 0 ? redactSensitive(value, effectiveRedactFields) : value;
 
     try {
       logger.info(`Executing tool: ${tool.name}`, { input: redact(input) });
