@@ -1325,7 +1325,7 @@
                   "branch": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                    "pattern": "^[a-zA-Z0-9._\\-/#]+$"
                   },
                   "triggerType": {
                     "default": "push",
@@ -1506,7 +1506,7 @@
                   "gitlabBranch": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                    "pattern": "^[a-zA-Z0-9._\\-/#]+$"
                   },
                   "enableSubmodules": {
                     "type": "boolean"
@@ -1670,7 +1670,7 @@
                   "bitbucketBranch": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                    "pattern": "^[a-zA-Z0-9._\\-/#]+$"
                   },
                   "enableSubmodules": {
                     "type": "boolean"
@@ -1823,7 +1823,7 @@
                   "giteaBranch": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                    "pattern": "^[a-zA-Z0-9._\\-/#]+$"
                   },
                   "enableSubmodules": {
                     "type": "boolean"
@@ -2101,7 +2101,7 @@
                   "customGitBranch": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9._\\-/]+$"
+                    "pattern": "^[a-zA-Z0-9._\\-/#]+$"
                   },
                   "customGitSSHKeyId": {
                     "anyOf": [
