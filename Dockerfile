@@ -3,10 +3,10 @@ FROM node:lts-alpine AS builder
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 # Copy package and configuration
-COPY package.json pnpm-lock.yaml tsconfig.json ./
+COPY package.json pnpm-lock.yaml tsconfig.json .npmrc ./
 
 # Copy source code
 COPY src ./src
@@ -19,13 +19,13 @@ FROM node:lts-alpine
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 # Copy built artifacts
 COPY --from=builder /app/build ./build
 
 # Copy package.json and lockfile for production install
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml .npmrc ./
 
 # Install only production dependencies
 RUN pnpm install --prod --frozen-lockfile --ignore-scripts

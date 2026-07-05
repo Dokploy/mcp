@@ -96,4 +96,3 @@ Makefile
 # Package locks (can be regenerated)
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
