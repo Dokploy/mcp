@@ -1087,7 +1087,7 @@
         }
       }
     },
-    "/application.env.upsert": {
+    "/application/env/upsert": {
       "post": {
         "operationId": "application-env-upsert",
         "tags": [

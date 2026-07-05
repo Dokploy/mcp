@@ -129,7 +129,7 @@ describe("MCP server tools/list", () => {
     const tool = tools.find((candidate) => candidate.name === "application-env-upsert");
 
     expect(tool).toBeDefined();
-    expect(tool?.description).toBe("POST /application.env.upsert");
+    expect(tool?.description).toBe("POST /application/env/upsert");
 
     const schema = tool?.inputSchema as Record<string, unknown>;
     const properties = schema.properties as Record<string, Record<string, unknown>>;
@@ -211,7 +211,7 @@ describe("MCP server tools/list", () => {
 
       expect(apiClient.get).not.toHaveBeenCalled();
       expect(apiClient.post).toHaveBeenCalledTimes(1);
-      expect(apiClient.post).toHaveBeenCalledWith("/application.env.upsert", {
+      expect(apiClient.post).toHaveBeenCalledWith("/application/env/upsert", {
         applicationId: "app_1",
         variables: {
           REDIS_PASSWORD: "placeholder-secret-value",

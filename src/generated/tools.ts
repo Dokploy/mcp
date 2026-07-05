@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-07-02
+// Generated from openapi.json on 2026-07-06
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -116,10 +116,10 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-env-upsert",
-    description: "POST /application.env.upsert",
+    description: "POST /application/env/upsert",
     tag: "application",
     method: "POST",
-    path: "/application.env.upsert",
+    path: "/application/env/upsert",
     schema: z.object({ "applicationId": z.string().min(1), "variables": z.record(z.string().regex(new RegExp("^[A-Za-z_][A-Za-z0-9_]*$")), z.string()).refine((value) => Object.keys(value).length >= 1, "At least 1 property is required"), "redeploy": z.boolean().optional(), "dryRun": z.boolean().optional(), "expectedRevision": z.string().optional() }),
     annotations: {
       title: "Application Env Upsert",
