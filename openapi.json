@@ -5117,6 +5117,9 @@
                       }
                     ]
                   },
+                  "includeEncryptionKey": {
+                    "type": "boolean"
+                  },
                   "metadata": {
                     "anyOf": [
                       {},
@@ -5365,6 +5368,9 @@
                       "web-server",
                       "libsql"
                     ]
+                  },
+                  "includeEncryptionKey": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
