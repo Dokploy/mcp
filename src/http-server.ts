@@ -8,10 +8,14 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import { Hono } from "hono";
 import { createServer } from "./server.js";
+import { makeAuthMiddleware } from "./utils/auth.js";
 import { createLogger } from "./utils/logger.js";
 
 const PORT = 3000;
 const logger = createLogger("MCP-HTTP-Server");
+
+const MCP_AUTH_TOKEN = process.env.MCP_AUTH_TOKEN;
+const requireAuth = makeAuthMiddleware(MCP_AUTH_TOKEN);
 
 const jsonrpcError = (code: number, message: string) => ({
   jsonrpc: "2.0" as const,
@@ -35,8 +39,16 @@ export async function main() {
     sse: {} as Record<string, SSEServerTransport>,
   };
 
-  // Health check
+  // Health check — intentionally left open so orchestrators (Docker,
+  // Traefik, k8s) can probe without a token.
   app.get("/health", (c) => c.json({ status: "ok", timestamp: new Date().toISOString() }));
+
+  // Gate every MCP transport endpoint behind the optional shared-secret
+  // check. `/health` above is deliberately registered before this line so
+  // probes stay open.
+  app.use("/mcp", requireAuth);
+  app.use("/sse", requireAuth);
+  app.use("/messages", requireAuth);
 
   // Modern Streamable HTTP - POST
   app.post("/mcp", async (c) => {
@@ -193,7 +205,14 @@ export async function main() {
         legacy: `http://localhost:${PORT}/sse`,
         health: `http://localhost:${PORT}/health`,
       },
+      auth: MCP_AUTH_TOKEN ? "bearer token required" : "open (MCP_AUTH_TOKEN unset)",
     });
+    if (!MCP_AUTH_TOKEN) {
+      logger.warn(
+        "MCP_AUTH_TOKEN is not set — MCP endpoints are open to anyone who can reach this port. " +
+          "Set MCP_AUTH_TOKEN or restrict access at the proxy layer before exposing publicly.",
+      );
+    }
   });
 }
 
