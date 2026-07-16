@@ -6,7 +6,7 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Copy package and configuration
-COPY package.json pnpm-lock.yaml tsconfig.json ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
 
 # Copy source code
 COPY src ./src
@@ -25,7 +25,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY --from=builder /app/build ./build
 
 # Copy package.json and lockfile for production install
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Install only production dependencies
 RUN pnpm install --prod --frozen-lockfile --ignore-scripts
