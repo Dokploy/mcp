@@ -51,6 +51,27 @@ function stripNestedSchemaKeys(value: unknown): void {
   }
 }
 
+function usesUnsupportedRegexSyntax(pattern: unknown): boolean {
+  return typeof pattern === "string" && /\(\?<?[=!]/.test(pattern);
+}
+
+function stripUnsupportedRegexPatterns(value: unknown): void {
+  if (value === null || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) stripUnsupportedRegexPatterns(item);
+    return;
+  }
+
+  const record = value as Record<string, unknown>;
+  if (usesUnsupportedRegexSyntax(record.pattern)) {
+    delete record.pattern;
+  }
+
+  for (const child of Object.values(record)) {
+    stripUnsupportedRegexPatterns(child);
+  }
+}
+
 // Claude's API requires JSON Schema draft 2020-12. The MCP SDK's built-in
 // Zod→JSON Schema converter emits draft-07 by default, which causes a 400
 // error on tools/list. We bypass the SDK's auto-generated handler by
@@ -63,6 +84,7 @@ function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string
   }) as Record<string, unknown>;
 
   stripNestedSchemaKeys(result);
+  stripUnsupportedRegexPatterns(result);
   result.$schema = JSON_SCHEMA_2020_12;
   return result;
 }
