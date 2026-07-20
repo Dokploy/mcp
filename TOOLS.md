@@ -2,8 +2,8 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 524
-- **Categories**: 48
+- **Total Tools**: 541
+- **Categories**: 49
 
 ## Categories
 
@@ -15,13 +15,14 @@
 - [bitbucket](#bitbucket) (7 tools)
 - [certificates](#certificates) (5 tools)
 - [cluster](#cluster) (4 tools)
-- [compose](#compose) (30 tools)
+- [compose](#compose) (31 tools)
 - [customRole](#customRole) (6 tools)
-- [deployment](#deployment) (8 tools)
+- [deployment](#deployment) (9 tools)
 - [destination](#destination) (6 tools)
 - [docker](#docker) (12 tools)
 - [domain](#domain) (9 tools)
 - [environment](#environment) (7 tools)
+- [forwardAuth](#forwardAuth) (10 tools)
 - [gitea](#gitea) (8 tools)
 - [github](#github) (6 tools)
 - [gitlab](#gitlab) (7 tools)
@@ -45,10 +46,10 @@
 - [rollback](#rollback) (2 tools)
 - [schedule](#schedule) (6 tools)
 - [security](#security) (4 tools)
-- [server](#server) (17 tools)
-- [settings](#settings) (51 tools)
+- [server](#server) (18 tools)
+- [settings](#settings) (54 tools)
 - [sshKey](#sshKey) (7 tools)
-- [sso](#sso) (10 tools)
+- [sso](#sso) (11 tools)
 - [stripe](#stripe) (8 tools)
 - [swarm](#swarm) (4 tools)
 - [tag](#tag) (8 tools)
@@ -92,12 +93,12 @@
 | `application-redeploy` | POST | `applicationId` (string), `title`?, `description`? |
 | `application-saveEnvironment` | POST | `applicationId` (string), `env` (string | null), `buildArgs` (string | null), `buildSecrets` (string | null), `createEnvFile` (boolean) |
 | `application-saveBuildType` | POST | `applicationId` (string), `buildType` ("dockerfile" | "heroku_buildpacks" | "paketo_buildpacks" | "nixpacks" | "static" | "railpack"), `dockerfile` (string | null), `dockerContextPath` (string | null), `dockerBuildStage` (string | null), `herokuVersion` (string | null), `railpackVersion` (string | null), `publishDirectory`?, `isStaticSpa`? |
-| `application-saveGithubProvider` | POST | `applicationId` (string), `repository` (string | null), `branch` (string | null), `owner` (string | null), `buildPath` (string | null), `githubId` (string | null), `triggerType` ("push" | "tag"), `enableSubmodules`?, `watchPaths`? |
-| `application-saveGitlabProvider` | POST | `applicationId` (string), `gitlabBranch` (string | null), `gitlabBuildPath` (string | null), `gitlabOwner` (string | null), `gitlabRepository` (string | null), `gitlabId` (string | null), `gitlabProjectId` (number | null), `gitlabPathNamespace` (string | null), `enableSubmodules`?, `watchPaths`? |
-| `application-saveBitbucketProvider` | POST | `bitbucketBranch` (string | null), `bitbucketBuildPath` (string | null), `bitbucketOwner` (string | null), `bitbucketRepository` (string | null), `bitbucketRepositorySlug` (string | null), `bitbucketId` (string | null), `applicationId` (string), `enableSubmodules`?, `watchPaths`? |
-| `application-saveGiteaProvider` | POST | `applicationId` (string), `giteaBranch` (string | null), `giteaBuildPath` (string | null), `giteaOwner` (string | null), `giteaRepository` (string | null), `giteaId` (string | null), `enableSubmodules`?, `watchPaths`? |
+| `application-saveGithubProvider` | POST | `applicationId` (string), `repository` (string | null), `owner` (string | null), `buildPath` (string | null), `githubId` (string | null), `branch` (string), `triggerType` ("push" | "tag"), `enableSubmodules`?, `watchPaths`? |
+| `application-saveGitlabProvider` | POST | `applicationId` (string), `gitlabBuildPath` (string | null), `gitlabOwner` (string | null), `gitlabRepository` (string | null), `gitlabId` (string | null), `gitlabProjectId` (number | null), `gitlabPathNamespace` (string | null), `gitlabBranch` (string), `enableSubmodules`?, `watchPaths`? |
+| `application-saveBitbucketProvider` | POST | `bitbucketBuildPath` (string | null), `bitbucketOwner` (string | null), `bitbucketRepository` (string | null), `bitbucketRepositorySlug` (string | null), `bitbucketId` (string | null), `applicationId` (string), `bitbucketBranch` (string), `enableSubmodules`?, `watchPaths`? |
+| `application-saveGiteaProvider` | POST | `applicationId` (string), `giteaBuildPath` (string | null), `giteaOwner` (string | null), `giteaRepository` (string | null), `giteaId` (string | null), `giteaBranch` (string), `enableSubmodules`?, `watchPaths`? |
 | `application-saveDockerProvider` | POST | `dockerImage` (string | null), `applicationId` (string), `username` (string | null), `password` (string | null), `registryUrl` (string | null) |
-| `application-saveGitProvider` | POST | `customGitBranch` (string | null), `applicationId` (string), `customGitBuildPath` (string | null), `customGitUrl` (string | null), `watchPaths` (array | null), `enableSubmodules`?, `customGitSSHKeyId`? |
+| `application-saveGitProvider` | POST | `applicationId` (string), `customGitBuildPath` (string | null), `customGitUrl` (string | null), `watchPaths` (array | null), `customGitBranch` (string), `enableSubmodules`?, `customGitSSHKeyId`? |
 | `application-disconnectGitProvider` | POST | `applicationId` (string) |
 | `application-markRunning` | POST | `applicationId` (string) |
 | `application-update` | POST | `applicationId` (string), +97 optional |
@@ -199,6 +200,7 @@
 | `compose-disconnectGitProvider` | POST | `composeId` (string) |
 | `compose-move` | POST | `composeId` (string), `targetEnvironmentId` (string) |
 | `compose-processTemplate` | POST | `base64` (string), `composeId` (string) |
+| `compose-previewTemplate` | POST | `base64` (string), `appName` (string), `serverId`? |
 | `compose-import` | POST | `base64` (string), `composeId` (string) |
 | `compose-cancelDeployment` | POST | `composeId` (string) |
 | `compose-search` | GET | +8 optional |
@@ -227,6 +229,7 @@
 | `deployment-allByType` | GET | `id` (string), `type` ("application" | "compose" | "server" | "schedule" | "previewDeployment" | "backup" | "volumeBackup") |
 | `deployment-killProcess` | POST | `deploymentId` (string) |
 | `deployment-removeDeployment` | POST | `deploymentId` (string) |
+| `deployment-readLogs` | GET | `deploymentId` (string), `tail`? |
 
 ## destination
 
@@ -260,12 +263,12 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `domain-create` | POST | `host` (string), +14 optional |
+| `domain-create` | POST | `host` (string), +15 optional |
 | `domain-byApplicationId` | GET | `applicationId` (string) |
 | `domain-byComposeId` | GET | `composeId` (string) |
 | `domain-generateDomain` | POST | `appName` (string), `serverId`? |
 | `domain-canGenerateTraefikMeDomains` | GET | `serverId` (string) |
-| `domain-update` | POST | `host` (string), `domainId` (string), +11 optional |
+| `domain-update` | POST | `host` (string), `domainId` (string), +12 optional |
 | `domain-one` | GET | `domainId` (string) |
 | `domain-delete` | POST | `domainId` (string) |
 | `domain-validateDomain` | POST | `domain` (string), `serverIp`? |
@@ -281,6 +284,21 @@
 | `environment-update` | POST | `environmentId` (string), +4 optional |
 | `environment-duplicate` | POST | `environmentId` (string), `name` (string), `description`? |
 | `environment-search` | GET | +6 optional |
+
+## forwardAuth
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `forwardAuth-getAuthDomain` | GET | `serverId` (string | null) |
+| `forwardAuth-setAuthDomain` | POST | `serverId` (string | null), `authDomain` (string), `https`?, `certificateType`?, `customCertResolver`? |
+| `forwardAuth-removeAuthDomain` | POST | `serverId` (string | null) |
+| `forwardAuth-listProviders` | GET | None |
+| `forwardAuth-serverStatus` | GET | None |
+| `forwardAuth-deployOnServer` | POST | `serverId` (string | null), `providerId` (string) |
+| `forwardAuth-removeOnServer` | POST | `serverId` (string | null) |
+| `forwardAuth-status` | GET | `domainId` (string) |
+| `forwardAuth-enable` | POST | `domainId` (string) |
+| `forwardAuth-disable` | POST | `domainId` (string) |
 
 ## gitea
 
@@ -616,8 +634,8 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `schedule-create` | POST | `name` (string), `cronExpression` (string), `command` (string), +13 optional |
-| `schedule-update` | POST | `scheduleId` (string), `name` (string), `cronExpression` (string), `command` (string), +12 optional |
+| `schedule-create` | POST | `name` (string), `cronExpression` (string), `command` (string), +14 optional |
+| `schedule-update` | POST | `scheduleId` (string), `name` (string), `cronExpression` (string), `command` (string), +13 optional |
 | `schedule-delete` | POST | `scheduleId` (string) |
 | `schedule-list` | GET | `id` (string), `scheduleType` ("application" | "compose" | "server" | "dokploy-server") |
 | `schedule-one` | GET | `scheduleId` (string) |
@@ -636,7 +654,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `server-create` | POST | `name` (string), `description` (string | null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build") |
+| `server-create` | POST | `name` (string), `description` (string | null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`? |
 | `server-one` | GET | `serverId` (string) |
 | `server-getDefaultCommand` | GET | `serverId` (string) |
 | `server-all` | GET | None |
@@ -649,7 +667,8 @@
 | `server-security` | GET | `serverId` (string) |
 | `server-setupMonitoring` | POST | `serverId` (string), `metricsConfig` (object) |
 | `server-remove` | POST | `serverId` (string) |
-| `server-update` | POST | `name` (string), `description` (string | null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `command`? |
+| `server-update` | POST | `name` (string), `description` (string | null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`?, `command`? |
+| `server-updateBuildsConcurrency` | POST | `serverId` (string), `buildsConcurrency` (integer) |
 | `server-publicIp` | GET | None |
 | `server-getServerTime` | GET | None |
 | `server-getServerMetrics` | GET | `url` (string), `token` (string), `dataPoints` (string) |
@@ -677,6 +696,9 @@
 | `settings-assignDomainServer` | POST | `host` (string), `certificateType` ("letsencrypt" | "none" | "custom"), `letsEncryptEmail`?, `https`? |
 | `settings-cleanSSHPrivateKey` | POST | None |
 | `settings-updateDockerCleanup` | POST | `enableDockerCleanup` (boolean), `serverId`? |
+| `settings-updateRemoteServersOnly` | POST | `remoteServersOnly` (boolean) |
+| `settings-updateBuildsConcurrency` | POST | `buildsConcurrency` (integer) |
+| `settings-updateEnforceSSO` | POST | `enforceSSO` (boolean) |
 | `settings-readTraefikConfig` | GET | None |
 | `settings-updateTraefikConfig` | POST | `traefikConfig` (string) |
 | `settings-readWebServerTraefikConfig` | GET | None |
@@ -727,6 +749,7 @@
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `sso-showSignInWithSSO` | GET | None |
+| `sso-enforceSSO` | GET | None |
 | `sso-listProviders` | GET | None |
 | `sso-getTrustedOrigins` | GET | None |
 | `sso-one` | GET | `providerId` (string) |
