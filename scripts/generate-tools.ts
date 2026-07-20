@@ -65,7 +65,7 @@ function formatTitle(operationId: string): string {
 
 function getZodSchema(op: OperationObject, method: string): string {
   if (method === "post" && op.requestBody?.content?.["application/json"]?.schema) {
-    const schema = op.requestBody.content["application/json"].schema;
+    const schema = normalizeToolSchema(op.requestBody.content["application/json"].schema);
     return jsonSchemaToZod(schema);
   }
 
@@ -76,7 +76,10 @@ function getZodSchema(op: OperationObject, method: string): string {
     for (const param of op.parameters) {
       const paramSchema =
         typeof param.schema === "object" && param.schema !== null
-          ? { ...param.schema, ...(param.description ? { description: param.description } : {}) }
+          ? normalizeToolSchema({
+              ...param.schema,
+              ...(param.description ? { description: param.description } : {}),
+            })
           : param.schema;
       properties[param.name] = paramSchema;
       if (param.required) {
@@ -92,6 +95,43 @@ function getZodSchema(op: OperationObject, method: string): string {
   }
 
   return "z.object({})";
+}
+
+const DATABASE_PASSWORD_FIELDS = new Set(["databasePassword", "databaseRootPassword", "password"]);
+const DOKPLOY_PASSWORD_PATTERN = "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$";
+
+function normalizeToolSchema(schema: JsonSchema): JsonSchema {
+  const normalized = structuredClone(schema) as JsonSchema;
+  stripDokployPasswordPatterns(normalized);
+  return normalized;
+}
+
+function stripDokployPasswordPatterns(schema: unknown): void {
+  if (schema === null || typeof schema !== "object") return;
+
+  if (Array.isArray(schema)) {
+    for (const item of schema) stripDokployPasswordPatterns(item);
+    return;
+  }
+
+  const record = schema as Record<string, unknown>;
+  const properties = record.properties;
+
+  if (properties && typeof properties === "object" && !Array.isArray(properties)) {
+    for (const [name, value] of Object.entries(properties)) {
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        const property = value as Record<string, unknown>;
+        if (DATABASE_PASSWORD_FIELDS.has(name) && property.pattern === DOKPLOY_PASSWORD_PATTERN) {
+          delete property.pattern;
+        }
+      }
+      stripDokployPasswordPatterns(value);
+    }
+  }
+
+  for (const value of Object.values(record)) {
+    if (value !== properties) stripDokployPasswordPatterns(value);
+  }
 }
 
 interface JsonSchemaObject {
