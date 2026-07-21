@@ -1,5 +1,10 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import {
+  ListPromptsRequestSchema,
+  ListResourcesRequestSchema,
+  ListResourceTemplatesRequestSchema,
+  ListToolsRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
 import type { ZodObject, ZodRawShape } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { generatedTools } from "./generated/tools.js";
@@ -51,6 +56,23 @@ function stripNestedSchemaKeys(value: unknown): void {
   }
 }
 
+function stripPatternKeys(value: unknown): void {
+  if (value === null || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) stripPatternKeys(item);
+    return;
+  }
+
+  const record = value as Record<string, unknown>;
+  for (const key of Object.keys(record)) {
+    if (key === "pattern") {
+      delete record[key];
+    } else {
+      stripPatternKeys(record[key]);
+    }
+  }
+}
+
 // Claude's API requires JSON Schema draft 2020-12. The MCP SDK's built-in
 // Zod→JSON Schema converter emits draft-07 by default, which causes a 400
 // error on tools/list. We bypass the SDK's auto-generated handler by
@@ -63,15 +85,24 @@ function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string
   }) as Record<string, unknown>;
 
   stripNestedSchemaKeys(result);
+  stripPatternKeys(result);
   result.$schema = JSON_SCHEMA_2020_12;
   return result;
 }
 
 export function createServer() {
-  const server = new McpServer({
-    name: "dokploy",
-    version: "2.0.0",
-  });
+  const server = new McpServer(
+    {
+      name: "dokploy",
+      version: "2.0.0",
+    },
+    {
+      capabilities: {
+        prompts: {},
+        resources: {},
+      },
+    },
+  );
 
   const tools = getEnabledTools();
 
@@ -94,6 +125,18 @@ export function createServer() {
 
   server.server.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: toolList,
+  }));
+
+  server.server.setRequestHandler(ListResourcesRequestSchema, async () => ({
+    resources: [],
+  }));
+
+  server.server.setRequestHandler(ListResourceTemplatesRequestSchema, async () => ({
+    resourceTemplates: [],
+  }));
+
+  server.server.setRequestHandler(ListPromptsRequestSchema, async () => ({
+    prompts: [],
   }));
 
   return server;

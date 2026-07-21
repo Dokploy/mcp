@@ -13,15 +13,24 @@ vi.mock("./utils/apiClient.js", () => ({
 const { createServer } = await import("./server.js");
 
 describe("MCP server tools/list", () => {
-  async function getToolList() {
+  async function withClient<T>(fn: (client: Client) => Promise<T>) {
     const server = createServer();
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
     await server.connect(serverTransport);
     const client = new Client({ name: "test-client", version: "1.0.0" });
     await client.connect(clientTransport);
-    const { tools } = await client.listTools();
-    await client.close();
-    return tools;
+    try {
+      return await fn(client);
+    } finally {
+      await client.close();
+    }
+  }
+
+  async function getToolList() {
+    return withClient(async (client) => {
+      const { tools } = await client.listTools();
+      return tools;
+    });
   }
 
   it("returns tools", async () => {
@@ -33,10 +42,9 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     for (const tool of tools) {
       const schema = tool.inputSchema as Record<string, unknown>;
-      expect(
-        schema.$schema,
-        `Tool "${tool.name}" is missing $schema or has wrong draft`,
-      ).toBe("https://json-schema.org/draft/2020-12/schema");
+      expect(schema.$schema, `Tool "${tool.name}" is missing $schema or has wrong draft`).toBe(
+        "https://json-schema.org/draft/2020-12/schema",
+      );
     }
   });
 
@@ -60,7 +68,10 @@ describe("MCP server tools/list", () => {
 
     for (const tool of tools) {
       const found = findNestedSchemaKeys(tool.inputSchema);
-      expect(found, `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`).toHaveLength(0);
+      expect(
+        found,
+        `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`,
+      ).toHaveLength(0);
     }
   });
 
@@ -74,5 +85,43 @@ describe("MCP server tools/list", () => {
         `tool "${tool.name}" inputSchema is missing type`,
       ).toBe("object");
     }
+  });
+
+  it("does not emit pattern keywords in tool input schemas", async () => {
+    const tools = await getToolList();
+
+    function findPatternKeys(obj: unknown, path = ""): string[] {
+      if (obj === null || typeof obj !== "object") return [];
+      if (Array.isArray(obj)) {
+        return obj.flatMap((item, i) => findPatternKeys(item, `${path}[${i}]`));
+      }
+
+      const record = obj as Record<string, unknown>;
+      const found: string[] = [];
+      for (const [key, value] of Object.entries(record)) {
+        const currentPath = path ? `${path}.${key}` : key;
+        if (key === "pattern") {
+          found.push(`${currentPath}: ${value}`);
+        }
+        found.push(...findPatternKeys(value, currentPath));
+      }
+      return found;
+    }
+
+    for (const tool of tools) {
+      const found = findPatternKeys(tool.inputSchema);
+      expect(
+        found,
+        `Tool "${tool.name}" has provider-incompatible pattern keywords at: ${found.join(", ")}`,
+      ).toHaveLength(0);
+    }
+  });
+
+  it("returns empty resource and prompt lists for clients that query them", async () => {
+    await withClient(async (client) => {
+      await expect(client.listResources()).resolves.toEqual({ resources: [] });
+      await expect(client.listResourceTemplates()).resolves.toEqual({ resourceTemplates: [] });
+      await expect(client.listPrompts()).resolves.toEqual({ prompts: [] });
+    });
   });
 });
