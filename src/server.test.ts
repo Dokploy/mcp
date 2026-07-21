@@ -33,10 +33,9 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     for (const tool of tools) {
       const schema = tool.inputSchema as Record<string, unknown>;
-      expect(
-        schema.$schema,
-        `Tool "${tool.name}" is missing $schema or has wrong draft`,
-      ).toBe("https://json-schema.org/draft/2020-12/schema");
+      expect(schema.$schema, `Tool "${tool.name}" is missing $schema or has wrong draft`).toBe(
+        "https://json-schema.org/draft/2020-12/schema",
+      );
     }
   });
 
@@ -60,7 +59,10 @@ describe("MCP server tools/list", () => {
 
     for (const tool of tools) {
       const found = findNestedSchemaKeys(tool.inputSchema);
-      expect(found, `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`).toHaveLength(0);
+      expect(
+        found,
+        `Tool "${tool.name}" has nested $schema keys at: ${found.join(", ")}`,
+      ).toHaveLength(0);
     }
   });
 
@@ -73,6 +75,36 @@ describe("MCP server tools/list", () => {
         (tool.inputSchema as Record<string, unknown>).type,
         `tool "${tool.name}" inputSchema is missing type`,
       ).toBe("object");
+    }
+  });
+
+  it("does not emit provider-incompatible regex lookarounds", async () => {
+    const tools = await getToolList();
+
+    function findLookaroundPatterns(obj: unknown, path = ""): string[] {
+      if (obj === null || typeof obj !== "object") return [];
+      if (Array.isArray(obj)) {
+        return obj.flatMap((item, i) => findLookaroundPatterns(item, `${path}[${i}]`));
+      }
+
+      const record = obj as Record<string, unknown>;
+      const found: string[] = [];
+      for (const [key, value] of Object.entries(record)) {
+        const currentPath = path ? `${path}.${key}` : key;
+        if (key === "pattern" && typeof value === "string" && value.includes("(?!")) {
+          found.push(`${currentPath}: ${value}`);
+        }
+        found.push(...findLookaroundPatterns(value, currentPath));
+      }
+      return found;
+    }
+
+    for (const tool of tools) {
+      const found = findLookaroundPatterns(tool.inputSchema);
+      expect(
+        found,
+        `Tool "${tool.name}" has provider-incompatible regex lookarounds at: ${found.join(", ")}`,
+      ).toHaveLength(0);
     }
   });
 });
