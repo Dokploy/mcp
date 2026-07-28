@@ -9077,6 +9077,24 @@
                       "error"
                     ]
                   },
+                  "icon": {
+                    "anyOf": [
+                      {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "maxLength": 2097152
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "environmentId": {
                     "type": "string"
                   },
