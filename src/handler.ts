@@ -1,11 +1,18 @@
 import type { ToolDefinition } from "./types.js";
-import apiClient from "./utils/apiClient.js";
 import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
 import { redactSensitive } from "./utils/redactSensitive.js";
 import { ResponseFormatter } from "./utils/responseFormatter.js";
 
 const logger = createLogger("ToolHandler");
+let apiClientPromise: Promise<typeof import("./utils/apiClient.js")["default"]> | undefined;
+
+function getApiClient() {
+  if (!apiClientPromise) {
+    apiClientPromise = import("./utils/apiClient.js").then((module) => module.default);
+  }
+  return apiClientPromise;
+}
 
 export function createHandler(tool: ToolDefinition) {
   return async (input: Record<string, unknown>) => {
@@ -14,6 +21,7 @@ export function createHandler(tool: ToolDefinition) {
 
     try {
       logger.info(`Executing tool: ${tool.name}`, { input: redact(input) });
+      const apiClient = await getApiClient();
 
       const response =
         tool.method === "GET"

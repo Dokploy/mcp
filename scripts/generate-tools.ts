@@ -1,6 +1,8 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { type JsonSchema, jsonSchemaToZod } from "json-schema-to-zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
 interface OpenAPISpec {
   paths: Record<string, Record<string, OperationObject>>;
@@ -32,6 +34,7 @@ interface ParameterObject {
 const SPEC_PATH = resolve(import.meta.dirname, "../src/generated/openapi.json");
 const OUTPUT_PATH = resolve(import.meta.dirname, "../src/generated/tools.ts");
 const TOOLS_MD_PATH = resolve(import.meta.dirname, "../TOOLS.md");
+const JSON_SCHEMA_2020_12 = "https://json-schema.org/draft/2020-12/schema";
 
 function deriveAnnotations(method: string, operationId: string): string {
   const id = operationId.toLowerCase();
@@ -109,6 +112,38 @@ interface ToolMdEntry {
   tag: string;
   description: string;
   params: { name: string; type: string; required: boolean }[];
+}
+
+interface GeneratedToolSource {
+  name: string;
+  description: string;
+  tag: string;
+  method: "GET" | "POST";
+  path: string;
+  zodSchema: string;
+  title: string;
+  annotations: string;
+}
+
+interface GeneratedToolRuntime {
+  name: string;
+  schema: Parameters<typeof zodToJsonSchema>[0];
+}
+
+function stripNestedSchemaKeys(value: unknown): void {
+  if (value === null || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) stripNestedSchemaKeys(item);
+    return;
+  }
+  const record = value as Record<string, unknown>;
+  for (const key of Object.keys(record)) {
+    if (key === "$schema") {
+      delete record[key];
+    } else {
+      stripNestedSchemaKeys(record[key]);
+    }
+  }
 }
 
 function schemaTypeToString(schema: JsonSchemaObject): string {
@@ -229,13 +264,13 @@ function generateToolsMd(entries: ToolMdEntry[]): string {
   return lines.join("\n");
 }
 
-function main() {
+async function main() {
   console.log("Reading OpenAPI spec...");
   const spec: OpenAPISpec = JSON.parse(readFileSync(SPEC_PATH, "utf-8"));
   const paths = Object.entries(spec.paths);
   console.log(`Processing ${paths.length} paths...`);
 
-  const tools: string[] = [];
+  const tools: GeneratedToolSource[] = [];
   const mdEntries: ToolMdEntry[] = [];
   let errorCount = 0;
 
@@ -256,18 +291,16 @@ function main() {
         const annotations = deriveAnnotations(method, operationId);
         const tag = op.tags?.[0] || "unknown";
 
-        tools.push(`  {
-    name: ${JSON.stringify(operationId)},
-    description: ${JSON.stringify(description)},
-    tag: ${JSON.stringify(tag)},
-    method: ${JSON.stringify(method.toUpperCase() as "GET" | "POST")},
-    path: ${JSON.stringify(path)},
-    schema: ${zodSchema},
-    annotations: {
-      title: ${JSON.stringify(title)},
-      ...${annotations},
-    },
-  }`);
+        tools.push({
+          name: operationId,
+          description,
+          tag,
+          method: method.toUpperCase() as "GET" | "POST",
+          path,
+          zodSchema,
+          title,
+          annotations,
+        });
 
         mdEntries.push({
           operationId,
@@ -283,6 +316,62 @@ function main() {
     }
   }
 
+  const runtimeOutputPath = resolve(import.meta.dirname, `.tools-runtime-${process.pid}.ts`);
+  const runtimeOutput = `import { z } from "zod";
+
+export const generatedTools = [
+${tools
+  .map(
+    (tool) => `  {
+    name: ${JSON.stringify(tool.name)},
+    schema: ${tool.zodSchema},
+  }`,
+  )
+  .join(",\n")},
+];
+`;
+
+  writeFileSync(runtimeOutputPath, runtimeOutput);
+
+  let runtimeTools: GeneratedToolRuntime[];
+  try {
+    const generatedModule = (await import(
+      `${pathToFileURL(runtimeOutputPath).href}?generated=${Date.now()}`
+    )) as { generatedTools: GeneratedToolRuntime[] };
+    runtimeTools = generatedModule.generatedTools;
+  } finally {
+    unlinkSync(runtimeOutputPath);
+  }
+
+  const runtimeToolsByName = new Map(runtimeTools.map((tool) => [tool.name, tool]));
+  const renderedTools = tools.map((tool) => {
+    const runtimeTool = runtimeToolsByName.get(tool.name);
+    if (!runtimeTool) {
+      throw new Error(`Generated runtime tool ${tool.name} is missing`);
+    }
+
+    const inputSchema = zodToJsonSchema(runtimeTool.schema, {
+      target: "jsonSchema2019-09",
+      strictUnions: true,
+    }) as Record<string, unknown>;
+    stripNestedSchemaKeys(inputSchema);
+    inputSchema.$schema = JSON_SCHEMA_2020_12;
+
+    return `  {
+    name: ${JSON.stringify(tool.name)},
+    description: ${JSON.stringify(tool.description)},
+    tag: ${JSON.stringify(tool.tag)},
+    method: ${JSON.stringify(tool.method)},
+    path: ${JSON.stringify(tool.path)},
+    schema: lazySchema(() => ${tool.zodSchema}),
+    inputSchemaJson: ${JSON.stringify(JSON.stringify(inputSchema))},
+    annotations: {
+      title: ${JSON.stringify(tool.title)},
+      ...${tool.annotations},
+    },
+  }`;
+  });
+
   // Write generated tools.ts
   const output = `// AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
 // Generated from openapi.json on ${new Date().toISOString().split("T")[0]}
@@ -291,8 +380,13 @@ function main() {
 import { z } from "zod";
 import type { ToolDefinition } from "../types.js";
 
+function lazySchema<T extends z.ZodTypeAny>(factory: () => T): z.ZodLazy<T> {
+  let schema: T | undefined;
+  return z.lazy(() => (schema ??= factory()));
+}
+
 export const generatedTools: ToolDefinition[] = [
-${tools.join(",\n")},
+${renderedTools.join(",\n")},
 ];
 `;
 
@@ -305,4 +399,7 @@ ${tools.join(",\n")},
   console.log(`Generated TOOLS.md with ${mdEntries.length} tools -> ${TOOLS_MD_PATH}`);
 }
 
-main();
+main().catch((error: unknown) => {
+  console.error(error);
+  process.exitCode = 1;
+});
