@@ -7164,6 +7164,25 @@
                   "enableIPv6": {
                     "type": "boolean"
                   },
+                  "mtu": {
+                    "anyOf": [
+                      {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 68,
+                            "maximum": 65535
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "ipam": {
                     "anyOf": [
                       {
