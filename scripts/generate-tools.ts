@@ -66,7 +66,7 @@ function formatTitle(operationId: string): string {
 function getZodSchema(op: OperationObject, method: string): string {
   if (method === "post" && op.requestBody?.content?.["application/json"]?.schema) {
     const schema = op.requestBody.content["application/json"].schema;
-    return jsonSchemaToZod(schema);
+    return customZodObjectSchema(schema) ?? jsonSchemaToZod(schema);
   }
 
   if (op.parameters && op.parameters.length > 0) {
@@ -101,6 +101,82 @@ interface JsonSchemaObject {
   anyOf?: JsonSchemaObject[];
   enum?: string[];
   items?: JsonSchemaObject;
+  additionalProperties?: JsonSchemaObject | boolean;
+  propertyNames?: JsonSchemaObject;
+  pattern?: string;
+  minLength?: number;
+  maxLength?: number;
+  minProperties?: number;
+}
+
+function zodStringSchema(schema: JsonSchemaObject): string {
+  let zod = "z.string()";
+  if (schema.pattern) {
+    zod += `.regex(new RegExp(${JSON.stringify(schema.pattern)}))`;
+  }
+  if (typeof schema.minLength === "number") {
+    zod += `.min(${schema.minLength})`;
+  }
+  if (typeof schema.maxLength === "number") {
+    zod += `.max(${schema.maxLength})`;
+  }
+  return zod;
+}
+
+function customZodRecordSchema(schema: JsonSchemaObject): string | null {
+  if (
+    schema.type !== "object" ||
+    typeof schema.additionalProperties !== "object" ||
+    schema.additionalProperties === null ||
+    schema.additionalProperties.type !== "string" ||
+    schema.propertyNames?.pattern === undefined
+  ) {
+    return null;
+  }
+
+  let zod = `z.record(${zodStringSchema(schema.propertyNames)}, ${zodStringSchema(schema.additionalProperties)})`;
+
+  if (typeof schema.minProperties === "number" && schema.minProperties > 0) {
+    zod += `.refine((value) => Object.keys(value).length >= ${schema.minProperties}, "At least ${schema.minProperties} propert${
+      schema.minProperties === 1 ? "y is" : "ies are"
+    } required")`;
+  }
+
+  return zod;
+}
+
+function customZodObjectSchema(schema: JsonSchema): string | null {
+  if (
+    typeof schema !== "object" ||
+    schema === null ||
+    schema.type !== "object" ||
+    !schema.properties
+  ) {
+    return null;
+  }
+
+  const objectSchema = schema as JsonSchemaObject;
+  const requiredSet = new Set(objectSchema.required || []);
+  const propertyEntries = Object.entries(objectSchema.properties).map(([name, propSchema]) => ({
+    name,
+    propSchema,
+    customSchema: customZodRecordSchema(propSchema),
+  }));
+
+  if (!propertyEntries.some((entry) => entry.customSchema !== null)) {
+    return null;
+  }
+
+  const entries = propertyEntries.map(({ name, propSchema, customSchema }) => {
+    const propertySchema = customSchema ?? jsonSchemaToZod(propSchema as JsonSchema);
+    return `${JSON.stringify(name)}: ${propertySchema}${requiredSet.has(name) ? "" : ".optional()"}`;
+  });
+
+  let zod = `z.object({ ${entries.join(", ")} })`;
+  if (objectSchema.additionalProperties === false) {
+    zod += ".strict()";
+  }
+  return zod;
 }
 
 interface ToolMdEntry {

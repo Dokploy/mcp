@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-04-25
+// Generated from openapi.json on 2026-07-06
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -111,6 +111,18 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string(), "env": z.union([z.string(), z.null()]), "buildArgs": z.union([z.string(), z.null()]), "buildSecrets": z.union([z.string(), z.null()]), "createEnvFile": z.boolean() }),
     annotations: {
       title: "Application SaveEnvironment",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "application-env-upsert",
+    description: "POST /application/env/upsert",
+    tag: "application",
+    method: "POST",
+    path: "/application/env/upsert",
+    schema: z.object({ "applicationId": z.string().min(1), "variables": z.record(z.string().regex(new RegExp("^[A-Za-z_][A-Za-z0-9_]*$")), z.string()).refine((value) => Object.keys(value).length >= 1, "At least 1 property is required"), "redeploy": z.boolean().optional(), "dryRun": z.boolean().optional(), "expectedRevision": z.string().optional() }),
+    annotations: {
+      title: "Application Env Upsert",
       ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
