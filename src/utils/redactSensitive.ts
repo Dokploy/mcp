@@ -66,7 +66,8 @@ function walk(value: unknown, fields: Set<string>, seen: WeakSet<object>): unkno
     const out: Record<string, unknown> = Object.create(null);
     for (const [key, val] of Object.entries(value)) {
       if (key === "__proto__" || key === "constructor" || key === "prototype") continue;
-      if (fields.has(key.toLowerCase())) {
+      const loweredKey = key.toLowerCase();
+      if (fields.has(loweredKey) || [...fields].some((f) => loweredKey.endsWith(f))) {
         out[key] = val === null || val === undefined ? val : REDACTED_PLACEHOLDER;
       } else {
         out[key] = walk(val, fields, seen);
