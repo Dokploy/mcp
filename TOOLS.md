@@ -2,7 +2,7 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 526
+- **Total Tools**: 529
 - **Categories**: 48
 
 ## Categories
@@ -46,9 +46,9 @@
 - [schedule](#schedule) (6 tools)
 - [security](#security) (4 tools)
 - [server](#server) (17 tools)
-- [settings](#settings) (51 tools)
+- [settings](#settings) (53 tools)
 - [sshKey](#sshKey) (7 tools)
-- [sso](#sso) (10 tools)
+- [sso](#sso) (11 tools)
 - [stripe](#stripe) (8 tools)
 - [swarm](#swarm) (4 tools)
 - [tag](#tag) (8 tools)
@@ -679,6 +679,8 @@
 | `settings-assignDomainServer` | POST | `host` (string), `certificateType` ("letsencrypt" | "none" | "custom"), `letsEncryptEmail`?, `https`? |
 | `settings-cleanSSHPrivateKey` | POST | None |
 | `settings-updateDockerCleanup` | POST | `enableDockerCleanup` (boolean), `serverId`? |
+| `settings-updateRemoteServersOnly` | POST | `remoteServersOnly` (boolean) |
+| `settings-updateEnforceSSO` | POST | `enforceSSO` (boolean) |
 | `settings-readTraefikConfig` | GET | None |
 | `settings-updateTraefikConfig` | POST | `traefikConfig` (string) |
 | `settings-readWebServerTraefikConfig` | GET | None |
@@ -729,6 +731,7 @@
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `sso-showSignInWithSSO` | GET | None |
+| `sso-enforceSSO` | GET | None |
 | `sso-listProviders` | GET | None |
 | `sso-getTrustedOrigins` | GET | None |
 | `sso-one` | GET | `providerId` (string) |

@@ -4339,6 +4339,30 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "settings-updateRemoteServersOnly",
+    description: "POST /settings.updateRemoteServersOnly",
+    tag: "settings",
+    method: "POST",
+    path: "/settings.updateRemoteServersOnly",
+    schema: z.object({ "remoteServersOnly": z.boolean() }),
+    annotations: {
+      title: "Settings UpdateRemoteServersOnly",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "settings-updateEnforceSSO",
+    description: "POST /settings.updateEnforceSSO",
+    tag: "settings",
+    method: "POST",
+    path: "/settings.updateEnforceSSO",
+    schema: z.object({ "enforceSSO": z.boolean() }),
+    annotations: {
+      title: "Settings UpdateEnforceSSO",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "settings-readTraefikConfig",
     description: "GET /settings.readTraefikConfig",
     tag: "settings",
@@ -5583,6 +5607,18 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Sso ShowSignInWithSSO",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "sso-enforceSSO",
+    description: "GET /sso.enforceSSO",
+    tag: "sso",
+    method: "GET",
+    path: "/sso.enforceSSO",
+    schema: z.object({}),
+    annotations: {
+      title: "Sso EnforceSSO",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
     },
   },
