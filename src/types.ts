@@ -1,4 +1,4 @@
-import type { ZodObject, ZodRawShape } from "zod";
+import type { ZodTypeAny } from "zod";
 
 export interface ToolAnnotations {
   title?: string;
@@ -14,6 +14,7 @@ export interface ToolDefinition {
   tag: string;
   method: "GET" | "POST";
   path: string;
-  schema: ZodObject<ZodRawShape>;
+  schema: ZodTypeAny;
+  inputSchemaJson: string;
   annotations?: ToolAnnotations;
 }

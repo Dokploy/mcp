@@ -1,9 +1,14 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-04-25
+// Generated from openapi.json on 2026-07-30
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
 import type { ToolDefinition } from "../types.js";
+
+function lazySchema<T extends z.ZodTypeAny>(factory: () => T): z.ZodLazy<T> {
+  let schema: T | undefined;
+  return z.lazy(() => (schema ??= factory()));
+}
 
 export const generatedTools: ToolDefinition[] = [
   {
@@ -12,7 +17,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "admin",
     method: "POST",
     path: "/admin.setupMonitoring",
-    schema: z.object({ "metricsConfig": z.object({ "server": z.object({ "refreshRate": z.number().gte(2), "port": z.number().gte(1), "token": z.string(), "urlCallback": z.string().url(), "retentionDays": z.number().gte(1), "cronJob": z.string().min(1), "thresholds": z.object({ "cpu": z.number().gte(0), "memory": z.number().gte(0) }) }), "containers": z.object({ "refreshRate": z.number().gte(2), "services": z.object({ "include": z.array(z.string()).optional(), "exclude": z.array(z.string()).optional() }) }) }) }),
+    schema: lazySchema(() => z.object({ "metricsConfig": z.object({ "server": z.object({ "refreshRate": z.number().gte(2), "port": z.number().gte(1), "token": z.string(), "urlCallback": z.string().url(), "retentionDays": z.number().gte(1), "cronJob": z.string().min(1), "thresholds": z.object({ "cpu": z.number().gte(0), "memory": z.number().gte(0) }) }), "containers": z.object({ "refreshRate": z.number().gte(2), "services": z.object({ "include": z.array(z.string()).optional(), "exclude": z.array(z.string()).optional() }) }) }) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"metricsConfig\":{\"type\":\"object\",\"properties\":{\"server\":{\"type\":\"object\",\"properties\":{\"refreshRate\":{\"type\":\"number\",\"minimum\":2},\"port\":{\"type\":\"number\",\"minimum\":1},\"token\":{\"type\":\"string\"},\"urlCallback\":{\"type\":\"string\",\"format\":\"uri\"},\"retentionDays\":{\"type\":\"number\",\"minimum\":1},\"cronJob\":{\"type\":\"string\",\"minLength\":1},\"thresholds\":{\"type\":\"object\",\"properties\":{\"cpu\":{\"type\":\"number\",\"minimum\":0},\"memory\":{\"type\":\"number\",\"minimum\":0}},\"required\":[\"cpu\",\"memory\"],\"additionalProperties\":false}},\"required\":[\"refreshRate\",\"port\",\"token\",\"urlCallback\",\"retentionDays\",\"cronJob\",\"thresholds\"],\"additionalProperties\":false},\"containers\":{\"type\":\"object\",\"properties\":{\"refreshRate\":{\"type\":\"number\",\"minimum\":2},\"services\":{\"type\":\"object\",\"properties\":{\"include\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"exclude\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"additionalProperties\":false}},\"required\":[\"refreshRate\",\"services\"],\"additionalProperties\":false}},\"required\":[\"server\",\"containers\"],\"additionalProperties\":false}},\"required\":[\"metricsConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Admin SetupMonitoring",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -24,7 +30,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "serverId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"environmentId\":{\"type\":\"string\"},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Create",
       ...{"openWorldHint":true},
@@ -36,7 +43,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "GET",
     path: "/application.one",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -48,7 +56,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.reload",
-    schema: z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63), "applicationId": z.string() }),
+    schema: lazySchema(() => z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63), "applicationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"applicationId\":{\"type\":\"string\"}},\"required\":[\"appName\",\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -60,7 +69,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.delete",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -72,7 +82,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.stop",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -84,7 +95,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.start",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -96,7 +108,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.redeploy",
-    schema: z.object({ "applicationId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Redeploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -108,7 +121,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveEnvironment",
-    schema: z.object({ "applicationId": z.string(), "env": z.union([z.string(), z.null()]), "buildArgs": z.union([z.string(), z.null()]), "buildSecrets": z.union([z.string(), z.null()]), "createEnvFile": z.boolean() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "env": z.union([z.string(), z.null()]), "buildArgs": z.union([z.string(), z.null()]), "buildSecrets": z.union([z.string(), z.null()]), "createEnvFile": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]},\"buildArgs\":{\"type\":[\"string\",\"null\"]},\"buildSecrets\":{\"type\":[\"string\",\"null\"]},\"createEnvFile\":{\"type\":\"boolean\"}},\"required\":[\"applicationId\",\"env\",\"buildArgs\",\"buildSecrets\",\"createEnvFile\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -120,7 +134,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveBuildType",
-    schema: z.object({ "applicationId": z.string(), "buildType": z.enum(["dockerfile","heroku_buildpacks","paketo_buildpacks","nixpacks","static","railpack"]), "dockerfile": z.union([z.string(), z.null()]), "dockerContextPath": z.union([z.string(), z.null()]), "dockerBuildStage": z.union([z.string(), z.null()]), "herokuVersion": z.union([z.string(), z.null()]), "railpackVersion": z.union([z.string(), z.null()]), "publishDirectory": z.union([z.string(), z.null()]).optional(), "isStaticSpa": z.union([z.boolean(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "buildType": z.enum(["dockerfile","heroku_buildpacks","paketo_buildpacks","nixpacks","static","railpack"]), "dockerfile": z.union([z.string(), z.null()]), "dockerContextPath": z.union([z.string(), z.null()]), "dockerBuildStage": z.union([z.string(), z.null()]), "herokuVersion": z.union([z.string(), z.null()]), "railpackVersion": z.union([z.string(), z.null()]), "publishDirectory": z.union([z.string(), z.null()]).optional(), "isStaticSpa": z.union([z.boolean(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"buildType\":{\"type\":\"string\",\"enum\":[\"dockerfile\",\"heroku_buildpacks\",\"paketo_buildpacks\",\"nixpacks\",\"static\",\"railpack\"]},\"dockerfile\":{\"type\":[\"string\",\"null\"]},\"dockerContextPath\":{\"type\":[\"string\",\"null\"]},\"dockerBuildStage\":{\"type\":[\"string\",\"null\"]},\"herokuVersion\":{\"type\":[\"string\",\"null\"]},\"railpackVersion\":{\"type\":[\"string\",\"null\"]},\"publishDirectory\":{\"type\":[\"string\",\"null\"]},\"isStaticSpa\":{\"type\":[\"boolean\",\"null\"]}},\"required\":[\"applicationId\",\"buildType\",\"dockerfile\",\"dockerContextPath\",\"dockerBuildStage\",\"herokuVersion\",\"railpackVersion\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveBuildType",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -132,7 +147,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGithubProvider",
-    schema: z.object({ "applicationId": z.string(), "repository": z.union([z.string(), z.null()]), "branch": z.union([z.string(), z.null()]), "owner": z.union([z.string(), z.null()]), "buildPath": z.union([z.string(), z.null()]), "githubId": z.union([z.string(), z.null()]), "triggerType": z.enum(["push","tag"]).default("push"), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "repository": z.union([z.string(), z.null()]), "branch": z.union([z.string(), z.null()]), "owner": z.union([z.string(), z.null()]), "buildPath": z.union([z.string(), z.null()]), "githubId": z.union([z.string(), z.null()]), "triggerType": z.enum(["push","tag"]).default("push"), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"repository\":{\"type\":[\"string\",\"null\"]},\"branch\":{\"type\":[\"string\",\"null\"]},\"owner\":{\"type\":[\"string\",\"null\"]},\"buildPath\":{\"type\":[\"string\",\"null\"]},\"githubId\":{\"type\":[\"string\",\"null\"]},\"triggerType\":{\"type\":\"string\",\"enum\":[\"push\",\"tag\"],\"default\":\"push\"},\"enableSubmodules\":{\"type\":\"boolean\"},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}},\"required\":[\"applicationId\",\"repository\",\"branch\",\"owner\",\"buildPath\",\"githubId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveGithubProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -144,7 +160,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGitlabProvider",
-    schema: z.object({ "applicationId": z.string(), "gitlabBranch": z.union([z.string(), z.null()]), "gitlabBuildPath": z.union([z.string(), z.null()]), "gitlabOwner": z.union([z.string(), z.null()]), "gitlabRepository": z.union([z.string(), z.null()]), "gitlabId": z.union([z.string(), z.null()]), "gitlabProjectId": z.union([z.number(), z.null()]), "gitlabPathNamespace": z.union([z.string(), z.null()]), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "gitlabBranch": z.union([z.string(), z.null()]), "gitlabBuildPath": z.union([z.string(), z.null()]), "gitlabOwner": z.union([z.string(), z.null()]), "gitlabRepository": z.union([z.string(), z.null()]), "gitlabId": z.union([z.string(), z.null()]), "gitlabProjectId": z.union([z.number(), z.null()]), "gitlabPathNamespace": z.union([z.string(), z.null()]), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"gitlabBranch\":{\"type\":[\"string\",\"null\"]},\"gitlabBuildPath\":{\"type\":[\"string\",\"null\"]},\"gitlabOwner\":{\"type\":[\"string\",\"null\"]},\"gitlabRepository\":{\"type\":[\"string\",\"null\"]},\"gitlabId\":{\"type\":[\"string\",\"null\"]},\"gitlabProjectId\":{\"type\":[\"number\",\"null\"]},\"gitlabPathNamespace\":{\"type\":[\"string\",\"null\"]},\"enableSubmodules\":{\"type\":\"boolean\"},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}},\"required\":[\"applicationId\",\"gitlabBranch\",\"gitlabBuildPath\",\"gitlabOwner\",\"gitlabRepository\",\"gitlabId\",\"gitlabProjectId\",\"gitlabPathNamespace\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveGitlabProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -156,7 +173,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveBitbucketProvider",
-    schema: z.object({ "bitbucketBranch": z.union([z.string(), z.null()]), "bitbucketBuildPath": z.union([z.string(), z.null()]), "bitbucketOwner": z.union([z.string(), z.null()]), "bitbucketRepository": z.union([z.string(), z.null()]), "bitbucketRepositorySlug": z.union([z.string(), z.null()]), "bitbucketId": z.union([z.string(), z.null()]), "applicationId": z.string(), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "bitbucketBranch": z.union([z.string(), z.null()]), "bitbucketBuildPath": z.union([z.string(), z.null()]), "bitbucketOwner": z.union([z.string(), z.null()]), "bitbucketRepository": z.union([z.string(), z.null()]), "bitbucketRepositorySlug": z.union([z.string(), z.null()]), "bitbucketId": z.union([z.string(), z.null()]), "applicationId": z.string(), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"bitbucketBranch\":{\"type\":[\"string\",\"null\"]},\"bitbucketBuildPath\":{\"type\":[\"string\",\"null\"]},\"bitbucketOwner\":{\"type\":[\"string\",\"null\"]},\"bitbucketRepository\":{\"type\":[\"string\",\"null\"]},\"bitbucketRepositorySlug\":{\"type\":[\"string\",\"null\"]},\"bitbucketId\":{\"type\":[\"string\",\"null\"]},\"applicationId\":{\"type\":\"string\"},\"enableSubmodules\":{\"type\":\"boolean\"},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}},\"required\":[\"bitbucketBranch\",\"bitbucketBuildPath\",\"bitbucketOwner\",\"bitbucketRepository\",\"bitbucketRepositorySlug\",\"bitbucketId\",\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveBitbucketProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -168,7 +186,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGiteaProvider",
-    schema: z.object({ "applicationId": z.string(), "giteaBranch": z.union([z.string(), z.null()]), "giteaBuildPath": z.union([z.string(), z.null()]), "giteaOwner": z.union([z.string(), z.null()]), "giteaRepository": z.union([z.string(), z.null()]), "giteaId": z.union([z.string(), z.null()]), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "giteaBranch": z.union([z.string(), z.null()]), "giteaBuildPath": z.union([z.string(), z.null()]), "giteaOwner": z.union([z.string(), z.null()]), "giteaRepository": z.union([z.string(), z.null()]), "giteaId": z.union([z.string(), z.null()]), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"giteaBranch\":{\"type\":[\"string\",\"null\"]},\"giteaBuildPath\":{\"type\":[\"string\",\"null\"]},\"giteaOwner\":{\"type\":[\"string\",\"null\"]},\"giteaRepository\":{\"type\":[\"string\",\"null\"]},\"giteaId\":{\"type\":[\"string\",\"null\"]},\"enableSubmodules\":{\"type\":\"boolean\"},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}},\"required\":[\"applicationId\",\"giteaBranch\",\"giteaBuildPath\",\"giteaOwner\",\"giteaRepository\",\"giteaId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveGiteaProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -180,7 +199,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveDockerProvider",
-    schema: z.object({ "dockerImage": z.union([z.string(), z.null()]), "applicationId": z.string(), "username": z.union([z.string(), z.null()]), "password": z.union([z.string(), z.null()]), "registryUrl": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "dockerImage": z.union([z.string(), z.null()]), "applicationId": z.string(), "username": z.union([z.string(), z.null()]), "password": z.union([z.string(), z.null()]), "registryUrl": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"dockerImage\":{\"type\":[\"string\",\"null\"]},\"applicationId\":{\"type\":\"string\"},\"username\":{\"type\":[\"string\",\"null\"]},\"password\":{\"type\":[\"string\",\"null\"]},\"registryUrl\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"dockerImage\",\"applicationId\",\"username\",\"password\",\"registryUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveDockerProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -192,7 +212,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGitProvider",
-    schema: z.object({ "customGitBranch": z.union([z.string(), z.null()]), "applicationId": z.string(), "customGitBuildPath": z.union([z.string(), z.null()]), "customGitUrl": z.union([z.string(), z.null()]), "watchPaths": z.union([z.array(z.string()), z.null()]), "enableSubmodules": z.boolean().optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "customGitBranch": z.union([z.string(), z.null()]), "applicationId": z.string(), "customGitBuildPath": z.union([z.string(), z.null()]), "customGitUrl": z.union([z.string(), z.null()]), "watchPaths": z.union([z.array(z.string()), z.null()]), "enableSubmodules": z.boolean().optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"customGitBranch\":{\"type\":[\"string\",\"null\"]},\"applicationId\":{\"type\":\"string\"},\"customGitBuildPath\":{\"type\":[\"string\",\"null\"]},\"customGitUrl\":{\"type\":[\"string\",\"null\"]},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"enableSubmodules\":{\"type\":\"boolean\"},\"customGitSSHKeyId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"customGitBranch\",\"applicationId\",\"customGitBuildPath\",\"customGitUrl\",\"watchPaths\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application SaveGitProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -204,7 +225,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.disconnectGitProvider",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application DisconnectGitProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -216,7 +238,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.markRunning",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application MarkRunning",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -228,7 +251,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.update",
-    schema: z.object({ "applicationId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "previewEnv": z.union([z.string(), z.null()]).optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "previewBuildArgs": z.union([z.string(), z.null()]).optional(), "previewBuildSecrets": z.union([z.string(), z.null()]).optional(), "previewLabels": z.union([z.array(z.string()), z.null()]).optional(), "previewWildcard": z.union([z.string(), z.null()]).optional(), "previewPort": z.union([z.number(), z.null()]).optional(), "previewHttps": z.boolean().optional(), "previewPath": z.union([z.string(), z.null()]).optional(), "previewCertificateType": z.enum(["letsencrypt","none","custom"]).optional(), "previewCustomCertResolver": z.union([z.string(), z.null()]).optional(), "previewLimit": z.union([z.number(), z.null()]).optional(), "isPreviewDeploymentsActive": z.union([z.boolean(), z.null()]).optional(), "previewRequireCollaboratorPermissions": z.union([z.boolean(), z.null()]).optional(), "rollbackActive": z.union([z.boolean(), z.null()]).optional(), "buildArgs": z.union([z.string(), z.null()]).optional(), "buildSecrets": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "title": z.union([z.string(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "subtitle": z.union([z.string(), z.null()]).optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "icon": z.union([z.union([z.string().max(2097152), z.null()]), z.null()]).optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["github","docker","git","gitlab","bitbucket","gitea","drop"]).optional(), "cleanCache": z.union([z.boolean(), z.null()]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "buildPath": z.union([z.string(), z.null()]).optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabBuildPath": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "giteaBuildPath": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "bitbucketBuildPath": z.union([z.string(), z.null()]).optional(), "username": z.union([z.string(), z.null()]).optional(), "password": z.union([z.string(), z.null()]).optional(), "dockerImage": z.union([z.string(), z.null()]).optional(), "registryUrl": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitBuildPath": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "enableSubmodules": z.boolean().optional(), "dockerfile": z.union([z.string(), z.null()]).optional(), "dockerContextPath": z.union([z.string(), z.null()]).optional(), "dockerBuildStage": z.union([z.string(), z.null()]).optional(), "dropBuildPath": z.union([z.string(), z.null()]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "buildType": z.enum(["dockerfile","heroku_buildpacks","paketo_buildpacks","nixpacks","static","railpack"]).optional(), "railpackVersion": z.union([z.string(), z.null()]).optional(), "herokuVersion": z.union([z.string(), z.null()]).optional(), "publishDirectory": z.union([z.string(), z.null()]).optional(), "isStaticSpa": z.union([z.boolean(), z.null()]).optional(), "createEnvFile": z.boolean().optional(), "createdAt": z.string().optional(), "registryId": z.union([z.string(), z.null()]).optional(), "rollbackRegistryId": z.union([z.string(), z.null()]).optional(), "environmentId": z.string().optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "buildServerId": z.union([z.string(), z.null()]).optional(), "buildRegistryId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "previewEnv": z.union([z.string(), z.null()]).optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "previewBuildArgs": z.union([z.string(), z.null()]).optional(), "previewBuildSecrets": z.union([z.string(), z.null()]).optional(), "previewLabels": z.union([z.array(z.string()), z.null()]).optional(), "previewWildcard": z.union([z.string(), z.null()]).optional(), "previewPort": z.union([z.number(), z.null()]).optional(), "previewHttps": z.boolean().optional(), "previewPath": z.union([z.string(), z.null()]).optional(), "previewCertificateType": z.enum(["letsencrypt","none","custom"]).optional(), "previewCustomCertResolver": z.union([z.string(), z.null()]).optional(), "previewLimit": z.union([z.number(), z.null()]).optional(), "isPreviewDeploymentsActive": z.union([z.boolean(), z.null()]).optional(), "previewRequireCollaboratorPermissions": z.union([z.boolean(), z.null()]).optional(), "rollbackActive": z.union([z.boolean(), z.null()]).optional(), "buildArgs": z.union([z.string(), z.null()]).optional(), "buildSecrets": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "title": z.union([z.string(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "subtitle": z.union([z.string(), z.null()]).optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "icon": z.union([z.union([z.string().max(2097152), z.null()]), z.null()]).optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["github","docker","git","gitlab","bitbucket","gitea","drop"]).optional(), "cleanCache": z.union([z.boolean(), z.null()]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "buildPath": z.union([z.string(), z.null()]).optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabBuildPath": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "giteaBuildPath": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "bitbucketBuildPath": z.union([z.string(), z.null()]).optional(), "username": z.union([z.string(), z.null()]).optional(), "password": z.union([z.string(), z.null()]).optional(), "dockerImage": z.union([z.string(), z.null()]).optional(), "registryUrl": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitBuildPath": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "enableSubmodules": z.boolean().optional(), "dockerfile": z.union([z.string(), z.null()]).optional(), "dockerContextPath": z.union([z.string(), z.null()]).optional(), "dockerBuildStage": z.union([z.string(), z.null()]).optional(), "dropBuildPath": z.union([z.string(), z.null()]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "buildType": z.enum(["dockerfile","heroku_buildpacks","paketo_buildpacks","nixpacks","static","railpack"]).optional(), "railpackVersion": z.union([z.string(), z.null()]).optional(), "herokuVersion": z.union([z.string(), z.null()]).optional(), "publishDirectory": z.union([z.string(), z.null()]).optional(), "isStaticSpa": z.union([z.boolean(), z.null()]).optional(), "createEnvFile": z.boolean().optional(), "createdAt": z.string().optional(), "registryId": z.union([z.string(), z.null()]).optional(), "rollbackRegistryId": z.union([z.string(), z.null()]).optional(), "environmentId": z.string().optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "buildServerId": z.union([z.string(), z.null()]).optional(), "buildRegistryId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"env\":{\"type\":[\"string\",\"null\"]},\"previewEnv\":{\"type\":[\"string\",\"null\"]},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"previewBuildArgs\":{\"type\":[\"string\",\"null\"]},\"previewBuildSecrets\":{\"type\":[\"string\",\"null\"]},\"previewLabels\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"previewWildcard\":{\"type\":[\"string\",\"null\"]},\"previewPort\":{\"type\":[\"number\",\"null\"]},\"previewHttps\":{\"type\":\"boolean\"},\"previewPath\":{\"type\":[\"string\",\"null\"]},\"previewCertificateType\":{\"type\":\"string\",\"enum\":[\"letsencrypt\",\"none\",\"custom\"]},\"previewCustomCertResolver\":{\"type\":[\"string\",\"null\"]},\"previewLimit\":{\"type\":[\"number\",\"null\"]},\"isPreviewDeploymentsActive\":{\"type\":[\"boolean\",\"null\"]},\"previewRequireCollaboratorPermissions\":{\"type\":[\"boolean\",\"null\"]},\"rollbackActive\":{\"type\":[\"boolean\",\"null\"]},\"buildArgs\":{\"type\":[\"string\",\"null\"]},\"buildSecrets\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"title\":{\"type\":[\"string\",\"null\"]},\"enabled\":{\"type\":[\"boolean\",\"null\"]},\"subtitle\":{\"type\":[\"string\",\"null\"]},\"command\":{\"type\":[\"string\",\"null\"]},\"args\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"icon\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"string\",\"maxLength\":2097152},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"refreshToken\":{\"type\":[\"string\",\"null\"]},\"sourceType\":{\"type\":\"string\",\"enum\":[\"github\",\"docker\",\"git\",\"gitlab\",\"bitbucket\",\"gitea\",\"drop\"]},\"cleanCache\":{\"type\":[\"boolean\",\"null\"]},\"repository\":{\"type\":[\"string\",\"null\"]},\"owner\":{\"type\":[\"string\",\"null\"]},\"branch\":{\"type\":[\"string\",\"null\"]},\"buildPath\":{\"type\":[\"string\",\"null\"]},\"triggerType\":{\"anyOf\":[{\"type\":\"string\",\"enum\":[\"push\",\"tag\"]},{\"type\":\"null\"}]},\"autoDeploy\":{\"type\":[\"boolean\",\"null\"]},\"gitlabProjectId\":{\"type\":[\"number\",\"null\"]},\"gitlabRepository\":{\"type\":[\"string\",\"null\"]},\"gitlabOwner\":{\"type\":[\"string\",\"null\"]},\"gitlabBranch\":{\"type\":[\"string\",\"null\"]},\"gitlabBuildPath\":{\"type\":[\"string\",\"null\"]},\"gitlabPathNamespace\":{\"type\":[\"string\",\"null\"]},\"giteaRepository\":{\"type\":[\"string\",\"null\"]},\"giteaOwner\":{\"type\":[\"string\",\"null\"]},\"giteaBranch\":{\"type\":[\"string\",\"null\"]},\"giteaBuildPath\":{\"type\":[\"string\",\"null\"]},\"bitbucketRepository\":{\"type\":[\"string\",\"null\"]},\"bitbucketRepositorySlug\":{\"type\":[\"string\",\"null\"]},\"bitbucketOwner\":{\"type\":[\"string\",\"null\"]},\"bitbucketBranch\":{\"type\":[\"string\",\"null\"]},\"bitbucketBuildPath\":{\"type\":[\"string\",\"null\"]},\"username\":{\"type\":[\"string\",\"null\"]},\"password\":{\"type\":[\"string\",\"null\"]},\"dockerImage\":{\"type\":[\"string\",\"null\"]},\"registryUrl\":{\"type\":[\"string\",\"null\"]},\"customGitUrl\":{\"type\":[\"string\",\"null\"]},\"customGitBranch\":{\"type\":[\"string\",\"null\"]},\"customGitBuildPath\":{\"type\":[\"string\",\"null\"]},\"customGitSSHKeyId\":{\"type\":[\"string\",\"null\"]},\"enableSubmodules\":{\"type\":\"boolean\"},\"dockerfile\":{\"type\":[\"string\",\"null\"]},\"dockerContextPath\":{\"type\":[\"string\",\"null\"]},\"dockerBuildStage\":{\"type\":[\"string\",\"null\"]},\"dropBuildPath\":{\"type\":[\"string\",\"null\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"ulimitsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Name\":{\"type\":\"string\",\"minLength\":1},\"Soft\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991},\"Hard\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991}},\"required\":[\"Name\",\"Soft\",\"Hard\"],\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"buildType\":{\"type\":\"string\",\"enum\":[\"dockerfile\",\"heroku_buildpacks\",\"paketo_buildpacks\",\"nixpacks\",\"static\",\"railpack\"]},\"railpackVersion\":{\"type\":[\"string\",\"null\"]},\"herokuVersion\":{\"type\":[\"string\",\"null\"]},\"publishDirectory\":{\"type\":[\"string\",\"null\"]},\"isStaticSpa\":{\"type\":[\"boolean\",\"null\"]},\"createEnvFile\":{\"type\":\"boolean\"},\"createdAt\":{\"type\":\"string\"},\"registryId\":{\"type\":[\"string\",\"null\"]},\"rollbackRegistryId\":{\"type\":[\"string\",\"null\"]},\"environmentId\":{\"type\":\"string\"},\"githubId\":{\"type\":[\"string\",\"null\"]},\"gitlabId\":{\"type\":[\"string\",\"null\"]},\"giteaId\":{\"type\":[\"string\",\"null\"]},\"bitbucketId\":{\"type\":[\"string\",\"null\"]},\"buildServerId\":{\"type\":[\"string\",\"null\"]},\"buildRegistryId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -240,7 +264,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.refreshToken",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application RefreshToken",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -252,7 +277,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.deploy",
-    schema: z.object({ "applicationId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -264,7 +290,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.cleanQueues",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application CleanQueues",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -276,7 +303,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.clearDeployments",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application ClearDeployments",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -288,7 +316,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.killBuild",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application KillBuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -300,7 +329,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "GET",
     path: "/application.readTraefikConfig",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application ReadTraefikConfig",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -312,7 +342,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.dropDeployment",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application DropDeployment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -324,7 +355,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.updateTraefikConfig",
-    schema: z.object({ "applicationId": z.string(), "traefikConfig": z.string() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "traefikConfig": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"traefikConfig\":{\"type\":\"string\"}},\"required\":[\"applicationId\",\"traefikConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application UpdateTraefikConfig",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -336,7 +368,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "GET",
     path: "/application.readAppMonitoring",
-    schema: z.object({ "appName": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "appName": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application ReadAppMonitoring",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -348,7 +381,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.move",
-    schema: z.object({ "applicationId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"applicationId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -360,7 +394,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.cancelDeployment",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application CancelDeployment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -372,7 +407,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "GET",
     path: "/application.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "repository": z.string().optional(), "owner": z.string().optional(), "dockerImage": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "repository": z.string().optional(), "owner": z.string().optional(), "dockerImage": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"repository\":{\"type\":\"string\"},\"owner\":{\"type\":\"string\"},\"dockerImage\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -384,7 +420,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "GET",
     path: "/application.readLogs",
-    schema: z.object({ "applicationId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Application ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -396,7 +433,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.create",
-    schema: z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]).optional(), "prefix": z.string().min(1), "destinationId": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "database": z.string().min(1), "mariadbId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]), "userId": z.union([z.string(), z.null()]).optional(), "backupType": z.enum(["database","compose"]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "metadata": z.union([z.any(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]).optional(), "prefix": z.string().min(1), "destinationId": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "database": z.string().min(1), "mariadbId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]), "userId": z.union([z.string(), z.null()]).optional(), "backupType": z.enum(["database","compose"]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "metadata": z.union([z.any(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"schedule\":{\"type\":\"string\"},\"enabled\":{\"type\":[\"boolean\",\"null\"]},\"prefix\":{\"type\":\"string\",\"minLength\":1},\"destinationId\":{\"type\":\"string\"},\"keepLatestCount\":{\"type\":[\"number\",\"null\"]},\"database\":{\"type\":\"string\",\"minLength\":1},\"mariadbId\":{\"type\":[\"string\",\"null\"]},\"mysqlId\":{\"type\":[\"string\",\"null\"]},\"postgresId\":{\"type\":[\"string\",\"null\"]},\"mongoId\":{\"type\":[\"string\",\"null\"]},\"libsqlId\":{\"type\":[\"string\",\"null\"]},\"databaseType\":{\"type\":\"string\",\"enum\":[\"postgres\",\"mariadb\",\"mysql\",\"mongo\",\"web-server\",\"libsql\"]},\"userId\":{\"type\":[\"string\",\"null\"]},\"backupType\":{\"type\":\"string\",\"enum\":[\"database\",\"compose\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"metadata\":{\"anyOf\":[{\"type\":\"null\"}]}},\"required\":[\"schedule\",\"prefix\",\"destinationId\",\"database\",\"databaseType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup Create",
       ...{"openWorldHint":true},
@@ -408,7 +446,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "GET",
     path: "/backup.one",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -420,7 +459,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.update",
-    schema: z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]), "prefix": z.string().min(1), "backupId": z.string(), "destinationId": z.string(), "database": z.string().min(1), "keepLatestCount": z.union([z.number(), z.null()]), "serviceName": z.union([z.string(), z.null()]), "metadata": z.union([z.any(), z.null()]), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]) }),
+    schema: lazySchema(() => z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]), "prefix": z.string().min(1), "backupId": z.string(), "destinationId": z.string(), "database": z.string().min(1), "keepLatestCount": z.union([z.number(), z.null()]), "serviceName": z.union([z.string(), z.null()]), "metadata": z.union([z.any(), z.null()]), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"schedule\":{\"type\":\"string\"},\"enabled\":{\"type\":[\"boolean\",\"null\"]},\"prefix\":{\"type\":\"string\",\"minLength\":1},\"backupId\":{\"type\":\"string\"},\"destinationId\":{\"type\":\"string\"},\"database\":{\"type\":\"string\",\"minLength\":1},\"keepLatestCount\":{\"type\":[\"number\",\"null\"]},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"metadata\":{\"anyOf\":[{\"type\":\"null\"}]},\"databaseType\":{\"type\":\"string\",\"enum\":[\"postgres\",\"mariadb\",\"mysql\",\"mongo\",\"web-server\",\"libsql\"]}},\"required\":[\"schedule\",\"enabled\",\"prefix\",\"backupId\",\"destinationId\",\"database\",\"keepLatestCount\",\"serviceName\",\"databaseType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -432,7 +472,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.remove",
-    schema: z.object({ "backupId": z.string() }),
+    schema: lazySchema(() => z.object({ "backupId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\"}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -444,7 +485,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupPostgres",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupPostgres",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -456,7 +498,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupMySql",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupMySql",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -468,7 +511,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupMariadb",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupMariadb",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -480,7 +524,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupCompose",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupCompose",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -492,7 +537,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupMongo",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupMongo",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -504,7 +550,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupLibsql",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupLibsql",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -516,7 +563,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupWebServer",
-    schema: z.object({ "backupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "backupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"backupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"backupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ManualBackupWebServer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -528,7 +576,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "GET",
     path: "/backup.listBackupFiles",
-    schema: z.object({ "destinationId": z.string(), "search": z.string(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "destinationId": z.string(), "search": z.string(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"destinationId\":{\"type\":\"string\"},\"search\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"destinationId\",\"search\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Backup ListBackupFiles",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -540,7 +589,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.create",
-    schema: z.object({ "bitbucketId": z.string().optional(), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string().optional(), "authId": z.string().min(1), "name": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "bitbucketId": z.string().optional(), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string().optional(), "authId": z.string().min(1), "name": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"bitbucketId\":{\"type\":\"string\"},\"bitbucketUsername\":{\"type\":\"string\"},\"bitbucketEmail\":{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\"},\"appPassword\":{\"type\":\"string\"},\"apiToken\":{\"type\":\"string\"},\"bitbucketWorkspaceName\":{\"type\":\"string\"},\"gitProviderId\":{\"type\":\"string\"},\"authId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"authId\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket Create",
       ...{"openWorldHint":true},
@@ -552,7 +602,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.one",
-    schema: z.object({ "bitbucketId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "bitbucketId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"bitbucketId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"bitbucketId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -564,7 +615,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.bitbucketProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket BitbucketProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -576,7 +628,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.getBitbucketRepositories",
-    schema: z.object({ "bitbucketId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "bitbucketId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"bitbucketId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"bitbucketId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket GetBitbucketRepositories",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -588,7 +641,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.getBitbucketBranches",
-    schema: z.object({ "owner": z.string(), "repo": z.string(), "bitbucketId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "owner": z.string(), "repo": z.string(), "bitbucketId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"owner\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"bitbucketId\":{\"type\":\"string\"}},\"required\":[\"owner\",\"repo\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket GetBitbucketBranches",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -600,7 +654,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.testConnection",
-    schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "workspaceName": z.string().optional(), "apiToken": z.string().optional(), "appPassword": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "workspaceName": z.string().optional(), "apiToken": z.string().optional(), "appPassword": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"bitbucketId\":{\"type\":\"string\",\"minLength\":1},\"bitbucketUsername\":{\"type\":\"string\"},\"bitbucketEmail\":{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\"},\"workspaceName\":{\"type\":\"string\"},\"apiToken\":{\"type\":\"string\"},\"appPassword\":{\"type\":\"string\"}},\"required\":[\"bitbucketId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -612,7 +667,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.update",
-    schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string(), "name": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "appPassword": z.string().optional(), "apiToken": z.string().optional(), "bitbucketWorkspaceName": z.string().optional(), "gitProviderId": z.string(), "name": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"bitbucketId\":{\"type\":\"string\",\"minLength\":1},\"bitbucketUsername\":{\"type\":\"string\"},\"bitbucketEmail\":{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\"},\"appPassword\":{\"type\":\"string\"},\"apiToken\":{\"type\":\"string\"},\"bitbucketWorkspaceName\":{\"type\":\"string\"},\"gitProviderId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"bitbucketId\",\"gitProviderId\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Bitbucket Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -624,7 +680,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "certificates",
     method: "POST",
     path: "/certificates.create",
-    schema: z.object({ "certificateId": z.string().optional(), "name": z.string().min(1), "certificateData": z.string().min(1), "privateKey": z.string().min(1), "certificatePath": z.string().optional(), "autoRenew": z.union([z.boolean(), z.null()]).optional(), "organizationId": z.string(), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "certificateId": z.string().optional(), "name": z.string().min(1), "certificateData": z.string().min(1), "privateKey": z.string().min(1), "certificatePath": z.string().optional(), "autoRenew": z.union([z.boolean(), z.null()]).optional(), "organizationId": z.string(), "serverId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"certificateId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"certificateData\":{\"type\":\"string\",\"minLength\":1},\"privateKey\":{\"type\":\"string\",\"minLength\":1},\"certificatePath\":{\"type\":\"string\"},\"autoRenew\":{\"type\":[\"boolean\",\"null\"]},\"organizationId\":{\"type\":\"string\"},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"certificateData\",\"privateKey\",\"organizationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Certificates Create",
       ...{"openWorldHint":true},
@@ -636,7 +693,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "certificates",
     method: "GET",
     path: "/certificates.one",
-    schema: z.object({ "certificateId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "certificateId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"certificateId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"certificateId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Certificates One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -648,7 +706,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "certificates",
     method: "POST",
     path: "/certificates.remove",
-    schema: z.object({ "certificateId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "certificateId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"certificateId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"certificateId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Certificates Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -660,7 +719,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "certificates",
     method: "GET",
     path: "/certificates.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Certificates All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -672,7 +732,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "certificates",
     method: "POST",
     path: "/certificates.update",
-    schema: z.object({ "certificateId": z.string().min(1), "name": z.string().min(1).optional(), "certificateData": z.string().min(1).optional(), "privateKey": z.string().min(1).optional() }),
+    schema: lazySchema(() => z.object({ "certificateId": z.string().min(1), "name": z.string().min(1).optional(), "certificateData": z.string().min(1).optional(), "privateKey": z.string().min(1).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"certificateId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"certificateData\":{\"type\":\"string\",\"minLength\":1},\"privateKey\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"certificateId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Certificates Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -684,7 +745,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "cluster",
     method: "GET",
     path: "/cluster.getNodes",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Cluster GetNodes",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -696,7 +758,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "cluster",
     method: "POST",
     path: "/cluster.removeWorker",
-    schema: z.object({ "nodeId": z.string(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "nodeId": z.string(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"nodeId\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"nodeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Cluster RemoveWorker",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -708,7 +771,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "cluster",
     method: "GET",
     path: "/cluster.addWorker",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Cluster AddWorker",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -720,7 +784,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "cluster",
     method: "GET",
     path: "/cluster.addManager",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Cluster AddManager",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -732,7 +797,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.create",
-    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "composeType": z.enum(["docker-compose","stack"]).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "composeType": z.enum(["docker-compose","stack"]).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"environmentId\":{\"type\":\"string\"},\"composeType\":{\"type\":\"string\",\"enum\":[\"docker-compose\",\"stack\"]},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"serverId\":{\"type\":[\"string\",\"null\"]},\"composeFile\":{\"type\":\"string\"}},\"required\":[\"name\",\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Create",
       ...{"openWorldHint":true},
@@ -744,7 +810,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.one",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -756,7 +823,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.update",
-    schema: z.object({ "composeId": z.string(), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["git","github","gitlab","bitbucket","gitea","raw"]).optional(), "composeType": z.enum(["docker-compose","stack"]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "command": z.string().optional(), "enableSubmodules": z.boolean().optional(), "composePath": z.string().min(1).optional(), "suffix": z.string().optional(), "randomize": z.boolean().optional(), "isolatedDeployment": z.boolean().optional(), "isolatedDeploymentsVolume": z.boolean().optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "composeStatus": z.enum(["idle","running","done","error"]).optional(), "environmentId": z.string().optional(), "createdAt": z.string().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string(), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["git","github","gitlab","bitbucket","gitea","raw"]).optional(), "composeType": z.enum(["docker-compose","stack"]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "command": z.string().optional(), "enableSubmodules": z.boolean().optional(), "composePath": z.string().min(1).optional(), "suffix": z.string().optional(), "randomize": z.boolean().optional(), "isolatedDeployment": z.boolean().optional(), "isolatedDeploymentsVolume": z.boolean().optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "composeStatus": z.enum(["idle","running","done","error"]).optional(), "environmentId": z.string().optional(), "createdAt": z.string().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"env\":{\"type\":[\"string\",\"null\"]},\"composeFile\":{\"type\":\"string\"},\"refreshToken\":{\"type\":[\"string\",\"null\"]},\"sourceType\":{\"type\":\"string\",\"enum\":[\"git\",\"github\",\"gitlab\",\"bitbucket\",\"gitea\",\"raw\"]},\"composeType\":{\"type\":\"string\",\"enum\":[\"docker-compose\",\"stack\"]},\"repository\":{\"type\":[\"string\",\"null\"]},\"owner\":{\"type\":[\"string\",\"null\"]},\"branch\":{\"type\":[\"string\",\"null\"]},\"autoDeploy\":{\"type\":[\"boolean\",\"null\"]},\"gitlabProjectId\":{\"type\":[\"number\",\"null\"]},\"gitlabRepository\":{\"type\":[\"string\",\"null\"]},\"gitlabOwner\":{\"type\":[\"string\",\"null\"]},\"gitlabBranch\":{\"type\":[\"string\",\"null\"]},\"gitlabPathNamespace\":{\"type\":[\"string\",\"null\"]},\"bitbucketRepository\":{\"type\":[\"string\",\"null\"]},\"bitbucketRepositorySlug\":{\"type\":[\"string\",\"null\"]},\"bitbucketOwner\":{\"type\":[\"string\",\"null\"]},\"bitbucketBranch\":{\"type\":[\"string\",\"null\"]},\"giteaRepository\":{\"type\":[\"string\",\"null\"]},\"giteaOwner\":{\"type\":[\"string\",\"null\"]},\"giteaBranch\":{\"type\":[\"string\",\"null\"]},\"customGitUrl\":{\"type\":[\"string\",\"null\"]},\"customGitBranch\":{\"type\":[\"string\",\"null\"]},\"customGitSSHKeyId\":{\"type\":[\"string\",\"null\"]},\"command\":{\"type\":\"string\"},\"enableSubmodules\":{\"type\":\"boolean\"},\"composePath\":{\"type\":\"string\",\"minLength\":1},\"suffix\":{\"type\":\"string\"},\"randomize\":{\"type\":\"boolean\"},\"isolatedDeployment\":{\"type\":\"boolean\"},\"isolatedDeploymentsVolume\":{\"type\":\"boolean\"},\"triggerType\":{\"anyOf\":[{\"type\":\"string\",\"enum\":[\"push\",\"tag\"]},{\"type\":\"null\"}]},\"composeStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"environmentId\":{\"type\":\"string\"},\"createdAt\":{\"type\":\"string\"},\"watchPaths\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"githubId\":{\"type\":[\"string\",\"null\"]},\"gitlabId\":{\"type\":[\"string\",\"null\"]},\"bitbucketId\":{\"type\":[\"string\",\"null\"]},\"giteaId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -768,7 +836,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.saveEnvironment",
-    schema: z.object({ "composeId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"composeId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -780,7 +849,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.delete",
-    schema: z.object({ "composeId": z.string().min(1), "deleteVolumes": z.boolean() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "deleteVolumes": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"deleteVolumes\":{\"type\":\"boolean\"}},\"required\":[\"composeId\",\"deleteVolumes\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -792,7 +862,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.cleanQueues",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose CleanQueues",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -804,7 +875,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.clearDeployments",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose ClearDeployments",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -816,7 +888,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.killBuild",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose KillBuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -828,7 +901,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.loadServices",
-    schema: z.object({ "composeId": z.string().min(1), "type": z.enum(["fetch","cache"]).default("cache") }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "type": z.enum(["fetch","cache"]).default("cache") })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"fetch\",\"cache\"],\"default\":\"cache\"}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose LoadServices",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -840,7 +914,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.loadMountsByService",
-    schema: z.object({ "composeId": z.string().min(1), "serviceName": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "serviceName": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"serviceName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\",\"serviceName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose LoadMountsByService",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -852,7 +927,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.fetchSourceType",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose FetchSourceType",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -864,7 +940,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.randomizeCompose",
-    schema: z.object({ "composeId": z.string().min(1), "suffix": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "suffix": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"suffix\":{\"type\":\"string\"}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose RandomizeCompose",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -876,7 +953,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.isolatedDeployment",
-    schema: z.object({ "composeId": z.string().min(1), "suffix": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "suffix": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"suffix\":{\"type\":\"string\"}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose IsolatedDeployment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -888,7 +966,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.getConvertedCompose",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose GetConvertedCompose",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -900,7 +979,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.deploy",
-    schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -912,7 +992,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.redeploy",
-    schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Redeploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -924,7 +1005,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.stop",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -936,7 +1018,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.start",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -948,7 +1031,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.getDefaultCommand",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose GetDefaultCommand",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -960,7 +1044,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.refreshToken",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose RefreshToken",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -972,7 +1057,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.deployTemplate",
-    schema: z.object({ "environmentId": z.string(), "serverId": z.string().optional(), "id": z.string(), "baseUrl": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "environmentId": z.string(), "serverId": z.string().optional(), "id": z.string(), "baseUrl": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"environmentId\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"baseUrl\":{\"type\":\"string\"}},\"required\":[\"environmentId\",\"id\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose DeployTemplate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -984,7 +1070,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.templates",
-    schema: z.object({ "baseUrl": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "baseUrl": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"baseUrl\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Templates",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -996,7 +1083,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.getTags",
-    schema: z.object({ "baseUrl": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "baseUrl": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"baseUrl\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose GetTags",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1008,7 +1096,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.disconnectGitProvider",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose DisconnectGitProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1020,7 +1109,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.move",
-    schema: z.object({ "composeId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"composeId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1032,7 +1122,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.processTemplate",
-    schema: z.object({ "base64": z.string(), "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "base64": z.string(), "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"base64\":{\"type\":\"string\"},\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"base64\",\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose ProcessTemplate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1044,7 +1135,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.import",
-    schema: z.object({ "base64": z.string(), "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "base64": z.string(), "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"base64\":{\"type\":\"string\"},\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"base64\",\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Import",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1056,7 +1148,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.cancelDeployment",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose CancelDeployment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1068,7 +1161,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1080,7 +1174,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "GET",
     path: "/compose.readLogs",
-    schema: z.object({ "composeId": z.string().min(1), "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1), "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1},\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"composeId\",\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Compose ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1092,7 +1187,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "GET",
     path: "/deployment.all",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1104,7 +1200,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "GET",
     path: "/deployment.allByCompose",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment AllByCompose",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1116,7 +1213,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "GET",
     path: "/deployment.allByServer",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment AllByServer",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1128,7 +1226,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "GET",
     path: "/deployment.allCentralized",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment AllCentralized",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1140,7 +1239,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "GET",
     path: "/deployment.queueList",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment QueueList",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1152,7 +1252,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "GET",
     path: "/deployment.allByType",
-    schema: z.object({ "id": z.string().min(1), "type": z.enum(["application","compose","server","schedule","previewDeployment","backup","volumeBackup"]) }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "type": z.enum(["application","compose","server","schedule","previewDeployment","backup","volumeBackup"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\",\"server\",\"schedule\",\"previewDeployment\",\"backup\",\"volumeBackup\"]}},\"required\":[\"id\",\"type\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment AllByType",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1164,7 +1265,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "POST",
     path: "/deployment.killProcess",
-    schema: z.object({ "deploymentId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "deploymentId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"deploymentId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"deploymentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment KillProcess",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1176,7 +1278,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "deployment",
     method: "POST",
     path: "/deployment.removeDeployment",
-    schema: z.object({ "deploymentId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "deploymentId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"deploymentId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"deploymentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Deployment RemoveDeployment",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -1188,7 +1291,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "destination",
     method: "POST",
     path: "/destination.create",
-    schema: z.object({ "name": z.string().min(1), "provider": z.union([z.string(), z.null()]), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "provider": z.union([z.string(), z.null()]), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"provider\":{\"type\":[\"string\",\"null\"]},\"accessKey\":{\"type\":\"string\"},\"bucket\":{\"type\":\"string\"},\"region\":{\"type\":\"string\"},\"endpoint\":{\"type\":\"string\"},\"secretAccessKey\":{\"type\":\"string\"},\"additionalFlags\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\",\"pattern\":\"^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$\"},\"default\":[]},{\"type\":\"null\"}]},\"serverId\":{\"type\":\"string\"}},\"required\":[\"name\",\"provider\",\"accessKey\",\"bucket\",\"region\",\"endpoint\",\"secretAccessKey\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Destination Create",
       ...{"openWorldHint":true},
@@ -1200,7 +1304,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "destination",
     method: "POST",
     path: "/destination.testConnection",
-    schema: z.object({ "name": z.string().min(1), "provider": z.union([z.string(), z.null()]), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "provider": z.union([z.string(), z.null()]), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"provider\":{\"type\":[\"string\",\"null\"]},\"accessKey\":{\"type\":\"string\"},\"bucket\":{\"type\":\"string\"},\"region\":{\"type\":\"string\"},\"endpoint\":{\"type\":\"string\"},\"secretAccessKey\":{\"type\":\"string\"},\"additionalFlags\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\",\"pattern\":\"^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$\"},\"default\":[]},{\"type\":\"null\"}]},\"serverId\":{\"type\":\"string\"}},\"required\":[\"name\",\"provider\",\"accessKey\",\"bucket\",\"region\",\"endpoint\",\"secretAccessKey\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Destination TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1212,7 +1317,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "destination",
     method: "GET",
     path: "/destination.one",
-    schema: z.object({ "destinationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "destinationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"destinationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"destinationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Destination One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1224,7 +1330,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "destination",
     method: "GET",
     path: "/destination.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Destination All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1236,7 +1343,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "destination",
     method: "POST",
     path: "/destination.remove",
-    schema: z.object({ "destinationId": z.string() }),
+    schema: lazySchema(() => z.object({ "destinationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"destinationId\":{\"type\":\"string\"}},\"required\":[\"destinationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Destination Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -1248,7 +1356,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "destination",
     method: "POST",
     path: "/destination.update",
-    schema: z.object({ "name": z.string().min(1), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "destinationId": z.string(), "provider": z.union([z.string(), z.null()]), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "destinationId": z.string(), "provider": z.union([z.string(), z.null()]), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"accessKey\":{\"type\":\"string\"},\"bucket\":{\"type\":\"string\"},\"region\":{\"type\":\"string\"},\"endpoint\":{\"type\":\"string\"},\"secretAccessKey\":{\"type\":\"string\"},\"destinationId\":{\"type\":\"string\"},\"provider\":{\"type\":[\"string\",\"null\"]},\"additionalFlags\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\",\"pattern\":\"^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$\"},\"default\":[]},{\"type\":\"null\"}]},\"serverId\":{\"type\":\"string\"}},\"required\":[\"name\",\"accessKey\",\"bucket\",\"region\",\"endpoint\",\"secretAccessKey\",\"destinationId\",\"provider\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Destination Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1260,7 +1369,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "GET",
     path: "/docker.getContainers",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker GetContainers",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1272,7 +1382,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.restartContainer",
-    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker RestartContainer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1284,7 +1395,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.startContainer",
-    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker StartContainer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1296,7 +1408,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.stopContainer",
-    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker StopContainer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1308,7 +1421,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.killContainer",
-    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker KillContainer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1320,7 +1434,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.removeContainer",
-    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker RemoveContainer",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -1332,7 +1447,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "GET",
     path: "/docker.getConfig",
-    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"containerId\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"containerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker GetConfig",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1344,7 +1460,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "GET",
     path: "/docker.getContainersByAppNameMatch",
-    schema: z.object({ "appType": z.enum(["stack","docker-compose"]).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appType": z.enum(["stack","docker-compose"]).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appType\":{\"type\":\"string\",\"enum\":[\"stack\",\"docker-compose\"]},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker GetContainersByAppNameMatch",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1356,7 +1473,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "GET",
     path: "/docker.getContainersByAppLabel",
-    schema: z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional(), "type": z.enum(["standalone","swarm"]) }),
+    schema: lazySchema(() => z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional(), "type": z.enum(["standalone","swarm"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":[\"standalone\",\"swarm\"]}},\"required\":[\"appName\",\"type\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker GetContainersByAppLabel",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1368,7 +1486,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "GET",
     path: "/docker.getStackContainersByAppName",
-    schema: z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker GetStackContainersByAppName",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1380,7 +1499,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "GET",
     path: "/docker.getServiceContainersByAppName",
-    schema: z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9.\\\\-_]+$\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker GetServiceContainersByAppName",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1392,7 +1512,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.uploadFileToContainer",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Docker UploadFileToContainer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1404,7 +1525,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.create",
-    schema: z.object({ "host": z.string().min(1), "path": z.union([z.string().min(1), z.null()]).optional(), "port": z.union([z.number().gte(1).lte(65535), z.null()]).optional(), "customEntrypoint": z.union([z.string(), z.null()]).optional(), "https": z.boolean().optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "certificateType": z.enum(["letsencrypt","none","custom"]).optional(), "customCertResolver": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "domainType": z.union([z.enum(["compose","application","preview"]), z.null()]).optional(), "previewDeploymentId": z.union([z.string(), z.null()]).optional(), "internalPath": z.union([z.string(), z.null()]).optional(), "stripPath": z.boolean().optional(), "middlewares": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "host": z.string().min(1), "path": z.union([z.string().min(1), z.null()]).optional(), "port": z.union([z.number().gte(1).lte(65535), z.null()]).optional(), "customEntrypoint": z.union([z.string(), z.null()]).optional(), "https": z.boolean().optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "certificateType": z.enum(["letsencrypt","none","custom"]).optional(), "customCertResolver": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "domainType": z.union([z.enum(["compose","application","preview"]), z.null()]).optional(), "previewDeploymentId": z.union([z.string(), z.null()]).optional(), "internalPath": z.union([z.string(), z.null()]).optional(), "stripPath": z.boolean().optional(), "middlewares": z.union([z.array(z.string()), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"host\":{\"type\":\"string\",\"minLength\":1},\"path\":{\"anyOf\":[{\"type\":\"string\",\"minLength\":1},{\"type\":\"null\"}]},\"port\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":1,\"maximum\":65535},{\"type\":\"null\"}]},\"customEntrypoint\":{\"type\":[\"string\",\"null\"]},\"https\":{\"type\":\"boolean\"},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"certificateType\":{\"type\":\"string\",\"enum\":[\"letsencrypt\",\"none\",\"custom\"]},\"customCertResolver\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"domainType\":{\"anyOf\":[{\"type\":\"string\",\"enum\":[\"compose\",\"application\",\"preview\"]},{\"type\":\"null\"}]},\"previewDeploymentId\":{\"type\":[\"string\",\"null\"]},\"internalPath\":{\"type\":[\"string\",\"null\"]},\"stripPath\":{\"type\":\"boolean\"},\"middlewares\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}},\"required\":[\"host\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain Create",
       ...{"openWorldHint":true},
@@ -1416,7 +1538,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "GET",
     path: "/domain.byApplicationId",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain ByApplicationId",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1428,7 +1551,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "GET",
     path: "/domain.byComposeId",
-    schema: z.object({ "composeId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "composeId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"composeId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"composeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain ByComposeId",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1440,7 +1564,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.generateDomain",
-    schema: z.object({ "appName": z.string(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appName": z.string(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain GenerateDomain",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1452,7 +1577,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "GET",
     path: "/domain.canGenerateTraefikMeDomains",
-    schema: z.object({ "serverId": z.string() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain CanGenerateTraefikMeDomains",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1464,7 +1590,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.update",
-    schema: z.object({ "host": z.string().min(1), "path": z.union([z.string().min(1), z.null()]).optional(), "port": z.union([z.number().gte(1).lte(65535), z.null()]).optional(), "customEntrypoint": z.union([z.string(), z.null()]).optional(), "https": z.boolean().optional(), "certificateType": z.enum(["letsencrypt","none","custom"]).optional(), "customCertResolver": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "domainType": z.union([z.enum(["compose","application","preview"]), z.null()]).optional(), "internalPath": z.union([z.string(), z.null()]).optional(), "stripPath": z.boolean().optional(), "middlewares": z.union([z.array(z.string()), z.null()]).optional(), "domainId": z.string() }),
+    schema: lazySchema(() => z.object({ "host": z.string().min(1), "path": z.union([z.string().min(1), z.null()]).optional(), "port": z.union([z.number().gte(1).lte(65535), z.null()]).optional(), "customEntrypoint": z.union([z.string(), z.null()]).optional(), "https": z.boolean().optional(), "certificateType": z.enum(["letsencrypt","none","custom"]).optional(), "customCertResolver": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "domainType": z.union([z.enum(["compose","application","preview"]), z.null()]).optional(), "internalPath": z.union([z.string(), z.null()]).optional(), "stripPath": z.boolean().optional(), "middlewares": z.union([z.array(z.string()), z.null()]).optional(), "domainId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"host\":{\"type\":\"string\",\"minLength\":1},\"path\":{\"anyOf\":[{\"type\":\"string\",\"minLength\":1},{\"type\":\"null\"}]},\"port\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":1,\"maximum\":65535},{\"type\":\"null\"}]},\"customEntrypoint\":{\"type\":[\"string\",\"null\"]},\"https\":{\"type\":\"boolean\"},\"certificateType\":{\"type\":\"string\",\"enum\":[\"letsencrypt\",\"none\",\"custom\"]},\"customCertResolver\":{\"type\":[\"string\",\"null\"]},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"domainType\":{\"anyOf\":[{\"type\":\"string\",\"enum\":[\"compose\",\"application\",\"preview\"]},{\"type\":\"null\"}]},\"internalPath\":{\"type\":[\"string\",\"null\"]},\"stripPath\":{\"type\":\"boolean\"},\"middlewares\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"domainId\":{\"type\":\"string\"}},\"required\":[\"host\",\"domainId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1476,7 +1603,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "GET",
     path: "/domain.one",
-    schema: z.object({ "domainId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "domainId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"domainId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"domainId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1488,7 +1616,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.delete",
-    schema: z.object({ "domainId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "domainId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"domainId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"domainId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -1500,7 +1629,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.validateDomain",
-    schema: z.object({ "domain": z.string(), "serverIp": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "domain": z.string(), "serverIp": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"domain\":{\"type\":\"string\"},\"serverIp\":{\"type\":\"string\"}},\"required\":[\"domain\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Domain ValidateDomain",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1512,7 +1642,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "POST",
     path: "/gitea.create",
-    schema: z.object({ "giteaId": z.string().optional(), "giteaUrl": z.string().min(1), "giteaInternalUrl": z.union([z.string(), z.null()]).optional(), "redirectUri": z.string().optional(), "clientId": z.string().optional(), "clientSecret": z.string().optional(), "gitProviderId": z.string().optional(), "accessToken": z.string().optional(), "refreshToken": z.string().optional(), "expiresAt": z.number().optional(), "scopes": z.string().optional(), "lastAuthenticatedAt": z.number().optional(), "name": z.string().min(1), "giteaUsername": z.string().optional(), "organizationName": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "giteaId": z.string().optional(), "giteaUrl": z.string().min(1), "giteaInternalUrl": z.union([z.string(), z.null()]).optional(), "redirectUri": z.string().optional(), "clientId": z.string().optional(), "clientSecret": z.string().optional(), "gitProviderId": z.string().optional(), "accessToken": z.string().optional(), "refreshToken": z.string().optional(), "expiresAt": z.number().optional(), "scopes": z.string().optional(), "lastAuthenticatedAt": z.number().optional(), "name": z.string().min(1), "giteaUsername": z.string().optional(), "organizationName": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"giteaId\":{\"type\":\"string\"},\"giteaUrl\":{\"type\":\"string\",\"minLength\":1},\"giteaInternalUrl\":{\"type\":[\"string\",\"null\"]},\"redirectUri\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"},\"clientSecret\":{\"type\":\"string\"},\"gitProviderId\":{\"type\":\"string\"},\"accessToken\":{\"type\":\"string\"},\"refreshToken\":{\"type\":\"string\"},\"expiresAt\":{\"type\":\"number\"},\"scopes\":{\"type\":\"string\"},\"lastAuthenticatedAt\":{\"type\":\"number\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"giteaUsername\":{\"type\":\"string\"},\"organizationName\":{\"type\":\"string\"}},\"required\":[\"giteaUrl\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea Create",
       ...{"openWorldHint":true},
@@ -1524,7 +1655,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "GET",
     path: "/gitea.one",
-    schema: z.object({ "giteaId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "giteaId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"giteaId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"giteaId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1536,7 +1668,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "GET",
     path: "/gitea.giteaProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea GiteaProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1548,7 +1681,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "GET",
     path: "/gitea.getGiteaRepositories",
-    schema: z.object({ "giteaId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "giteaId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"giteaId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"giteaId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea GetGiteaRepositories",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1560,7 +1694,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "GET",
     path: "/gitea.getGiteaBranches",
-    schema: z.object({ "owner": z.string().min(1), "repositoryName": z.string().min(1), "giteaId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "owner": z.string().min(1), "repositoryName": z.string().min(1), "giteaId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"owner\":{\"type\":\"string\",\"minLength\":1},\"repositoryName\":{\"type\":\"string\",\"minLength\":1},\"giteaId\":{\"type\":\"string\"}},\"required\":[\"owner\",\"repositoryName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea GetGiteaBranches",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1572,7 +1707,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "POST",
     path: "/gitea.testConnection",
-    schema: z.object({ "giteaId": z.string().optional(), "organizationName": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "giteaId": z.string().optional(), "organizationName": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"giteaId\":{\"type\":\"string\"},\"organizationName\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1584,7 +1720,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "POST",
     path: "/gitea.update",
-    schema: z.object({ "giteaId": z.string().min(1), "giteaUrl": z.string().min(1), "giteaInternalUrl": z.union([z.string(), z.null()]).optional(), "redirectUri": z.string().optional(), "clientId": z.string().optional(), "clientSecret": z.string().optional(), "gitProviderId": z.string(), "accessToken": z.string().optional(), "refreshToken": z.string().optional(), "expiresAt": z.number().optional(), "scopes": z.string().optional(), "lastAuthenticatedAt": z.number().optional(), "name": z.string().min(1), "giteaUsername": z.string().optional(), "organizationName": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "giteaId": z.string().min(1), "giteaUrl": z.string().min(1), "giteaInternalUrl": z.union([z.string(), z.null()]).optional(), "redirectUri": z.string().optional(), "clientId": z.string().optional(), "clientSecret": z.string().optional(), "gitProviderId": z.string(), "accessToken": z.string().optional(), "refreshToken": z.string().optional(), "expiresAt": z.number().optional(), "scopes": z.string().optional(), "lastAuthenticatedAt": z.number().optional(), "name": z.string().min(1), "giteaUsername": z.string().optional(), "organizationName": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"giteaId\":{\"type\":\"string\",\"minLength\":1},\"giteaUrl\":{\"type\":\"string\",\"minLength\":1},\"giteaInternalUrl\":{\"type\":[\"string\",\"null\"]},\"redirectUri\":{\"type\":\"string\"},\"clientId\":{\"type\":\"string\"},\"clientSecret\":{\"type\":\"string\"},\"gitProviderId\":{\"type\":\"string\"},\"accessToken\":{\"type\":\"string\"},\"refreshToken\":{\"type\":\"string\"},\"expiresAt\":{\"type\":\"number\"},\"scopes\":{\"type\":\"string\"},\"lastAuthenticatedAt\":{\"type\":\"number\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"giteaUsername\":{\"type\":\"string\"},\"organizationName\":{\"type\":\"string\"}},\"required\":[\"giteaId\",\"giteaUrl\",\"gitProviderId\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1596,7 +1733,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitea",
     method: "GET",
     path: "/gitea.getGiteaUrl",
-    schema: z.object({ "giteaId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "giteaId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"giteaId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"giteaId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitea GetGiteaUrl",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1608,7 +1746,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitProvider",
     method: "GET",
     path: "/gitProvider.getAll",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "GitProvider GetAll",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1620,7 +1759,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitProvider",
     method: "POST",
     path: "/gitProvider.toggleShare",
-    schema: z.object({ "gitProviderId": z.string().min(1), "sharedWithOrganization": z.boolean() }),
+    schema: lazySchema(() => z.object({ "gitProviderId": z.string().min(1), "sharedWithOrganization": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"gitProviderId\":{\"type\":\"string\",\"minLength\":1},\"sharedWithOrganization\":{\"type\":\"boolean\"}},\"required\":[\"gitProviderId\",\"sharedWithOrganization\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "GitProvider ToggleShare",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1632,7 +1772,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitProvider",
     method: "GET",
     path: "/gitProvider.allForPermissions",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "GitProvider AllForPermissions",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1644,7 +1785,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitProvider",
     method: "POST",
     path: "/gitProvider.remove",
-    schema: z.object({ "gitProviderId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "gitProviderId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"gitProviderId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"gitProviderId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "GitProvider Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -1656,7 +1798,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "github",
     method: "GET",
     path: "/github.one",
-    schema: z.object({ "githubId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "githubId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"githubId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"githubId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Github One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1668,7 +1811,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "github",
     method: "GET",
     path: "/github.getGithubRepositories",
-    schema: z.object({ "githubId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "githubId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"githubId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"githubId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Github GetGithubRepositories",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1680,7 +1824,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "github",
     method: "GET",
     path: "/github.getGithubBranches",
-    schema: z.object({ "repo": z.string().min(1), "owner": z.string().min(1), "githubId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "repo": z.string().min(1), "owner": z.string().min(1), "githubId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"repo\":{\"type\":\"string\",\"minLength\":1},\"owner\":{\"type\":\"string\",\"minLength\":1},\"githubId\":{\"type\":\"string\"}},\"required\":[\"repo\",\"owner\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Github GetGithubBranches",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1692,7 +1837,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "github",
     method: "GET",
     path: "/github.githubProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Github GithubProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1704,7 +1850,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "github",
     method: "POST",
     path: "/github.testConnection",
-    schema: z.object({ "githubId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "githubId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"githubId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"githubId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Github TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1716,7 +1863,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "github",
     method: "POST",
     path: "/github.update",
-    schema: z.object({ "githubId": z.string().min(1), "name": z.string().min(1), "gitProviderId": z.string().min(1), "githubAppName": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "githubId": z.string().min(1), "name": z.string().min(1), "gitProviderId": z.string().min(1), "githubAppName": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"githubId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"gitProviderId\":{\"type\":\"string\",\"minLength\":1},\"githubAppName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"githubId\",\"name\",\"gitProviderId\",\"githubAppName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Github Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1728,7 +1876,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "POST",
     path: "/gitlab.create",
-    schema: z.object({ "applicationId": z.string().optional(), "secret": z.string().optional(), "groupName": z.string().optional(), "gitProviderId": z.string().optional(), "redirectUri": z.string().optional(), "authId": z.string().min(1), "name": z.string().min(1), "gitlabUrl": z.string().min(1), "gitlabInternalUrl": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().optional(), "secret": z.string().optional(), "groupName": z.string().optional(), "gitProviderId": z.string().optional(), "redirectUri": z.string().optional(), "authId": z.string().min(1), "name": z.string().min(1), "gitlabUrl": z.string().min(1), "gitlabInternalUrl": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"secret\":{\"type\":\"string\"},\"groupName\":{\"type\":\"string\"},\"gitProviderId\":{\"type\":\"string\"},\"redirectUri\":{\"type\":\"string\"},\"authId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"gitlabUrl\":{\"type\":\"string\",\"minLength\":1},\"gitlabInternalUrl\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"authId\",\"name\",\"gitlabUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab Create",
       ...{"openWorldHint":true},
@@ -1740,7 +1889,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.one",
-    schema: z.object({ "gitlabId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "gitlabId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"gitlabId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"gitlabId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1752,7 +1902,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.gitlabProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab GitlabProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1764,7 +1915,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.getGitlabRepositories",
-    schema: z.object({ "gitlabId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "gitlabId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"gitlabId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"gitlabId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab GetGitlabRepositories",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1776,7 +1928,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.getGitlabBranches",
-    schema: z.object({ "id": z.number().optional(), "owner": z.string(), "repo": z.string(), "gitlabId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "id": z.number().optional(), "owner": z.string(), "repo": z.string(), "gitlabId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"number\"},\"owner\":{\"type\":\"string\"},\"repo\":{\"type\":\"string\"},\"gitlabId\":{\"type\":\"string\"}},\"required\":[\"owner\",\"repo\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab GetGitlabBranches",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1788,7 +1941,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "POST",
     path: "/gitlab.testConnection",
-    schema: z.object({ "gitlabId": z.string().min(1), "groupName": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "gitlabId": z.string().min(1), "groupName": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"gitlabId\":{\"type\":\"string\",\"minLength\":1},\"groupName\":{\"type\":\"string\"}},\"required\":[\"gitlabId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1800,7 +1954,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "gitlab",
     method: "POST",
     path: "/gitlab.update",
-    schema: z.object({ "applicationId": z.string().optional(), "secret": z.string().optional(), "groupName": z.string().optional(), "redirectUri": z.string().optional(), "name": z.string().min(1), "gitlabId": z.string().min(1), "gitlabUrl": z.string().min(1), "gitProviderId": z.string().min(1), "gitlabInternalUrl": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().optional(), "secret": z.string().optional(), "groupName": z.string().optional(), "redirectUri": z.string().optional(), "name": z.string().min(1), "gitlabId": z.string().min(1), "gitlabUrl": z.string().min(1), "gitProviderId": z.string().min(1), "gitlabInternalUrl": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"secret\":{\"type\":\"string\"},\"groupName\":{\"type\":\"string\"},\"redirectUri\":{\"type\":\"string\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"gitlabId\":{\"type\":\"string\",\"minLength\":1},\"gitlabUrl\":{\"type\":\"string\",\"minLength\":1},\"gitProviderId\":{\"type\":\"string\",\"minLength\":1},\"gitlabInternalUrl\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"gitlabId\",\"gitlabUrl\",\"gitProviderId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Gitlab Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1812,7 +1967,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().min(1), "dockerImage": z.string().default("ghcr.io/tursodatabase/libsql-server:v0.24.32"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "sqldNode": z.enum(["primary","replica"]), "sqldPrimaryUrl": z.union([z.union([z.string(), z.null()]), z.null()]), "enableNamespaces": z.boolean().default(false), "serverId": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().min(1), "dockerImage": z.string().default("ghcr.io/tursodatabase/libsql-server:v0.24.32"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "sqldNode": z.enum(["primary","replica"]), "sqldPrimaryUrl": z.union([z.union([z.string(), z.null()]), z.null()]), "enableNamespaces": z.boolean().default(false), "serverId": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"minLength\":1},\"dockerImage\":{\"type\":\"string\",\"default\":\"ghcr.io/tursodatabase/libsql-server:v0.24.32\"},\"environmentId\":{\"type\":\"string\"},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"sqldNode\":{\"type\":\"string\",\"enum\":[\"primary\",\"replica\"]},\"sqldPrimaryUrl\":{\"anyOf\":[{\"type\":[\"string\",\"null\"]},{\"type\":\"null\"}]},\"enableNamespaces\":{\"type\":\"boolean\",\"default\":false},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"appName\",\"environmentId\",\"description\",\"databaseUser\",\"databasePassword\",\"sqldNode\",\"sqldPrimaryUrl\",\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Create",
       ...{"openWorldHint":true},
@@ -1824,7 +1980,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "GET",
     path: "/libsql.one",
-    schema: z.object({ "libsqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1836,7 +1993,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.start",
-    schema: z.object({ "libsqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1848,7 +2006,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.stop",
-    schema: z.object({ "libsqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1860,7 +2019,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.saveExternalPorts",
-    schema: z.object({ "libsqlId": z.string(), "externalPort": z.union([z.number(), z.null()]).optional(), "externalGRPCPort": z.union([z.number(), z.null()]).optional(), "externalAdminPort": z.union([z.number(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string(), "externalPort": z.union([z.number(), z.null()]).optional(), "externalGRPCPort": z.union([z.number(), z.null()]).optional(), "externalAdminPort": z.union([z.number(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"externalGRPCPort\":{\"type\":[\"number\",\"null\"]},\"externalAdminPort\":{\"type\":[\"number\",\"null\"]}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql SaveExternalPorts",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1872,7 +2032,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.deploy",
-    schema: z.object({ "libsqlId": z.string() }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1884,7 +2045,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.changeStatus",
-    schema: z.object({ "libsqlId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]}},\"required\":[\"libsqlId\",\"applicationStatus\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql ChangeStatus",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1896,7 +2058,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.remove",
-    schema: z.object({ "libsqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -1908,7 +2071,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.saveEnvironment",
-    schema: z.object({ "libsqlId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"libsqlId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1920,7 +2084,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.reload",
-    schema: z.object({ "libsqlId": z.string(), "appName": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string(), "appName": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"libsqlId\",\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1932,7 +2097,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.update",
-    schema: z.object({ "libsqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "sqldNode": z.enum(["primary","replica"]).optional(), "sqldPrimaryUrl": z.union([z.union([z.string(), z.null()]), z.null()]).optional(), "enableNamespaces": z.boolean().default(false), "dockerImage": z.string().default("ghcr.io/tursodatabase/libsql-server:v0.24.32"), "command": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "externalGRPCPort": z.union([z.number(), z.null()]).optional(), "externalAdminPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "sqldNode": z.enum(["primary","replica"]).optional(), "sqldPrimaryUrl": z.union([z.union([z.string(), z.null()]), z.null()]).optional(), "enableNamespaces": z.boolean().default(false), "dockerImage": z.string().default("ghcr.io/tursodatabase/libsql-server:v0.24.32"), "command": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "externalGRPCPort": z.union([z.number(), z.null()]).optional(), "externalAdminPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"sqldNode\":{\"type\":\"string\",\"enum\":[\"primary\",\"replica\"]},\"sqldPrimaryUrl\":{\"anyOf\":[{\"type\":[\"string\",\"null\"]},{\"type\":\"null\"}]},\"enableNamespaces\":{\"type\":\"boolean\",\"default\":false},\"dockerImage\":{\"type\":\"string\",\"default\":\"ghcr.io/tursodatabase/libsql-server:v0.24.32\"},\"command\":{\"type\":[\"string\",\"null\"]},\"env\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"externalGRPCPort\":{\"type\":[\"number\",\"null\"]},\"externalAdminPort\":{\"type\":[\"number\",\"null\"]},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"createdAt\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1944,7 +2110,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.move",
-    schema: z.object({ "libsqlId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"libsqlId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1956,7 +2123,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.rebuild",
-    schema: z.object({ "libsqlId": z.string() }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\"}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql Rebuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1968,7 +2136,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "GET",
     path: "/libsql.readLogs",
-    schema: z.object({ "libsqlId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "libsqlId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"libsqlId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"libsqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Libsql ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -1980,7 +2149,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "dockerImage": z.string().default("mariadb:6"), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "dockerImage": z.string().default("mariadb:6"), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "serverId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"dockerImage\":{\"type\":\"string\",\"default\":\"mariadb:6\"},\"databaseRootPassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"environmentId\":{\"type\":\"string\"},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseName\":{\"type\":\"string\",\"minLength\":1},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"environmentId\",\"databaseName\",\"databaseUser\",\"databasePassword\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Create",
       ...{"openWorldHint":true},
@@ -1992,7 +2162,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "GET",
     path: "/mariadb.one",
-    schema: z.object({ "mariadbId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2004,7 +2175,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.start",
-    schema: z.object({ "mariadbId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2016,7 +2188,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.stop",
-    schema: z.object({ "mariadbId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2028,7 +2201,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.saveExternalPort",
-    schema: z.object({ "mariadbId": z.string(), "externalPort": z.union([z.number(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string(), "externalPort": z.union([z.number(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"},\"externalPort\":{\"type\":[\"number\",\"null\"]}},\"required\":[\"mariadbId\",\"externalPort\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb SaveExternalPort",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2040,7 +2214,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.deploy",
-    schema: z.object({ "mariadbId": z.string() }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2052,7 +2227,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.changeStatus",
-    schema: z.object({ "mariadbId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]}},\"required\":[\"mariadbId\",\"applicationStatus\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb ChangeStatus",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2064,7 +2240,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.remove",
-    schema: z.object({ "mariadbId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -2076,7 +2253,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.saveEnvironment",
-    schema: z.object({ "mariadbId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"mariadbId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2088,7 +2266,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.reload",
-    schema: z.object({ "mariadbId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63}},\"required\":[\"mariadbId\",\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2100,7 +2279,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.update",
-    schema: z.object({ "mariadbId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseName\":{\"type\":\"string\",\"minLength\":1},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"databaseRootPassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"dockerImage\":{\"type\":\"string\"},\"command\":{\"type\":[\"string\",\"null\"]},\"args\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"env\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"ulimitsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Name\":{\"type\":\"string\",\"minLength\":1},\"Soft\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991},\"Hard\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991}},\"required\":[\"Name\",\"Soft\",\"Hard\"],\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"createdAt\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2112,7 +2292,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.changePassword",
-    schema: z.object({ "mariadbId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1), "type": z.enum(["user","root"]).default("user") }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1), "type": z.enum(["user","root"]).default("user") })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"user\",\"root\"],\"default\":\"user\"}},\"required\":[\"mariadbId\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb ChangePassword",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2124,7 +2305,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.move",
-    schema: z.object({ "mariadbId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"mariadbId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2136,7 +2318,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.rebuild",
-    schema: z.object({ "mariadbId": z.string() }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\"}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Rebuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2148,7 +2331,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "GET",
     path: "/mariadb.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2160,7 +2344,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "GET",
     path: "/mariadb.readLogs",
-    schema: z.object({ "mariadbId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "mariadbId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mariadbId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"mariadbId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mariadb ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2172,7 +2357,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "dockerImage": z.string().default("mongo:15"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "serverId": z.union([z.string(), z.null()]).optional(), "replicaSets": z.union([z.boolean().default(false), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "dockerImage": z.string().default("mongo:15"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "serverId": z.union([z.string(), z.null()]).optional(), "replicaSets": z.union([z.boolean().default(false), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"dockerImage\":{\"type\":\"string\",\"default\":\"mongo:15\"},\"environmentId\":{\"type\":\"string\"},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"serverId\":{\"type\":[\"string\",\"null\"]},\"replicaSets\":{\"anyOf\":[{\"type\":\"boolean\",\"default\":false},{\"type\":\"null\"}]}},\"required\":[\"name\",\"environmentId\",\"databaseUser\",\"databasePassword\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Create",
       ...{"openWorldHint":true},
@@ -2184,7 +2370,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "GET",
     path: "/mongo.one",
-    schema: z.object({ "mongoId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2196,7 +2383,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.start",
-    schema: z.object({ "mongoId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2208,7 +2396,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.stop",
-    schema: z.object({ "mongoId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2220,7 +2409,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.saveExternalPort",
-    schema: z.object({ "mongoId": z.string(), "externalPort": z.union([z.number(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string(), "externalPort": z.union([z.number(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"},\"externalPort\":{\"type\":[\"number\",\"null\"]}},\"required\":[\"mongoId\",\"externalPort\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo SaveExternalPort",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2232,7 +2422,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.deploy",
-    schema: z.object({ "mongoId": z.string() }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2244,7 +2435,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.changeStatus",
-    schema: z.object({ "mongoId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]}},\"required\":[\"mongoId\",\"applicationStatus\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo ChangeStatus",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2256,7 +2448,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.reload",
-    schema: z.object({ "mongoId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63}},\"required\":[\"mongoId\",\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2268,7 +2461,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.remove",
-    schema: z.object({ "mongoId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -2280,7 +2474,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.saveEnvironment",
-    schema: z.object({ "mongoId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"mongoId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2292,7 +2487,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.update",
-    schema: z.object({ "mongoId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "replicaSets": z.union([z.boolean().default(false), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "replicaSets": z.union([z.boolean().default(false), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"dockerImage\":{\"type\":\"string\"},\"command\":{\"type\":[\"string\",\"null\"]},\"args\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"env\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"ulimitsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Name\":{\"type\":\"string\",\"minLength\":1},\"Soft\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991},\"Hard\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991}},\"required\":[\"Name\",\"Soft\",\"Hard\"],\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"createdAt\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"replicaSets\":{\"anyOf\":[{\"type\":\"boolean\",\"default\":false},{\"type\":\"null\"}]}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2304,7 +2500,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.changePassword",
-    schema: z.object({ "mongoId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1) }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\",\"minLength\":1}},\"required\":[\"mongoId\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo ChangePassword",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2316,7 +2513,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.move",
-    schema: z.object({ "mongoId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"mongoId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2328,7 +2526,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.rebuild",
-    schema: z.object({ "mongoId": z.string() }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\"}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Rebuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2340,7 +2539,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "GET",
     path: "/mongo.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2352,7 +2552,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "GET",
     path: "/mongo.readLogs",
-    schema: z.object({ "mongoId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "mongoId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mongoId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"mongoId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mongo ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2364,7 +2565,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mounts",
     method: "POST",
     path: "/mounts.create",
-    schema: z.object({ "type": z.enum(["bind","volume","file"]), "hostPath": z.union([z.string(), z.null()]).optional(), "volumeName": z.union([z.string(), z.null()]).optional(), "content": z.union([z.string(), z.null()]).optional(), "mountPath": z.string().min(1), "filePath": z.union([z.string(), z.null()]).optional(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "serviceId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "type": z.enum(["bind","volume","file"]), "hostPath": z.union([z.string(), z.null()]).optional(), "volumeName": z.union([z.string(), z.null()]).optional(), "content": z.union([z.string(), z.null()]).optional(), "mountPath": z.string().min(1), "filePath": z.union([z.string(), z.null()]).optional(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "serviceId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\",\"enum\":[\"bind\",\"volume\",\"file\"]},\"hostPath\":{\"type\":[\"string\",\"null\"]},\"volumeName\":{\"type\":[\"string\",\"null\"]},\"content\":{\"type\":[\"string\",\"null\"]},\"mountPath\":{\"type\":\"string\",\"minLength\":1},\"filePath\":{\"type\":[\"string\",\"null\"]},\"serviceType\":{\"type\":\"string\",\"enum\":[\"application\",\"postgres\",\"mysql\",\"mariadb\",\"mongo\",\"redis\",\"compose\",\"libsql\"]},\"serviceId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"type\",\"mountPath\",\"serviceId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mounts Create",
       ...{"openWorldHint":true},
@@ -2376,7 +2578,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mounts",
     method: "POST",
     path: "/mounts.remove",
-    schema: z.object({ "mountId": z.string() }),
+    schema: lazySchema(() => z.object({ "mountId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mountId\":{\"type\":\"string\"}},\"required\":[\"mountId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mounts Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -2388,7 +2591,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mounts",
     method: "GET",
     path: "/mounts.one",
-    schema: z.object({ "mountId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mountId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mountId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mountId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mounts One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2400,7 +2604,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mounts",
     method: "POST",
     path: "/mounts.update",
-    schema: z.object({ "mountId": z.string().min(1), "type": z.enum(["bind","volume","file"]).optional(), "hostPath": z.union([z.string(), z.null()]).optional(), "volumeName": z.union([z.string(), z.null()]).optional(), "filePath": z.union([z.string(), z.null()]).optional(), "content": z.union([z.string(), z.null()]).optional(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "mountPath": z.string().min(1).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "mountId": z.string().min(1), "type": z.enum(["bind","volume","file"]).optional(), "hostPath": z.union([z.string(), z.null()]).optional(), "volumeName": z.union([z.string(), z.null()]).optional(), "filePath": z.union([z.string(), z.null()]).optional(), "content": z.union([z.string(), z.null()]).optional(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "mountPath": z.string().min(1).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mountId\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"bind\",\"volume\",\"file\"]},\"hostPath\":{\"type\":[\"string\",\"null\"]},\"volumeName\":{\"type\":[\"string\",\"null\"]},\"filePath\":{\"type\":[\"string\",\"null\"]},\"content\":{\"type\":[\"string\",\"null\"]},\"serviceType\":{\"type\":\"string\",\"enum\":[\"application\",\"postgres\",\"mysql\",\"mariadb\",\"mongo\",\"redis\",\"compose\",\"libsql\"]},\"mountPath\":{\"type\":\"string\",\"minLength\":1},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"libsqlId\":{\"type\":[\"string\",\"null\"]},\"mariadbId\":{\"type\":[\"string\",\"null\"]},\"mongoId\":{\"type\":[\"string\",\"null\"]},\"mysqlId\":{\"type\":[\"string\",\"null\"]},\"postgresId\":{\"type\":[\"string\",\"null\"]},\"redisId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"mountId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mounts Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2412,7 +2617,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mounts",
     method: "GET",
     path: "/mounts.allNamedByApplicationId",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mounts AllNamedByApplicationId",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2424,7 +2630,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mounts",
     method: "GET",
     path: "/mounts.listByServiceId",
-    schema: z.object({ "serviceType": z.string().min(1), "serviceId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serviceType": z.string().min(1), "serviceId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serviceType\":{\"type\":\"string\",\"minLength\":1},\"serviceId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serviceType\",\"serviceId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mounts ListByServiceId",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2436,7 +2643,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "dockerImage": z.string().default("mysql:8"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "dockerImage": z.string().default("mysql:8"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "serverId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"dockerImage\":{\"type\":\"string\",\"default\":\"mysql:8\"},\"environmentId\":{\"type\":\"string\"},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseName\":{\"type\":\"string\",\"minLength\":1},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"databaseRootPassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"environmentId\",\"databaseName\",\"databaseUser\",\"databasePassword\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Create",
       ...{"openWorldHint":true},
@@ -2448,7 +2656,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "GET",
     path: "/mysql.one",
-    schema: z.object({ "mysqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2460,7 +2669,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.start",
-    schema: z.object({ "mysqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2472,7 +2682,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.stop",
-    schema: z.object({ "mysqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2484,7 +2695,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.saveExternalPort",
-    schema: z.object({ "mysqlId": z.string(), "externalPort": z.union([z.number(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string(), "externalPort": z.union([z.number(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"},\"externalPort\":{\"type\":[\"number\",\"null\"]}},\"required\":[\"mysqlId\",\"externalPort\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql SaveExternalPort",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2496,7 +2708,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.deploy",
-    schema: z.object({ "mysqlId": z.string() }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2508,7 +2721,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.changeStatus",
-    schema: z.object({ "mysqlId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]}},\"required\":[\"mysqlId\",\"applicationStatus\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql ChangeStatus",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2520,7 +2734,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.reload",
-    schema: z.object({ "mysqlId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63}},\"required\":[\"mysqlId\",\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2532,7 +2747,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.remove",
-    schema: z.object({ "mysqlId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -2544,7 +2760,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.saveEnvironment",
-    schema: z.object({ "mysqlId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"mysqlId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2556,7 +2773,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.update",
-    schema: z.object({ "mysqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"databaseName\":{\"type\":\"string\",\"minLength\":1},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"databaseRootPassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"dockerImage\":{\"type\":\"string\"},\"command\":{\"type\":[\"string\",\"null\"]},\"args\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"env\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"ulimitsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Name\":{\"type\":\"string\",\"minLength\":1},\"Soft\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991},\"Hard\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991}},\"required\":[\"Name\",\"Soft\",\"Hard\"],\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"createdAt\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2568,7 +2786,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.changePassword",
-    schema: z.object({ "mysqlId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1), "type": z.enum(["user","root"]).default("user") }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1), "type": z.enum(["user","root"]).default("user") })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"user\",\"root\"],\"default\":\"user\"}},\"required\":[\"mysqlId\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql ChangePassword",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2580,7 +2799,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.move",
-    schema: z.object({ "mysqlId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"mysqlId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2592,7 +2812,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.rebuild",
-    schema: z.object({ "mysqlId": z.string() }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\"}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Rebuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2604,7 +2825,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "GET",
     path: "/mysql.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2616,7 +2838,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "GET",
     path: "/mysql.readLogs",
-    schema: z.object({ "mysqlId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "mysqlId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"mysqlId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"mysqlId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Mysql ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2628,7 +2851,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createSlack",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1), "channel": z.string() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1), "channel": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"channel\":{\"type\":\"string\"}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"webhookUrl\",\"channel\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateSlack",
       ...{"openWorldHint":true},
@@ -2640,7 +2864,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateSlack",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "channel": z.string().optional(), "notificationId": z.string().min(1), "slackId": z.string(), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "channel": z.string().optional(), "notificationId": z.string().min(1), "slackId": z.string(), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"channel\":{\"type\":\"string\"},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"slackId\":{\"type\":\"string\"},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"slackId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateSlack",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2652,7 +2877,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testSlackConnection",
-    schema: z.object({ "webhookUrl": z.string().min(1), "channel": z.string() }),
+    schema: lazySchema(() => z.object({ "webhookUrl": z.string().min(1), "channel": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"channel\":{\"type\":\"string\"}},\"required\":[\"webhookUrl\",\"channel\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestSlackConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2664,7 +2890,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createTelegram",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "botToken": z.string().min(1), "chatId": z.string().min(1), "messageThreadId": z.string() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "botToken": z.string().min(1), "chatId": z.string().min(1), "messageThreadId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"botToken\":{\"type\":\"string\",\"minLength\":1},\"chatId\":{\"type\":\"string\",\"minLength\":1},\"messageThreadId\":{\"type\":\"string\"}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"botToken\",\"chatId\",\"messageThreadId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateTelegram",
       ...{"openWorldHint":true},
@@ -2676,7 +2903,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateTelegram",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "botToken": z.string().min(1).optional(), "chatId": z.string().min(1).optional(), "messageThreadId": z.string().optional(), "notificationId": z.string().min(1), "telegramId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "botToken": z.string().min(1).optional(), "chatId": z.string().min(1).optional(), "messageThreadId": z.string().optional(), "notificationId": z.string().min(1), "telegramId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"botToken\":{\"type\":\"string\",\"minLength\":1},\"chatId\":{\"type\":\"string\",\"minLength\":1},\"messageThreadId\":{\"type\":\"string\"},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"telegramId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"telegramId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateTelegram",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2688,7 +2916,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testTelegramConnection",
-    schema: z.object({ "botToken": z.string().min(1), "chatId": z.string().min(1), "messageThreadId": z.string() }),
+    schema: lazySchema(() => z.object({ "botToken": z.string().min(1), "chatId": z.string().min(1), "messageThreadId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"botToken\":{\"type\":\"string\",\"minLength\":1},\"chatId\":{\"type\":\"string\",\"minLength\":1},\"messageThreadId\":{\"type\":\"string\"}},\"required\":[\"botToken\",\"chatId\",\"messageThreadId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestTelegramConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2700,7 +2929,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createDiscord",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1), "decoration": z.boolean() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1), "decoration": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"decoration\":{\"type\":\"boolean\"}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"webhookUrl\",\"decoration\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateDiscord",
       ...{"openWorldHint":true},
@@ -2712,7 +2942,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateDiscord",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "decoration": z.boolean().optional(), "notificationId": z.string().min(1), "discordId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "decoration": z.boolean().optional(), "notificationId": z.string().min(1), "discordId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"decoration\":{\"type\":\"boolean\"},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"discordId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"discordId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateDiscord",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2724,7 +2955,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testDiscordConnection",
-    schema: z.object({ "webhookUrl": z.string().min(1), "decoration": z.boolean().optional() }),
+    schema: lazySchema(() => z.object({ "webhookUrl": z.string().min(1), "decoration": z.boolean().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"decoration\":{\"type\":\"boolean\"}},\"required\":[\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestDiscordConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2736,7 +2968,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createEmail",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "smtpServer": z.string().min(1), "smtpPort": z.number().gte(1), "username": z.string().min(1), "password": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "smtpServer": z.string().min(1), "smtpPort": z.number().gte(1), "username": z.string().min(1), "password": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"smtpServer\":{\"type\":\"string\",\"minLength\":1},\"smtpPort\":{\"type\":\"number\",\"minimum\":1},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1},\"fromAddress\":{\"type\":\"string\",\"minLength\":1},\"toAddresses\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"smtpServer\",\"smtpPort\",\"username\",\"password\",\"fromAddress\",\"toAddresses\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateEmail",
       ...{"openWorldHint":true},
@@ -2748,7 +2981,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateEmail",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "smtpServer": z.string().min(1).optional(), "smtpPort": z.number().gte(1).optional(), "username": z.string().min(1).optional(), "password": z.string().min(1).optional(), "fromAddress": z.string().min(1).optional(), "toAddresses": z.array(z.string()).min(1).optional(), "notificationId": z.string().min(1), "emailId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "smtpServer": z.string().min(1).optional(), "smtpPort": z.number().gte(1).optional(), "username": z.string().min(1).optional(), "password": z.string().min(1).optional(), "fromAddress": z.string().min(1).optional(), "toAddresses": z.array(z.string()).min(1).optional(), "notificationId": z.string().min(1), "emailId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"smtpServer\":{\"type\":\"string\",\"minLength\":1},\"smtpPort\":{\"type\":\"number\",\"minimum\":1},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1},\"fromAddress\":{\"type\":\"string\",\"minLength\":1},\"toAddresses\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"emailId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"emailId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateEmail",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2760,7 +2994,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testEmailConnection",
-    schema: z.object({ "smtpServer": z.string().min(1), "smtpPort": z.number().gte(1), "username": z.string().min(1), "password": z.string().min(1), "toAddresses": z.array(z.string()).min(1), "fromAddress": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "smtpServer": z.string().min(1), "smtpPort": z.number().gte(1), "username": z.string().min(1), "password": z.string().min(1), "toAddresses": z.array(z.string()).min(1), "fromAddress": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"smtpServer\":{\"type\":\"string\",\"minLength\":1},\"smtpPort\":{\"type\":\"number\",\"minimum\":1},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1},\"toAddresses\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1},\"fromAddress\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"smtpServer\",\"smtpPort\",\"username\",\"password\",\"toAddresses\",\"fromAddress\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestEmailConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2772,7 +3007,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createResend",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "apiKey": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "apiKey": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"apiKey\":{\"type\":\"string\",\"minLength\":1},\"fromAddress\":{\"type\":\"string\",\"minLength\":1},\"toAddresses\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"apiKey\",\"fromAddress\",\"toAddresses\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateResend",
       ...{"openWorldHint":true},
@@ -2784,7 +3020,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateResend",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "apiKey": z.string().min(1).optional(), "fromAddress": z.string().min(1).optional(), "toAddresses": z.array(z.string()).min(1).optional(), "notificationId": z.string().min(1), "resendId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "apiKey": z.string().min(1).optional(), "fromAddress": z.string().min(1).optional(), "toAddresses": z.array(z.string()).min(1).optional(), "notificationId": z.string().min(1), "resendId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"apiKey\":{\"type\":\"string\",\"minLength\":1},\"fromAddress\":{\"type\":\"string\",\"minLength\":1},\"toAddresses\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"resendId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"resendId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateResend",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2796,7 +3033,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testResendConnection",
-    schema: z.object({ "apiKey": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) }),
+    schema: lazySchema(() => z.object({ "apiKey": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"apiKey\":{\"type\":\"string\",\"minLength\":1},\"fromAddress\":{\"type\":\"string\",\"minLength\":1},\"toAddresses\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":1}},\"required\":[\"apiKey\",\"fromAddress\",\"toAddresses\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestResendConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2808,7 +3046,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.remove",
-    schema: z.object({ "notificationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "notificationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"notificationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"notificationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -2820,7 +3059,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "GET",
     path: "/notification.one",
-    schema: z.object({ "notificationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "notificationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"notificationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"notificationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2832,7 +3072,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "GET",
     path: "/notification.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -2844,7 +3085,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.receiveNotification",
-    schema: z.object({ "ServerType": z.enum(["Dokploy","Remote"]).default("Dokploy"), "Type": z.enum(["Memory","CPU"]), "Value": z.number(), "Threshold": z.number(), "Message": z.string(), "Timestamp": z.string(), "Token": z.string() }),
+    schema: lazySchema(() => z.object({ "ServerType": z.enum(["Dokploy","Remote"]).default("Dokploy"), "Type": z.enum(["Memory","CPU"]), "Value": z.number(), "Threshold": z.number(), "Message": z.string(), "Timestamp": z.string(), "Token": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"ServerType\":{\"type\":\"string\",\"enum\":[\"Dokploy\",\"Remote\"],\"default\":\"Dokploy\"},\"Type\":{\"type\":\"string\",\"enum\":[\"Memory\",\"CPU\"]},\"Value\":{\"type\":\"number\"},\"Threshold\":{\"type\":\"number\"},\"Message\":{\"type\":\"string\"},\"Timestamp\":{\"type\":\"string\"},\"Token\":{\"type\":\"string\"}},\"required\":[\"Type\",\"Value\",\"Threshold\",\"Message\",\"Timestamp\",\"Token\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification ReceiveNotification",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2856,7 +3098,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createGotify",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverUrl\":{\"type\":\"string\",\"minLength\":1},\"appToken\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"number\",\"minimum\":1},\"decoration\":{\"type\":\"boolean\"}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverUrl\",\"appToken\",\"priority\",\"decoration\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateGotify",
       ...{"openWorldHint":true},
@@ -2868,7 +3111,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateGotify",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "appToken": z.string().min(1).optional(), "priority": z.number().gte(1).optional(), "decoration": z.boolean().optional(), "notificationId": z.string().min(1), "gotifyId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "appToken": z.string().min(1).optional(), "priority": z.number().gte(1).optional(), "decoration": z.boolean().optional(), "notificationId": z.string().min(1), "gotifyId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverUrl\":{\"type\":\"string\",\"minLength\":1},\"appToken\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"number\",\"minimum\":1},\"decoration\":{\"type\":\"boolean\"},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"gotifyId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"gotifyId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateGotify",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2880,7 +3124,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testGotifyConnection",
-    schema: z.object({ "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean().optional() }),
+    schema: lazySchema(() => z.object({ "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverUrl\":{\"type\":\"string\",\"minLength\":1},\"appToken\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"number\",\"minimum\":1},\"decoration\":{\"type\":\"boolean\"}},\"required\":[\"serverUrl\",\"appToken\",\"priority\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestGotifyConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2892,7 +3137,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createNtfy",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverUrl\":{\"type\":\"string\",\"minLength\":1},\"topic\":{\"type\":\"string\",\"minLength\":1},\"accessToken\":{\"type\":\"string\"},\"priority\":{\"type\":\"number\",\"minimum\":1}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverUrl\",\"topic\",\"accessToken\",\"priority\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateNtfy",
       ...{"openWorldHint":true},
@@ -2904,7 +3150,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateNtfy",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "topic": z.string().min(1).optional(), "accessToken": z.string().optional(), "priority": z.number().gte(1).optional(), "notificationId": z.string().min(1), "ntfyId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "topic": z.string().min(1).optional(), "accessToken": z.string().optional(), "priority": z.number().gte(1).optional(), "notificationId": z.string().min(1), "ntfyId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverUrl\":{\"type\":\"string\",\"minLength\":1},\"topic\":{\"type\":\"string\",\"minLength\":1},\"accessToken\":{\"type\":\"string\"},\"priority\":{\"type\":\"number\",\"minimum\":1},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"ntfyId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"ntfyId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateNtfy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2916,7 +3163,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testNtfyConnection",
-    schema: z.object({ "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) }),
+    schema: lazySchema(() => z.object({ "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverUrl\":{\"type\":\"string\",\"minLength\":1},\"topic\":{\"type\":\"string\",\"minLength\":1},\"accessToken\":{\"type\":\"string\"},\"priority\":{\"type\":\"number\",\"minimum\":1}},\"required\":[\"serverUrl\",\"topic\",\"accessToken\",\"priority\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestNtfyConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2928,7 +3176,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createMattermost",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().url(), "channel": z.string().optional(), "username": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().url(), "channel": z.string().optional(), "username": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"format\":\"uri\"},\"channel\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateMattermost",
       ...{"openWorldHint":true},
@@ -2940,7 +3189,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateMattermost",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().url().optional(), "channel": z.string().optional(), "username": z.string().optional(), "notificationId": z.string().min(1), "mattermostId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().url().optional(), "channel": z.string().optional(), "username": z.string().optional(), "notificationId": z.string().min(1), "mattermostId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"format\":\"uri\"},\"channel\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"mattermostId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"mattermostId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateMattermost",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2952,7 +3202,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testMattermostConnection",
-    schema: z.object({ "webhookUrl": z.string().url(), "channel": z.string().optional(), "username": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "webhookUrl": z.string().url(), "channel": z.string().optional(), "username": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"webhookUrl\":{\"type\":\"string\",\"format\":\"uri\"},\"channel\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"}},\"required\":[\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestMattermostConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2964,7 +3215,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createCustom",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "endpoint": z.string().min(1), "headers": z.record(z.string(), z.string()).optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "endpoint": z.string().min(1), "headers": z.record(z.string(), z.string()).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"endpoint\":{\"type\":\"string\",\"minLength\":1},\"headers\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"required\":[\"name\",\"endpoint\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateCustom",
       ...{"openWorldHint":true},
@@ -2976,7 +3228,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateCustom",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "endpoint": z.string().min(1).optional(), "headers": z.record(z.string(), z.string()).optional(), "notificationId": z.string().min(1), "customId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "endpoint": z.string().min(1).optional(), "headers": z.record(z.string(), z.string()).optional(), "notificationId": z.string().min(1), "customId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"endpoint\":{\"type\":\"string\",\"minLength\":1},\"headers\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"customId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"customId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateCustom",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2988,7 +3241,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testCustomConnection",
-    schema: z.object({ "endpoint": z.string().min(1), "headers": z.record(z.string(), z.string()).optional() }),
+    schema: lazySchema(() => z.object({ "endpoint": z.string().min(1), "headers": z.record(z.string(), z.string()).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"endpoint\":{\"type\":\"string\",\"minLength\":1},\"headers\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"required\":[\"endpoint\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestCustomConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3000,7 +3254,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createLark",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateLark",
       ...{"openWorldHint":true},
@@ -3012,7 +3267,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateLark",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "notificationId": z.string().min(1), "larkId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "notificationId": z.string().min(1), "larkId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"larkId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"larkId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateLark",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3024,7 +3280,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testLarkConnection",
-    schema: z.object({ "webhookUrl": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "webhookUrl": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"webhookUrl\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestLarkConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3036,7 +3293,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createTeams",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "webhookUrl": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"appBuildError\",\"databaseBackup\",\"dokployBackup\",\"volumeBackup\",\"dokployRestart\",\"name\",\"appDeploy\",\"dockerCleanup\",\"serverThreshold\",\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreateTeams",
       ...{"openWorldHint":true},
@@ -3048,7 +3306,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateTeams",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "notificationId": z.string().min(1), "teamsId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "webhookUrl": z.string().min(1).optional(), "notificationId": z.string().min(1), "teamsId": z.string().min(1), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"webhookUrl\":{\"type\":\"string\",\"minLength\":1},\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"teamsId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"notificationId\",\"teamsId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdateTeams",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3060,7 +3319,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testTeamsConnection",
-    schema: z.object({ "webhookUrl": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "webhookUrl": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"webhookUrl\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"webhookUrl\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestTeamsConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3072,7 +3332,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createPushover",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "userKey": z.string().min(1), "apiToken": z.string().min(1), "priority": z.number().gte(-2).lte(2).default(0), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "userKey": z.string().min(1), "apiToken": z.string().min(1), "priority": z.number().gte(-2).lte(2).default(0), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"},\"userKey\":{\"type\":\"string\",\"minLength\":1},\"apiToken\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"number\",\"minimum\":-2,\"maximum\":2,\"default\":0},\"retry\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":30},{\"type\":\"null\"}]},\"expire\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":1,\"maximum\":10800},{\"type\":\"null\"}]}},\"required\":[\"name\",\"userKey\",\"apiToken\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification CreatePushover",
       ...{"openWorldHint":true},
@@ -3084,7 +3345,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updatePushover",
-    schema: z.object({ "notificationId": z.string().min(1), "pushoverId": z.string().min(1), "organizationId": z.string().optional(), "userKey": z.string().min(1).optional(), "apiToken": z.string().min(1).optional(), "priority": z.number().gte(-2).lte(2).optional(), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional(), "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional() }),
+    schema: lazySchema(() => z.object({ "notificationId": z.string().min(1), "pushoverId": z.string().min(1), "organizationId": z.string().optional(), "userKey": z.string().min(1).optional(), "apiToken": z.string().min(1).optional(), "priority": z.number().gte(-2).lte(2).optional(), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional(), "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"notificationId\":{\"type\":\"string\",\"minLength\":1},\"pushoverId\":{\"type\":\"string\",\"minLength\":1},\"organizationId\":{\"type\":\"string\"},\"userKey\":{\"type\":\"string\",\"minLength\":1},\"apiToken\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"number\",\"minimum\":-2,\"maximum\":2},\"retry\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":30},{\"type\":\"null\"}]},\"expire\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":1,\"maximum\":10800},{\"type\":\"null\"}]},\"appBuildError\":{\"type\":\"boolean\"},\"databaseBackup\":{\"type\":\"boolean\"},\"dokployBackup\":{\"type\":\"boolean\"},\"volumeBackup\":{\"type\":\"boolean\"},\"dokployRestart\":{\"type\":\"boolean\"},\"name\":{\"type\":\"string\"},\"appDeploy\":{\"type\":\"boolean\"},\"dockerCleanup\":{\"type\":\"boolean\"},\"serverThreshold\":{\"type\":\"boolean\"}},\"required\":[\"notificationId\",\"pushoverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification UpdatePushover",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3096,7 +3358,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.testPushoverConnection",
-    schema: z.object({ "userKey": z.string().min(1), "apiToken": z.string().min(1), "priority": z.number().gte(-2).lte(2), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "userKey": z.string().min(1), "apiToken": z.string().min(1), "priority": z.number().gte(-2).lte(2), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"userKey\":{\"type\":\"string\",\"minLength\":1},\"apiToken\":{\"type\":\"string\",\"minLength\":1},\"priority\":{\"type\":\"number\",\"minimum\":-2,\"maximum\":2},\"retry\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":30},{\"type\":\"null\"}]},\"expire\":{\"anyOf\":[{\"type\":\"number\",\"minimum\":1,\"maximum\":10800},{\"type\":\"null\"}]}},\"required\":[\"userKey\",\"apiToken\",\"priority\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification TestPushoverConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3108,7 +3371,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "GET",
     path: "/notification.getEmailProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Notification GetEmailProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3120,7 +3384,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "port",
     method: "POST",
     path: "/port.create",
-    schema: z.object({ "publishedPort": z.number(), "publishMode": z.enum(["ingress","host"]).default("ingress"), "targetPort": z.number(), "protocol": z.enum(["tcp","udp"]).default("tcp"), "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "publishedPort": z.number(), "publishMode": z.enum(["ingress","host"]).default("ingress"), "targetPort": z.number(), "protocol": z.enum(["tcp","udp"]).default("tcp"), "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"publishedPort\":{\"type\":\"number\"},\"publishMode\":{\"type\":\"string\",\"enum\":[\"ingress\",\"host\"],\"default\":\"ingress\"},\"targetPort\":{\"type\":\"number\"},\"protocol\":{\"type\":\"string\",\"enum\":[\"tcp\",\"udp\"],\"default\":\"tcp\"},\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"publishedPort\",\"targetPort\",\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Port Create",
       ...{"openWorldHint":true},
@@ -3132,7 +3397,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "port",
     method: "GET",
     path: "/port.one",
-    schema: z.object({ "portId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "portId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"portId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"portId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Port One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3144,7 +3410,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "port",
     method: "POST",
     path: "/port.delete",
-    schema: z.object({ "portId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "portId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"portId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"portId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Port Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3156,7 +3423,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "port",
     method: "POST",
     path: "/port.update",
-    schema: z.object({ "portId": z.string().min(1), "publishedPort": z.number(), "publishMode": z.enum(["ingress","host"]).default("ingress"), "targetPort": z.number(), "protocol": z.enum(["tcp","udp"]).default("tcp") }),
+    schema: lazySchema(() => z.object({ "portId": z.string().min(1), "publishedPort": z.number(), "publishMode": z.enum(["ingress","host"]).default("ingress"), "targetPort": z.number(), "protocol": z.enum(["tcp","udp"]).default("tcp") })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"portId\":{\"type\":\"string\",\"minLength\":1},\"publishedPort\":{\"type\":\"number\"},\"publishMode\":{\"type\":\"string\",\"enum\":[\"ingress\",\"host\"],\"default\":\"ingress\"},\"targetPort\":{\"type\":\"number\"},\"protocol\":{\"type\":\"string\",\"enum\":[\"tcp\",\"udp\"],\"default\":\"tcp\"}},\"required\":[\"portId\",\"publishedPort\",\"targetPort\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Port Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3168,7 +3436,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databaseName": z.string().min(1), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "dockerImage": z.string().default("postgres:18"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databaseName": z.string().min(1), "databaseUser": z.string().min(1), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")), "dockerImage": z.string().default("postgres:18"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"databaseName\":{\"type\":\"string\",\"minLength\":1},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"dockerImage\":{\"type\":\"string\",\"default\":\"postgres:18\"},\"environmentId\":{\"type\":\"string\"},\"description\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"databaseName\",\"databaseUser\",\"databasePassword\",\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Create",
       ...{"openWorldHint":true},
@@ -3180,7 +3449,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "GET",
     path: "/postgres.one",
-    schema: z.object({ "postgresId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3192,7 +3462,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.start",
-    schema: z.object({ "postgresId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3204,7 +3475,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.stop",
-    schema: z.object({ "postgresId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3216,7 +3488,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.saveExternalPort",
-    schema: z.object({ "postgresId": z.string(), "externalPort": z.union([z.number(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string(), "externalPort": z.union([z.number(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"},\"externalPort\":{\"type\":[\"number\",\"null\"]}},\"required\":[\"postgresId\",\"externalPort\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres SaveExternalPort",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3228,7 +3501,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.deploy",
-    schema: z.object({ "postgresId": z.string() }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3240,7 +3514,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.changeStatus",
-    schema: z.object({ "postgresId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]}},\"required\":[\"postgresId\",\"applicationStatus\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres ChangeStatus",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3252,7 +3527,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.remove",
-    schema: z.object({ "postgresId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3264,7 +3540,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.saveEnvironment",
-    schema: z.object({ "postgresId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"postgresId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3276,7 +3553,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.reload",
-    schema: z.object({ "postgresId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63}},\"required\":[\"postgresId\",\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3288,7 +3566,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.update",
-    schema: z.object({ "postgresId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "description": z.union([z.string(), z.null()]).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "description": z.union([z.string(), z.null()]).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"databaseName\":{\"type\":\"string\",\"minLength\":1},\"databaseUser\":{\"type\":\"string\",\"minLength\":1},\"databasePassword\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\"},\"description\":{\"type\":[\"string\",\"null\"]},\"dockerImage\":{\"type\":\"string\"},\"command\":{\"type\":[\"string\",\"null\"]},\"args\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"env\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"ulimitsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Name\":{\"type\":\"string\",\"minLength\":1},\"Soft\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991},\"Hard\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991}},\"required\":[\"Name\",\"Soft\",\"Hard\"],\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"createdAt\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3300,7 +3579,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.changePassword",
-    schema: z.object({ "postgresId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1) }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\",\"minLength\":1}},\"required\":[\"postgresId\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres ChangePassword",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3312,7 +3592,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.move",
-    schema: z.object({ "postgresId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"postgresId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3324,7 +3605,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.rebuild",
-    schema: z.object({ "postgresId": z.string() }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\"}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Rebuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3336,7 +3618,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "GET",
     path: "/postgres.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3348,7 +3631,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "GET",
     path: "/postgres.readLogs",
-    schema: z.object({ "postgresId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "postgresId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"postgresId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"postgresId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Postgres ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3360,7 +3644,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "previewDeployment",
     method: "GET",
     path: "/previewDeployment.all",
-    schema: z.object({ "applicationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "PreviewDeployment All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3372,7 +3657,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "previewDeployment",
     method: "GET",
     path: "/previewDeployment.one",
-    schema: z.object({ "previewDeploymentId": z.string() }),
+    schema: lazySchema(() => z.object({ "previewDeploymentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"previewDeploymentId\":{\"type\":\"string\"}},\"required\":[\"previewDeploymentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "PreviewDeployment One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3384,7 +3670,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "previewDeployment",
     method: "POST",
     path: "/previewDeployment.delete",
-    schema: z.object({ "previewDeploymentId": z.string() }),
+    schema: lazySchema(() => z.object({ "previewDeploymentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"previewDeploymentId\":{\"type\":\"string\"}},\"required\":[\"previewDeploymentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "PreviewDeployment Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3396,7 +3683,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "previewDeployment",
     method: "POST",
     path: "/previewDeployment.redeploy",
-    schema: z.object({ "previewDeploymentId": z.string(), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "previewDeploymentId": z.string(), "title": z.string().optional(), "description": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"previewDeploymentId\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"}},\"required\":[\"previewDeploymentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "PreviewDeployment Redeploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3408,7 +3696,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "POST",
     path: "/project.create",
-    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "env": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "env": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"env\":{\"type\":\"string\"}},\"required\":[\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project Create",
       ...{"openWorldHint":true},
@@ -3420,7 +3709,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "GET",
     path: "/project.one",
-    schema: z.object({ "projectId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "projectId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"projectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3432,7 +3722,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "GET",
     path: "/project.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3444,7 +3735,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "GET",
     path: "/project.allForPermissions",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project AllForPermissions",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3456,7 +3748,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "GET",
     path: "/project.homeStats",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project HomeStats",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3468,7 +3761,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "GET",
     path: "/project.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "description": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "description": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3480,7 +3774,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "POST",
     path: "/project.remove",
-    schema: z.object({ "projectId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "projectId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"projectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3492,7 +3787,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "POST",
     path: "/project.update",
-    schema: z.object({ "projectId": z.string().min(1), "name": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "organizationId": z.string().optional(), "env": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "projectId": z.string().min(1), "name": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "organizationId": z.string().optional(), "env": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"createdAt\":{\"type\":\"string\"},\"organizationId\":{\"type\":\"string\"},\"env\":{\"type\":\"string\"}},\"required\":[\"projectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3504,7 +3800,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "project",
     method: "POST",
     path: "/project.duplicate",
-    schema: z.object({ "sourceEnvironmentId": z.string(), "name": z.string(), "description": z.string().optional(), "includeServices": z.boolean().default(true), "selectedServices": z.array(z.object({ "id": z.string(), "type": z.enum(["application","compose","libsql","mariadb","mongo","mysql","postgres","redis"]) })).optional(), "duplicateInSameProject": z.boolean().default(false) }),
+    schema: lazySchema(() => z.object({ "sourceEnvironmentId": z.string(), "name": z.string(), "description": z.string().optional(), "includeServices": z.boolean().default(true), "selectedServices": z.array(z.object({ "id": z.string(), "type": z.enum(["application","compose","libsql","mariadb","mongo","mysql","postgres","redis"]) })).optional(), "duplicateInSameProject": z.boolean().default(false) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"sourceEnvironmentId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"includeServices\":{\"type\":\"boolean\",\"default\":true},\"selectedServices\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\",\"libsql\",\"mariadb\",\"mongo\",\"mysql\",\"postgres\",\"redis\"]}},\"required\":[\"id\",\"type\"],\"additionalProperties\":false}},\"duplicateInSameProject\":{\"type\":\"boolean\",\"default\":false}},\"required\":[\"sourceEnvironmentId\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Project Duplicate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3516,7 +3813,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redirects",
     method: "POST",
     path: "/redirects.create",
-    schema: z.object({ "regex": z.string().min(1), "replacement": z.string().min(1), "permanent": z.boolean(), "applicationId": z.string() }),
+    schema: lazySchema(() => z.object({ "regex": z.string().min(1), "replacement": z.string().min(1), "permanent": z.boolean(), "applicationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"regex\":{\"type\":\"string\",\"minLength\":1},\"replacement\":{\"type\":\"string\",\"minLength\":1},\"permanent\":{\"type\":\"boolean\"},\"applicationId\":{\"type\":\"string\"}},\"required\":[\"regex\",\"replacement\",\"permanent\",\"applicationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redirects Create",
       ...{"openWorldHint":true},
@@ -3528,7 +3826,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redirects",
     method: "GET",
     path: "/redirects.one",
-    schema: z.object({ "redirectId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "redirectId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redirectId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"redirectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redirects One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3540,7 +3839,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redirects",
     method: "POST",
     path: "/redirects.delete",
-    schema: z.object({ "redirectId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "redirectId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redirectId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"redirectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redirects Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3552,7 +3852,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redirects",
     method: "POST",
     path: "/redirects.update",
-    schema: z.object({ "redirectId": z.string().min(1), "regex": z.string().min(1), "replacement": z.string().min(1), "permanent": z.boolean() }),
+    schema: lazySchema(() => z.object({ "redirectId": z.string().min(1), "regex": z.string().min(1), "replacement": z.string().min(1), "permanent": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redirectId\":{\"type\":\"string\",\"minLength\":1},\"regex\":{\"type\":\"string\",\"minLength\":1},\"replacement\":{\"type\":\"string\",\"minLength\":1},\"permanent\":{\"type\":\"boolean\"}},\"required\":[\"redirectId\",\"regex\",\"replacement\",\"permanent\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redirects Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3564,7 +3865,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databasePassword": z.string(), "dockerImage": z.string().default("redis:8"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databasePassword": z.string(), "dockerImage": z.string().default("redis:8"), "environmentId": z.string(), "description": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"databasePassword\":{\"type\":\"string\"},\"dockerImage\":{\"type\":\"string\",\"default\":\"redis:8\"},\"environmentId\":{\"type\":\"string\"},\"description\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\",\"databasePassword\",\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Create",
       ...{"openWorldHint":true},
@@ -3576,7 +3878,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "GET",
     path: "/redis.one",
-    schema: z.object({ "redisId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3588,7 +3891,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.start",
-    schema: z.object({ "redisId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Start",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3600,7 +3904,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.reload",
-    schema: z.object({ "redisId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63}},\"required\":[\"redisId\",\"appName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Reload",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3612,7 +3917,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.stop",
-    schema: z.object({ "redisId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Stop",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3624,7 +3930,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.saveExternalPort",
-    schema: z.object({ "redisId": z.string(), "externalPort": z.union([z.number(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string(), "externalPort": z.union([z.number(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"},\"externalPort\":{\"type\":[\"number\",\"null\"]}},\"required\":[\"redisId\",\"externalPort\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis SaveExternalPort",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3636,7 +3943,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.deploy",
-    schema: z.object({ "redisId": z.string() }),
+    schema: lazySchema(() => z.object({ "redisId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3648,7 +3956,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.changeStatus",
-    schema: z.object({ "redisId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string(), "applicationStatus": z.enum(["idle","running","done","error"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]}},\"required\":[\"redisId\",\"applicationStatus\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis ChangeStatus",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3660,7 +3969,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.remove",
-    schema: z.object({ "redisId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3672,7 +3982,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.saveEnvironment",
-    schema: z.object({ "redisId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string(), "env": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"},\"env\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"redisId\",\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3684,7 +3995,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.update",
-    schema: z.object({ "redisId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databasePassword": z.string().optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "createdAt": z.string().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "environmentId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databasePassword": z.string().optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "createdAt": z.string().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "environmentId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"appName\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9._-]+$\",\"minLength\":1,\"maxLength\":63},\"description\":{\"type\":[\"string\",\"null\"]},\"databasePassword\":{\"type\":\"string\"},\"dockerImage\":{\"type\":\"string\"},\"command\":{\"type\":[\"string\",\"null\"]},\"args\":{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]},\"env\":{\"type\":[\"string\",\"null\"]},\"memoryReservation\":{\"type\":[\"string\",\"null\"]},\"memoryLimit\":{\"type\":[\"string\",\"null\"]},\"cpuReservation\":{\"type\":[\"string\",\"null\"]},\"cpuLimit\":{\"type\":[\"string\",\"null\"]},\"externalPort\":{\"type\":[\"number\",\"null\"]},\"createdAt\":{\"type\":\"string\"},\"applicationStatus\":{\"type\":\"string\",\"enum\":[\"idle\",\"running\",\"done\",\"error\"]},\"healthCheckSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Test\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Interval\":{\"type\":\"number\"},\"Timeout\":{\"type\":\"number\"},\"StartPeriod\":{\"type\":\"number\"},\"Retries\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"restartPolicySwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Condition\":{\"type\":\"string\"},\"Delay\":{\"type\":\"number\"},\"MaxAttempts\":{\"type\":\"number\"},\"Window\":{\"type\":\"number\"}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"placementSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Constraints\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"Preferences\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Spread\":{\"type\":\"object\",\"properties\":{\"SpreadDescriptor\":{\"type\":\"string\"}},\"required\":[\"SpreadDescriptor\"],\"additionalProperties\":false}},\"required\":[\"Spread\"],\"additionalProperties\":false}},\"MaxReplicas\":{\"type\":\"number\"},\"Platforms\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Architecture\":{\"type\":\"string\"},\"OS\":{\"type\":\"string\"}},\"required\":[\"Architecture\",\"OS\"],\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"updateConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"rollbackConfigSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Parallelism\":{\"type\":\"number\"},\"Delay\":{\"type\":\"number\"},\"FailureAction\":{\"type\":\"string\"},\"Monitor\":{\"type\":\"number\"},\"MaxFailureRatio\":{\"type\":\"number\"},\"Order\":{\"type\":\"string\"}},\"required\":[\"Parallelism\",\"Order\"],\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"modeSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Replicated\":{\"type\":\"object\",\"properties\":{\"Replicas\":{\"type\":\"number\"}},\"additionalProperties\":false},\"Global\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false},\"ReplicatedJob\":{\"type\":\"object\",\"properties\":{\"MaxConcurrent\":{\"type\":\"number\"},\"TotalCompletions\":{\"type\":\"number\"}},\"additionalProperties\":false},\"GlobalJob\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"labelsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"networkSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Target\":{\"type\":\"string\"},\"Aliases\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"DriverOpts\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}},\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"stopGracePeriodSwarm\":{\"anyOf\":[{\"type\":[\"number\",\"null\"]},{\"type\":\"null\"}]},\"endpointSpecSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"Mode\":{\"type\":\"string\"},\"Ports\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Protocol\":{\"type\":\"string\"},\"TargetPort\":{\"type\":\"number\"},\"PublishedPort\":{\"type\":\"number\"},\"PublishMode\":{\"type\":\"string\"}},\"additionalProperties\":false}}},\"additionalProperties\":false},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"ulimitsSwarm\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Name\":{\"type\":\"string\",\"minLength\":1},\"Soft\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991},\"Hard\":{\"type\":\"integer\",\"minimum\":-1,\"maximum\":9007199254740991}},\"required\":[\"Name\",\"Soft\",\"Hard\"],\"additionalProperties\":false}},{\"type\":\"null\"}]},{\"type\":\"null\"}]},\"replicas\":{\"type\":\"number\"},\"environmentId\":{\"type\":\"string\"}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3696,7 +4008,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.changePassword",
-    schema: z.object({ "redisId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1) }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1), "password": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9@#%^&*()_+\\\\-=[\\\\]{}|;:,.<>?~`]*$\",\"minLength\":1}},\"required\":[\"redisId\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis ChangePassword",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3708,7 +4021,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.move",
-    schema: z.object({ "redisId": z.string(), "targetEnvironmentId": z.string() }),
+    schema: lazySchema(() => z.object({ "redisId": z.string(), "targetEnvironmentId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"},\"targetEnvironmentId\":{\"type\":\"string\"}},\"required\":[\"redisId\",\"targetEnvironmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Move",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3720,7 +4034,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.rebuild",
-    schema: z.object({ "redisId": z.string() }),
+    schema: lazySchema(() => z.object({ "redisId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\"}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Rebuild",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3732,7 +4047,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "GET",
     path: "/redis.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "appName": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "environmentId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"environmentId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3744,7 +4060,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "GET",
     path: "/redis.readLogs",
-    schema: z.object({ "redisId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() }),
+    schema: lazySchema(() => z.object({ "redisId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100), "since": z.string().regex(new RegExp("^(all|\\d+[smhd])$")).default("all"), "search": z.string().regex(new RegExp("^[a-zA-Z0-9 ._-]{0,500}$")).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"redisId\":{\"type\":\"string\",\"minLength\":1},\"tail\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":10000,\"default\":100},\"since\":{\"type\":\"string\",\"pattern\":\"^(all|\\\\d+[smhd])$\",\"default\":\"all\"},\"search\":{\"type\":\"string\",\"pattern\":\"^[a-zA-Z0-9 ._-]{0,500}$\"}},\"required\":[\"redisId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Redis ReadLogs",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3756,7 +4073,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "POST",
     path: "/registry.create",
-    schema: z.object({ "registryName": z.string().min(1), "username": z.string().min(1), "password": z.string().min(1), "registryUrl": z.string(), "registryType": z.literal("cloud"), "imagePrefix": z.union([z.string(), z.null()]), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "registryName": z.string().min(1), "username": z.string().min(1), "password": z.string().min(1), "registryUrl": z.string(), "registryType": z.literal("cloud"), "imagePrefix": z.union([z.string(), z.null()]), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"registryName\":{\"type\":\"string\",\"minLength\":1},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1},\"registryUrl\":{\"type\":\"string\"},\"registryType\":{\"type\":\"string\",\"const\":\"cloud\"},\"imagePrefix\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":\"string\"}},\"required\":[\"registryName\",\"username\",\"password\",\"registryUrl\",\"registryType\",\"imagePrefix\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry Create",
       ...{"openWorldHint":true},
@@ -3768,7 +4086,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "POST",
     path: "/registry.remove",
-    schema: z.object({ "registryId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "registryId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"registryId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"registryId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3780,7 +4099,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "POST",
     path: "/registry.update",
-    schema: z.object({ "registryId": z.string().min(1), "registryName": z.string().min(1).optional(), "imagePrefix": z.union([z.union([z.string(), z.null()]), z.null()]).optional(), "username": z.string().min(1).optional(), "password": z.string().min(1).optional(), "registryUrl": z.string().optional(), "createdAt": z.string().optional(), "registryType": z.literal("cloud").optional(), "organizationId": z.string().min(1).optional(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "registryId": z.string().min(1), "registryName": z.string().min(1).optional(), "imagePrefix": z.union([z.union([z.string(), z.null()]), z.null()]).optional(), "username": z.string().min(1).optional(), "password": z.string().min(1).optional(), "registryUrl": z.string().optional(), "createdAt": z.string().optional(), "registryType": z.literal("cloud").optional(), "organizationId": z.string().min(1).optional(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"registryId\":{\"type\":\"string\",\"minLength\":1},\"registryName\":{\"type\":\"string\",\"minLength\":1},\"imagePrefix\":{\"anyOf\":[{\"type\":[\"string\",\"null\"]},{\"type\":\"null\"}]},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1},\"registryUrl\":{\"type\":\"string\"},\"createdAt\":{\"type\":\"string\"},\"registryType\":{\"type\":\"string\",\"const\":\"cloud\"},\"organizationId\":{\"type\":\"string\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"registryId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3792,7 +4112,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "GET",
     path: "/registry.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3804,7 +4125,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "GET",
     path: "/registry.one",
-    schema: z.object({ "registryId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "registryId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"registryId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"registryId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3816,7 +4138,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "POST",
     path: "/registry.testRegistry",
-    schema: z.object({ "registryName": z.string().optional(), "username": z.string().min(1), "password": z.string().min(1), "registryUrl": z.string(), "registryType": z.literal("cloud"), "imagePrefix": z.union([z.string(), z.null()]).optional(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "registryName": z.string().optional(), "username": z.string().min(1), "password": z.string().min(1), "registryUrl": z.string(), "registryType": z.literal("cloud"), "imagePrefix": z.union([z.string(), z.null()]).optional(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"registryName\":{\"type\":\"string\"},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1},\"registryUrl\":{\"type\":\"string\"},\"registryType\":{\"type\":\"string\",\"const\":\"cloud\"},\"imagePrefix\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":\"string\"}},\"required\":[\"username\",\"password\",\"registryUrl\",\"registryType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry TestRegistry",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3828,7 +4151,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "registry",
     method: "POST",
     path: "/registry.testRegistryById",
-    schema: z.object({ "registryId": z.string().min(1).optional(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "registryId": z.string().min(1).optional(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"registryId\":{\"type\":\"string\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Registry TestRegistryById",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3840,7 +4164,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "security",
     method: "POST",
     path: "/security.create",
-    schema: z.object({ "applicationId": z.string(), "username": z.string().min(1), "password": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "applicationId": z.string(), "username": z.string().min(1), "password": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"applicationId\":{\"type\":\"string\"},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"applicationId\",\"username\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Security Create",
       ...{"openWorldHint":true},
@@ -3852,7 +4177,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "security",
     method: "GET",
     path: "/security.one",
-    schema: z.object({ "securityId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "securityId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"securityId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"securityId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Security One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3864,7 +4190,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "security",
     method: "POST",
     path: "/security.delete",
-    schema: z.object({ "securityId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "securityId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"securityId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"securityId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Security Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -3876,7 +4203,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "security",
     method: "POST",
     path: "/security.update",
-    schema: z.object({ "securityId": z.string().min(1), "username": z.string().min(1), "password": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "securityId": z.string().min(1), "username": z.string().min(1), "password": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"securityId\":{\"type\":\"string\",\"minLength\":1},\"username\":{\"type\":\"string\",\"minLength\":1},\"password\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"securityId\",\"username\",\"password\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Security Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3888,7 +4216,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "POST",
     path: "/server.create",
-    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]), "ipAddress": z.string(), "port": z.number(), "username": z.string(), "sshKeyId": z.union([z.string(), z.null()]), "serverType": z.enum(["deploy","build"]) }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]), "ipAddress": z.string(), "port": z.number(), "username": z.string(), "sshKeyId": z.union([z.string(), z.null()]), "serverType": z.enum(["deploy","build"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"ipAddress\":{\"type\":\"string\"},\"port\":{\"type\":\"number\"},\"username\":{\"type\":\"string\"},\"sshKeyId\":{\"type\":[\"string\",\"null\"]},\"serverType\":{\"type\":\"string\",\"enum\":[\"deploy\",\"build\"]}},\"required\":[\"name\",\"description\",\"ipAddress\",\"port\",\"username\",\"sshKeyId\",\"serverType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Create",
       ...{"openWorldHint":true},
@@ -3900,7 +4229,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.one",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3912,7 +4242,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.getDefaultCommand",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server GetDefaultCommand",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3924,7 +4255,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3936,7 +4268,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.allForPermissions",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server AllForPermissions",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3948,7 +4281,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.count",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Count",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3960,7 +4294,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.withSSHKey",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server WithSSHKey",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3972,7 +4307,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.buildServers",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server BuildServers",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -3984,7 +4320,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "POST",
     path: "/server.setup",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Setup",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3996,7 +4333,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.validate",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Validate",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4008,7 +4346,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.security",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Security",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4020,7 +4359,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "POST",
     path: "/server.setupMonitoring",
-    schema: z.object({ "serverId": z.string().min(1), "metricsConfig": z.object({ "server": z.object({ "refreshRate": z.number().gte(2), "port": z.number().gte(1), "token": z.string(), "urlCallback": z.string().url(), "retentionDays": z.number().gte(1), "cronJob": z.string().min(1), "thresholds": z.object({ "cpu": z.number().gte(0), "memory": z.number().gte(0) }) }), "containers": z.object({ "refreshRate": z.number().gte(2), "services": z.object({ "include": z.array(z.string()).optional(), "exclude": z.array(z.string()).optional() }) }) }) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1), "metricsConfig": z.object({ "server": z.object({ "refreshRate": z.number().gte(2), "port": z.number().gte(1), "token": z.string(), "urlCallback": z.string().url(), "retentionDays": z.number().gte(1), "cronJob": z.string().min(1), "thresholds": z.object({ "cpu": z.number().gte(0), "memory": z.number().gte(0) }) }), "containers": z.object({ "refreshRate": z.number().gte(2), "services": z.object({ "include": z.array(z.string()).optional(), "exclude": z.array(z.string()).optional() }) }) }) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1},\"metricsConfig\":{\"type\":\"object\",\"properties\":{\"server\":{\"type\":\"object\",\"properties\":{\"refreshRate\":{\"type\":\"number\",\"minimum\":2},\"port\":{\"type\":\"number\",\"minimum\":1},\"token\":{\"type\":\"string\"},\"urlCallback\":{\"type\":\"string\",\"format\":\"uri\"},\"retentionDays\":{\"type\":\"number\",\"minimum\":1},\"cronJob\":{\"type\":\"string\",\"minLength\":1},\"thresholds\":{\"type\":\"object\",\"properties\":{\"cpu\":{\"type\":\"number\",\"minimum\":0},\"memory\":{\"type\":\"number\",\"minimum\":0}},\"required\":[\"cpu\",\"memory\"],\"additionalProperties\":false}},\"required\":[\"refreshRate\",\"port\",\"token\",\"urlCallback\",\"retentionDays\",\"cronJob\",\"thresholds\"],\"additionalProperties\":false},\"containers\":{\"type\":\"object\",\"properties\":{\"refreshRate\":{\"type\":\"number\",\"minimum\":2},\"services\":{\"type\":\"object\",\"properties\":{\"include\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"exclude\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"additionalProperties\":false}},\"required\":[\"refreshRate\",\"services\"],\"additionalProperties\":false}},\"required\":[\"server\",\"containers\"],\"additionalProperties\":false}},\"required\":[\"serverId\",\"metricsConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server SetupMonitoring",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4032,7 +4372,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "POST",
     path: "/server.remove",
-    schema: z.object({ "serverId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"serverId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -4044,7 +4385,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "POST",
     path: "/server.update",
-    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]), "serverId": z.string().min(1), "ipAddress": z.string(), "port": z.number(), "username": z.string(), "sshKeyId": z.union([z.string(), z.null()]), "serverType": z.enum(["deploy","build"]), "command": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]), "serverId": z.string().min(1), "ipAddress": z.string(), "port": z.number(), "username": z.string(), "sshKeyId": z.union([z.string(), z.null()]), "serverType": z.enum(["deploy","build"]), "command": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":\"string\",\"minLength\":1},\"ipAddress\":{\"type\":\"string\"},\"port\":{\"type\":\"number\"},\"username\":{\"type\":\"string\"},\"sshKeyId\":{\"type\":[\"string\",\"null\"]},\"serverType\":{\"type\":\"string\",\"enum\":[\"deploy\",\"build\"]},\"command\":{\"type\":\"string\"}},\"required\":[\"name\",\"description\",\"serverId\",\"ipAddress\",\"port\",\"username\",\"sshKeyId\",\"serverType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4056,7 +4398,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.publicIp",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server PublicIp",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4068,7 +4411,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.getServerTime",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server GetServerTime",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4080,7 +4424,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "server",
     method: "GET",
     path: "/server.getServerMetrics",
-    schema: z.object({ "url": z.string(), "token": z.string(), "dataPoints": z.string() }),
+    schema: lazySchema(() => z.object({ "url": z.string(), "token": z.string(), "dataPoints": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"url\":{\"type\":\"string\"},\"token\":{\"type\":\"string\"},\"dataPoints\":{\"type\":\"string\"}},\"required\":[\"url\",\"token\",\"dataPoints\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Server GetServerMetrics",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4092,7 +4437,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getWebServerSettings",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetWebServerSettings",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4104,7 +4450,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.reloadServer",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReloadServer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4116,7 +4463,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanRedis",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanRedis",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4128,7 +4476,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.reloadRedis",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReloadRedis",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4140,7 +4489,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanAllDeploymentQueue",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanAllDeploymentQueue",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4152,7 +4502,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.reloadTraefik",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReloadTraefik",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4164,7 +4515,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.toggleDashboard",
-    schema: z.object({ "enableDashboard": z.boolean().optional(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "enableDashboard": z.boolean().optional(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"enableDashboard\":{\"type\":\"boolean\"},\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ToggleDashboard",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4176,7 +4528,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanUnusedImages",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanUnusedImages",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4188,7 +4541,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanUnusedVolumes",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanUnusedVolumes",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4200,7 +4554,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanStoppedContainers",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanStoppedContainers",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4212,7 +4567,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanDockerBuilder",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanDockerBuilder",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4224,7 +4580,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanDockerPrune",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanDockerPrune",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4236,7 +4593,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanAll",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanAll",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4248,7 +4606,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanMonitoring",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanMonitoring",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4260,7 +4619,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getDockerDiskUsage",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetDockerDiskUsage",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4272,7 +4632,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.saveSSHPrivateKey",
-    schema: z.object({ "sshPrivateKey": z.string() }),
+    schema: lazySchema(() => z.object({ "sshPrivateKey": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"sshPrivateKey\":{\"type\":\"string\"}},\"required\":[\"sshPrivateKey\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings SaveSSHPrivateKey",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4284,7 +4645,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.assignDomainServer",
-    schema: z.object({ "host": z.string(), "certificateType": z.enum(["letsencrypt","none","custom"]), "letsEncryptEmail": z.union([z.union([z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), z.literal("")]), z.null()]).optional(), "https": z.boolean().optional() }),
+    schema: lazySchema(() => z.object({ "host": z.string(), "certificateType": z.enum(["letsencrypt","none","custom"]), "letsEncryptEmail": z.union([z.union([z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), z.literal("")]), z.null()]).optional(), "https": z.boolean().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"host\":{\"type\":\"string\"},\"certificateType\":{\"type\":\"string\",\"enum\":[\"letsencrypt\",\"none\",\"custom\"]},\"letsEncryptEmail\":{\"anyOf\":[{\"anyOf\":[{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\"},{\"type\":\"string\",\"const\":\"\"}]},{\"type\":\"null\"}]},\"https\":{\"type\":\"boolean\"}},\"required\":[\"host\",\"certificateType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings AssignDomainServer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4296,7 +4658,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.cleanSSHPrivateKey",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CleanSSHPrivateKey",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4308,7 +4671,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateDockerCleanup",
-    schema: z.object({ "enableDockerCleanup": z.boolean(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "enableDockerCleanup": z.boolean(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"enableDockerCleanup\":{\"type\":\"boolean\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"enableDockerCleanup\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateDockerCleanup",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4320,7 +4684,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.readTraefikConfig",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReadTraefikConfig",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4332,7 +4697,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateTraefikConfig",
-    schema: z.object({ "traefikConfig": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "traefikConfig": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"traefikConfig\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"traefikConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateTraefikConfig",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4344,7 +4710,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.readWebServerTraefikConfig",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReadWebServerTraefikConfig",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4356,7 +4723,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateWebServerTraefikConfig",
-    schema: z.object({ "traefikConfig": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "traefikConfig": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"traefikConfig\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"traefikConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateWebServerTraefikConfig",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4368,7 +4736,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.readMiddlewareTraefikConfig",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReadMiddlewareTraefikConfig",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4380,7 +4749,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateMiddlewareTraefikConfig",
-    schema: z.object({ "traefikConfig": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "traefikConfig": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"traefikConfig\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"traefikConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateMiddlewareTraefikConfig",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4392,7 +4762,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.getUpdateData",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetUpdateData",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4404,7 +4775,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateServer",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateServer",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4416,7 +4788,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getDokployVersion",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetDokployVersion",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4428,7 +4801,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getReleaseTag",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetReleaseTag",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4440,7 +4814,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.readDirectories",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReadDirectories",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4452,7 +4827,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateTraefikFile",
-    schema: z.object({ "path": z.string().min(1), "traefikConfig": z.string().min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "path": z.string().min(1), "traefikConfig": z.string().min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"path\":{\"type\":\"string\",\"minLength\":1},\"traefikConfig\":{\"type\":\"string\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"path\",\"traefikConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateTraefikFile",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4464,7 +4840,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.readTraefikFile",
-    schema: z.object({ "path": z.string().min(1), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "path": z.string().min(1), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"path\":{\"type\":\"string\",\"minLength\":1},\"serverId\":{\"type\":\"string\"}},\"required\":[\"path\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReadTraefikFile",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4476,7 +4853,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getIp",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetIp",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4488,7 +4866,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateServerIp",
-    schema: z.object({ "serverIp": z.string() }),
+    schema: lazySchema(() => z.object({ "serverIp": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverIp\":{\"type\":\"string\"}},\"required\":[\"serverIp\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateServerIp",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4500,7 +4879,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getOpenApiDocument",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetOpenApiDocument",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4512,7 +4892,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.readTraefikEnv",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ReadTraefikEnv",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4524,7 +4905,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.writeTraefikEnv",
-    schema: z.object({ "env": z.string(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "env": z.string(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"env\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"env\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings WriteTraefikEnv",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4536,7 +4918,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.haveTraefikDashboardPortEnabled",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings HaveTraefikDashboardPortEnabled",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4548,7 +4931,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.haveActivateRequests",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings HaveActivateRequests",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4560,7 +4944,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.toggleRequests",
-    schema: z.object({ "enable": z.boolean() }),
+    schema: lazySchema(() => z.object({ "enable": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"enable\":{\"type\":\"boolean\"}},\"required\":[\"enable\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings ToggleRequests",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4572,7 +4957,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.isCloud",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings IsCloud",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4584,7 +4970,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.isUserSubscribed",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings IsUserSubscribed",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4596,7 +4983,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.health",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings Health",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4608,7 +4996,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.checkInfrastructureHealth",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CheckInfrastructureHealth",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4620,7 +5009,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.setupGPU",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings SetupGPU",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4632,7 +5022,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.checkGPUStatus",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings CheckGPUStatus",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4644,7 +5035,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateTraefikPorts",
-    schema: z.object({ "serverId": z.string().optional(), "additionalPorts": z.array(z.object({ "targetPort": z.number(), "publishedPort": z.number(), "protocol": z.enum(["tcp","udp","sctp"]) })) }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional(), "additionalPorts": z.array(z.object({ "targetPort": z.number(), "publishedPort": z.number(), "protocol": z.enum(["tcp","udp","sctp"]) })) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"},\"additionalPorts\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"targetPort\":{\"type\":\"number\"},\"publishedPort\":{\"type\":\"number\"},\"protocol\":{\"type\":\"string\",\"enum\":[\"tcp\",\"udp\",\"sctp\"]}},\"required\":[\"targetPort\",\"publishedPort\",\"protocol\"],\"additionalProperties\":false}}},\"required\":[\"additionalPorts\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateTraefikPorts",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4656,7 +5048,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getTraefikPorts",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetTraefikPorts",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4668,7 +5061,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "POST",
     path: "/settings.updateLogCleanup",
-    schema: z.object({ "cronExpression": z.union([z.string(), z.null()]) }),
+    schema: lazySchema(() => z.object({ "cronExpression": z.union([z.string(), z.null()]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"cronExpression\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"cronExpression\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings UpdateLogCleanup",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4680,7 +5074,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getLogCleanupStatus",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetLogCleanupStatus",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4692,7 +5087,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "settings",
     method: "GET",
     path: "/settings.getDokployCloudIps",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Settings GetDokployCloudIps",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4704,7 +5100,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.create",
-    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "privateKey": z.string(), "publicKey": z.string(), "organizationId": z.string() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "privateKey": z.string(), "publicKey": z.string(), "organizationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"privateKey\":{\"type\":\"string\"},\"publicKey\":{\"type\":\"string\"},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"name\",\"privateKey\",\"publicKey\",\"organizationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey Create",
       ...{"openWorldHint":true},
@@ -4716,7 +5113,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.remove",
-    schema: z.object({ "sshKeyId": z.string() }),
+    schema: lazySchema(() => z.object({ "sshKeyId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"sshKeyId\":{\"type\":\"string\"}},\"required\":[\"sshKeyId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -4728,7 +5126,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "GET",
     path: "/sshKey.one",
-    schema: z.object({ "sshKeyId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "sshKeyId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"sshKeyId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"sshKeyId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4740,7 +5139,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "GET",
     path: "/sshKey.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4752,7 +5152,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "GET",
     path: "/sshKey.allForApps",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey AllForApps",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4764,7 +5165,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.generate",
-    schema: z.object({ "type": z.enum(["rsa","ed25519"]).optional() }),
+    schema: lazySchema(() => z.object({ "type": z.enum(["rsa","ed25519"]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\",\"enum\":[\"rsa\",\"ed25519\"]}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey Generate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4776,7 +5178,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.update",
-    schema: z.object({ "name": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "lastUsedAt": z.union([z.string(), z.null()]).optional(), "sshKeyId": z.string() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "lastUsedAt": z.union([z.string(), z.null()]).optional(), "sshKeyId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":[\"string\",\"null\"]},\"lastUsedAt\":{\"type\":[\"string\",\"null\"]},\"sshKeyId\":{\"type\":\"string\"}},\"required\":[\"sshKeyId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "SshKey Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4788,7 +5191,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "GET",
     path: "/stripe.getCurrentPlan",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe GetCurrentPlan",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4800,7 +5204,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "GET",
     path: "/stripe.getProducts",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe GetProducts",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4812,7 +5217,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "POST",
     path: "/stripe.createCheckoutSession",
-    schema: z.object({ "tier": z.enum(["legacy","hobby","startup"]), "productId": z.string(), "serverQuantity": z.number().gte(1), "isAnnual": z.boolean() }),
+    schema: lazySchema(() => z.object({ "tier": z.enum(["legacy","hobby","startup"]), "productId": z.string(), "serverQuantity": z.number().gte(1), "isAnnual": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"tier\":{\"type\":\"string\",\"enum\":[\"legacy\",\"hobby\",\"startup\"]},\"productId\":{\"type\":\"string\"},\"serverQuantity\":{\"type\":\"number\",\"minimum\":1},\"isAnnual\":{\"type\":\"boolean\"}},\"required\":[\"tier\",\"productId\",\"serverQuantity\",\"isAnnual\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe CreateCheckoutSession",
       ...{"openWorldHint":true},
@@ -4824,7 +5230,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "POST",
     path: "/stripe.createCustomerPortalSession",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe CreateCustomerPortalSession",
       ...{"openWorldHint":true},
@@ -4836,7 +5243,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "POST",
     path: "/stripe.upgradeSubscription",
-    schema: z.object({ "tier": z.enum(["hobby","startup"]), "serverQuantity": z.number().gte(1), "isAnnual": z.boolean() }),
+    schema: lazySchema(() => z.object({ "tier": z.enum(["hobby","startup"]), "serverQuantity": z.number().gte(1), "isAnnual": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"tier\":{\"type\":\"string\",\"enum\":[\"hobby\",\"startup\"]},\"serverQuantity\":{\"type\":\"number\",\"minimum\":1},\"isAnnual\":{\"type\":\"boolean\"}},\"required\":[\"tier\",\"serverQuantity\",\"isAnnual\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe UpgradeSubscription",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4848,7 +5256,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "GET",
     path: "/stripe.canCreateMoreServers",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe CanCreateMoreServers",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4860,7 +5269,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "POST",
     path: "/stripe.updateInvoiceNotifications",
-    schema: z.object({ "enabled": z.boolean() }),
+    schema: lazySchema(() => z.object({ "enabled": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"enabled\":{\"type\":\"boolean\"}},\"required\":[\"enabled\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe UpdateInvoiceNotifications",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4872,7 +5282,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "GET",
     path: "/stripe.getInvoices",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Stripe GetInvoices",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4884,7 +5295,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "swarm",
     method: "GET",
     path: "/swarm.getNodes",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Swarm GetNodes",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4896,7 +5308,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "swarm",
     method: "GET",
     path: "/swarm.getNodeInfo",
-    schema: z.object({ "nodeId": z.string(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "nodeId": z.string(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"nodeId\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"nodeId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Swarm GetNodeInfo",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4908,7 +5321,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "swarm",
     method: "GET",
     path: "/swarm.getNodeApps",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Swarm GetNodeApps",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4920,7 +5334,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "swarm",
     method: "GET",
     path: "/swarm.getContainerStats",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Swarm GetContainerStats",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4932,7 +5347,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4944,7 +5360,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.one",
-    schema: z.object({ "userId": z.string() }),
+    schema: lazySchema(() => z.object({ "userId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"userId\":{\"type\":\"string\"}},\"required\":[\"userId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4956,7 +5373,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.session",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User Session",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4968,7 +5386,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.get",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User Get",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4980,7 +5399,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getPermissions",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetPermissions",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -4992,7 +5412,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.haveRootAccess",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User HaveRootAccess",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5004,7 +5425,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getBackups",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetBackups",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5016,7 +5438,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getServerMetrics",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetServerMetrics",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5028,7 +5451,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.update",
-    schema: z.object({ "id": z.string().min(1).optional(), "firstName": z.string().optional(), "lastName": z.string().optional(), "isRegistered": z.boolean().optional(), "expirationDate": z.string().optional(), "createdAt2": z.string().optional(), "createdAt": z.union([z.string(), z.null()]).optional(), "twoFactorEnabled": z.union([z.boolean(), z.null()]).optional(), "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).min(1).optional(), "emailVerified": z.boolean().optional(), "image": z.union([z.string(), z.null()]).optional(), "banned": z.union([z.boolean(), z.null()]).optional(), "banReason": z.union([z.string(), z.null()]).optional(), "banExpires": z.union([z.string(), z.null()]).optional(), "updatedAt": z.string().optional(), "enablePaidFeatures": z.boolean().optional(), "allowImpersonation": z.boolean().optional(), "enableEnterpriseFeatures": z.boolean().optional(), "licenseKey": z.union([z.string(), z.null()]).optional(), "stripeCustomerId": z.union([z.string(), z.null()]).optional(), "stripeSubscriptionId": z.union([z.string(), z.null()]).optional(), "serversQuantity": z.number().optional(), "sendInvoiceNotifications": z.boolean().optional(), "password": z.string().optional(), "currentPassword": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1).optional(), "firstName": z.string().optional(), "lastName": z.string().optional(), "isRegistered": z.boolean().optional(), "expirationDate": z.string().optional(), "createdAt2": z.string().optional(), "createdAt": z.union([z.string(), z.null()]).optional(), "twoFactorEnabled": z.union([z.boolean(), z.null()]).optional(), "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).min(1).optional(), "emailVerified": z.boolean().optional(), "image": z.union([z.string(), z.null()]).optional(), "banned": z.union([z.boolean(), z.null()]).optional(), "banReason": z.union([z.string(), z.null()]).optional(), "banExpires": z.union([z.string(), z.null()]).optional(), "updatedAt": z.string().optional(), "enablePaidFeatures": z.boolean().optional(), "allowImpersonation": z.boolean().optional(), "enableEnterpriseFeatures": z.boolean().optional(), "licenseKey": z.union([z.string(), z.null()]).optional(), "stripeCustomerId": z.union([z.string(), z.null()]).optional(), "stripeSubscriptionId": z.union([z.string(), z.null()]).optional(), "serversQuantity": z.number().optional(), "sendInvoiceNotifications": z.boolean().optional(), "password": z.string().optional(), "currentPassword": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"isRegistered\":{\"type\":\"boolean\"},\"expirationDate\":{\"type\":\"string\"},\"createdAt2\":{\"type\":\"string\"},\"createdAt\":{\"type\":[\"string\",\"null\"]},\"twoFactorEnabled\":{\"type\":[\"boolean\",\"null\"]},\"email\":{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\",\"minLength\":1},\"emailVerified\":{\"type\":\"boolean\"},\"image\":{\"type\":[\"string\",\"null\"]},\"banned\":{\"type\":[\"boolean\",\"null\"]},\"banReason\":{\"type\":[\"string\",\"null\"]},\"banExpires\":{\"type\":[\"string\",\"null\"]},\"updatedAt\":{\"type\":\"string\"},\"enablePaidFeatures\":{\"type\":\"boolean\"},\"allowImpersonation\":{\"type\":\"boolean\"},\"enableEnterpriseFeatures\":{\"type\":\"boolean\"},\"licenseKey\":{\"type\":[\"string\",\"null\"]},\"stripeCustomerId\":{\"type\":[\"string\",\"null\"]},\"stripeSubscriptionId\":{\"type\":[\"string\",\"null\"]},\"serversQuantity\":{\"type\":\"number\"},\"sendInvoiceNotifications\":{\"type\":\"boolean\"},\"password\":{\"type\":\"string\"},\"currentPassword\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5040,7 +5464,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getUserByToken",
-    schema: z.object({ "token": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "token": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"token\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"token\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetUserByToken",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5052,7 +5477,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getMetricsToken",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetMetricsToken",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5064,7 +5490,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.remove",
-    schema: z.object({ "userId": z.string() }),
+    schema: lazySchema(() => z.object({ "userId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"userId\":{\"type\":\"string\"}},\"required\":[\"userId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5076,7 +5503,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.assignPermissions",
-    schema: z.object({ "id": z.string().min(1), "accessedProjects": z.array(z.string()), "accessedEnvironments": z.array(z.string()), "accessedServices": z.array(z.string()), "accessedGitProviders": z.array(z.string()), "accessedServers": z.array(z.string()), "canCreateProjects": z.boolean(), "canCreateServices": z.boolean(), "canDeleteProjects": z.boolean(), "canDeleteServices": z.boolean(), "canAccessToDocker": z.boolean(), "canAccessToTraefikFiles": z.boolean(), "canAccessToAPI": z.boolean(), "canAccessToSSHKeys": z.boolean(), "canAccessToGitProviders": z.boolean(), "canDeleteEnvironments": z.boolean(), "canCreateEnvironments": z.boolean() }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "accessedProjects": z.array(z.string()), "accessedEnvironments": z.array(z.string()), "accessedServices": z.array(z.string()), "accessedGitProviders": z.array(z.string()), "accessedServers": z.array(z.string()), "canCreateProjects": z.boolean(), "canCreateServices": z.boolean(), "canDeleteProjects": z.boolean(), "canDeleteServices": z.boolean(), "canAccessToDocker": z.boolean(), "canAccessToTraefikFiles": z.boolean(), "canAccessToAPI": z.boolean(), "canAccessToSSHKeys": z.boolean(), "canAccessToGitProviders": z.boolean(), "canDeleteEnvironments": z.boolean(), "canCreateEnvironments": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"accessedProjects\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"accessedEnvironments\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"accessedServices\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"accessedGitProviders\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"accessedServers\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"canCreateProjects\":{\"type\":\"boolean\"},\"canCreateServices\":{\"type\":\"boolean\"},\"canDeleteProjects\":{\"type\":\"boolean\"},\"canDeleteServices\":{\"type\":\"boolean\"},\"canAccessToDocker\":{\"type\":\"boolean\"},\"canAccessToTraefikFiles\":{\"type\":\"boolean\"},\"canAccessToAPI\":{\"type\":\"boolean\"},\"canAccessToSSHKeys\":{\"type\":\"boolean\"},\"canAccessToGitProviders\":{\"type\":\"boolean\"},\"canDeleteEnvironments\":{\"type\":\"boolean\"},\"canCreateEnvironments\":{\"type\":\"boolean\"}},\"required\":[\"id\",\"accessedProjects\",\"accessedEnvironments\",\"accessedServices\",\"accessedGitProviders\",\"accessedServers\",\"canCreateProjects\",\"canCreateServices\",\"canDeleteProjects\",\"canDeleteServices\",\"canAccessToDocker\",\"canAccessToTraefikFiles\",\"canAccessToAPI\",\"canAccessToSSHKeys\",\"canAccessToGitProviders\",\"canDeleteEnvironments\",\"canCreateEnvironments\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User AssignPermissions",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5088,7 +5516,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getInvitations",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetInvitations",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5100,7 +5529,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getContainerMetrics",
-    schema: z.object({ "url": z.string(), "token": z.string(), "appName": z.string(), "dataPoints": z.string() }),
+    schema: lazySchema(() => z.object({ "url": z.string(), "token": z.string(), "appName": z.string(), "dataPoints": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"url\":{\"type\":\"string\"},\"token\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"dataPoints\":{\"type\":\"string\"}},\"required\":[\"url\",\"token\",\"appName\",\"dataPoints\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetContainerMetrics",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5112,7 +5542,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.generateToken",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GenerateToken",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5124,7 +5555,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.deleteApiKey",
-    schema: z.object({ "apiKeyId": z.string() }),
+    schema: lazySchema(() => z.object({ "apiKeyId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"apiKeyId\":{\"type\":\"string\"}},\"required\":[\"apiKeyId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User DeleteApiKey",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5136,7 +5568,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.createApiKey",
-    schema: z.object({ "name": z.string().min(1), "prefix": z.string().optional(), "expiresIn": z.number().optional(), "metadata": z.object({ "organizationId": z.string() }), "rateLimitEnabled": z.boolean().optional(), "rateLimitTimeWindow": z.number().optional(), "rateLimitMax": z.number().optional(), "remaining": z.number().optional(), "refillAmount": z.number().optional(), "refillInterval": z.number().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "prefix": z.string().optional(), "expiresIn": z.number().optional(), "metadata": z.object({ "organizationId": z.string() }), "rateLimitEnabled": z.boolean().optional(), "rateLimitTimeWindow": z.number().optional(), "rateLimitMax": z.number().optional(), "remaining": z.number().optional(), "refillAmount": z.number().optional(), "refillInterval": z.number().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"prefix\":{\"type\":\"string\"},\"expiresIn\":{\"type\":\"number\"},\"metadata\":{\"type\":\"object\",\"properties\":{\"organizationId\":{\"type\":\"string\"}},\"required\":[\"organizationId\"],\"additionalProperties\":false},\"rateLimitEnabled\":{\"type\":\"boolean\"},\"rateLimitTimeWindow\":{\"type\":\"number\"},\"rateLimitMax\":{\"type\":\"number\"},\"remaining\":{\"type\":\"number\"},\"refillAmount\":{\"type\":\"number\"},\"refillInterval\":{\"type\":\"number\"}},\"required\":[\"name\",\"metadata\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User CreateApiKey",
       ...{"openWorldHint":true},
@@ -5148,7 +5581,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.checkUserOrganizations",
-    schema: z.object({ "userId": z.string() }),
+    schema: lazySchema(() => z.object({ "userId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"userId\":{\"type\":\"string\"}},\"required\":[\"userId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User CheckUserOrganizations",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5160,7 +5594,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.createUserWithCredentials",
-    schema: z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "password": z.string().min(8), "role": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "password": z.string().min(8), "role": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"email\":{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\"},\"password\":{\"type\":\"string\",\"minLength\":8},\"role\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"email\",\"password\",\"role\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User CreateUserWithCredentials",
       ...{"openWorldHint":true},
@@ -5172,7 +5607,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.sendInvitation",
-    schema: z.object({ "invitationId": z.string().min(1), "notificationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "invitationId": z.string().min(1), "notificationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"invitationId\":{\"type\":\"string\",\"minLength\":1},\"notificationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"invitationId\",\"notificationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User SendInvitation",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5184,7 +5620,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "GET",
     path: "/user.getBookmarkedTemplates",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User GetBookmarkedTemplates",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5196,7 +5633,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.toggleTemplateBookmark",
-    schema: z.object({ "templateId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "templateId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"templateId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"templateId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "User ToggleTemplateBookmark",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5208,7 +5646,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "GET",
     path: "/ai.one",
-    schema: z.object({ "aiId": z.string() }),
+    schema: lazySchema(() => z.object({ "aiId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"aiId\":{\"type\":\"string\"}},\"required\":[\"aiId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5220,7 +5659,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "GET",
     path: "/ai.getModels",
-    schema: z.object({ "apiUrl": z.string().min(1), "apiKey": z.string() }),
+    schema: lazySchema(() => z.object({ "apiUrl": z.string().min(1), "apiKey": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"apiUrl\":{\"type\":\"string\",\"minLength\":1},\"apiKey\":{\"type\":\"string\"}},\"required\":[\"apiUrl\",\"apiKey\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai GetModels",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5232,7 +5672,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.create",
-    schema: z.object({ "name": z.string().min(1), "apiUrl": z.string().url(), "apiKey": z.string(), "model": z.string().min(1), "isEnabled": z.boolean() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "apiUrl": z.string().url(), "apiKey": z.string(), "model": z.string().min(1), "isEnabled": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"apiUrl\":{\"type\":\"string\",\"format\":\"uri\"},\"apiKey\":{\"type\":\"string\"},\"model\":{\"type\":\"string\",\"minLength\":1},\"isEnabled\":{\"type\":\"boolean\"}},\"required\":[\"name\",\"apiUrl\",\"apiKey\",\"model\",\"isEnabled\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai Create",
       ...{"openWorldHint":true},
@@ -5244,7 +5685,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.update",
-    schema: z.object({ "aiId": z.string().min(1), "name": z.string().min(1).optional(), "apiUrl": z.string().url().optional(), "apiKey": z.string().optional(), "model": z.string().min(1).optional(), "isEnabled": z.boolean().optional(), "createdAt": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "aiId": z.string().min(1), "name": z.string().min(1).optional(), "apiUrl": z.string().url().optional(), "apiKey": z.string().optional(), "model": z.string().min(1).optional(), "isEnabled": z.boolean().optional(), "createdAt": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"aiId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"apiUrl\":{\"type\":\"string\",\"format\":\"uri\"},\"apiKey\":{\"type\":\"string\"},\"model\":{\"type\":\"string\",\"minLength\":1},\"isEnabled\":{\"type\":\"boolean\"},\"createdAt\":{\"type\":\"string\"}},\"required\":[\"aiId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5256,7 +5698,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "GET",
     path: "/ai.getAll",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai GetAll",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5268,7 +5711,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "GET",
     path: "/ai.get",
-    schema: z.object({ "aiId": z.string() }),
+    schema: lazySchema(() => z.object({ "aiId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"aiId\":{\"type\":\"string\"}},\"required\":[\"aiId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai Get",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5280,7 +5724,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.delete",
-    schema: z.object({ "aiId": z.string() }),
+    schema: lazySchema(() => z.object({ "aiId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"aiId\":{\"type\":\"string\"}},\"required\":[\"aiId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5292,7 +5737,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "GET",
     path: "/ai.getEnabledProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai GetEnabledProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5304,7 +5750,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.analyzeLogs",
-    schema: z.object({ "aiId": z.string().min(1), "logs": z.string().min(1), "context": z.enum(["build","runtime"]) }),
+    schema: lazySchema(() => z.object({ "aiId": z.string().min(1), "logs": z.string().min(1), "context": z.enum(["build","runtime"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"aiId\":{\"type\":\"string\",\"minLength\":1},\"logs\":{\"type\":\"string\",\"minLength\":1},\"context\":{\"type\":\"string\",\"enum\":[\"build\",\"runtime\"]}},\"required\":[\"aiId\",\"logs\",\"context\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai AnalyzeLogs",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5316,7 +5763,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.testConnection",
-    schema: z.object({ "apiUrl": z.string().min(1), "apiKey": z.string(), "model": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "apiUrl": z.string().min(1), "apiKey": z.string(), "model": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"apiUrl\":{\"type\":\"string\",\"minLength\":1},\"apiKey\":{\"type\":\"string\"},\"model\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"apiUrl\",\"apiKey\",\"model\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai TestConnection",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5328,7 +5776,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.suggest",
-    schema: z.object({ "aiId": z.string(), "input": z.string(), "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "aiId": z.string(), "input": z.string(), "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"aiId\":{\"type\":\"string\"},\"input\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"}},\"required\":[\"aiId\",\"input\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai Suggest",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5340,7 +5789,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "ai",
     method: "POST",
     path: "/ai.deploy",
-    schema: z.object({ "environmentId": z.string().min(1), "id": z.string().min(1), "dockerCompose": z.string().min(1), "envVariables": z.string(), "serverId": z.string().optional(), "name": z.string().min(1), "description": z.string(), "domains": z.array(z.object({ "host": z.string().min(1), "port": z.number().gte(1), "serviceName": z.string().min(1) })).optional(), "configFiles": z.array(z.object({ "filePath": z.string().min(1), "content": z.string().min(1) })).optional() }),
+    schema: lazySchema(() => z.object({ "environmentId": z.string().min(1), "id": z.string().min(1), "dockerCompose": z.string().min(1), "envVariables": z.string(), "serverId": z.string().optional(), "name": z.string().min(1), "description": z.string(), "domains": z.array(z.object({ "host": z.string().min(1), "port": z.number().gte(1), "serviceName": z.string().min(1) })).optional(), "configFiles": z.array(z.object({ "filePath": z.string().min(1), "content": z.string().min(1) })).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"environmentId\":{\"type\":\"string\",\"minLength\":1},\"id\":{\"type\":\"string\",\"minLength\":1},\"dockerCompose\":{\"type\":\"string\",\"minLength\":1},\"envVariables\":{\"type\":\"string\"},\"serverId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"domains\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"host\":{\"type\":\"string\",\"minLength\":1},\"port\":{\"type\":\"number\",\"minimum\":1},\"serviceName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"host\",\"port\",\"serviceName\"],\"additionalProperties\":false}},\"configFiles\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"filePath\":{\"type\":\"string\",\"minLength\":1},\"content\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"filePath\",\"content\"],\"additionalProperties\":false}}},\"required\":[\"environmentId\",\"id\",\"dockerCompose\",\"envVariables\",\"name\",\"description\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Ai Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5352,7 +5802,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.create",
-    schema: z.object({ "name": z.string(), "logo": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string(), "logo": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"logo\":{\"type\":\"string\"}},\"required\":[\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization Create",
       ...{"openWorldHint":true},
@@ -5364,7 +5815,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "GET",
     path: "/organization.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5376,7 +5828,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "GET",
     path: "/organization.one",
-    schema: z.object({ "organizationId": z.string() }),
+    schema: lazySchema(() => z.object({ "organizationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"organizationId\":{\"type\":\"string\"}},\"required\":[\"organizationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5388,7 +5841,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.update",
-    schema: z.object({ "organizationId": z.string(), "name": z.string(), "logo": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "organizationId": z.string(), "name": z.string(), "logo": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"organizationId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"logo\":{\"type\":\"string\"}},\"required\":[\"organizationId\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5400,7 +5854,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.delete",
-    schema: z.object({ "organizationId": z.string() }),
+    schema: lazySchema(() => z.object({ "organizationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"organizationId\":{\"type\":\"string\"}},\"required\":[\"organizationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5412,7 +5867,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.inviteMember",
-    schema: z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "role": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "role": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"email\":{\"type\":\"string\",\"format\":\"email\",\"pattern\":\"^(?!\\\\.)(?!.*\\\\.\\\\.)([A-Za-z0-9_'+\\\\-\\\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\\\-]*\\\\.)+[A-Za-z]{2,}$\"},\"role\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"email\",\"role\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization InviteMember",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5424,7 +5880,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "GET",
     path: "/organization.allInvitations",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization AllInvitations",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5436,7 +5893,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.removeInvitation",
-    schema: z.object({ "invitationId": z.string() }),
+    schema: lazySchema(() => z.object({ "invitationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"invitationId\":{\"type\":\"string\"}},\"required\":[\"invitationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization RemoveInvitation",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5448,7 +5906,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.updateMemberRole",
-    schema: z.object({ "memberId": z.string(), "role": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "memberId": z.string(), "role": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"memberId\":{\"type\":\"string\"},\"role\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"memberId\",\"role\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization UpdateMemberRole",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5460,7 +5919,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.setDefault",
-    schema: z.object({ "organizationId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "organizationId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"organizationId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"organizationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization SetDefault",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5472,7 +5932,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "GET",
     path: "/organization.active",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Organization Active",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5484,7 +5945,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.activate",
-    schema: z.object({ "licenseKey": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "licenseKey": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"licenseKey\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"licenseKey\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "LicenseKey Activate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5496,7 +5958,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.validate",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "LicenseKey Validate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5508,7 +5971,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.deactivate",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "LicenseKey Deactivate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5520,7 +5984,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "licenseKey",
     method: "GET",
     path: "/licenseKey.getEnterpriseSettings",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "LicenseKey GetEnterpriseSettings",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5532,7 +5997,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "licenseKey",
     method: "GET",
     path: "/licenseKey.haveValidLicenseKey",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "LicenseKey HaveValidLicenseKey",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5544,7 +6010,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.updateEnterpriseSettings",
-    schema: z.object({ "enableEnterpriseFeatures": z.boolean().optional() }),
+    schema: lazySchema(() => z.object({ "enableEnterpriseFeatures": z.boolean().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"enableEnterpriseFeatures\":{\"type\":\"boolean\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "LicenseKey UpdateEnterpriseSettings",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5556,7 +6023,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "GET",
     path: "/sso.showSignInWithSSO",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso ShowSignInWithSSO",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5568,7 +6036,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "GET",
     path: "/sso.listProviders",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso ListProviders",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5580,7 +6049,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "GET",
     path: "/sso.getTrustedOrigins",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso GetTrustedOrigins",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5592,7 +6062,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "GET",
     path: "/sso.one",
-    schema: z.object({ "providerId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "providerId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"providerId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"providerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5604,7 +6075,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "POST",
     path: "/sso.update",
-    schema: z.object({ "providerId": z.string(), "issuer": z.string(), "domains": z.array(z.string()), "oidcConfig": z.object({ "clientId": z.string(), "clientSecret": z.string(), "authorizationEndpoint": z.string().optional(), "tokenEndpoint": z.string().optional(), "userInfoEndpoint": z.string().optional(), "tokenEndpointAuthentication": z.enum(["client_secret_post","client_secret_basic"]).optional(), "jwksEndpoint": z.string().optional(), "discoveryEndpoint": z.string().optional(), "skipDiscovery": z.boolean().optional(), "scopes": z.array(z.string()).optional(), "pkce": z.boolean().default(true), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "image": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "samlConfig": z.object({ "entryPoint": z.string(), "cert": z.string(), "callbackUrl": z.string(), "audience": z.string().optional(), "idpMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "cert": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional(), "singleSignOnService": z.array(z.object({ "Binding": z.string(), "Location": z.string() })).optional() }).optional(), "spMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "binding": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional() }), "wantAssertionsSigned": z.boolean().optional(), "authnRequestsSigned": z.boolean().optional(), "signatureAlgorithm": z.string().optional(), "digestAlgorithm": z.string().optional(), "identifierFormat": z.string().optional(), "privateKey": z.string().optional(), "decryptionPvk": z.string().optional(), "additionalParams": z.record(z.string(), z.any()).optional(), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "firstName": z.string().optional(), "lastName": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "organizationId": z.string().optional(), "overrideUserInfo": z.boolean().default(false) }),
+    schema: lazySchema(() => z.object({ "providerId": z.string(), "issuer": z.string(), "domains": z.array(z.string()), "oidcConfig": z.object({ "clientId": z.string(), "clientSecret": z.string(), "authorizationEndpoint": z.string().optional(), "tokenEndpoint": z.string().optional(), "userInfoEndpoint": z.string().optional(), "tokenEndpointAuthentication": z.enum(["client_secret_post","client_secret_basic"]).optional(), "jwksEndpoint": z.string().optional(), "discoveryEndpoint": z.string().optional(), "skipDiscovery": z.boolean().optional(), "scopes": z.array(z.string()).optional(), "pkce": z.boolean().default(true), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "image": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "samlConfig": z.object({ "entryPoint": z.string(), "cert": z.string(), "callbackUrl": z.string(), "audience": z.string().optional(), "idpMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "cert": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional(), "singleSignOnService": z.array(z.object({ "Binding": z.string(), "Location": z.string() })).optional() }).optional(), "spMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "binding": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional() }), "wantAssertionsSigned": z.boolean().optional(), "authnRequestsSigned": z.boolean().optional(), "signatureAlgorithm": z.string().optional(), "digestAlgorithm": z.string().optional(), "identifierFormat": z.string().optional(), "privateKey": z.string().optional(), "decryptionPvk": z.string().optional(), "additionalParams": z.record(z.string(), z.any()).optional(), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "firstName": z.string().optional(), "lastName": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "organizationId": z.string().optional(), "overrideUserInfo": z.boolean().default(false) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"providerId\":{\"type\":\"string\"},\"issuer\":{\"type\":\"string\"},\"domains\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"oidcConfig\":{\"type\":\"object\",\"properties\":{\"clientId\":{\"type\":\"string\"},\"clientSecret\":{\"type\":\"string\"},\"authorizationEndpoint\":{\"type\":\"string\"},\"tokenEndpoint\":{\"type\":\"string\"},\"userInfoEndpoint\":{\"type\":\"string\"},\"tokenEndpointAuthentication\":{\"type\":\"string\",\"enum\":[\"client_secret_post\",\"client_secret_basic\"]},\"jwksEndpoint\":{\"type\":\"string\"},\"discoveryEndpoint\":{\"type\":\"string\"},\"skipDiscovery\":{\"type\":\"boolean\"},\"scopes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"pkce\":{\"type\":\"boolean\",\"default\":true},\"mapping\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"emailVerified\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"extraFields\":{\"type\":\"object\",\"additionalProperties\":{}}},\"required\":[\"id\",\"email\",\"name\"],\"additionalProperties\":false}},\"required\":[\"clientId\",\"clientSecret\"],\"additionalProperties\":false},\"samlConfig\":{\"type\":\"object\",\"properties\":{\"entryPoint\":{\"type\":\"string\"},\"cert\":{\"type\":\"string\"},\"callbackUrl\":{\"type\":\"string\"},\"audience\":{\"type\":\"string\"},\"idpMetadata\":{\"type\":\"object\",\"properties\":{\"metadata\":{\"type\":\"string\"},\"entityID\":{\"type\":\"string\"},\"cert\":{\"type\":\"string\"},\"privateKey\":{\"type\":\"string\"},\"privateKeyPass\":{\"type\":\"string\"},\"isAssertionEncrypted\":{\"type\":\"boolean\"},\"encPrivateKey\":{\"type\":\"string\"},\"encPrivateKeyPass\":{\"type\":\"string\"},\"singleSignOnService\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Binding\":{\"type\":\"string\"},\"Location\":{\"type\":\"string\"}},\"required\":[\"Binding\",\"Location\"],\"additionalProperties\":false}}},\"additionalProperties\":false},\"spMetadata\":{\"type\":\"object\",\"properties\":{\"metadata\":{\"type\":\"string\"},\"entityID\":{\"type\":\"string\"},\"binding\":{\"type\":\"string\"},\"privateKey\":{\"type\":\"string\"},\"privateKeyPass\":{\"type\":\"string\"},\"isAssertionEncrypted\":{\"type\":\"boolean\"},\"encPrivateKey\":{\"type\":\"string\"},\"encPrivateKeyPass\":{\"type\":\"string\"}},\"additionalProperties\":false},\"wantAssertionsSigned\":{\"type\":\"boolean\"},\"authnRequestsSigned\":{\"type\":\"boolean\"},\"signatureAlgorithm\":{\"type\":\"string\"},\"digestAlgorithm\":{\"type\":\"string\"},\"identifierFormat\":{\"type\":\"string\"},\"privateKey\":{\"type\":\"string\"},\"decryptionPvk\":{\"type\":\"string\"},\"additionalParams\":{\"type\":\"object\",\"additionalProperties\":{}},\"mapping\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"emailVerified\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"extraFields\":{\"type\":\"object\",\"additionalProperties\":{}}},\"required\":[\"id\",\"email\",\"name\"],\"additionalProperties\":false}},\"required\":[\"entryPoint\",\"cert\",\"callbackUrl\",\"spMetadata\"],\"additionalProperties\":false},\"organizationId\":{\"type\":\"string\"},\"overrideUserInfo\":{\"type\":\"boolean\",\"default\":false}},\"required\":[\"providerId\",\"issuer\",\"domains\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5616,7 +6088,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "POST",
     path: "/sso.deleteProvider",
-    schema: z.object({ "providerId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "providerId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"providerId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"providerId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso DeleteProvider",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5628,7 +6101,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "POST",
     path: "/sso.register",
-    schema: z.object({ "providerId": z.string(), "issuer": z.string(), "domains": z.array(z.string()), "oidcConfig": z.object({ "clientId": z.string(), "clientSecret": z.string(), "authorizationEndpoint": z.string().optional(), "tokenEndpoint": z.string().optional(), "userInfoEndpoint": z.string().optional(), "tokenEndpointAuthentication": z.enum(["client_secret_post","client_secret_basic"]).optional(), "jwksEndpoint": z.string().optional(), "discoveryEndpoint": z.string().optional(), "skipDiscovery": z.boolean().optional(), "scopes": z.array(z.string()).optional(), "pkce": z.boolean().default(true), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "image": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "samlConfig": z.object({ "entryPoint": z.string(), "cert": z.string(), "callbackUrl": z.string(), "audience": z.string().optional(), "idpMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "cert": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional(), "singleSignOnService": z.array(z.object({ "Binding": z.string(), "Location": z.string() })).optional() }).optional(), "spMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "binding": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional() }), "wantAssertionsSigned": z.boolean().optional(), "authnRequestsSigned": z.boolean().optional(), "signatureAlgorithm": z.string().optional(), "digestAlgorithm": z.string().optional(), "identifierFormat": z.string().optional(), "privateKey": z.string().optional(), "decryptionPvk": z.string().optional(), "additionalParams": z.record(z.string(), z.any()).optional(), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "firstName": z.string().optional(), "lastName": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "organizationId": z.string().optional(), "overrideUserInfo": z.boolean().default(false) }),
+    schema: lazySchema(() => z.object({ "providerId": z.string(), "issuer": z.string(), "domains": z.array(z.string()), "oidcConfig": z.object({ "clientId": z.string(), "clientSecret": z.string(), "authorizationEndpoint": z.string().optional(), "tokenEndpoint": z.string().optional(), "userInfoEndpoint": z.string().optional(), "tokenEndpointAuthentication": z.enum(["client_secret_post","client_secret_basic"]).optional(), "jwksEndpoint": z.string().optional(), "discoveryEndpoint": z.string().optional(), "skipDiscovery": z.boolean().optional(), "scopes": z.array(z.string()).optional(), "pkce": z.boolean().default(true), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "image": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "samlConfig": z.object({ "entryPoint": z.string(), "cert": z.string(), "callbackUrl": z.string(), "audience": z.string().optional(), "idpMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "cert": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional(), "singleSignOnService": z.array(z.object({ "Binding": z.string(), "Location": z.string() })).optional() }).optional(), "spMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "binding": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional() }), "wantAssertionsSigned": z.boolean().optional(), "authnRequestsSigned": z.boolean().optional(), "signatureAlgorithm": z.string().optional(), "digestAlgorithm": z.string().optional(), "identifierFormat": z.string().optional(), "privateKey": z.string().optional(), "decryptionPvk": z.string().optional(), "additionalParams": z.record(z.string(), z.any()).optional(), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "firstName": z.string().optional(), "lastName": z.string().optional(), "extraFields": z.record(z.string(), z.any()).optional() }).optional() }).optional(), "organizationId": z.string().optional(), "overrideUserInfo": z.boolean().default(false) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"providerId\":{\"type\":\"string\"},\"issuer\":{\"type\":\"string\"},\"domains\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"oidcConfig\":{\"type\":\"object\",\"properties\":{\"clientId\":{\"type\":\"string\"},\"clientSecret\":{\"type\":\"string\"},\"authorizationEndpoint\":{\"type\":\"string\"},\"tokenEndpoint\":{\"type\":\"string\"},\"userInfoEndpoint\":{\"type\":\"string\"},\"tokenEndpointAuthentication\":{\"type\":\"string\",\"enum\":[\"client_secret_post\",\"client_secret_basic\"]},\"jwksEndpoint\":{\"type\":\"string\"},\"discoveryEndpoint\":{\"type\":\"string\"},\"skipDiscovery\":{\"type\":\"boolean\"},\"scopes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"pkce\":{\"type\":\"boolean\",\"default\":true},\"mapping\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"emailVerified\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"image\":{\"type\":\"string\"},\"extraFields\":{\"type\":\"object\",\"additionalProperties\":{}}},\"required\":[\"id\",\"email\",\"name\"],\"additionalProperties\":false}},\"required\":[\"clientId\",\"clientSecret\"],\"additionalProperties\":false},\"samlConfig\":{\"type\":\"object\",\"properties\":{\"entryPoint\":{\"type\":\"string\"},\"cert\":{\"type\":\"string\"},\"callbackUrl\":{\"type\":\"string\"},\"audience\":{\"type\":\"string\"},\"idpMetadata\":{\"type\":\"object\",\"properties\":{\"metadata\":{\"type\":\"string\"},\"entityID\":{\"type\":\"string\"},\"cert\":{\"type\":\"string\"},\"privateKey\":{\"type\":\"string\"},\"privateKeyPass\":{\"type\":\"string\"},\"isAssertionEncrypted\":{\"type\":\"boolean\"},\"encPrivateKey\":{\"type\":\"string\"},\"encPrivateKeyPass\":{\"type\":\"string\"},\"singleSignOnService\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"Binding\":{\"type\":\"string\"},\"Location\":{\"type\":\"string\"}},\"required\":[\"Binding\",\"Location\"],\"additionalProperties\":false}}},\"additionalProperties\":false},\"spMetadata\":{\"type\":\"object\",\"properties\":{\"metadata\":{\"type\":\"string\"},\"entityID\":{\"type\":\"string\"},\"binding\":{\"type\":\"string\"},\"privateKey\":{\"type\":\"string\"},\"privateKeyPass\":{\"type\":\"string\"},\"isAssertionEncrypted\":{\"type\":\"boolean\"},\"encPrivateKey\":{\"type\":\"string\"},\"encPrivateKeyPass\":{\"type\":\"string\"}},\"additionalProperties\":false},\"wantAssertionsSigned\":{\"type\":\"boolean\"},\"authnRequestsSigned\":{\"type\":\"boolean\"},\"signatureAlgorithm\":{\"type\":\"string\"},\"digestAlgorithm\":{\"type\":\"string\"},\"identifierFormat\":{\"type\":\"string\"},\"privateKey\":{\"type\":\"string\"},\"decryptionPvk\":{\"type\":\"string\"},\"additionalParams\":{\"type\":\"object\",\"additionalProperties\":{}},\"mapping\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"emailVerified\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"extraFields\":{\"type\":\"object\",\"additionalProperties\":{}}},\"required\":[\"id\",\"email\",\"name\"],\"additionalProperties\":false}},\"required\":[\"entryPoint\",\"cert\",\"callbackUrl\",\"spMetadata\"],\"additionalProperties\":false},\"organizationId\":{\"type\":\"string\"},\"overrideUserInfo\":{\"type\":\"boolean\",\"default\":false}},\"required\":[\"providerId\",\"issuer\",\"domains\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso Register",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5640,7 +6114,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "POST",
     path: "/sso.addTrustedOrigin",
-    schema: z.object({ "origin": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "origin": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"origin\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"origin\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso AddTrustedOrigin",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5652,7 +6127,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "POST",
     path: "/sso.removeTrustedOrigin",
-    schema: z.object({ "origin": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "origin": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"origin\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"origin\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso RemoveTrustedOrigin",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5664,7 +6140,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "sso",
     method: "POST",
     path: "/sso.updateTrustedOrigin",
-    schema: z.object({ "oldOrigin": z.string().min(1), "newOrigin": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "oldOrigin": z.string().min(1), "newOrigin": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"oldOrigin\":{\"type\":\"string\",\"minLength\":1},\"newOrigin\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"oldOrigin\",\"newOrigin\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Sso UpdateTrustedOrigin",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5676,7 +6153,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "whitelabeling",
     method: "GET",
     path: "/whitelabeling.get",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Whitelabeling Get",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5688,7 +6166,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "whitelabeling",
     method: "POST",
     path: "/whitelabeling.update",
-    schema: z.object({ "whitelabelingConfig": z.object({ "appName": z.union([z.string(), z.null()]), "appDescription": z.union([z.string(), z.null()]), "logoUrl": z.union([z.string(), z.null()]), "faviconUrl": z.union([z.string(), z.null()]), "customCss": z.union([z.string(), z.null()]), "loginLogoUrl": z.union([z.string(), z.null()]), "supportUrl": z.union([z.string(), z.null()]), "docsUrl": z.union([z.string(), z.null()]), "errorPageTitle": z.union([z.string(), z.null()]), "errorPageDescription": z.union([z.string(), z.null()]), "metaTitle": z.union([z.string(), z.null()]), "footerText": z.union([z.string(), z.null()]) }) }),
+    schema: lazySchema(() => z.object({ "whitelabelingConfig": z.object({ "appName": z.union([z.string(), z.null()]), "appDescription": z.union([z.string(), z.null()]), "logoUrl": z.union([z.string(), z.null()]), "faviconUrl": z.union([z.string(), z.null()]), "customCss": z.union([z.string(), z.null()]), "loginLogoUrl": z.union([z.string(), z.null()]), "supportUrl": z.union([z.string(), z.null()]), "docsUrl": z.union([z.string(), z.null()]), "errorPageTitle": z.union([z.string(), z.null()]), "errorPageDescription": z.union([z.string(), z.null()]), "metaTitle": z.union([z.string(), z.null()]), "footerText": z.union([z.string(), z.null()]) }) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"whitelabelingConfig\":{\"type\":\"object\",\"properties\":{\"appName\":{\"type\":[\"string\",\"null\"]},\"appDescription\":{\"type\":[\"string\",\"null\"]},\"logoUrl\":{\"type\":[\"string\",\"null\"]},\"faviconUrl\":{\"type\":[\"string\",\"null\"]},\"customCss\":{\"type\":[\"string\",\"null\"]},\"loginLogoUrl\":{\"type\":[\"string\",\"null\"]},\"supportUrl\":{\"type\":[\"string\",\"null\"]},\"docsUrl\":{\"type\":[\"string\",\"null\"]},\"errorPageTitle\":{\"type\":[\"string\",\"null\"]},\"errorPageDescription\":{\"type\":[\"string\",\"null\"]},\"metaTitle\":{\"type\":[\"string\",\"null\"]},\"footerText\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"appName\",\"appDescription\",\"logoUrl\",\"faviconUrl\",\"customCss\",\"loginLogoUrl\",\"supportUrl\",\"docsUrl\",\"errorPageTitle\",\"errorPageDescription\",\"metaTitle\",\"footerText\"],\"additionalProperties\":false}},\"required\":[\"whitelabelingConfig\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Whitelabeling Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5700,7 +6179,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "whitelabeling",
     method: "POST",
     path: "/whitelabeling.reset",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Whitelabeling Reset",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5712,7 +6192,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "whitelabeling",
     method: "GET",
     path: "/whitelabeling.getPublic",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Whitelabeling GetPublic",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5724,7 +6205,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "customRole",
     method: "GET",
     path: "/customRole.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "CustomRole All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5736,7 +6218,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "customRole",
     method: "POST",
     path: "/customRole.create",
-    schema: z.object({ "roleName": z.string().min(1).max(50), "permissions": z.record(z.string(), z.array(z.string())) }),
+    schema: lazySchema(() => z.object({ "roleName": z.string().min(1).max(50), "permissions": z.record(z.string(), z.array(z.string())) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"roleName\":{\"type\":\"string\",\"minLength\":1,\"maxLength\":50},\"permissions\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}},\"required\":[\"roleName\",\"permissions\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "CustomRole Create",
       ...{"openWorldHint":true},
@@ -5748,7 +6231,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "customRole",
     method: "POST",
     path: "/customRole.update",
-    schema: z.object({ "roleName": z.string().min(1), "newRoleName": z.string().min(1).max(50).optional(), "permissions": z.record(z.string(), z.array(z.string())) }),
+    schema: lazySchema(() => z.object({ "roleName": z.string().min(1), "newRoleName": z.string().min(1).max(50).optional(), "permissions": z.record(z.string(), z.array(z.string())) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"roleName\":{\"type\":\"string\",\"minLength\":1},\"newRoleName\":{\"type\":\"string\",\"minLength\":1,\"maxLength\":50},\"permissions\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}},\"required\":[\"roleName\",\"permissions\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "CustomRole Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5760,7 +6244,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "customRole",
     method: "POST",
     path: "/customRole.remove",
-    schema: z.object({ "roleName": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "roleName": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"roleName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"roleName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "CustomRole Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5772,7 +6257,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "customRole",
     method: "GET",
     path: "/customRole.membersByRole",
-    schema: z.object({ "roleName": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "roleName": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"roleName\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"roleName\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "CustomRole MembersByRole",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5784,7 +6270,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "customRole",
     method: "GET",
     path: "/customRole.getStatements",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "CustomRole GetStatements",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5796,7 +6283,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "auditLog",
     method: "GET",
     path: "/auditLog.all",
-    schema: z.object({ "userId": z.string().optional(), "userEmail": z.string().optional(), "resourceName": z.string().optional(), "action": z.enum(["create","update","delete","deploy","cancel","redeploy","login","logout"]).optional(), "resourceType": z.enum(["project","service","environment","deployment","user","customRole","domain","certificate","registry","server","sshKey","gitProvider","notification","settings","session"]).optional(), "from": z.string().optional(), "to": z.string().optional(), "limit": z.number().gte(1).lte(500).default(50), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "userId": z.string().optional(), "userEmail": z.string().optional(), "resourceName": z.string().optional(), "action": z.enum(["create","update","delete","deploy","cancel","redeploy","login","logout"]).optional(), "resourceType": z.enum(["project","service","environment","deployment","user","customRole","domain","certificate","registry","server","sshKey","gitProvider","notification","settings","session"]).optional(), "from": z.string().optional(), "to": z.string().optional(), "limit": z.number().gte(1).lte(500).default(50), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"userId\":{\"type\":\"string\"},\"userEmail\":{\"type\":\"string\"},\"resourceName\":{\"type\":\"string\"},\"action\":{\"type\":\"string\",\"enum\":[\"create\",\"update\",\"delete\",\"deploy\",\"cancel\",\"redeploy\",\"login\",\"logout\"]},\"resourceType\":{\"type\":\"string\",\"enum\":[\"project\",\"service\",\"environment\",\"deployment\",\"user\",\"customRole\",\"domain\",\"certificate\",\"registry\",\"server\",\"sshKey\",\"gitProvider\",\"notification\",\"settings\",\"session\"]},\"from\":{\"type\":\"string\"},\"to\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":500,\"default\":50},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "AuditLog All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5808,7 +6296,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "schedule",
     method: "POST",
     path: "/schedule.create",
-    schema: z.object({ "scheduleId": z.string().optional(), "name": z.string(), "cronExpression": z.string(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "shellType": z.enum(["bash","sh"]).optional(), "scheduleType": z.enum(["application","compose","server","dokploy-server"]).optional(), "command": z.string(), "script": z.union([z.string(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "userId": z.union([z.string(), z.null()]).optional(), "enabled": z.boolean().optional(), "timezone": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "scheduleId": z.string().optional(), "name": z.string(), "cronExpression": z.string(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "shellType": z.enum(["bash","sh"]).optional(), "scheduleType": z.enum(["application","compose","server","dokploy-server"]).optional(), "command": z.string(), "script": z.union([z.string(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "userId": z.union([z.string(), z.null()]).optional(), "enabled": z.boolean().optional(), "timezone": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"scheduleId\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"cronExpression\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"shellType\":{\"type\":\"string\",\"enum\":[\"bash\",\"sh\"]},\"scheduleType\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\",\"server\",\"dokploy-server\"]},\"command\":{\"type\":\"string\"},\"script\":{\"type\":[\"string\",\"null\"]},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":[\"string\",\"null\"]},\"userId\":{\"type\":[\"string\",\"null\"]},\"enabled\":{\"type\":\"boolean\"},\"timezone\":{\"type\":[\"string\",\"null\"]},\"createdAt\":{\"type\":\"string\"}},\"required\":[\"name\",\"cronExpression\",\"command\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Schedule Create",
       ...{"openWorldHint":true},
@@ -5820,7 +6309,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "schedule",
     method: "POST",
     path: "/schedule.update",
-    schema: z.object({ "scheduleId": z.string().min(1), "name": z.string(), "cronExpression": z.string(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "shellType": z.enum(["bash","sh"]).optional(), "scheduleType": z.enum(["application","compose","server","dokploy-server"]).optional(), "command": z.string(), "script": z.union([z.string(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "userId": z.union([z.string(), z.null()]).optional(), "enabled": z.boolean().optional(), "timezone": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "scheduleId": z.string().min(1), "name": z.string(), "cronExpression": z.string(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "shellType": z.enum(["bash","sh"]).optional(), "scheduleType": z.enum(["application","compose","server","dokploy-server"]).optional(), "command": z.string(), "script": z.union([z.string(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "userId": z.union([z.string(), z.null()]).optional(), "enabled": z.boolean().optional(), "timezone": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"scheduleId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\"},\"cronExpression\":{\"type\":\"string\"},\"appName\":{\"type\":\"string\"},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"shellType\":{\"type\":\"string\",\"enum\":[\"bash\",\"sh\"]},\"scheduleType\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\",\"server\",\"dokploy-server\"]},\"command\":{\"type\":\"string\"},\"script\":{\"type\":[\"string\",\"null\"]},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"serverId\":{\"type\":[\"string\",\"null\"]},\"userId\":{\"type\":[\"string\",\"null\"]},\"enabled\":{\"type\":\"boolean\"},\"timezone\":{\"type\":[\"string\",\"null\"]},\"createdAt\":{\"type\":\"string\"}},\"required\":[\"scheduleId\",\"name\",\"cronExpression\",\"command\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Schedule Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5832,7 +6322,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "schedule",
     method: "POST",
     path: "/schedule.delete",
-    schema: z.object({ "scheduleId": z.string() }),
+    schema: lazySchema(() => z.object({ "scheduleId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"scheduleId\":{\"type\":\"string\"}},\"required\":[\"scheduleId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Schedule Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5844,7 +6335,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "schedule",
     method: "GET",
     path: "/schedule.list",
-    schema: z.object({ "id": z.string(), "scheduleType": z.enum(["application","compose","server","dokploy-server"]) }),
+    schema: lazySchema(() => z.object({ "id": z.string(), "scheduleType": z.enum(["application","compose","server","dokploy-server"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"scheduleType\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\",\"server\",\"dokploy-server\"]}},\"required\":[\"id\",\"scheduleType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Schedule List",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5856,7 +6348,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "schedule",
     method: "GET",
     path: "/schedule.one",
-    schema: z.object({ "scheduleId": z.string() }),
+    schema: lazySchema(() => z.object({ "scheduleId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"scheduleId\":{\"type\":\"string\"}},\"required\":[\"scheduleId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Schedule One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5868,7 +6361,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "schedule",
     method: "POST",
     path: "/schedule.runManually",
-    schema: z.object({ "scheduleId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "scheduleId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"scheduleId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"scheduleId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Schedule RunManually",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5880,7 +6374,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "rollback",
     method: "POST",
     path: "/rollback.delete",
-    schema: z.object({ "rollbackId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "rollbackId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"rollbackId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"rollbackId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Rollback Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5892,7 +6387,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "rollback",
     method: "POST",
     path: "/rollback.rollback",
-    schema: z.object({ "rollbackId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "rollbackId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"rollbackId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"rollbackId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Rollback Rollback",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5904,7 +6400,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "GET",
     path: "/volumeBackups.list",
-    schema: z.object({ "id": z.string().min(1), "volumeBackupType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]) }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "volumeBackupType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"volumeBackupType\":{\"type\":\"string\",\"enum\":[\"application\",\"postgres\",\"mysql\",\"mariadb\",\"mongo\",\"redis\",\"compose\",\"libsql\"]}},\"required\":[\"id\",\"volumeBackupType\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "VolumeBackups List",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5916,7 +6413,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.create",
-    schema: z.object({ "name": z.string(), "volumeName": z.string(), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string() }),
+    schema: lazySchema(() => z.object({ "name": z.string(), "volumeName": z.string(), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"volumeName\":{\"type\":\"string\"},\"prefix\":{\"type\":\"string\"},\"serviceType\":{\"type\":\"string\",\"enum\":[\"application\",\"postgres\",\"mysql\",\"mariadb\",\"mongo\",\"redis\",\"compose\",\"libsql\"]},\"appName\":{\"type\":\"string\"},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"turnOff\":{\"type\":\"boolean\"},\"cronExpression\":{\"type\":\"string\"},\"keepLatestCount\":{\"type\":[\"number\",\"null\"]},\"enabled\":{\"type\":[\"boolean\",\"null\"]},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"postgresId\":{\"type\":[\"string\",\"null\"]},\"mariadbId\":{\"type\":[\"string\",\"null\"]},\"mongoId\":{\"type\":[\"string\",\"null\"]},\"mysqlId\":{\"type\":[\"string\",\"null\"]},\"redisId\":{\"type\":[\"string\",\"null\"]},\"libsqlId\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"createdAt\":{\"type\":\"string\"},\"destinationId\":{\"type\":\"string\"}},\"required\":[\"name\",\"volumeName\",\"prefix\",\"cronExpression\",\"destinationId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "VolumeBackups Create",
       ...{"openWorldHint":true},
@@ -5928,7 +6426,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "GET",
     path: "/volumeBackups.one",
-    schema: z.object({ "volumeBackupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "volumeBackupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"volumeBackupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"volumeBackupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "VolumeBackups One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -5940,7 +6439,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.delete",
-    schema: z.object({ "volumeBackupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "volumeBackupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"volumeBackupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"volumeBackupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "VolumeBackups Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -5952,7 +6452,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.update",
-    schema: z.object({ "name": z.string(), "volumeName": z.string(), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string(), "volumeBackupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "name": z.string(), "volumeName": z.string(), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string(), "volumeBackupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"volumeName\":{\"type\":\"string\"},\"prefix\":{\"type\":\"string\"},\"serviceType\":{\"type\":\"string\",\"enum\":[\"application\",\"postgres\",\"mysql\",\"mariadb\",\"mongo\",\"redis\",\"compose\",\"libsql\"]},\"appName\":{\"type\":\"string\"},\"serviceName\":{\"type\":[\"string\",\"null\"]},\"turnOff\":{\"type\":\"boolean\"},\"cronExpression\":{\"type\":\"string\"},\"keepLatestCount\":{\"type\":[\"number\",\"null\"]},\"enabled\":{\"type\":[\"boolean\",\"null\"]},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"postgresId\":{\"type\":[\"string\",\"null\"]},\"mariadbId\":{\"type\":[\"string\",\"null\"]},\"mongoId\":{\"type\":[\"string\",\"null\"]},\"mysqlId\":{\"type\":[\"string\",\"null\"]},\"redisId\":{\"type\":[\"string\",\"null\"]},\"libsqlId\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]},\"createdAt\":{\"type\":\"string\"},\"destinationId\":{\"type\":\"string\"},\"volumeBackupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"name\",\"volumeName\",\"prefix\",\"cronExpression\",\"destinationId\",\"volumeBackupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "VolumeBackups Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5964,7 +6465,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.runManually",
-    schema: z.object({ "volumeBackupId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "volumeBackupId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"volumeBackupId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"volumeBackupId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "VolumeBackups RunManually",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -5976,7 +6478,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "POST",
     path: "/environment.create",
-    schema: z.object({ "name": z.string().min(1), "description": z.string().optional(), "projectId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "description": z.string().optional(), "projectId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"name\",\"projectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment Create",
       ...{"openWorldHint":true},
@@ -5988,7 +6491,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "GET",
     path: "/environment.one",
-    schema: z.object({ "environmentId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "environmentId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"environmentId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6000,7 +6504,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "GET",
     path: "/environment.byProjectId",
-    schema: z.object({ "projectId": z.string() }),
+    schema: lazySchema(() => z.object({ "projectId": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\"}},\"required\":[\"projectId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment ByProjectId",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6012,7 +6517,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "POST",
     path: "/environment.remove",
-    schema: z.object({ "environmentId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "environmentId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"environmentId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -6024,7 +6530,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "POST",
     path: "/environment.update",
-    schema: z.object({ "environmentId": z.string().min(1), "name": z.string().min(1).optional(), "description": z.string().optional(), "projectId": z.string().optional(), "env": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "environmentId": z.string().min(1), "name": z.string().min(1).optional(), "description": z.string().optional(), "projectId": z.string().optional(), "env": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"environmentId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"env\":{\"type\":\"string\"}},\"required\":[\"environmentId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6036,7 +6543,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "POST",
     path: "/environment.duplicate",
-    schema: z.object({ "environmentId": z.string().min(1), "name": z.string().min(1), "description": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "environmentId": z.string().min(1), "name": z.string().min(1), "description": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"environmentId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"description\":{\"type\":\"string\"}},\"required\":[\"environmentId\",\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment Duplicate",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6048,7 +6556,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "environment",
     method: "GET",
     path: "/environment.search",
-    schema: z.object({ "q": z.string().optional(), "name": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) }),
+    schema: lazySchema(() => z.object({ "q": z.string().optional(), "name": z.string().optional(), "description": z.string().optional(), "projectId": z.string().optional(), "limit": z.number().gte(1).lte(100).default(20), "offset": z.number().gte(0).default(0) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"q\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"projectId\":{\"type\":\"string\"},\"limit\":{\"type\":\"number\",\"minimum\":1,\"maximum\":100,\"default\":20},\"offset\":{\"type\":\"number\",\"minimum\":0,\"default\":0}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Environment Search",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6060,7 +6569,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "POST",
     path: "/tag.create",
-    schema: z.object({ "name": z.string().min(1), "color": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "name": z.string().min(1), "color": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"minLength\":1},\"color\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"name\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag Create",
       ...{"openWorldHint":true},
@@ -6072,7 +6582,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "GET",
     path: "/tag.all",
-    schema: z.object({}),
+    schema: lazySchema(() => z.object({})),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag All",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6084,7 +6595,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "GET",
     path: "/tag.one",
-    schema: z.object({ "tagId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "tagId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"tagId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"tagId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6096,7 +6608,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "POST",
     path: "/tag.update",
-    schema: z.object({ "tagId": z.string().min(1), "name": z.string().min(1).optional(), "color": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "organizationId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "tagId": z.string().min(1), "name": z.string().min(1).optional(), "color": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "organizationId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"tagId\":{\"type\":\"string\",\"minLength\":1},\"name\":{\"type\":\"string\",\"minLength\":1},\"color\":{\"type\":[\"string\",\"null\"]},\"createdAt\":{\"type\":\"string\"},\"organizationId\":{\"type\":\"string\"}},\"required\":[\"tagId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6108,7 +6621,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "POST",
     path: "/tag.remove",
-    schema: z.object({ "tagId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "tagId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"tagId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"tagId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag Remove",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -6120,7 +6634,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "POST",
     path: "/tag.assignToProject",
-    schema: z.object({ "projectId": z.string().min(1), "tagId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "projectId": z.string().min(1), "tagId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\",\"minLength\":1},\"tagId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"projectId\",\"tagId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag AssignToProject",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6132,7 +6647,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "POST",
     path: "/tag.removeFromProject",
-    schema: z.object({ "projectId": z.string().min(1), "tagId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "projectId": z.string().min(1), "tagId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\",\"minLength\":1},\"tagId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"projectId\",\"tagId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag RemoveFromProject",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -6144,7 +6660,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "tag",
     method: "POST",
     path: "/tag.bulkAssign",
-    schema: z.object({ "projectId": z.string().min(1), "tagIds": z.array(z.string().min(1)) }),
+    schema: lazySchema(() => z.object({ "projectId": z.string().min(1), "tagIds": z.array(z.string().min(1)) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"projectId\":{\"type\":\"string\",\"minLength\":1},\"tagIds\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"minLength\":1}}},\"required\":[\"projectId\",\"tagIds\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Tag BulkAssign",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6156,7 +6673,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.create",
-    schema: z.object({ "filePath": z.string().min(1), "content": z.string(), "type": z.enum(["create","update","delete"]).optional(), "enabled": z.boolean().optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "filePath": z.string().min(1), "content": z.string(), "type": z.enum(["create","update","delete"]).optional(), "enabled": z.boolean().optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"filePath\":{\"type\":\"string\",\"minLength\":1},\"content\":{\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":[\"create\",\"update\",\"delete\"]},\"enabled\":{\"type\":\"boolean\"},\"applicationId\":{\"type\":[\"string\",\"null\"]},\"composeId\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"filePath\",\"content\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch Create",
       ...{"openWorldHint":true},
@@ -6168,7 +6686,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "GET",
     path: "/patch.one",
-    schema: z.object({ "patchId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "patchId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"patchId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"patchId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch One",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6180,7 +6699,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "GET",
     path: "/patch.byEntityId",
-    schema: z.object({ "id": z.string(), "type": z.enum(["application","compose"]) }),
+    schema: lazySchema(() => z.object({ "id": z.string(), "type": z.enum(["application","compose"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\"]}},\"required\":[\"id\",\"type\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch ByEntityId",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6192,7 +6712,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.update",
-    schema: z.object({ "patchId": z.string().min(1), "type": z.enum(["create","update","delete"]).optional(), "filePath": z.string().min(1).optional(), "enabled": z.boolean().optional(), "content": z.string().optional(), "createdAt": z.string().optional(), "updatedAt": z.union([z.string(), z.null()]).optional() }),
+    schema: lazySchema(() => z.object({ "patchId": z.string().min(1), "type": z.enum(["create","update","delete"]).optional(), "filePath": z.string().min(1).optional(), "enabled": z.boolean().optional(), "content": z.string().optional(), "createdAt": z.string().optional(), "updatedAt": z.union([z.string(), z.null()]).optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"patchId\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"create\",\"update\",\"delete\"]},\"filePath\":{\"type\":\"string\",\"minLength\":1},\"enabled\":{\"type\":\"boolean\"},\"content\":{\"type\":\"string\"},\"createdAt\":{\"type\":\"string\"},\"updatedAt\":{\"type\":[\"string\",\"null\"]}},\"required\":[\"patchId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6204,7 +6725,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.delete",
-    schema: z.object({ "patchId": z.string().min(1) }),
+    schema: lazySchema(() => z.object({ "patchId": z.string().min(1) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"patchId\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"patchId\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
@@ -6216,7 +6738,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.toggleEnabled",
-    schema: z.object({ "patchId": z.string().min(1), "enabled": z.boolean() }),
+    schema: lazySchema(() => z.object({ "patchId": z.string().min(1), "enabled": z.boolean() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"patchId\":{\"type\":\"string\",\"minLength\":1},\"enabled\":{\"type\":\"boolean\"}},\"required\":[\"patchId\",\"enabled\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch ToggleEnabled",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6228,7 +6751,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.ensureRepo",
-    schema: z.object({ "id": z.string(), "type": z.enum(["application","compose"]) }),
+    schema: lazySchema(() => z.object({ "id": z.string(), "type": z.enum(["application","compose"]) })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\"]}},\"required\":[\"id\",\"type\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch EnsureRepo",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6240,7 +6764,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "GET",
     path: "/patch.readRepoDirectories",
-    schema: z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "repoPath": z.string() }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "repoPath": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\"]},\"repoPath\":{\"type\":\"string\"}},\"required\":[\"id\",\"type\",\"repoPath\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch ReadRepoDirectories",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6252,7 +6777,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "GET",
     path: "/patch.readRepoFile",
-    schema: z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string() }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\"]},\"filePath\":{\"type\":\"string\"}},\"required\":[\"id\",\"type\",\"filePath\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch ReadRepoFile",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
@@ -6264,7 +6790,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.saveFileAsPatch",
-    schema: z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string(), "content": z.string(), "patchType": z.enum(["create","update"]).default("update") }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string(), "content": z.string(), "patchType": z.enum(["create","update"]).default("update") })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\"]},\"filePath\":{\"type\":\"string\"},\"content\":{\"type\":\"string\"},\"patchType\":{\"type\":\"string\",\"enum\":[\"create\",\"update\"],\"default\":\"update\"}},\"required\":[\"id\",\"type\",\"filePath\",\"content\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch SaveFileAsPatch",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6276,7 +6803,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.markFileForDeletion",
-    schema: z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string() }),
+    schema: lazySchema(() => z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"minLength\":1},\"type\":{\"type\":\"string\",\"enum\":[\"application\",\"compose\"]},\"filePath\":{\"type\":\"string\"}},\"required\":[\"id\",\"type\",\"filePath\"],\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch MarkFileForDeletion",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6288,7 +6816,8 @@ export const generatedTools: ToolDefinition[] = [
     tag: "patch",
     method: "POST",
     path: "/patch.cleanPatchRepos",
-    schema: z.object({ "serverId": z.string().optional() }),
+    schema: lazySchema(() => z.object({ "serverId": z.string().optional() })),
+    inputSchemaJson: "{\"type\":\"object\",\"properties\":{\"serverId\":{\"type\":\"string\"}},\"additionalProperties\":false,\"$schema\":\"https://json-schema.org/draft/2020-12/schema\"}",
     annotations: {
       title: "Patch CleanPatchRepos",
       ...{"idempotentHint":true,"openWorldHint":true},

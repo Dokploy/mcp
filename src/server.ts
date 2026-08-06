@@ -1,14 +1,17 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import type { ZodObject, ZodRawShape } from "zod";
-import { zodToJsonSchema } from "zod-to-json-schema";
 import { generatedTools } from "./generated/tools.js";
 import { createHandler } from "./handler.js";
+import type { ToolDefinition } from "./types.js";
+import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
 
 const logger = createLogger("MCP-Server");
+const parsedInputSchemas = new WeakMap<ToolDefinition, Record<string, unknown>>();
 
-const JSON_SCHEMA_2020_12 = "https://json-schema.org/draft/2020-12/schema";
+// Preserve fail-fast configuration validation while deferring the heavier
+// Axios client until the first tool invocation.
+getClientConfig();
 
 function getEnabledTools() {
   const enabledTags = process.env.DOKPLOY_ENABLED_TAGS;
@@ -35,36 +38,18 @@ function getEnabledTools() {
   return filtered;
 }
 
-function stripNestedSchemaKeys(value: unknown): void {
-  if (value === null || typeof value !== "object") return;
-  if (Array.isArray(value)) {
-    for (const item of value) stripNestedSchemaKeys(item);
-    return;
-  }
-  const record = value as Record<string, unknown>;
-  for (const key of Object.keys(record)) {
-    if (key === "$schema") {
-      delete record[key];
-    } else {
-      stripNestedSchemaKeys(record[key]);
-    }
-  }
-}
+function getInputSchema(tool: ToolDefinition): Record<string, unknown> {
+  const cached = parsedInputSchemas.get(tool);
+  if (cached) return cached;
 
-// Claude's API requires JSON Schema draft 2020-12. The MCP SDK's built-in
-// Zod→JSON Schema converter emits draft-07 by default, which causes a 400
-// error on tools/list. We bypass the SDK's auto-generated handler by
-// registering our own with pre-converted draft-2020-12 schemas.
-// See https://github.com/Dokploy/mcp/issues/32
-function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string, unknown> {
-  const result = zodToJsonSchema(schema, {
-    target: "jsonSchema2019-09",
-    strictUnions: true,
-  }) as Record<string, unknown>;
+  const inputSchema = JSON.parse(tool.inputSchemaJson) as unknown;
+  if (inputSchema === null || typeof inputSchema !== "object" || Array.isArray(inputSchema)) {
+    throw new Error("Generated tool input schema must be a JSON object");
+  }
 
-  stripNestedSchemaKeys(result);
-  result.$schema = JSON_SCHEMA_2020_12;
-  return result;
+  const parsed = inputSchema as Record<string, unknown>;
+  parsedInputSchemas.set(tool, parsed);
+  return parsed;
 }
 
 export function createServer() {
@@ -76,25 +61,42 @@ export function createServer() {
   const tools = getEnabledTools();
 
   for (const tool of tools) {
-    server.tool(
+    server.registerTool(
       tool.name,
-      tool.description,
-      tool.schema.shape,
-      tool.annotations ?? {},
+      {
+        description: tool.description,
+        inputSchema: tool.schema,
+        ...(tool.annotations ? { annotations: tool.annotations } : {}),
+      },
       createHandler(tool),
     );
   }
 
-  const toolList = tools.map((tool) => ({
-    name: tool.name,
-    description: tool.description,
-    inputSchema: toDraft2020_12JsonSchema(tool.schema),
-    annotations: tool.annotations,
-  }));
+  let toolList:
+    | {
+        name: string;
+        description: string;
+        inputSchema: Record<string, unknown>;
+        annotations: (typeof tools)[number]["annotations"];
+      }[]
+    | undefined;
 
-  server.server.setRequestHandler(ListToolsRequestSchema, async () => ({
-    tools: toolList,
-  }));
+  // Claude's API requires JSON Schema draft 2020-12. Generate the exact
+  // Zod-derived schemas once during catalog generation and deserialize them only when a
+  // client lists tools. This preserves SDK registration and validation while
+  // avoiding eager construction of the full generated schema graph.
+  // See https://github.com/Dokploy/mcp/issues/32
+  server.server.setRequestHandler(ListToolsRequestSchema, async () => {
+    if (!toolList) {
+      toolList = tools.map((tool) => ({
+        name: tool.name,
+        description: tool.description,
+        inputSchema: getInputSchema(tool),
+        annotations: tool.annotations,
+      }));
+    }
+    return { tools: toolList };
+  });
 
   return server;
 }
