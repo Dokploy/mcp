@@ -2,13 +2,13 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 544
+- **Total Tools**: 546
 - **Categories**: 50
 
 ## Categories
 
 - [admin](#admin) (1 tools)
-- [ai](#ai) (12 tools)
+- [ai](#ai) (14 tools)
 - [application](#application) (31 tools)
 - [auditLog](#auditLog) (1 tools)
 - [backup](#backup) (12 tools)
@@ -75,6 +75,8 @@
 | `ai-getAll` | GET | None |
 | `ai-get` | GET | `aiId` (string) |
 | `ai-delete` | POST | `aiId` (string) |
+| `ai-getCustomProviders` | GET | None |
+| `ai-saveCustomProviders` | POST | `providers` (object[]) |
 | `ai-getEnabledProviders` | GET | None |
 | `ai-analyzeLogs` | POST | `aiId` (string), `logs` (string), `context` ("build" | "runtime") |
 | `ai-testConnection` | POST | `apiUrl` (string), `apiKey` (string), `model` (string) |

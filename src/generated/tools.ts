@@ -5208,7 +5208,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "user",
     method: "POST",
     path: "/user.createApiKey",
-    schema: z.object({ "name": z.string().min(1), "prefix": z.string().optional(), "expiresIn": z.number().optional(), "metadata": z.object({ "organizationId": z.string() }), "rateLimitEnabled": z.boolean().optional(), "rateLimitTimeWindow": z.number().optional(), "rateLimitMax": z.number().optional(), "remaining": z.number().optional(), "refillAmount": z.number().optional(), "refillInterval": z.number().optional() }),
+    schema: z.object({ "name": z.string().min(1).max(32), "prefix": z.string().optional(), "expiresIn": z.number().optional(), "metadata": z.object({ "organizationId": z.string() }), "rateLimitEnabled": z.boolean().optional(), "rateLimitTimeWindow": z.number().optional(), "rateLimitMax": z.number().optional(), "remaining": z.number().optional(), "refillAmount": z.number().optional(), "refillInterval": z.number().optional() }),
     annotations: {
       title: "User CreateApiKey",
       ...{"openWorldHint":true},
@@ -5356,6 +5356,30 @@ export const generatedTools: ToolDefinition[] = [
     annotations: {
       title: "Ai Delete",
       ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "ai-getCustomProviders",
+    description: "GET /ai.getCustomProviders",
+    tag: "ai",
+    method: "GET",
+    path: "/ai.getCustomProviders",
+    schema: z.object({}),
+    annotations: {
+      title: "Ai GetCustomProviders",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "ai-saveCustomProviders",
+    description: "POST /ai.saveCustomProviders",
+    tag: "ai",
+    method: "POST",
+    path: "/ai.saveCustomProviders",
+    schema: z.object({ "providers": z.array(z.object({ "name": z.string().min(1), "apiUrl": z.string().url() })) }),
+    annotations: {
+      title: "Ai SaveCustomProviders",
+      ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
   {
@@ -6156,7 +6180,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.create",
-    schema: z.object({ "name": z.string(), "volumeName": z.string(), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string() }),
+    schema: z.object({ "name": z.string(), "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9][a-zA-Z0-9_.-]*$")), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string() }),
     annotations: {
       title: "VolumeBackups Create",
       ...{"openWorldHint":true},
@@ -6192,7 +6216,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.update",
-    schema: z.object({ "name": z.string(), "volumeName": z.string(), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string(), "volumeBackupId": z.string().min(1) }),
+    schema: z.object({ "name": z.string(), "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9][a-zA-Z0-9_.-]*$")), "prefix": z.string(), "serviceType": z.enum(["application","postgres","mysql","mariadb","mongo","redis","compose","libsql"]).optional(), "appName": z.string().optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "turnOff": z.boolean().optional(), "cronExpression": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "applicationId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mariadbId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "redisId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "createdAt": z.string().optional(), "destinationId": z.string(), "volumeBackupId": z.string().min(1) }),
     annotations: {
       title: "VolumeBackups Update",
       ...{"idempotentHint":true,"openWorldHint":true},
