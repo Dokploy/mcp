@@ -396,7 +396,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.create",
-    schema: z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]).optional(), "prefix": z.string().min(1), "destinationId": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "database": z.string().min(1), "mariadbId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]), "userId": z.union([z.string(), z.null()]).optional(), "backupType": z.enum(["database","compose"]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "metadata": z.union([z.any(), z.null()]).optional() }),
+    schema: z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]).optional(), "prefix": z.string().min(1), "destinationId": z.string(), "keepLatestCount": z.union([z.number(), z.null()]).optional(), "database": z.string().min(1), "mariadbId": z.union([z.string(), z.null()]).optional(), "mysqlId": z.union([z.string(), z.null()]).optional(), "postgresId": z.union([z.string(), z.null()]).optional(), "mongoId": z.union([z.string(), z.null()]).optional(), "libsqlId": z.union([z.string(), z.null()]).optional(), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]), "userId": z.union([z.string(), z.null()]).optional(), "backupType": z.enum(["database","compose"]).optional(), "composeId": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "includeEncryptionKey": z.boolean().optional(), "metadata": z.union([z.any(), z.null()]).optional() }),
     annotations: {
       title: "Backup Create",
       ...{"openWorldHint":true},
@@ -420,7 +420,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "backup",
     method: "POST",
     path: "/backup.update",
-    schema: z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]), "prefix": z.string().min(1), "backupId": z.string(), "destinationId": z.string(), "database": z.string().min(1), "keepLatestCount": z.union([z.number(), z.null()]), "serviceName": z.union([z.string(), z.null()]), "metadata": z.union([z.any(), z.null()]), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]) }),
+    schema: z.object({ "schedule": z.string(), "enabled": z.union([z.boolean(), z.null()]), "prefix": z.string().min(1), "backupId": z.string(), "destinationId": z.string(), "database": z.string().min(1), "keepLatestCount": z.union([z.number(), z.null()]), "serviceName": z.union([z.string(), z.null()]), "metadata": z.union([z.any(), z.null()]), "databaseType": z.enum(["postgres","mariadb","mysql","mongo","web-server","libsql"]), "includeEncryptionKey": z.boolean().optional() }),
     annotations: {
       title: "Backup Update",
       ...{"idempotentHint":true,"openWorldHint":true},

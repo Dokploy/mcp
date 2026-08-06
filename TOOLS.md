@@ -127,9 +127,9 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `backup-create` | POST | `schedule` (string), `prefix` (string), `destinationId` (string), `database` (string), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), +12 optional |
+| `backup-create` | POST | `schedule` (string), `prefix` (string), `destinationId` (string), `database` (string), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), +13 optional |
 | `backup-one` | GET | `backupId` (string) |
-| `backup-update` | POST | `schedule` (string), `enabled` (boolean | null), `prefix` (string), `backupId` (string), `destinationId` (string), `database` (string), `keepLatestCount` (number | null), `serviceName` (string | null), `metadata` (unknown | null), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql") |
+| `backup-update` | POST | `schedule` (string), `enabled` (boolean | null), `prefix` (string), `backupId` (string), `destinationId` (string), `database` (string), `keepLatestCount` (number | null), `serviceName` (string | null), `metadata` (unknown | null), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), `includeEncryptionKey`? |
 | `backup-remove` | POST | `backupId` (string) |
 | `backup-manualBackupPostgres` | POST | `backupId` (string) |
 | `backup-manualBackupMySql` | POST | `backupId` (string) |
