@@ -1039,6 +1039,18 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "compose-previewTemplate",
+    description: "POST /compose.previewTemplate",
+    tag: "compose",
+    method: "POST",
+    path: "/compose.previewTemplate",
+    schema: z.object({ "base64": z.string(), "appName": z.string(), "serverId": z.string().optional() }),
+    annotations: {
+      title: "Compose PreviewTemplate",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "compose-import",
     description: "POST /compose.import",
     tag: "compose",
@@ -1180,6 +1192,18 @@ export const generatedTools: ToolDefinition[] = [
     annotations: {
       title: "Deployment RemoveDeployment",
       ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "deployment-readLogs",
+    description: "GET /deployment.readLogs",
+    tag: "deployment",
+    method: "GET",
+    path: "/deployment.readLogs",
+    schema: z.object({ "deploymentId": z.string().min(1), "tail": z.number().int().gte(1).lte(10000).default(100) }),
+    annotations: {
+      title: "Deployment ReadLogs",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
     },
   },
   {

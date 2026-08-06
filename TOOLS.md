@@ -2,7 +2,7 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 524
+- **Total Tools**: 526
 - **Categories**: 48
 
 ## Categories
@@ -15,9 +15,9 @@
 - [bitbucket](#bitbucket) (7 tools)
 - [certificates](#certificates) (5 tools)
 - [cluster](#cluster) (4 tools)
-- [compose](#compose) (30 tools)
+- [compose](#compose) (31 tools)
 - [customRole](#customRole) (6 tools)
-- [deployment](#deployment) (8 tools)
+- [deployment](#deployment) (9 tools)
 - [destination](#destination) (6 tools)
 - [docker](#docker) (12 tools)
 - [domain](#domain) (9 tools)
@@ -199,6 +199,7 @@
 | `compose-disconnectGitProvider` | POST | `composeId` (string) |
 | `compose-move` | POST | `composeId` (string), `targetEnvironmentId` (string) |
 | `compose-processTemplate` | POST | `base64` (string), `composeId` (string) |
+| `compose-previewTemplate` | POST | `base64` (string), `appName` (string), `serverId`? |
 | `compose-import` | POST | `base64` (string), `composeId` (string) |
 | `compose-cancelDeployment` | POST | `composeId` (string) |
 | `compose-search` | GET | +8 optional |
@@ -227,6 +228,7 @@
 | `deployment-allByType` | GET | `id` (string), `type` ("application" | "compose" | "server" | "schedule" | "previewDeployment" | "backup" | "volumeBackup") |
 | `deployment-killProcess` | POST | `deploymentId` (string) |
 | `deployment-removeDeployment` | POST | `deploymentId` (string) |
+| `deployment-readLogs` | GET | `deploymentId` (string), `tail`? |
 
 ## destination
 
