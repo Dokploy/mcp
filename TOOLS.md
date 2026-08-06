@@ -2,8 +2,8 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 529
-- **Categories**: 48
+- **Total Tools**: 539
+- **Categories**: 49
 
 ## Categories
 
@@ -22,6 +22,7 @@
 - [docker](#docker) (12 tools)
 - [domain](#domain) (9 tools)
 - [environment](#environment) (7 tools)
+- [forwardAuth](#forwardAuth) (10 tools)
 - [gitea](#gitea) (8 tools)
 - [github](#github) (6 tools)
 - [gitlab](#gitlab) (7 tools)
@@ -262,12 +263,12 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `domain-create` | POST | `host` (string), +14 optional |
+| `domain-create` | POST | `host` (string), +15 optional |
 | `domain-byApplicationId` | GET | `applicationId` (string) |
 | `domain-byComposeId` | GET | `composeId` (string) |
 | `domain-generateDomain` | POST | `appName` (string), `serverId`? |
 | `domain-canGenerateTraefikMeDomains` | GET | `serverId` (string) |
-| `domain-update` | POST | `host` (string), `domainId` (string), +11 optional |
+| `domain-update` | POST | `host` (string), `domainId` (string), +12 optional |
 | `domain-one` | GET | `domainId` (string) |
 | `domain-delete` | POST | `domainId` (string) |
 | `domain-validateDomain` | POST | `domain` (string), `serverIp`? |
@@ -283,6 +284,21 @@
 | `environment-update` | POST | `environmentId` (string), +4 optional |
 | `environment-duplicate` | POST | `environmentId` (string), `name` (string), `description`? |
 | `environment-search` | GET | +6 optional |
+
+## forwardAuth
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `forwardAuth-getAuthDomain` | GET | `serverId` (string | null) |
+| `forwardAuth-setAuthDomain` | POST | `serverId` (string | null), `authDomain` (string), `https`?, `certificateType`?, `customCertResolver`? |
+| `forwardAuth-removeAuthDomain` | POST | `serverId` (string | null) |
+| `forwardAuth-listProviders` | GET | None |
+| `forwardAuth-serverStatus` | GET | None |
+| `forwardAuth-deployOnServer` | POST | `serverId` (string | null), `providerId` (string) |
+| `forwardAuth-removeOnServer` | POST | `serverId` (string | null) |
+| `forwardAuth-status` | GET | `domainId` (string) |
+| `forwardAuth-enable` | POST | `domainId` (string) |
+| `forwardAuth-disable` | POST | `domainId` (string) |
 
 ## gitea
 
@@ -638,7 +654,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `server-create` | POST | `name` (string), `description` (string | null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build") |
+| `server-create` | POST | `name` (string), `description` (string | null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`? |
 | `server-one` | GET | `serverId` (string) |
 | `server-getDefaultCommand` | GET | `serverId` (string) |
 | `server-all` | GET | None |
@@ -651,7 +667,7 @@
 | `server-security` | GET | `serverId` (string) |
 | `server-setupMonitoring` | POST | `serverId` (string), `metricsConfig` (object) |
 | `server-remove` | POST | `serverId` (string) |
-| `server-update` | POST | `name` (string), `description` (string | null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `command`? |
+| `server-update` | POST | `name` (string), `description` (string | null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`?, `command`? |
 | `server-publicIp` | GET | None |
 | `server-getServerTime` | GET | None |
 | `server-getServerMetrics` | GET | `url` (string), `token` (string), `dataPoints` (string) |
