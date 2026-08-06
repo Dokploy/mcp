@@ -2,8 +2,8 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 541
-- **Categories**: 49
+- **Total Tools**: 544
+- **Categories**: 50
 
 ## Categories
 
@@ -45,6 +45,7 @@
 - [registry](#registry) (7 tools)
 - [rollback](#rollback) (2 tools)
 - [schedule](#schedule) (6 tools)
+- [scim](#scim) (3 tools)
 - [security](#security) (4 tools)
 - [server](#server) (18 tools)
 - [settings](#settings) (54 tools)
@@ -640,6 +641,14 @@
 | `schedule-list` | GET | `id` (string), `scheduleType` ("application" | "compose" | "server" | "dokploy-server") |
 | `schedule-one` | GET | `scheduleId` (string) |
 | `schedule-runManually` | POST | `scheduleId` (string) |
+
+## scim
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `scim-listProviders` | GET | None |
+| `scim-generateToken` | POST | `providerId` (string) |
+| `scim-deleteProvider` | POST | `providerId` (string) |
 
 ## security
 

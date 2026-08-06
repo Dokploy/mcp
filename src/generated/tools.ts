@@ -5755,6 +5755,42 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "scim-listProviders",
+    description: "GET /scim.listProviders",
+    tag: "scim",
+    method: "GET",
+    path: "/scim.listProviders",
+    schema: z.object({}),
+    annotations: {
+      title: "Scim ListProviders",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "scim-generateToken",
+    description: "POST /scim.generateToken",
+    tag: "scim",
+    method: "POST",
+    path: "/scim.generateToken",
+    schema: z.object({ "providerId": z.string().regex(new RegExp("^[a-z0-9][a-z0-9-]*$")).min(1).max(64) }),
+    annotations: {
+      title: "Scim GenerateToken",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "scim-deleteProvider",
+    description: "POST /scim.deleteProvider",
+    tag: "scim",
+    method: "POST",
+    path: "/scim.deleteProvider",
+    schema: z.object({ "providerId": z.string().regex(new RegExp("^[a-z0-9][a-z0-9-]*$")).min(1).max(64) }),
+    annotations: {
+      title: "Scim DeleteProvider",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "forwardAuth-getAuthDomain",
     description: "GET /forwardAuth.getAuthDomain",
     tag: "forwardAuth",
