@@ -132,7 +132,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGithubProvider",
-    schema: z.object({ "applicationId": z.string(), "repository": z.union([z.string(), z.null()]), "owner": z.union([z.string(), z.null()]), "buildPath": z.union([z.string(), z.null()]), "githubId": z.union([z.string(), z.null()]), "branch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/]+$")).min(1), "triggerType": z.enum(["push","tag"]).default("push"), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: z.object({ "applicationId": z.string(), "repository": z.union([z.string(), z.null()]), "owner": z.union([z.string(), z.null()]), "buildPath": z.union([z.string(), z.null()]), "githubId": z.union([z.string(), z.null()]), "branch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/#]+$")).min(1), "triggerType": z.enum(["push","tag"]).default("push"), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
     annotations: {
       title: "Application SaveGithubProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -144,7 +144,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGitlabProvider",
-    schema: z.object({ "applicationId": z.string(), "gitlabBuildPath": z.union([z.string(), z.null()]), "gitlabOwner": z.union([z.string(), z.null()]), "gitlabRepository": z.union([z.string(), z.null()]), "gitlabId": z.union([z.string(), z.null()]), "gitlabProjectId": z.union([z.number(), z.null()]), "gitlabPathNamespace": z.union([z.string(), z.null()]), "gitlabBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/]+$")).min(1), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: z.object({ "applicationId": z.string(), "gitlabBuildPath": z.union([z.string(), z.null()]), "gitlabOwner": z.union([z.string(), z.null()]), "gitlabRepository": z.union([z.string(), z.null()]), "gitlabId": z.union([z.string(), z.null()]), "gitlabProjectId": z.union([z.number(), z.null()]), "gitlabPathNamespace": z.union([z.string(), z.null()]), "gitlabBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/#]+$")).min(1), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
     annotations: {
       title: "Application SaveGitlabProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -156,7 +156,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveBitbucketProvider",
-    schema: z.object({ "bitbucketBuildPath": z.union([z.string(), z.null()]), "bitbucketOwner": z.union([z.string(), z.null()]), "bitbucketRepository": z.union([z.string(), z.null()]), "bitbucketRepositorySlug": z.union([z.string(), z.null()]), "bitbucketId": z.union([z.string(), z.null()]), "applicationId": z.string(), "bitbucketBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/]+$")).min(1), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: z.object({ "bitbucketBuildPath": z.union([z.string(), z.null()]), "bitbucketOwner": z.union([z.string(), z.null()]), "bitbucketRepository": z.union([z.string(), z.null()]), "bitbucketRepositorySlug": z.union([z.string(), z.null()]), "bitbucketId": z.union([z.string(), z.null()]), "applicationId": z.string(), "bitbucketBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/#]+$")).min(1), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
     annotations: {
       title: "Application SaveBitbucketProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -168,7 +168,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGiteaProvider",
-    schema: z.object({ "applicationId": z.string(), "giteaBuildPath": z.union([z.string(), z.null()]), "giteaOwner": z.union([z.string(), z.null()]), "giteaRepository": z.union([z.string(), z.null()]), "giteaId": z.union([z.string(), z.null()]), "giteaBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/]+$")).min(1), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
+    schema: z.object({ "applicationId": z.string(), "giteaBuildPath": z.union([z.string(), z.null()]), "giteaOwner": z.union([z.string(), z.null()]), "giteaRepository": z.union([z.string(), z.null()]), "giteaId": z.union([z.string(), z.null()]), "giteaBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/#]+$")).min(1), "enableSubmodules": z.boolean().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional() }),
     annotations: {
       title: "Application SaveGiteaProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -192,7 +192,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.saveGitProvider",
-    schema: z.object({ "applicationId": z.string(), "customGitBuildPath": z.union([z.string(), z.null()]), "customGitUrl": z.union([z.string(), z.null()]), "watchPaths": z.union([z.array(z.string()), z.null()]), "enableSubmodules": z.boolean().optional(), "customGitBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/]+$")).min(1), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional() }),
+    schema: z.object({ "applicationId": z.string(), "customGitBuildPath": z.union([z.string(), z.null()]), "customGitUrl": z.union([z.string(), z.null()]), "watchPaths": z.union([z.array(z.string()), z.null()]), "enableSubmodules": z.boolean().optional(), "customGitBranch": z.string().regex(new RegExp("^[a-zA-Z0-9._\\-/#]+$")).min(1), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional() }),
     annotations: {
       title: "Application SaveGitProvider",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4075,6 +4075,18 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "server-updateBuildsConcurrency",
+    description: "POST /server.updateBuildsConcurrency",
+    tag: "server",
+    method: "POST",
+    path: "/server.updateBuildsConcurrency",
+    schema: z.object({ "serverId": z.string().min(1), "buildsConcurrency": z.number().int().gte(1).lte(100) }),
+    annotations: {
+      title: "Server UpdateBuildsConcurrency",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "server-publicIp",
     description: "GET /server.publicIp",
     tag: "server",
@@ -4347,6 +4359,18 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "remoteServersOnly": z.boolean() }),
     annotations: {
       title: "Settings UpdateRemoteServersOnly",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "settings-updateBuildsConcurrency",
+    description: "POST /settings.updateBuildsConcurrency",
+    tag: "settings",
+    method: "POST",
+    path: "/settings.updateBuildsConcurrency",
+    schema: z.object({ "buildsConcurrency": z.number().int().gte(1).lte(100) }),
+    annotations: {
+      title: "Settings UpdateBuildsConcurrency",
       ...{"idempotentHint":true,"openWorldHint":true},
     },
   },

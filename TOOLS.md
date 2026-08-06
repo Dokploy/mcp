@@ -2,7 +2,7 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 539
+- **Total Tools**: 541
 - **Categories**: 49
 
 ## Categories
@@ -46,8 +46,8 @@
 - [rollback](#rollback) (2 tools)
 - [schedule](#schedule) (6 tools)
 - [security](#security) (4 tools)
-- [server](#server) (17 tools)
-- [settings](#settings) (53 tools)
+- [server](#server) (18 tools)
+- [settings](#settings) (54 tools)
 - [sshKey](#sshKey) (7 tools)
 - [sso](#sso) (11 tools)
 - [stripe](#stripe) (8 tools)
@@ -668,6 +668,7 @@
 | `server-setupMonitoring` | POST | `serverId` (string), `metricsConfig` (object) |
 | `server-remove` | POST | `serverId` (string) |
 | `server-update` | POST | `name` (string), `description` (string | null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`?, `command`? |
+| `server-updateBuildsConcurrency` | POST | `serverId` (string), `buildsConcurrency` (integer) |
 | `server-publicIp` | GET | None |
 | `server-getServerTime` | GET | None |
 | `server-getServerMetrics` | GET | `url` (string), `token` (string), `dataPoints` (string) |
@@ -696,6 +697,7 @@
 | `settings-cleanSSHPrivateKey` | POST | None |
 | `settings-updateDockerCleanup` | POST | `enableDockerCleanup` (boolean), `serverId`? |
 | `settings-updateRemoteServersOnly` | POST | `remoteServersOnly` (boolean) |
+| `settings-updateBuildsConcurrency` | POST | `buildsConcurrency` (integer) |
 | `settings-updateEnforceSSO` | POST | `enforceSSO` (boolean) |
 | `settings-readTraefikConfig` | GET | None |
 | `settings-updateTraefikConfig` | POST | `traefikConfig` (string) |
