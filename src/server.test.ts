@@ -96,6 +96,40 @@ describe("MCP server tools/list", () => {
     }
   });
 
+  it("no tool inputSchema exposes patterns invalid under strict regex syntax", async () => {
+    const tools = await getToolList();
+
+    function findStrictInvalidPatterns(obj: unknown, path = ""): string[] {
+      if (obj === null || typeof obj !== "object") return [];
+      if (Array.isArray(obj)) {
+        return obj.flatMap((item, i) => findStrictInvalidPatterns(item, `${path}[${i}]`));
+      }
+
+      const record = obj as Record<string, unknown>;
+      const found: string[] = [];
+      for (const [key, value] of Object.entries(record)) {
+        const currentPath = path ? `${path}.${key}` : key;
+        if (key === "pattern" && typeof value === "string") {
+          try {
+            new RegExp(value, "v");
+          } catch {
+            found.push(`${currentPath}: ${value}`);
+          }
+        }
+        found.push(...findStrictInvalidPatterns(value, currentPath));
+      }
+      return found;
+    }
+
+    for (const tool of tools) {
+      const found = findStrictInvalidPatterns(tool.inputSchema);
+      expect(
+        found,
+        `Tool "${tool.name}" exposes provider-incompatible patterns at: ${found.join(", ")}`,
+      ).toHaveLength(0);
+    }
+  });
+
   it("all tools have name, inputSchema with type=object", async () => {
     const tools = await getToolList();
     for (const tool of tools) {

@@ -51,8 +51,20 @@ function stripNestedSchemaKeys(value: unknown): void {
   }
 }
 
+// Provider schema validators (OpenAI, Sonnet strict, DeepSeek) accept only a
+// conservative subset of ECMA-262: lookarounds and loosely-escaped character
+// classes (e.g. an unescaped "[" inside a class) are rejected even though JS
+// allows them. Lookarounds compile fine under the strict "v" flag, so they
+// need their own check; everything else is caught by the "v" compile test.
 function usesUnsupportedRegexSyntax(pattern: unknown): boolean {
-  return typeof pattern === "string" && /\(\?<?[=!]/.test(pattern);
+  if (typeof pattern !== "string") return false;
+  if (/\(\?<?[=!]/.test(pattern)) return true;
+  try {
+    new RegExp(pattern, "v");
+    return false;
+  } catch {
+    return true;
+  }
 }
 
 function stripUnsupportedRegexPatterns(value: unknown): void {
