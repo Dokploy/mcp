@@ -44,8 +44,8 @@ const REDACTED_PLACEHOLDER = "[REDACTED]";
 
 export function redactSensitive<T>(data: T, fields: string[]): T {
   if (fields.length === 0) return data;
-  const lowered = new Set(fields.map((f) => f.toLowerCase()));
-  return walk(data, lowered, new WeakSet()) as T;
+  const suffixes = fields.map((f) => f.toLowerCase());
+  return walk(data, suffixes, new WeakSet()) as T;
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -54,11 +54,11 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return proto === Object.prototype || proto === null;
 }
 
-function walk(value: unknown, fields: Set<string>, seen: WeakSet<object>): unknown {
+function walk(value: unknown, suffixes: string[], seen: WeakSet<object>): unknown {
   if (Array.isArray(value)) {
     if (seen.has(value)) return value;
     seen.add(value);
-    return value.map((item) => walk(item, fields, seen));
+    return value.map((item) => walk(item, suffixes, seen));
   }
   if (isPlainObject(value)) {
     if (seen.has(value)) return value;
@@ -67,10 +67,10 @@ function walk(value: unknown, fields: Set<string>, seen: WeakSet<object>): unkno
     for (const [key, val] of Object.entries(value)) {
       if (key === "__proto__" || key === "constructor" || key === "prototype") continue;
       const loweredKey = key.toLowerCase();
-      if (fields.has(loweredKey) || [...fields].some((f) => loweredKey.endsWith(f))) {
+      if (suffixes.some((suffix) => loweredKey.endsWith(suffix))) {
         out[key] = val === null || val === undefined ? val : REDACTED_PLACEHOLDER;
       } else {
-        out[key] = walk(val, fields, seen);
+        out[key] = walk(val, suffixes, seen);
       }
     }
     return out;
