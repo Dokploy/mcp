@@ -58,3 +58,17 @@ describe("parseCustomHeaders", () => {
     );
   });
 });
+
+describe("getClientConfig", () => {
+  it("enables response redaction by default", async () => {
+    process.env.DOKPLOY_URL = "https://example.com";
+    process.env.DOKPLOY_API_KEY = "test-key";
+    delete process.env.DOKPLOY_REDACT_ENV;
+
+    const { getClientConfig } = await import("./clientConfig.js");
+    const config = getClientConfig();
+
+    expect(config.redactEnv).toBe(true);
+    expect(config.redactFields.length).toBeGreaterThan(0);
+  });
+});

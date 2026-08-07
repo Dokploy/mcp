@@ -89,7 +89,7 @@ class ConfigManager {
       throw new Error("Environment variable DOKPLOY_API_KEY is not defined");
     }
 
-    const redactEnv = parseBoolean(process.env.DOKPLOY_REDACT_ENV, false);
+    const redactEnv = parseBoolean(process.env.DOKPLOY_REDACT_ENV, true);
     const parsedFields =
       process.env.DOKPLOY_REDACT_FIELDS?.split(",")
         .map((f) => f.trim())
