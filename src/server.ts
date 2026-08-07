@@ -15,7 +15,7 @@ const TOOL_PRESETS = {
   all: null,
   minimal: "project,application",
   core: "project,server,application",
-  deploy: "project,environment,server,application,domain,deployment",
+  deploy: "project,environment,server,application,compose,domain,deployment",
   databases: "postgres,redis,mysql,mariadb,mongo,libsql",
   git: "github,gitlab,bitbucket,gitea,gitProvider,registry,sshKey",
 } as const;

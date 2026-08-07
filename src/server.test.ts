@@ -11,6 +11,12 @@ vi.mock("./utils/apiClient.js", () => ({
 }));
 
 const { createServer } = await import("./server.js");
+const { generatedTools } = await import("./generated/tools.js");
+
+function countByTags(tags: string[]): number {
+  const wanted = new Set(tags.map((tag) => tag.toLowerCase()));
+  return generatedTools.filter((tool) => wanted.has(tool.tag.toLowerCase())).length;
+}
 
 describe("MCP server tools/list", () => {
   const toolsetEnvVars = ["DOKPLOY_ENABLED_TAGS", "DOKPLOY_DISABLED_TAGS", "DOKPLOY_TOOL_PRESET"];
@@ -39,7 +45,7 @@ describe("MCP server tools/list", () => {
 
   it("returns all tools by default", async () => {
     const tools = await getToolList();
-    expect(tools).toHaveLength(524);
+    expect(tools).toHaveLength(generatedTools.length);
   });
 
   it("supports DOKPLOY_TOOL_PRESET=minimal for clients sensitive to large toolsets", async () => {
@@ -48,7 +54,7 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
-    expect(tools).toHaveLength(40);
+    expect(tools).toHaveLength(countByTags(["project", "application"]));
     expect(tags).toEqual(new Set(["application", "project"]));
   });
 
@@ -58,7 +64,7 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
-    expect(tools).toHaveLength(57);
+    expect(tools).toHaveLength(countByTags(["project", "server", "application"]));
     expect(tags).toEqual(new Set(["application", "project", "server"]));
   });
 
@@ -69,7 +75,7 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
-    expect(tools).toHaveLength(40);
+    expect(tools).toHaveLength(countByTags(["project", "application"]));
     expect(tags).toEqual(new Set(["application", "project"]));
   });
 
@@ -80,7 +86,9 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
-    expect(tools).toHaveLength(64);
+    expect(tools).toHaveLength(
+      countByTags(["project", "environment", "server", "application", "compose"]),
+    );
     expect(tags.has("domain")).toBe(false);
     expect(tags.has("deployment")).toBe(false);
   });
@@ -90,7 +98,7 @@ describe("MCP server tools/list", () => {
 
     const tools = await getToolList();
 
-    expect(tools).toHaveLength(524);
+    expect(tools).toHaveLength(generatedTools.length);
   });
 
   it("every tool inputSchema has $schema set to draft 2020-12", async () => {
