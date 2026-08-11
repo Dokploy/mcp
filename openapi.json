@@ -53210,6 +53210,17 @@
                   },
                   "logo": {
                     "type": "string"
+                  },
+                  "defaultRole": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   }
                 },
                 "required": [
