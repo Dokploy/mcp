@@ -50694,6 +50694,38 @@
                           "clientId",
                           "clientSecret"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "scaleway"
+                          },
+                          "region": {
+                            "default": "fr-par",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "projectId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "apiUrl": {
+                            "default": "https://api.scaleway.com",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "projectId",
+                          "secretKey"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -50973,6 +51005,38 @@
                           "tenantId",
                           "clientId",
                           "clientSecret"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "scaleway"
+                          },
+                          "region": {
+                            "default": "fr-par",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "projectId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "apiUrl": {
+                            "default": "https://api.scaleway.com",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "projectId",
+                          "secretKey"
                         ]
                       }
                     ],
@@ -51500,6 +51564,38 @@
                           "tenantId",
                           "clientId",
                           "clientSecret"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "scaleway"
+                          },
+                          "region": {
+                            "default": "fr-par",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "projectId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "apiUrl": {
+                            "default": "https://api.scaleway.com",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "projectId",
+                          "secretKey"
                         ]
                       }
                     ],
