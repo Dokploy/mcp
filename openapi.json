@@ -363,6 +363,18 @@
                         "type": "null"
                       }
                     ]
+                  },
+                  "sourceType": {
+                    "type": "string",
+                    "enum": [
+                      "github",
+                      "docker",
+                      "git",
+                      "gitlab",
+                      "bitbucket",
+                      "gitea",
+                      "drop"
+                    ]
                   }
                 },
                 "required": [
@@ -8624,6 +8636,17 @@
                   },
                   "composeFile": {
                     "type": "string"
+                  },
+                  "sourceType": {
+                    "type": "string",
+                    "enum": [
+                      "git",
+                      "github",
+                      "gitlab",
+                      "bitbucket",
+                      "gitea",
+                      "raw"
+                    ]
                   }
                 },
                 "required": [
