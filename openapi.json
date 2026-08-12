@@ -13402,10 +13402,6 @@
                           "secretAccessKey": {
                             "type": "string",
                             "minLength": 1
-                          },
-                          "endpoint": {
-                            "type": "string",
-                            "format": "uri"
                           }
                         },
                         "required": [
@@ -13544,10 +13540,6 @@
                           "secretAccessKey": {
                             "type": "string",
                             "minLength": 1
-                          },
-                          "endpoint": {
-                            "type": "string",
-                            "format": "uri"
                           }
                         },
                         "required": [
@@ -13933,10 +13925,6 @@
                           "secretAccessKey": {
                             "type": "string",
                             "minLength": 1
-                          },
-                          "endpoint": {
-                            "type": "string",
-                            "format": "uri"
                           }
                         },
                         "required": [
