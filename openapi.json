@@ -26700,15 +26700,7 @@
                     "type": "string"
                   },
                   "replicaSets": {
-                    "anyOf": [
-                      {
-                        "default": false,
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
+                    "type": "boolean"
                   },
                   "networkIds": {
                     "anyOf": [
