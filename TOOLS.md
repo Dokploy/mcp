@@ -2,8 +2,8 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 546
-- **Categories**: 50
+- **Total Tools**: 597
+- **Categories**: 57
 
 ## Categories
 
@@ -19,8 +19,12 @@
 - [customRole](#customRole) (6 tools)
 - [deployment](#deployment) (9 tools)
 - [destination](#destination) (6 tools)
-- [docker](#docker) (12 tools)
-- [domain](#domain) (9 tools)
+- [dnsProvider](#dnsProvider) (11 tools)
+- [docker](#docker) (18 tools)
+- [dockerDiskUsage](#dockerDiskUsage) (3 tools)
+- [dockerImage](#dockerImage) (3 tools)
+- [dockerVolume](#dockerVolume) (8 tools)
+- [domain](#domain) (10 tools)
 - [environment](#environment) (7 tools)
 - [forwardAuth](#forwardAuth) (10 tools)
 - [gitea](#gitea) (8 tools)
@@ -33,8 +37,10 @@
 - [mongo](#mongo) (16 tools)
 - [mounts](#mounts) (6 tools)
 - [mysql](#mysql) (16 tools)
+- [network](#network) (8 tools)
 - [notification](#notification) (41 tools)
 - [organization](#organization) (11 tools)
+- [overview](#overview) (3 tools)
 - [patch](#patch) (12 tools)
 - [port](#port) (4 tools)
 - [postgres](#postgres) (16 tools)
@@ -48,13 +54,14 @@
 - [scim](#scim) (3 tools)
 - [security](#security) (4 tools)
 - [server](#server) (18 tools)
-- [settings](#settings) (54 tools)
+- [settings](#settings) (52 tools)
 - [sshKey](#sshKey) (7 tools)
 - [sso](#sso) (11 tools)
 - [stripe](#stripe) (8 tools)
 - [swarm](#swarm) (4 tools)
 - [tag](#tag) (8 tools)
-- [user](#user) (23 tools)
+- [user](#user) (26 tools)
+- [vaultProvider](#vaultProvider) (7 tools)
 - [volumeBackups](#volumeBackups) (6 tools)
 - [whitelabeling](#whitelabeling) (4 tools)
 
@@ -87,7 +94,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `application-create` | POST | `name` (string), `environmentId` (string), `appName`?, `description`?, `serverId`? |
+| `application-create` | POST | `name` (string), `environmentId` (string), +4 optional |
 | `application-one` | GET | `applicationId` (string) |
 | `application-reload` | POST | `appName` (string), `applicationId` (string) |
 | `application-delete` | POST | `applicationId` (string) |
@@ -104,7 +111,7 @@
 | `application-saveGitProvider` | POST | `applicationId` (string), `customGitBuildPath` (string | null), `customGitUrl` (string | null), `watchPaths` (array | null), `customGitBranch` (string), `enableSubmodules`?, `customGitSSHKeyId`? |
 | `application-disconnectGitProvider` | POST | `applicationId` (string) |
 | `application-markRunning` | POST | `applicationId` (string) |
-| `application-update` | POST | `applicationId` (string), +97 optional |
+| `application-update` | POST | `applicationId` (string), +99 optional |
 | `application-refreshToken` | POST | `applicationId` (string) |
 | `application-deploy` | POST | `applicationId` (string), `title`?, `description`? |
 | `application-cleanQueues` | POST | `applicationId` (string) |
@@ -177,10 +184,10 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `compose-create` | POST | `name` (string), `environmentId` (string), +5 optional |
+| `compose-create` | POST | `name` (string), `environmentId` (string), +6 optional |
 | `compose-one` | GET | `composeId` (string) |
-| `compose-update` | POST | `composeId` (string), +43 optional |
-| `compose-saveEnvironment` | POST | `composeId` (string), `env` (string | null) |
+| `compose-update` | POST | `composeId` (string), +46 optional |
+| `compose-saveEnvironment` | POST | `composeId` (string), `env` (string | null), `createEnvFile`? |
 | `compose-delete` | POST | `composeId` (string), `deleteVolumes` (boolean) |
 | `compose-cleanQueues` | POST | `composeId` (string) |
 | `compose-clearDeployments` | POST | `composeId` (string) |
@@ -245,11 +252,28 @@
 | `destination-remove` | POST | `destinationId` (string) |
 | `destination-update` | POST | `name` (string), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `destinationId` (string), `provider` (string | null), `additionalFlags` (array | null), `serverId`? |
 
+## dnsProvider
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `dnsProvider-create` | POST | `name` (string), `config` (object) |
+| `dnsProvider-update` | POST | `dnsProviderId` (string), `name` (string), `config` (object) |
+| `dnsProvider-remove` | POST | `dnsProviderId` (string) |
+| `dnsProvider-all` | GET | None |
+| `dnsProvider-one` | GET | `dnsProviderId` (string) |
+| `dnsProvider-testConnection` | POST | `dnsProviderId`?, `config`? |
+| `dnsProvider-listZones` | GET | `dnsProviderId` (string) |
+| `dnsProvider-listRecords` | GET | `dnsProviderId` (string), `zoneId` (string) |
+| `dnsProvider-createRecord` | POST | `type` ("A" | "CNAME"), `name` (string), `content` (string), `dnsProviderId` (string), `zoneId` (string), `ttl`? |
+| `dnsProvider-updateRecord` | POST | `type` ("A" | "CNAME"), `name` (string), `content` (string), `dnsProviderId` (string), `zoneId` (string), `recordId` (string), `ttl`? |
+| `dnsProvider-deleteRecord` | POST | `dnsProviderId` (string), `zoneId` (string), `recordId` (string) |
+
 ## docker
 
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `docker-getContainers` | GET | `serverId`? |
+| `docker-getServerHealth` | GET | `serverId`?, `sinceHours`? |
 | `docker-restartContainer` | POST | `containerId` (string), `serverId`? |
 | `docker-startContainer` | POST | `containerId` (string), `serverId`? |
 | `docker-stopContainer` | POST | `containerId` (string), `serverId`? |
@@ -261,6 +285,40 @@
 | `docker-getStackContainersByAppName` | GET | `appName` (string), `serverId`? |
 | `docker-getServiceContainersByAppName` | GET | `appName` (string), `serverId`? |
 | `docker-uploadFileToContainer` | POST | None |
+| `docker-listContainerFiles` | GET | `containerId` (string), `path` (string), `serverId`? |
+| `docker-readContainerFile` | GET | `containerId` (string), `path` (string), `serverId`? |
+| `docker-writeContainerFile` | POST | `containerId` (string), `path` (string), `content` (string), `serverId`? |
+| `docker-deleteContainerFile` | POST | `containerId` (string), `path` (string), `serverId`? |
+| `docker-getEvents` | GET | `serverId`?, `minutes`? |
+
+## dockerDiskUsage
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `dockerDiskUsage-getDiskUsage` | GET | `serverId`? |
+| `dockerDiskUsage-getBuildCache` | GET | `serverId`? |
+| `dockerDiskUsage-pruneBuildCache` | POST | `serverId`? |
+
+## dockerImage
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `dockerImage-getImages` | GET | `serverId`? |
+| `dockerImage-getImageConfig` | GET | `imageRef` (string), `serverId`? |
+| `dockerImage-removeImage` | POST | `repository` (string), `tag` (string), `id` (string), `force`?, `serverId`? |
+
+## dockerVolume
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `dockerVolume-getVolumes` | GET | `serverId`? |
+| `dockerVolume-getVolumesSize` | GET | `serverId`? |
+| `dockerVolume-listVolumeFiles` | GET | `volumeName` (string), `path` (string), `serverId`? |
+| `dockerVolume-readVolumeFile` | GET | `volumeName` (string), `path` (string), `serverId`? |
+| `dockerVolume-writeVolumeFile` | POST | `volumeName` (string), `path` (string), `content` (string), `serverId`? |
+| `dockerVolume-deleteVolumeFile` | POST | `volumeName` (string), `path` (string), `serverId`? |
+| `dockerVolume-getVolumeConfig` | GET | `volumeName` (string), `serverId`? |
+| `dockerVolume-removeVolume` | POST | `volumeName` (string), `serverId`? |
 
 ## domain
 
@@ -271,7 +329,8 @@
 | `domain-byComposeId` | GET | `composeId` (string) |
 | `domain-generateDomain` | POST | `appName` (string), `serverId`? |
 | `domain-canGenerateTraefikMeDomains` | GET | `serverId` (string) |
-| `domain-update` | POST | `host` (string), `domainId` (string), +12 optional |
+| `domain-update` | POST | `host` (string), `domainId` (string), +13 optional |
+| `domain-toggleEnable` | POST | `domainId` (string) |
 | `domain-one` | GET | `domainId` (string) |
 | `domain-delete` | POST | `domainId` (string) |
 | `domain-validateDomain` | POST | `domain` (string), `serverIp`? |
@@ -362,7 +421,7 @@
 | `libsql-remove` | POST | `libsqlId` (string) |
 | `libsql-saveEnvironment` | POST | `libsqlId` (string), `env` (string | null) |
 | `libsql-reload` | POST | `libsqlId` (string), `appName` (string) |
-| `libsql-update` | POST | `libsqlId` (string), +32 optional |
+| `libsql-update` | POST | `libsqlId` (string), +34 optional |
 | `libsql-move` | POST | `libsqlId` (string), `targetEnvironmentId` (string) |
 | `libsql-rebuild` | POST | `libsqlId` (string) |
 | `libsql-readLogs` | GET | `libsqlId` (string), `tail`?, `since`?, `search`? |
@@ -392,7 +451,7 @@
 | `mariadb-remove` | POST | `mariadbId` (string) |
 | `mariadb-saveEnvironment` | POST | `mariadbId` (string), `env` (string | null) |
 | `mariadb-reload` | POST | `mariadbId` (string), `appName` (string) |
-| `mariadb-update` | POST | `mariadbId` (string), +31 optional |
+| `mariadb-update` | POST | `mariadbId` (string), +33 optional |
 | `mariadb-changePassword` | POST | `mariadbId` (string), `password` (string), `type`? |
 | `mariadb-move` | POST | `mariadbId` (string), `targetEnvironmentId` (string) |
 | `mariadb-rebuild` | POST | `mariadbId` (string) |
@@ -413,7 +472,7 @@
 | `mongo-reload` | POST | `mongoId` (string), `appName` (string) |
 | `mongo-remove` | POST | `mongoId` (string) |
 | `mongo-saveEnvironment` | POST | `mongoId` (string), `env` (string | null) |
-| `mongo-update` | POST | `mongoId` (string), +30 optional |
+| `mongo-update` | POST | `mongoId` (string), +32 optional |
 | `mongo-changePassword` | POST | `mongoId` (string), `password` (string) |
 | `mongo-move` | POST | `mongoId` (string), `targetEnvironmentId` (string) |
 | `mongo-rebuild` | POST | `mongoId` (string) |
@@ -445,12 +504,25 @@
 | `mysql-reload` | POST | `mysqlId` (string), `appName` (string) |
 | `mysql-remove` | POST | `mysqlId` (string) |
 | `mysql-saveEnvironment` | POST | `mysqlId` (string), `env` (string | null) |
-| `mysql-update` | POST | `mysqlId` (string), +31 optional |
+| `mysql-update` | POST | `mysqlId` (string), +33 optional |
 | `mysql-changePassword` | POST | `mysqlId` (string), `password` (string), `type`? |
 | `mysql-move` | POST | `mysqlId` (string), `targetEnvironmentId` (string) |
 | `mysql-rebuild` | POST | `mysqlId` (string) |
 | `mysql-search` | GET | +8 optional |
 | `mysql-readLogs` | GET | `mysqlId` (string), `tail`?, `since`?, `search`? |
+
+## network
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `network-all` | GET | `serverId`? |
+| `network-one` | GET | `networkId` (string) |
+| `network-create` | POST | `name` (string), +8 optional |
+| `network-networksToSync` | GET | `serverId`? |
+| `network-import` | POST | `names` (string[]), `serverId`? |
+| `network-inspect` | GET | `networkId` (string) |
+| `network-recreate` | POST | `networkId` (string) |
+| `network-remove` | POST | `networkId` (string) |
 
 ## notification
 
@@ -505,7 +577,7 @@
 | `organization-create` | POST | `name` (string), `logo`? |
 | `organization-all` | GET | None |
 | `organization-one` | GET | `organizationId` (string) |
-| `organization-update` | POST | `organizationId` (string), `name` (string), `logo`? |
+| `organization-update` | POST | `organizationId` (string), `name` (string), `logo`?, `defaultRole`? |
 | `organization-delete` | POST | `organizationId` (string) |
 | `organization-inviteMember` | POST | `email` (string), `role` (string) |
 | `organization-allInvitations` | GET | None |
@@ -513,6 +585,14 @@
 | `organization-updateMemberRole` | POST | `memberId` (string), `role` (string) |
 | `organization-setDefault` | POST | `organizationId` (string) |
 | `organization-active` | GET | None |
+
+## overview
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `overview-services` | GET | None |
+| `overview-backups` | GET | None |
+| `overview-domains` | GET | None |
 
 ## patch
 
@@ -554,7 +634,7 @@
 | `postgres-remove` | POST | `postgresId` (string) |
 | `postgres-saveEnvironment` | POST | `postgresId` (string), `env` (string | null) |
 | `postgres-reload` | POST | `postgresId` (string), `appName` (string) |
-| `postgres-update` | POST | `postgresId` (string), +30 optional |
+| `postgres-update` | POST | `postgresId` (string), +32 optional |
 | `postgres-changePassword` | POST | `postgresId` (string), `password` (string) |
 | `postgres-move` | POST | `postgresId` (string), `targetEnvironmentId` (string) |
 | `postgres-rebuild` | POST | `postgresId` (string) |
@@ -607,7 +687,7 @@
 | `redis-changeStatus` | POST | `redisId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `redis-remove` | POST | `redisId` (string) |
 | `redis-saveEnvironment` | POST | `redisId` (string), `env` (string | null) |
-| `redis-update` | POST | `redisId` (string), +28 optional |
+| `redis-update` | POST | `redisId` (string), +30 optional |
 | `redis-changePassword` | POST | `redisId` (string), `password` (string) |
 | `redis-move` | POST | `redisId` (string), `targetEnvironmentId` (string) |
 | `redis-rebuild` | POST | `redisId` (string) |
@@ -690,8 +770,6 @@
 |------|--------|------------|
 | `settings-getWebServerSettings` | GET | None |
 | `settings-reloadServer` | POST | None |
-| `settings-cleanRedis` | POST | None |
-| `settings-reloadRedis` | POST | None |
 | `settings-cleanAllDeploymentQueue` | POST | None |
 | `settings-reloadTraefik` | POST | `serverId`? |
 | `settings-toggleDashboard` | POST | `enableDashboard`?, `serverId`? |
@@ -815,10 +893,13 @@
 | `user-session` | GET | None |
 | `user-get` | GET | None |
 | `user-getPermissions` | GET | None |
+| `user-listPasskeys` | GET | None |
 | `user-haveRootAccess` | GET | None |
 | `user-getBackups` | GET | None |
 | `user-getServerMetrics` | GET | None |
 | `user-update` | POST | +25 optional |
+| `user-listSessions` | GET | None |
+| `user-revokeSession` | POST | `sessionId` (string) |
 | `user-getUserByToken` | GET | `token` (string) |
 | `user-getMetricsToken` | GET | None |
 | `user-remove` | POST | `userId` (string) |
@@ -833,6 +914,18 @@
 | `user-sendInvitation` | POST | `invitationId` (string), `notificationId` (string) |
 | `user-getBookmarkedTemplates` | GET | None |
 | `user-toggleTemplateBookmark` | POST | `templateId` (string) |
+
+## vaultProvider
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `vaultProvider-create` | POST | `name` (string), `config` (object), `assignments` (object[]) |
+| `vaultProvider-update` | POST | `vaultProviderId` (string), `name` (string), `config` (object), `assignments` (object[]) |
+| `vaultProvider-remove` | POST | `vaultProviderId` (string) |
+| `vaultProvider-all` | GET | None |
+| `vaultProvider-one` | GET | `vaultProviderId` (string) |
+| `vaultProvider-testConnection` | POST | `vaultProviderId`?, `config`? |
+| `vaultProvider-listSecretNames` | GET | `vaultProviderId` (string), `projectId` (string), `environmentId`? |
 
 ## volumeBackups
 

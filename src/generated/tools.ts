@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-08-06
+// Generated from openapi.json on 2026-08-14
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -24,7 +24,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.create",
-    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "serverId": z.union([z.string(), z.null()]).optional() }),
+    schema: z.object({ "name": z.string().min(1), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "serverId": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["github","docker","git","gitlab","bitbucket","gitea","drop"]).optional() }),
     annotations: {
       title: "Application Create",
       ...{"openWorldHint":true},
@@ -228,7 +228,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.update",
-    schema: z.object({ "applicationId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "previewEnv": z.union([z.string(), z.null()]).optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "previewBuildArgs": z.union([z.string(), z.null()]).optional(), "previewBuildSecrets": z.union([z.string(), z.null()]).optional(), "previewLabels": z.union([z.array(z.string()), z.null()]).optional(), "previewWildcard": z.union([z.string(), z.null()]).optional(), "previewPort": z.union([z.number(), z.null()]).optional(), "previewHttps": z.boolean().optional(), "previewPath": z.union([z.string(), z.null()]).optional(), "previewCertificateType": z.enum(["letsencrypt","none","custom"]).optional(), "previewCustomCertResolver": z.union([z.string(), z.null()]).optional(), "previewLimit": z.union([z.number(), z.null()]).optional(), "isPreviewDeploymentsActive": z.union([z.boolean(), z.null()]).optional(), "previewRequireCollaboratorPermissions": z.union([z.boolean(), z.null()]).optional(), "rollbackActive": z.union([z.boolean(), z.null()]).optional(), "buildArgs": z.union([z.string(), z.null()]).optional(), "buildSecrets": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "title": z.union([z.string(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "subtitle": z.union([z.string(), z.null()]).optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "icon": z.union([z.union([z.string().max(2097152), z.null()]), z.null()]).optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["github","docker","git","gitlab","bitbucket","gitea","drop"]).optional(), "cleanCache": z.union([z.boolean(), z.null()]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "buildPath": z.union([z.string(), z.null()]).optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabBuildPath": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "giteaBuildPath": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "bitbucketBuildPath": z.union([z.string(), z.null()]).optional(), "username": z.union([z.string(), z.null()]).optional(), "password": z.union([z.string(), z.null()]).optional(), "dockerImage": z.union([z.string(), z.null()]).optional(), "registryUrl": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitBuildPath": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "enableSubmodules": z.boolean().optional(), "dockerfile": z.union([z.string(), z.null()]).optional(), "dockerContextPath": z.union([z.string(), z.null()]).optional(), "dockerBuildStage": z.union([z.string(), z.null()]).optional(), "dropBuildPath": z.union([z.string(), z.null()]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "buildType": z.enum(["dockerfile","heroku_buildpacks","paketo_buildpacks","nixpacks","static","railpack"]).optional(), "railpackVersion": z.union([z.string(), z.null()]).optional(), "herokuVersion": z.union([z.string(), z.null()]).optional(), "publishDirectory": z.union([z.string(), z.null()]).optional(), "isStaticSpa": z.union([z.boolean(), z.null()]).optional(), "createEnvFile": z.boolean().optional(), "createdAt": z.string().optional(), "registryId": z.union([z.string(), z.null()]).optional(), "rollbackRegistryId": z.union([z.string(), z.null()]).optional(), "environmentId": z.string().optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "buildServerId": z.union([z.string(), z.null()]).optional(), "buildRegistryId": z.union([z.string(), z.null()]).optional() }),
+    schema: z.object({ "applicationId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "previewEnv": z.union([z.string(), z.null()]).optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "previewBuildArgs": z.union([z.string(), z.null()]).optional(), "previewBuildSecrets": z.union([z.string(), z.null()]).optional(), "previewLabels": z.union([z.array(z.string()), z.null()]).optional(), "previewWildcard": z.union([z.string(), z.null()]).optional(), "previewPort": z.union([z.number(), z.null()]).optional(), "previewHttps": z.boolean().optional(), "previewPath": z.union([z.string(), z.null()]).optional(), "previewCertificateType": z.enum(["letsencrypt","none","custom"]).optional(), "previewCustomCertResolver": z.union([z.string(), z.null()]).optional(), "previewLimit": z.union([z.number(), z.null()]).optional(), "isPreviewDeploymentsActive": z.union([z.boolean(), z.null()]).optional(), "previewRequireCollaboratorPermissions": z.union([z.boolean(), z.null()]).optional(), "rollbackActive": z.union([z.boolean(), z.null()]).optional(), "buildArgs": z.union([z.string(), z.null()]).optional(), "buildSecrets": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "title": z.union([z.string(), z.null()]).optional(), "enabled": z.union([z.boolean(), z.null()]).optional(), "subtitle": z.union([z.string(), z.null()]).optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "icon": z.union([z.union([z.string().max(2097152), z.null()]), z.null()]).optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["github","docker","git","gitlab","bitbucket","gitea","drop"]).optional(), "cleanCache": z.union([z.boolean(), z.null()]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "buildPath": z.union([z.string(), z.null()]).optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabBuildPath": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "giteaBuildPath": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "bitbucketBuildPath": z.union([z.string(), z.null()]).optional(), "username": z.union([z.string(), z.null()]).optional(), "password": z.union([z.string(), z.null()]).optional(), "dockerImage": z.union([z.string(), z.null()]).optional(), "registryUrl": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitBuildPath": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "enableSubmodules": z.boolean().optional(), "dockerfile": z.union([z.string(), z.null()]).optional(), "dockerContextPath": z.union([z.string(), z.null()]).optional(), "dockerBuildStage": z.union([z.string(), z.null()]).optional(), "dropBuildPath": z.union([z.string(), z.null()]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "buildType": z.enum(["dockerfile","heroku_buildpacks","paketo_buildpacks","nixpacks","static","railpack"]).optional(), "railpackVersion": z.union([z.string(), z.null()]).optional(), "herokuVersion": z.union([z.string(), z.null()]).optional(), "publishDirectory": z.union([z.string(), z.null()]).optional(), "isStaticSpa": z.union([z.boolean(), z.null()]).optional(), "createEnvFile": z.boolean().optional(), "createdAt": z.string().optional(), "registryId": z.union([z.string(), z.null()]).optional(), "rollbackRegistryId": z.union([z.string(), z.null()]).optional(), "environmentId": z.string().optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "buildServerId": z.union([z.string(), z.null()]).optional(), "buildRegistryId": z.union([z.string(), z.null()]).optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional() }),
     annotations: {
       title: "Application Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -619,6 +619,102 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "network-all",
+    description: "GET /network.all",
+    tag: "network",
+    method: "GET",
+    path: "/network.all",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "Network All",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-one",
+    description: "GET /network.one",
+    tag: "network",
+    method: "GET",
+    path: "/network.one",
+    schema: z.object({ "networkId": z.string().min(1) }),
+    annotations: {
+      title: "Network One",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-create",
+    description: "POST /network.create",
+    tag: "network",
+    method: "POST",
+    path: "/network.create",
+    schema: z.object({ "name": z.string().min(1), "driver": z.enum(["bridge","overlay"]).optional(), "internal": z.boolean().optional(), "attachable": z.boolean().optional(), "enableIPv4": z.boolean().optional(), "enableIPv6": z.boolean().optional(), "mtu": z.union([z.union([z.number().int().gte(68).lte(65535), z.null()]), z.null()]).optional(), "ipam": z.union([z.object({ "driver": z.string().optional(), "config": z.array(z.object({ "subnet": z.string().optional(), "gateway": z.string().optional(), "ipRange": z.string().optional() })).optional() }), z.null()]).optional(), "serverId": z.union([z.union([z.string(), z.null()]), z.null()]).optional() }),
+    annotations: {
+      title: "Network Create",
+      ...{"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-networksToSync",
+    description: "GET /network.networksToSync",
+    tag: "network",
+    method: "GET",
+    path: "/network.networksToSync",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "Network NetworksToSync",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-import",
+    description: "POST /network.import",
+    tag: "network",
+    method: "POST",
+    path: "/network.import",
+    schema: z.object({ "serverId": z.string().optional(), "names": z.array(z.string().min(1)).min(1) }),
+    annotations: {
+      title: "Network Import",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-inspect",
+    description: "GET /network.inspect",
+    tag: "network",
+    method: "GET",
+    path: "/network.inspect",
+    schema: z.object({ "networkId": z.string().min(1) }),
+    annotations: {
+      title: "Network Inspect",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-recreate",
+    description: "POST /network.recreate",
+    tag: "network",
+    method: "POST",
+    path: "/network.recreate",
+    schema: z.object({ "networkId": z.string().min(1) }),
+    annotations: {
+      title: "Network Recreate",
+      ...{"openWorldHint":true},
+    },
+  },
+  {
+    name: "network-remove",
+    description: "POST /network.remove",
+    tag: "network",
+    method: "POST",
+    path: "/network.remove",
+    schema: z.object({ "networkId": z.string().min(1) }),
+    annotations: {
+      title: "Network Remove",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "certificates-create",
     description: "POST /certificates.create",
     tag: "certificates",
@@ -732,7 +828,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.create",
-    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "composeType": z.enum(["docker-compose","stack"]).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional() }),
+    schema: z.object({ "name": z.string().min(1), "description": z.union([z.string(), z.null()]).optional(), "environmentId": z.string(), "composeType": z.enum(["docker-compose","stack"]).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "serverId": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional(), "sourceType": z.enum(["git","github","gitlab","bitbucket","gitea","raw"]).optional() }),
     annotations: {
       title: "Compose Create",
       ...{"openWorldHint":true},
@@ -756,7 +852,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.update",
-    schema: z.object({ "composeId": z.string(), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["git","github","gitlab","bitbucket","gitea","raw"]).optional(), "composeType": z.enum(["docker-compose","stack"]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "command": z.string().optional(), "enableSubmodules": z.boolean().optional(), "composePath": z.string().min(1).optional(), "suffix": z.string().optional(), "randomize": z.boolean().optional(), "isolatedDeployment": z.boolean().optional(), "isolatedDeploymentsVolume": z.boolean().optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "composeStatus": z.enum(["idle","running","done","error"]).optional(), "environmentId": z.string().optional(), "createdAt": z.string().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional() }),
+    schema: z.object({ "composeId": z.string(), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "composeFile": z.string().optional(), "refreshToken": z.union([z.string(), z.null()]).optional(), "sourceType": z.enum(["git","github","gitlab","bitbucket","gitea","raw"]).optional(), "composeType": z.enum(["docker-compose","stack"]).optional(), "repository": z.union([z.string(), z.null()]).optional(), "owner": z.union([z.string(), z.null()]).optional(), "branch": z.union([z.string(), z.null()]).optional(), "autoDeploy": z.union([z.boolean(), z.null()]).optional(), "gitlabProjectId": z.union([z.number(), z.null()]).optional(), "gitlabRepository": z.union([z.string(), z.null()]).optional(), "gitlabOwner": z.union([z.string(), z.null()]).optional(), "gitlabBranch": z.union([z.string(), z.null()]).optional(), "gitlabPathNamespace": z.union([z.string(), z.null()]).optional(), "bitbucketRepository": z.union([z.string(), z.null()]).optional(), "bitbucketRepositorySlug": z.union([z.string(), z.null()]).optional(), "bitbucketOwner": z.union([z.string(), z.null()]).optional(), "bitbucketBranch": z.union([z.string(), z.null()]).optional(), "giteaRepository": z.union([z.string(), z.null()]).optional(), "giteaOwner": z.union([z.string(), z.null()]).optional(), "giteaBranch": z.union([z.string(), z.null()]).optional(), "customGitUrl": z.union([z.string(), z.null()]).optional(), "customGitBranch": z.union([z.string(), z.null()]).optional(), "customGitSSHKeyId": z.union([z.string(), z.null()]).optional(), "command": z.string().optional(), "createEnvFile": z.boolean().optional(), "enableSubmodules": z.boolean().optional(), "composePath": z.string().min(1).optional(), "suffix": z.string().optional(), "randomize": z.boolean().optional(), "isolatedDeployment": z.boolean().optional(), "isolatedDeploymentsVolume": z.boolean().optional(), "triggerType": z.union([z.enum(["push","tag"]), z.null()]).optional(), "composeStatus": z.enum(["idle","running","done","error"]).optional(), "icon": z.union([z.union([z.string().max(2097152), z.null()]), z.null()]).optional(), "environmentId": z.string().optional(), "createdAt": z.string().optional(), "watchPaths": z.union([z.array(z.string()), z.null()]).optional(), "githubId": z.union([z.string(), z.null()]).optional(), "gitlabId": z.union([z.string(), z.null()]).optional(), "bitbucketId": z.union([z.string(), z.null()]).optional(), "giteaId": z.union([z.string(), z.null()]).optional(), "serviceNetworks": z.union([z.array(z.object({ "serviceName": z.string(), "networkIds": z.array(z.string()), "detachDokployNetwork": z.boolean() })), z.null()]).optional() }),
     annotations: {
       title: "Compose Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -768,7 +864,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.saveEnvironment",
-    schema: z.object({ "composeId": z.string(), "env": z.union([z.string(), z.null()]) }),
+    schema: z.object({ "composeId": z.string(), "env": z.union([z.string(), z.null()]), "createEnvFile": z.boolean().optional() }),
     annotations: {
       title: "Compose SaveEnvironment",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1279,6 +1375,234 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "dnsProvider-create",
+    description: "POST /dnsProvider.create",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.create",
+    schema: z.object({ "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.string(), z.any()).and(z.any().superRefine((x, ctx) => {
+    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) })];
+    const { errors, failed } = schemas.reduce<{
+      errors: z.core.$ZodIssue[];
+      failed: number;
+    }>(
+      ({ errors, failed }, schema) =>
+        ((result) =>
+          result.error
+            ? {
+                errors: [...errors, ...result.error.issues],
+                failed: failed + 1,
+              }
+            : { errors, failed })(
+          schema.safeParse(x),
+        ),
+      { errors: [], failed: 0 },
+    );
+    const passed = schemas.length - failed;
+    if (passed !== 1) {
+      ctx.addIssue(errors.length ? {
+        path: [],
+        code: "invalid_union",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      } : {
+        path: [],
+        code: "custom",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      });
+    }
+  })) }),
+    annotations: {
+      title: "DnsProvider Create",
+      ...{"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-update",
+    description: "POST /dnsProvider.update",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.update",
+    schema: z.object({ "dnsProviderId": z.string().min(1), "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.string(), z.any()).and(z.any().superRefine((x, ctx) => {
+    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) })];
+    const { errors, failed } = schemas.reduce<{
+      errors: z.core.$ZodIssue[];
+      failed: number;
+    }>(
+      ({ errors, failed }, schema) =>
+        ((result) =>
+          result.error
+            ? {
+                errors: [...errors, ...result.error.issues],
+                failed: failed + 1,
+              }
+            : { errors, failed })(
+          schema.safeParse(x),
+        ),
+      { errors: [], failed: 0 },
+    );
+    const passed = schemas.length - failed;
+    if (passed !== 1) {
+      ctx.addIssue(errors.length ? {
+        path: [],
+        code: "invalid_union",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      } : {
+        path: [],
+        code: "custom",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      });
+    }
+  })) }),
+    annotations: {
+      title: "DnsProvider Update",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-remove",
+    description: "POST /dnsProvider.remove",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.remove",
+    schema: z.object({ "dnsProviderId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider Remove",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-all",
+    description: "GET /dnsProvider.all",
+    tag: "dnsProvider",
+    method: "GET",
+    path: "/dnsProvider.all",
+    schema: z.object({}),
+    annotations: {
+      title: "DnsProvider All",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-one",
+    description: "GET /dnsProvider.one",
+    tag: "dnsProvider",
+    method: "GET",
+    path: "/dnsProvider.one",
+    schema: z.object({ "dnsProviderId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider One",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-testConnection",
+    description: "POST /dnsProvider.testConnection",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.testConnection",
+    schema: z.object({ "dnsProviderId": z.string().min(1).optional(), "config": z.record(z.string(), z.any()).and(z.any().superRefine((x, ctx) => {
+    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) })];
+    const { errors, failed } = schemas.reduce<{
+      errors: z.core.$ZodIssue[];
+      failed: number;
+    }>(
+      ({ errors, failed }, schema) =>
+        ((result) =>
+          result.error
+            ? {
+                errors: [...errors, ...result.error.issues],
+                failed: failed + 1,
+              }
+            : { errors, failed })(
+          schema.safeParse(x),
+        ),
+      { errors: [], failed: 0 },
+    );
+    const passed = schemas.length - failed;
+    if (passed !== 1) {
+      ctx.addIssue(errors.length ? {
+        path: [],
+        code: "invalid_union",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      } : {
+        path: [],
+        code: "custom",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      });
+    }
+  })).optional() }),
+    annotations: {
+      title: "DnsProvider TestConnection",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-listZones",
+    description: "GET /dnsProvider.listZones",
+    tag: "dnsProvider",
+    method: "GET",
+    path: "/dnsProvider.listZones",
+    schema: z.object({ "dnsProviderId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider ListZones",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-listRecords",
+    description: "GET /dnsProvider.listRecords",
+    tag: "dnsProvider",
+    method: "GET",
+    path: "/dnsProvider.listRecords",
+    schema: z.object({ "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider ListRecords",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-createRecord",
+    description: "POST /dnsProvider.createRecord",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.createRecord",
+    schema: z.object({ "type": z.enum(["A","CNAME"]), "name": z.string().min(1), "content": z.string().min(1), "ttl": z.number().int().gt(0).lte(9007199254740991).optional(), "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider CreateRecord",
+      ...{"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-updateRecord",
+    description: "POST /dnsProvider.updateRecord",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.updateRecord",
+    schema: z.object({ "type": z.enum(["A","CNAME"]), "name": z.string().min(1), "content": z.string().min(1), "ttl": z.number().int().gt(0).lte(9007199254740991).optional(), "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1), "recordId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider UpdateRecord",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dnsProvider-deleteRecord",
+    description: "POST /dnsProvider.deleteRecord",
+    tag: "dnsProvider",
+    method: "POST",
+    path: "/dnsProvider.deleteRecord",
+    schema: z.object({ "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1), "recordId": z.string().min(1) }),
+    annotations: {
+      title: "DnsProvider DeleteRecord",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "docker-getContainers",
     description: "GET /docker.getContainers",
     tag: "docker",
@@ -1287,6 +1611,18 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Docker GetContainers",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "docker-getServerHealth",
+    description: "GET /docker.getServerHealth",
+    tag: "docker",
+    method: "GET",
+    path: "/docker.getServerHealth",
+    schema: z.object({ "serverId": z.string().optional(), "sinceHours": z.number().int().gte(1).lte(168).optional() }),
+    annotations: {
+      title: "Docker GetServerHealth",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
     },
   },
@@ -1423,6 +1759,234 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "docker-listContainerFiles",
+    description: "GET /docker.listContainerFiles",
+    tag: "docker",
+    method: "GET",
+    path: "/docker.listContainerFiles",
+    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "serverId": z.string().optional() }),
+    annotations: {
+      title: "Docker ListContainerFiles",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "docker-readContainerFile",
+    description: "GET /docker.readContainerFile",
+    tag: "docker",
+    method: "GET",
+    path: "/docker.readContainerFile",
+    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "serverId": z.string().optional() }),
+    annotations: {
+      title: "Docker ReadContainerFile",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "docker-writeContainerFile",
+    description: "POST /docker.writeContainerFile",
+    tag: "docker",
+    method: "POST",
+    path: "/docker.writeContainerFile",
+    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "content": z.string(), "serverId": z.string().optional() }),
+    annotations: {
+      title: "Docker WriteContainerFile",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "docker-deleteContainerFile",
+    description: "POST /docker.deleteContainerFile",
+    tag: "docker",
+    method: "POST",
+    path: "/docker.deleteContainerFile",
+    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "serverId": z.string().optional() }),
+    annotations: {
+      title: "Docker DeleteContainerFile",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "docker-getEvents",
+    description: "GET /docker.getEvents",
+    tag: "docker",
+    method: "GET",
+    path: "/docker.getEvents",
+    schema: z.object({ "serverId": z.string().optional(), "minutes": z.number().gte(1).lte(1440).default(15) }),
+    annotations: {
+      title: "Docker GetEvents",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerDiskUsage-getDiskUsage",
+    description: "GET /dockerDiskUsage.getDiskUsage",
+    tag: "dockerDiskUsage",
+    method: "GET",
+    path: "/dockerDiskUsage.getDiskUsage",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerDiskUsage GetDiskUsage",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerDiskUsage-getBuildCache",
+    description: "GET /dockerDiskUsage.getBuildCache",
+    tag: "dockerDiskUsage",
+    method: "GET",
+    path: "/dockerDiskUsage.getBuildCache",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerDiskUsage GetBuildCache",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerDiskUsage-pruneBuildCache",
+    description: "POST /dockerDiskUsage.pruneBuildCache",
+    tag: "dockerDiskUsage",
+    method: "POST",
+    path: "/dockerDiskUsage.pruneBuildCache",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerDiskUsage PruneBuildCache",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerImage-getImages",
+    description: "GET /dockerImage.getImages",
+    tag: "dockerImage",
+    method: "GET",
+    path: "/dockerImage.getImages",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerImage GetImages",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerImage-getImageConfig",
+    description: "GET /dockerImage.getImageConfig",
+    tag: "dockerImage",
+    method: "GET",
+    path: "/dockerImage.getImageConfig",
+    schema: z.object({ "imageRef": z.string().min(1), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerImage GetImageConfig",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerImage-removeImage",
+    description: "POST /dockerImage.removeImage",
+    tag: "dockerImage",
+    method: "POST",
+    path: "/dockerImage.removeImage",
+    schema: z.object({ "repository": z.string(), "tag": z.string(), "id": z.string().min(1), "force": z.boolean().optional(), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerImage RemoveImage",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-getVolumes",
+    description: "GET /dockerVolume.getVolumes",
+    tag: "dockerVolume",
+    method: "GET",
+    path: "/dockerVolume.getVolumes",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume GetVolumes",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-getVolumesSize",
+    description: "GET /dockerVolume.getVolumesSize",
+    tag: "dockerVolume",
+    method: "GET",
+    path: "/dockerVolume.getVolumesSize",
+    schema: z.object({ "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume GetVolumesSize",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-listVolumeFiles",
+    description: "GET /dockerVolume.listVolumeFiles",
+    tag: "dockerVolume",
+    method: "GET",
+    path: "/dockerVolume.listVolumeFiles",
+    schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume ListVolumeFiles",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-readVolumeFile",
+    description: "GET /dockerVolume.readVolumeFile",
+    tag: "dockerVolume",
+    method: "GET",
+    path: "/dockerVolume.readVolumeFile",
+    schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume ReadVolumeFile",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-writeVolumeFile",
+    description: "POST /dockerVolume.writeVolumeFile",
+    tag: "dockerVolume",
+    method: "POST",
+    path: "/dockerVolume.writeVolumeFile",
+    schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "content": z.string(), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume WriteVolumeFile",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-deleteVolumeFile",
+    description: "POST /dockerVolume.deleteVolumeFile",
+    tag: "dockerVolume",
+    method: "POST",
+    path: "/dockerVolume.deleteVolumeFile",
+    schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume DeleteVolumeFile",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-getVolumeConfig",
+    description: "GET /dockerVolume.getVolumeConfig",
+    tag: "dockerVolume",
+    method: "GET",
+    path: "/dockerVolume.getVolumeConfig",
+    schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume GetVolumeConfig",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "dockerVolume-removeVolume",
+    description: "POST /dockerVolume.removeVolume",
+    tag: "dockerVolume",
+    method: "POST",
+    path: "/dockerVolume.removeVolume",
+    schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
+    annotations: {
+      title: "DockerVolume RemoveVolume",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "domain-create",
     description: "POST /domain.create",
     tag: "domain",
@@ -1488,9 +2052,21 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.update",
-    schema: z.object({ "host": z.string().min(1), "path": z.union([z.string().min(1), z.null()]).optional(), "port": z.union([z.number().gte(1).lte(65535), z.null()]).optional(), "customEntrypoint": z.union([z.string(), z.null()]).optional(), "https": z.boolean().optional(), "certificateType": z.enum(["letsencrypt","none","custom"]).optional(), "customCertResolver": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "domainType": z.union([z.enum(["compose","application","preview"]), z.null()]).optional(), "internalPath": z.union([z.string(), z.null()]).optional(), "stripPath": z.boolean().optional(), "middlewares": z.union([z.array(z.string()), z.null()]).optional(), "forwardAuthEnabled": z.boolean().optional(), "domainId": z.string() }),
+    schema: z.object({ "host": z.string().min(1), "path": z.union([z.string().min(1), z.null()]).optional(), "port": z.union([z.number().gte(1).lte(65535), z.null()]).optional(), "customEntrypoint": z.union([z.string(), z.null()]).optional(), "https": z.boolean().optional(), "certificateType": z.enum(["letsencrypt","none","custom"]).optional(), "customCertResolver": z.union([z.string(), z.null()]).optional(), "serviceName": z.union([z.string(), z.null()]).optional(), "domainType": z.union([z.enum(["compose","application","preview"]), z.null()]).optional(), "internalPath": z.union([z.string(), z.null()]).optional(), "stripPath": z.boolean().optional(), "middlewares": z.union([z.array(z.string()), z.null()]).optional(), "forwardAuthEnabled": z.boolean().optional(), "enabled": z.boolean().optional(), "domainId": z.string() }),
     annotations: {
       title: "Domain Update",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "domain-toggleEnable",
+    description: "POST /domain.toggleEnable",
+    tag: "domain",
+    method: "POST",
+    path: "/domain.toggleEnable",
+    schema: z.object({ "domainId": z.string().min(1) }),
+    annotations: {
+      title: "Domain ToggleEnable",
       ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
@@ -1956,7 +2532,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "libsql",
     method: "POST",
     path: "/libsql.update",
-    schema: z.object({ "libsqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "sqldNode": z.enum(["primary","replica"]).optional(), "sqldPrimaryUrl": z.union([z.union([z.string(), z.null()]), z.null()]).optional(), "enableNamespaces": z.boolean().default(false), "dockerImage": z.string().default("ghcr.io/tursodatabase/libsql-server:v0.24.32"), "command": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "externalGRPCPort": z.union([z.number(), z.null()]).optional(), "externalAdminPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: z.object({ "libsqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().min(1).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "sqldNode": z.enum(["primary","replica"]).optional(), "sqldPrimaryUrl": z.union([z.union([z.string(), z.null()]), z.null()]).optional(), "enableNamespaces": z.boolean().default(false), "dockerImage": z.string().default("ghcr.io/tursodatabase/libsql-server:v0.24.32"), "command": z.union([z.string(), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "externalGRPCPort": z.union([z.number(), z.null()]).optional(), "externalAdminPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
     annotations: {
       title: "Libsql Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2124,7 +2700,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.update",
-    schema: z.object({ "mariadbId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: z.object({ "mariadbId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional() }),
     annotations: {
       title: "Mariadb Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2316,7 +2892,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mongo",
     method: "POST",
     path: "/mongo.update",
-    schema: z.object({ "mongoId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "replicaSets": z.union([z.boolean().default(false), z.null()]).optional() }),
+    schema: z.object({ "mongoId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "replicaSets": z.boolean().optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional() }),
     annotations: {
       title: "Mongo Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -2580,7 +3156,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "mysql",
     method: "POST",
     path: "/mysql.update",
-    schema: z.object({ "mysqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: z.object({ "mysqlId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "databaseRootPassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional() }),
     annotations: {
       title: "Mysql Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3312,7 +3888,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "postgres",
     method: "POST",
     path: "/postgres.update",
-    schema: z.object({ "postgresId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "description": z.union([z.string(), z.null()]).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional() }),
+    schema: z.object({ "postgresId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "databaseName": z.string().min(1).optional(), "databaseUser": z.string().min(1).optional(), "databasePassword": z.string().regex(new RegExp("^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$")).optional(), "description": z.union([z.string(), z.null()]).optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "createdAt": z.string().optional(), "environmentId": z.string().optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional() }),
     annotations: {
       title: "Postgres Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3708,7 +4284,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "redis",
     method: "POST",
     path: "/redis.update",
-    schema: z.object({ "redisId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databasePassword": z.string().optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "createdAt": z.string().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "environmentId": z.string().optional() }),
+    schema: z.object({ "redisId": z.string().min(1), "name": z.string().min(1).optional(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63).optional(), "description": z.union([z.string(), z.null()]).optional(), "databasePassword": z.string().optional(), "dockerImage": z.string().optional(), "command": z.union([z.string(), z.null()]).optional(), "args": z.union([z.array(z.string()), z.null()]).optional(), "env": z.union([z.string(), z.null()]).optional(), "memoryReservation": z.union([z.string(), z.null()]).optional(), "memoryLimit": z.union([z.string(), z.null()]).optional(), "cpuReservation": z.union([z.string(), z.null()]).optional(), "cpuLimit": z.union([z.string(), z.null()]).optional(), "externalPort": z.union([z.number(), z.null()]).optional(), "createdAt": z.string().optional(), "applicationStatus": z.enum(["idle","running","done","error"]).optional(), "healthCheckSwarm": z.union([z.union([z.object({ "Test": z.array(z.string()).optional(), "Interval": z.number().optional(), "Timeout": z.number().optional(), "StartPeriod": z.number().optional(), "Retries": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "restartPolicySwarm": z.union([z.union([z.object({ "Condition": z.string().optional(), "Delay": z.number().optional(), "MaxAttempts": z.number().optional(), "Window": z.number().optional() }).strict(), z.null()]), z.null()]).optional(), "placementSwarm": z.union([z.union([z.object({ "Constraints": z.array(z.string()).optional(), "Preferences": z.array(z.object({ "Spread": z.object({ "SpreadDescriptor": z.string() }) }).strict()).optional(), "MaxReplicas": z.number().optional(), "Platforms": z.array(z.object({ "Architecture": z.string(), "OS": z.string() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "updateConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "rollbackConfigSwarm": z.union([z.union([z.object({ "Parallelism": z.number(), "Delay": z.number().optional(), "FailureAction": z.string().optional(), "Monitor": z.number().optional(), "MaxFailureRatio": z.number().optional(), "Order": z.string() }).strict(), z.null()]), z.null()]).optional(), "modeSwarm": z.union([z.union([z.object({ "Replicated": z.object({ "Replicas": z.number().optional() }).strict().optional(), "Global": z.object({}).optional(), "ReplicatedJob": z.object({ "MaxConcurrent": z.number().optional(), "TotalCompletions": z.number().optional() }).strict().optional(), "GlobalJob": z.object({}).optional() }).strict(), z.null()]), z.null()]).optional(), "labelsSwarm": z.union([z.union([z.record(z.string(), z.string()), z.null()]), z.null()]).optional(), "networkSwarm": z.union([z.union([z.array(z.object({ "Target": z.string().optional(), "Aliases": z.array(z.string()).optional(), "DriverOpts": z.record(z.string(), z.string()).optional() }).strict()), z.null()]), z.null()]).optional(), "stopGracePeriodSwarm": z.union([z.union([z.number(), z.null()]), z.null()]).optional(), "endpointSpecSwarm": z.union([z.union([z.object({ "Mode": z.string().optional(), "Ports": z.array(z.object({ "Protocol": z.string().optional(), "TargetPort": z.number().optional(), "PublishedPort": z.number().optional(), "PublishMode": z.string().optional() }).strict()).optional() }).strict(), z.null()]), z.null()]).optional(), "ulimitsSwarm": z.union([z.union([z.array(z.object({ "Name": z.string().min(1), "Soft": z.number().int().gte(-1).lte(9007199254740991), "Hard": z.number().int().gte(-1).lte(9007199254740991) }).strict()), z.null()]), z.null()]).optional(), "replicas": z.number().optional(), "environmentId": z.string().optional(), "networkIds": z.union([z.array(z.string()), z.null()]).optional(), "detachDokployNetwork": z.boolean().optional() }),
     annotations: {
       title: "Redis Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4143,30 +4719,6 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Settings ReloadServer",
-      ...{"idempotentHint":true,"openWorldHint":true},
-    },
-  },
-  {
-    name: "settings-cleanRedis",
-    description: "POST /settings.cleanRedis",
-    tag: "settings",
-    method: "POST",
-    path: "/settings.cleanRedis",
-    schema: z.object({}),
-    annotations: {
-      title: "Settings CleanRedis",
-      ...{"idempotentHint":true,"openWorldHint":true},
-    },
-  },
-  {
-    name: "settings-reloadRedis",
-    description: "POST /settings.reloadRedis",
-    tag: "settings",
-    method: "POST",
-    path: "/settings.reloadRedis",
-    schema: z.object({}),
-    annotations: {
-      title: "Settings ReloadRedis",
       ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
@@ -5059,6 +5611,18 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "user-listPasskeys",
+    description: "GET /user.listPasskeys",
+    tag: "user",
+    method: "GET",
+    path: "/user.listPasskeys",
+    schema: z.object({}),
+    annotations: {
+      title: "User ListPasskeys",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "user-haveRootAccess",
     description: "GET /user.haveRootAccess",
     tag: "user",
@@ -5103,6 +5667,30 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "id": z.string().min(1).optional(), "firstName": z.string().optional(), "lastName": z.string().optional(), "isRegistered": z.boolean().optional(), "expirationDate": z.string().optional(), "createdAt2": z.string().optional(), "createdAt": z.union([z.string(), z.null()]).optional(), "twoFactorEnabled": z.union([z.boolean(), z.null()]).optional(), "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).min(1).optional(), "emailVerified": z.boolean().optional(), "image": z.union([z.string(), z.null()]).optional(), "banned": z.union([z.boolean(), z.null()]).optional(), "banReason": z.union([z.string(), z.null()]).optional(), "banExpires": z.union([z.string(), z.null()]).optional(), "updatedAt": z.string().optional(), "enablePaidFeatures": z.boolean().optional(), "allowImpersonation": z.boolean().optional(), "enableEnterpriseFeatures": z.boolean().optional(), "licenseKey": z.union([z.string(), z.null()]).optional(), "stripeCustomerId": z.union([z.string(), z.null()]).optional(), "stripeSubscriptionId": z.union([z.string(), z.null()]).optional(), "serversQuantity": z.number().optional(), "sendInvoiceNotifications": z.boolean().optional(), "password": z.string().optional(), "currentPassword": z.string().optional() }),
     annotations: {
       title: "User Update",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "user-listSessions",
+    description: "GET /user.listSessions",
+    tag: "user",
+    method: "GET",
+    path: "/user.listSessions",
+    schema: z.object({}),
+    annotations: {
+      title: "User ListSessions",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "user-revokeSession",
+    description: "POST /user.revokeSession",
+    tag: "user",
+    method: "POST",
+    path: "/user.revokeSession",
+    schema: z.object({ "sessionId": z.string() }),
+    annotations: {
+      title: "User RevokeSession",
       ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
@@ -5272,6 +5860,186 @@ export const generatedTools: ToolDefinition[] = [
     annotations: {
       title: "User ToggleTemplateBookmark",
       ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-create",
+    description: "POST /vaultProvider.create",
+    tag: "vaultProvider",
+    method: "POST",
+    path: "/vaultProvider.create",
+    schema: z.object({ "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.string(), z.any()).and(z.any().superRefine((x, ctx) => {
+    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") })];
+    const { errors, failed } = schemas.reduce<{
+      errors: z.core.$ZodIssue[];
+      failed: number;
+    }>(
+      ({ errors, failed }, schema) =>
+        ((result) =>
+          result.error
+            ? {
+                errors: [...errors, ...result.error.issues],
+                failed: failed + 1,
+              }
+            : { errors, failed })(
+          schema.safeParse(x),
+        ),
+      { errors: [], failed: 0 },
+    );
+    const passed = schemas.length - failed;
+    if (passed !== 1) {
+      ctx.addIssue(errors.length ? {
+        path: [],
+        code: "invalid_union",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      } : {
+        path: [],
+        code: "custom",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      });
+    }
+  })), "assignments": z.array(z.object({ "projectId": z.string().min(1), "environmentIds": z.array(z.string().min(1)).default([]) })) }),
+    annotations: {
+      title: "VaultProvider Create",
+      ...{"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-update",
+    description: "POST /vaultProvider.update",
+    tag: "vaultProvider",
+    method: "POST",
+    path: "/vaultProvider.update",
+    schema: z.object({ "vaultProviderId": z.string().min(1), "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.string(), z.any()).and(z.any().superRefine((x, ctx) => {
+    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") })];
+    const { errors, failed } = schemas.reduce<{
+      errors: z.core.$ZodIssue[];
+      failed: number;
+    }>(
+      ({ errors, failed }, schema) =>
+        ((result) =>
+          result.error
+            ? {
+                errors: [...errors, ...result.error.issues],
+                failed: failed + 1,
+              }
+            : { errors, failed })(
+          schema.safeParse(x),
+        ),
+      { errors: [], failed: 0 },
+    );
+    const passed = schemas.length - failed;
+    if (passed !== 1) {
+      ctx.addIssue(errors.length ? {
+        path: [],
+        code: "invalid_union",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      } : {
+        path: [],
+        code: "custom",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      });
+    }
+  })), "assignments": z.array(z.object({ "projectId": z.string().min(1), "environmentIds": z.array(z.string().min(1)).default([]) })) }),
+    annotations: {
+      title: "VaultProvider Update",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-remove",
+    description: "POST /vaultProvider.remove",
+    tag: "vaultProvider",
+    method: "POST",
+    path: "/vaultProvider.remove",
+    schema: z.object({ "vaultProviderId": z.string().min(1) }),
+    annotations: {
+      title: "VaultProvider Remove",
+      ...{"destructiveHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-all",
+    description: "GET /vaultProvider.all",
+    tag: "vaultProvider",
+    method: "GET",
+    path: "/vaultProvider.all",
+    schema: z.object({}),
+    annotations: {
+      title: "VaultProvider All",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-one",
+    description: "GET /vaultProvider.one",
+    tag: "vaultProvider",
+    method: "GET",
+    path: "/vaultProvider.one",
+    schema: z.object({ "vaultProviderId": z.string().min(1) }),
+    annotations: {
+      title: "VaultProvider One",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-testConnection",
+    description: "POST /vaultProvider.testConnection",
+    tag: "vaultProvider",
+    method: "POST",
+    path: "/vaultProvider.testConnection",
+    schema: z.object({ "vaultProviderId": z.string().min(1).optional(), "config": z.record(z.string(), z.any()).and(z.any().superRefine((x, ctx) => {
+    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") })];
+    const { errors, failed } = schemas.reduce<{
+      errors: z.core.$ZodIssue[];
+      failed: number;
+    }>(
+      ({ errors, failed }, schema) =>
+        ((result) =>
+          result.error
+            ? {
+                errors: [...errors, ...result.error.issues],
+                failed: failed + 1,
+              }
+            : { errors, failed })(
+          schema.safeParse(x),
+        ),
+      { errors: [], failed: 0 },
+    );
+    const passed = schemas.length - failed;
+    if (passed !== 1) {
+      ctx.addIssue(errors.length ? {
+        path: [],
+        code: "invalid_union",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      } : {
+        path: [],
+        code: "custom",
+        errors: [errors],
+        message: "Invalid input: Should pass single schema. Passed " + passed,
+      });
+    }
+  })).optional() }),
+    annotations: {
+      title: "VaultProvider TestConnection",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "vaultProvider-listSecretNames",
+    description: "GET /vaultProvider.listSecretNames",
+    tag: "vaultProvider",
+    method: "GET",
+    path: "/vaultProvider.listSecretNames",
+    schema: z.object({ "vaultProviderId": z.string().min(1), "projectId": z.string().min(1), "environmentId": z.string().optional() }),
+    annotations: {
+      title: "VaultProvider ListSecretNames",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
     },
   },
   {
@@ -5484,7 +6252,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "organization",
     method: "POST",
     path: "/organization.update",
-    schema: z.object({ "organizationId": z.string(), "name": z.string(), "logo": z.string().optional() }),
+    schema: z.object({ "organizationId": z.string(), "name": z.string(), "logo": z.string().optional(), "defaultRole": z.union([z.string().min(1), z.null()]).optional() }),
     annotations: {
       title: "Organization Update",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -6556,6 +7324,42 @@ export const generatedTools: ToolDefinition[] = [
     annotations: {
       title: "Patch CleanPatchRepos",
       ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "overview-services",
+    description: "GET /overview.services",
+    tag: "overview",
+    method: "GET",
+    path: "/overview.services",
+    schema: z.object({}),
+    annotations: {
+      title: "Overview Services",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "overview-backups",
+    description: "GET /overview.backups",
+    tag: "overview",
+    method: "GET",
+    path: "/overview.backups",
+    schema: z.object({}),
+    annotations: {
+      title: "Overview Backups",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "overview-domains",
+    description: "GET /overview.domains",
+    tag: "overview",
+    method: "GET",
+    path: "/overview.domains",
+    schema: z.object({}),
+    annotations: {
+      title: "Overview Domains",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
     },
   },
 ];
