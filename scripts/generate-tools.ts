@@ -63,9 +63,77 @@ function formatTitle(operationId: string): string {
     .join(" ");
 }
 
+// Characters that must be escaped when they appear bare inside a character
+// class under the ECMAScript 'v' (Unicode Sets) flag.  V8 and most JS engines
+// accept them in legacy mode, but strict JSON Schema / LLM provider validators
+// reject any pattern that does not compile under the stricter rules.
+const CLASS_CHARS_NEEDING_ESCAPE = new Set(["[", "(", ")", "{", "}", "|"]);
+
+/**
+ * Escape characters inside regex character classes that are only valid as
+ * literals when preceded by a backslash under the ECMAScript 'v' flag.
+ *
+ * Returns the pattern unchanged when it already compiles under 'v', so this
+ * function is a no-op for the vast majority of patterns.
+ */
+function sanitizeRegexPattern(pattern: string): string {
+  try {
+    new RegExp(pattern, "v");
+    return pattern; // already valid
+  } catch {
+    // Walk the pattern character-by-character, tracking whether we are inside
+    // a character class.  Any bare character from CLASS_CHARS_NEEDING_ESCAPE
+    // that we encounter while inClass is true gets a backslash prefix.
+    let result = "";
+    let inClass = false;
+    let i = 0;
+    while (i < pattern.length) {
+      const ch = pattern[i];
+      if (ch === "\\" && i + 1 < pattern.length) {
+        // Consume the escape sequence unchanged
+        result += ch + pattern[i + 1];
+        i += 2;
+        continue;
+      }
+      if (!inClass && ch === "[") {
+        inClass = true;
+        result += ch;
+      } else if (inClass && ch === "]") {
+        inClass = false;
+        result += ch;
+      } else if (inClass && CLASS_CHARS_NEEDING_ESCAPE.has(ch)) {
+        result += "\\" + ch;
+      } else {
+        result += ch;
+      }
+      i++;
+    }
+    return result;
+  }
+}
+
+/**
+ * Recursively walk a JSON Schema object and sanitize all "pattern" values so
+ * they compile under strict regex rules.
+ */
+function sanitizeSchemaPatterns(schema: unknown): unknown {
+  if (schema === null || typeof schema !== "object") return schema;
+  if (Array.isArray(schema)) return schema.map(sanitizeSchemaPatterns);
+  const obj = schema as Record<string, unknown>;
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (key === "pattern" && typeof value === "string") {
+      out[key] = sanitizeRegexPattern(value);
+    } else {
+      out[key] = sanitizeSchemaPatterns(value);
+    }
+  }
+  return out;
+}
+
 function getZodSchema(op: OperationObject, method: string): string {
   if (method === "post" && op.requestBody?.content?.["application/json"]?.schema) {
-    const schema = op.requestBody.content["application/json"].schema;
+    const schema = sanitizeSchemaPatterns(op.requestBody.content["application/json"].schema) as JsonSchema;
     return jsonSchemaToZod(schema);
   }
 
@@ -78,17 +146,17 @@ function getZodSchema(op: OperationObject, method: string): string {
         typeof param.schema === "object" && param.schema !== null
           ? { ...param.schema, ...(param.description ? { description: param.description } : {}) }
           : param.schema;
-      properties[param.name] = paramSchema;
+      properties[param.name] = sanitizeSchemaPatterns(paramSchema);
       if (param.required) {
         required.push(param.name);
       }
     }
 
-    return jsonSchemaToZod({
+    return jsonSchemaToZod(sanitizeSchemaPatterns({
       type: "object",
       properties,
       ...(required.length > 0 ? { required } : {}),
-    });
+    }) as JsonSchema);
   }
 
   return "z.object({})";

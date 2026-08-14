@@ -17104,7 +17104,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "sqldNode": {
                     "type": "string",
@@ -18100,7 +18100,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "sqldNode": {
                     "type": "string",
@@ -19031,7 +19031,7 @@
                   },
                   "databaseRootPassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "environmentId": {
                     "type": "string"
@@ -19056,7 +19056,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "serverId": {
                     "anyOf": [
@@ -20007,11 +20007,11 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "databaseRootPassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "dockerImage": {
                     "type": "string"
@@ -20648,7 +20648,7 @@
                   "password": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "type": {
                     "default": "user",
@@ -21206,7 +21206,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "serverId": {
                     "anyOf": [
@@ -22163,7 +22163,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "dockerImage": {
                     "type": "string"
@@ -22811,7 +22811,7 @@
                   "password": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   }
                 },
                 "required": [
@@ -24110,11 +24110,11 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "databaseRootPassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "serverId": {
                     "anyOf": [
@@ -25065,11 +25065,11 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "databaseRootPassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "dockerImage": {
                     "type": "string"
@@ -25706,7 +25706,7 @@
                   "password": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "type": {
                     "default": "user",
@@ -31484,7 +31484,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "dockerImage": {
                     "default": "postgres:18",
@@ -32442,7 +32442,7 @@
                   },
                   "databasePassword": {
                     "type": "string",
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   },
                   "description": {
                     "anyOf": [
@@ -33089,7 +33089,7 @@
                   "password": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   }
                 },
                 "required": [
@@ -36804,7 +36804,7 @@
                   "password": {
                     "type": "string",
                     "minLength": 1,
-                    "pattern": "^[a-zA-Z0-9@#%^&*()_+\\-=[\\]{}|;:,.<>?~`]*$"
+                    "pattern": "^[a-zA-Z0-9@#%^&*\\(\\)_+\\-=\\[\\]\\{\\}\\|;:,.<>?~`]*$"
                   }
                 },
                 "required": [
