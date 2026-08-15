@@ -66,7 +66,7 @@ function formatTitle(operationId: string): string {
 function getZodSchema(op: OperationObject, method: string): string {
   if (method === "post" && op.requestBody?.content?.["application/json"]?.schema) {
     const schema = op.requestBody.content["application/json"].schema;
-    return jsonSchemaToZod(schema);
+    return jsonSchemaToZod(schema, { zodVersion: 3 });
   }
 
   if (op.parameters && op.parameters.length > 0) {
@@ -84,11 +84,14 @@ function getZodSchema(op: OperationObject, method: string): string {
       }
     }
 
-    return jsonSchemaToZod({
-      type: "object",
-      properties,
-      ...(required.length > 0 ? { required } : {}),
-    });
+    return jsonSchemaToZod(
+      {
+        type: "object",
+        properties,
+        ...(required.length > 0 ? { required } : {}),
+      },
+      { zodVersion: 3 },
+    );
   }
 
   return "z.object({})";
