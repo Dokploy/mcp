@@ -4,13 +4,29 @@ import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
 import { redactSensitive } from "./utils/redactSensitive.js";
 import { ResponseFormatter } from "./utils/responseFormatter.js";
+import { getGuardedPath, isSensitivePath } from "./utils/secretPaths.js";
 
 const logger = createLogger("ToolHandler");
 
 export function createHandler(tool: ToolDefinition) {
   return async (input: Record<string, unknown>) => {
-    const { redactEnv, redactFields } = getClientConfig();
+    const { redactEnv, redactFields, blockSecretPaths, secretPathPatterns } = getClientConfig();
     const redact = <T>(value: T): T => (redactEnv ? redactSensitive(value, redactFields) : value);
+
+    // Name-based redaction cannot protect file contents: they come back as an
+    // opaque string whose field name gives no hint about what is inside. The
+    // path is the only reliable signal, and it is available before the call.
+    if (blockSecretPaths) {
+      const guardedPath = getGuardedPath(input);
+      if (guardedPath !== null && isSensitivePath(guardedPath, secretPathPatterns)) {
+        logger.warn(`Blocked secret-bearing path for tool: ${tool.name}`, { path: guardedPath });
+        return ResponseFormatter.error(
+          `Access to this path is blocked for ${tool.name}`,
+          "The requested path matches a secret-bearing pattern (DOKPLOY_SECRET_PATH_PATTERNS). " +
+            "Adjust that list, or set DOKPLOY_BLOCK_SECRET_PATHS=false to disable the guard.",
+        );
+      }
+    }
 
     try {
       logger.info(`Executing tool: ${tool.name}`, { input: redact(input) });

@@ -316,6 +316,24 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
 | `DOKPLOY_REDACT_ENV` | No | Redacts secret-bearing fields (env vars, compose files, passwords, tokens, keys) from API responses before they reach the MCP client (default: `true`). Set to `false` only if you explicitly need raw secret values in LLM context. |
 | `DOKPLOY_REDACT_FIELDS` | No | Comma-separated list of response field names to redact when `DOKPLOY_REDACT_ENV=true`. Matched case-insensitively at any nesting depth. Defaults to: `env`, `buildArgs`, `composeFile`, `dockerCompose`, `environment`, `buildSecrets`, `previewBuildSecrets`, `password`, `currentPassword`, `appPassword`, `databasePassword`, `databaseRootPassword`, `redisPassword`, `mariadbPassword`, `mongoPassword`, `mysqlPassword`, `postgresPassword`, `registryPassword`, `token`, `accessToken`, `appToken`, `apiToken`, `botToken`, `refreshToken`, `secret`, `clientSecret`, `apiKey`, `secretAccessKey`, `accessKey`, `licenseKey`, `userKey`, `privateKey`, `privateKeyPass`, `encPrivateKey`, `encPrivateKeyPass`, `sshKey`, `sshPrivateKey`, `customGitSSHKey`, `dockerAuth`. |
+| `DOKPLOY_BLOCK_SECRET_PATHS` | No | Refuses file-access tools when the requested `path` looks secret-bearing (default: `true`). See [Secret path guard](#secret-path-guard). Set to `false` to disable. |
+| `DOKPLOY_SECRET_PATH_PATTERNS` | No | Comma-separated glob patterns overriding the blocked paths. A pattern containing `/` is matched against the whole normalized path, any other pattern against the file name only. Defaults to: `.env`, `.env.*`, `*.env`, `/run/secrets/**`, `**/secrets/**`, `*.pem`, `*.key`, `*.p12`, `*.pfx`, `id_rsa*`, `id_dsa*`, `id_ecdsa*`, `id_ed25519*`, `.npmrc`, `.netrc`, `.pgpass`, `.git-credentials`, `.htpasswd`, `credentials`, `credentials.*`, `**/.ssh/**`, `**/.aws/**`, `**/.gnupg/**`, `**/.docker/config.json`, `**/.kube/config`. |
+
+### Secret path guard
+
+`DOKPLOY_REDACT_ENV` masks secret-bearing fields by matching the *field name* of an API response. That works for structured responses such as application or compose configuration, but it cannot protect the tools that return raw file contents:
+
+- `docker-readContainerFile`, `docker-listContainerFiles`, `docker-writeContainerFile`, `docker-deleteContainerFile`
+- `dockerVolume-readVolumeFile`, `dockerVolume-listVolumeFiles`, `dockerVolume-writeVolumeFile`, `dockerVolume-deleteVolumeFile`
+- `settings-readTraefikFile`, `settings-updateTraefikFile`
+
+For these, the secret arrives as an opaque string whose field name reveals nothing, so name-based redaction never fires — reading `/app/.env` would hand every variable straight to the model.
+
+`DOKPLOY_BLOCK_SECRET_PATHS` closes that gap on the request side. Before such a tool runs, its `path` argument is normalized (traversal segments and percent-encoding are resolved) and matched against `DOKPLOY_SECRET_PATH_PATTERNS`. On a match the call is refused; everything else about the tool stays available, so reading `/app/logs/error.log` continues to work while `/app/.env` does not.
+
+The guard is derived from the presence of a `path` argument rather than from a hardcoded list of tool names, so newly added file-access tools are covered automatically.
+
+> **Scope:** this is a guard on what reaches the MCP client, not a server-side permission boundary. Anyone holding the same `DOKPLOY_API_KEY` can still call the Dokploy API directly.
 
 For Dokploy instances behind Cloudflare Access or a similar reverse proxy, pass service-token headers with placeholder values like this:
 

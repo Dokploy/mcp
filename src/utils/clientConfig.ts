@@ -1,4 +1,5 @@
 import { DEFAULT_REDACTED_FIELDS } from "./redactSensitive.js";
+import { DEFAULT_SECRET_PATH_PATTERNS } from "./secretPaths.js";
 
 export interface Config {
   dokployUrl: string;
@@ -9,6 +10,8 @@ export interface Config {
   retryDelay: number;
   redactEnv: boolean;
   redactFields: string[];
+  blockSecretPaths: boolean;
+  secretPathPatterns: string[];
 }
 
 const RESERVED_CUSTOM_HEADER_NAMES = new Set(["x-api-key", "content-type", "accept"]);
@@ -89,13 +92,6 @@ class ConfigManager {
       throw new Error("Environment variable DOKPLOY_API_KEY is not defined");
     }
 
-    const redactEnv = parseBoolean(process.env.DOKPLOY_REDACT_ENV, true);
-    const parsedFields =
-      process.env.DOKPLOY_REDACT_FIELDS?.split(",")
-        .map((f) => f.trim())
-        .filter((f) => f.length > 0) ?? [];
-    const redactFields = parsedFields.length > 0 ? parsedFields : DEFAULT_REDACTED_FIELDS;
-
     return {
       dokployUrl,
       authToken,
@@ -103,14 +99,33 @@ class ConfigManager {
       timeout: parseInt(process.env.DOKPLOY_TIMEOUT || "30000", 10),
       retryAttempts: parseInt(process.env.DOKPLOY_RETRY_ATTEMPTS || "3", 10),
       retryDelay: parseInt(process.env.DOKPLOY_RETRY_DELAY || "1000", 10),
-      redactEnv,
-      redactFields,
+      redactEnv: parseBoolean(process.env.DOKPLOY_REDACT_ENV, true),
+      redactFields: parseList(process.env.DOKPLOY_REDACT_FIELDS, DEFAULT_REDACTED_FIELDS),
+      blockSecretPaths: parseBoolean(process.env.DOKPLOY_BLOCK_SECRET_PATHS, true),
+      secretPathPatterns: parseList(
+        process.env.DOKPLOY_SECRET_PATH_PATTERNS,
+        DEFAULT_SECRET_PATH_PATTERNS,
+      ),
     };
   }
 }
 
 export function getClientConfig(): Config {
   return ConfigManager.getInstance().getConfig();
+}
+
+/**
+ * Parses a comma-separated environment variable, falling back to `fallback`
+ * when the variable is unset or contains no usable entries.
+ */
+function parseList(value: string | undefined, fallback: string[]): string[] {
+  const parsed =
+    value
+      ?.split(",")
+      .map((entry) => entry.trim())
+      .filter((entry) => entry.length > 0) ?? [];
+
+  return parsed.length > 0 ? parsed : fallback;
 }
 
 function parseBoolean(value: string | undefined, fallback: boolean): boolean {
