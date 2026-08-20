@@ -333,6 +333,8 @@ For these, the secret arrives as an opaque string whose field name reveals nothi
 
 The guard is derived from the presence of a `path` argument rather than from a hardcoded list of tool names, so newly added file-access tools are covered automatically.
 
+**Second layer — assignments inside file contents.** A deny-list only covers the paths someone thought of. When a file-access tool does return contents, those contents are additionally scanned for `KEY=value` assignments, and the value is masked whenever the key names a secret according to the very same `DOKPLOY_REDACT_FIELDS` list. So a stray `DB_PASSWORD=hunter2` inside `/app/config/local.conf` is masked, while `PORT=3000` in the same file stays readable. This pass runs only on responses from tools that take a `path`, so ordinary API payloads are unaffected, and it is disabled together with `DOKPLOY_REDACT_ENV=false`.
+
 > **Scope:** this is a guard on what reaches the MCP client, not a server-side permission boundary. Anyone holding the same `DOKPLOY_API_KEY` can still call the Dokploy API directly.
 
 For Dokploy instances behind Cloudflare Access or a similar reverse proxy, pass service-token headers with placeholder values like this:
