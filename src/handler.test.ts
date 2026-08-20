@@ -202,6 +202,55 @@ describe("createHandler — secrets inside returned file contents", () => {
     expect((payloadOf(response).data as { logs: string }).logs).toBe(logs);
   });
 
+  it("masks secrets in file contents that arrive base64-encoded", async () => {
+    // What the container file API actually returns. Before the decode step the
+    // assignment pass saw a base64 blob, found no KEY=value line, and passed
+    // the secret through untouched — encoded, which stops nobody.
+    const file = "PORT=3000\nDB_PASSWORD=hunter2\n";
+    mocks.apiGet.mockResolvedValue({
+      data: { content: Buffer.from(file, "utf8").toString("base64"), truncated: false },
+    });
+
+    const response = await createHandler(readFileTool)({
+      containerId: "abc",
+      path: "/app/config/local.conf",
+    });
+
+    const data = payloadOf(response).data as { content: string };
+    expect(Buffer.from(data.content, "base64").toString("utf8")).toBe(
+      "PORT=3000\nDB_PASSWORD=[REDACTED]\n",
+    );
+  });
+
+  it("masks a secret shape inside a base64 payload", async () => {
+    const file = "database_url: postgres://app:hunter2@db:5432/x\n";
+    mocks.apiGet.mockResolvedValue({
+      data: { content: Buffer.from(file, "utf8").toString("base64") },
+    });
+
+    const response = await createHandler(readFileTool)({
+      containerId: "abc",
+      path: "/app/config/app.yaml",
+    });
+
+    const data = payloadOf(response).data as { content: string };
+    expect(Buffer.from(data.content, "base64").toString("utf8")).toBe(
+      "database_url: postgres://app:[REDACTED]@db:5432/x\n",
+    );
+  });
+
+  it("leaves a base64 payload byte-identical when it holds no secret", async () => {
+    const encoded = Buffer.from("PORT=3000\nLOG_LEVEL=debug\n", "utf8").toString("base64");
+    mocks.apiGet.mockResolvedValue({ data: { content: encoded } });
+
+    const response = await createHandler(readFileTool)({
+      containerId: "abc",
+      path: "/app/config/local.conf",
+    });
+
+    expect((payloadOf(response).data as { content: string }).content).toBe(encoded);
+  });
+
   it("keeps redacting by field name as before", async () => {
     mocks.apiGet.mockResolvedValue({ data: { appName: "web", env: "DB_PASSWORD=hunter2" } });
 

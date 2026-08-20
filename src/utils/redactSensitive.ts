@@ -1,3 +1,5 @@
+import { throughBase64 } from "./base64Text.js";
+
 export const DEFAULT_REDACTED_FIELDS = [
   "env",
   "buildArgs",
@@ -113,7 +115,10 @@ export function redactSecretAssignments(text: string, fields: string[]): string 
  */
 export function redactSecretAssignmentsDeep<T>(data: T, fields: string[]): T {
   if (fields.length === 0) return data;
-  return mapStrings(data, (text) => redactSecretAssignments(text, fields));
+  // File contents arrive base64-encoded, where no KEY=value line is visible.
+  return mapStrings(data, (text) =>
+    throughBase64(text, (plain) => redactSecretAssignments(plain, fields)),
+  );
 }
 
 /**

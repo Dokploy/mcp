@@ -1,3 +1,4 @@
+import { throughBase64 } from "./base64Text.js";
 import { mapStrings, REDACTED_PLACEHOLDER } from "./redactSensitive.js";
 
 /**
@@ -114,5 +115,7 @@ export function redactSecretShapes(text: string): string {
 
 /** Applies {@link redactSecretShapes} to every string in a response. */
 export function redactSecretShapesDeep<T>(data: T): T {
-  return mapStrings(data, redactSecretShapes);
+  // Sees through the base64 wrapper the file APIs use, so an encoded PEM
+  // block or token is caught just like a plain-text one.
+  return mapStrings(data, (text) => throughBase64(text, redactSecretShapes));
 }
