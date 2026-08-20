@@ -89,6 +89,21 @@ describe("isSensitivePath", () => {
     expect(isSensitive("/app/%2Eenv")).toBe(true);
   });
 
+  it("blocks database storage, which holds row data in the clear", () => {
+    expect(isSensitive("/var/lib/postgresql/data/base/16384/2619")).toBe(true);
+    expect(isSensitive("/var/lib/mysql/payroll/salaries.ibd")).toBe(true);
+    expect(isSensitive("/data/db/collection-0.wt")).toBe(true);
+    expect(isSensitive("/mnt/pgdata/base/1/1247")).toBe(true);
+    expect(isSensitive("/data/dump.rdb")).toBe(true);
+    expect(isSensitive("/app/app.sqlite3")).toBe(true);
+  });
+
+  it("does not mistake a package directory for database storage", () => {
+    expect(isSensitive("/app/node_modules/mysql/index.js")).toBe(false);
+    expect(isSensitive("/app/node_modules/pg/lib/client.js")).toBe(false);
+    expect(isSensitive("/app/src/postgresql/queries.ts")).toBe(false);
+  });
+
   it("leaves ordinary application files alone", () => {
     expect(isSensitive("/app/logs/error.log")).toBe(false);
     expect(isSensitive("/app/package.json")).toBe(false);

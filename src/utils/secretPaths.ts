@@ -43,6 +43,22 @@ export const DEFAULT_SECRET_PATH_PATTERNS = [
   "**/.gnupg/**",
   "**/.docker/config.json",
   "**/.kube/config",
+  // Database storage. Relational engines keep row data unencrypted on disk, so
+  // reading a heap file is equivalent to reading the table it belongs to — no
+  // credentials and no running server required. These paths are deliberately
+  // anchored (or tied to a distinctive directory name) so that an unrelated
+  // package directory such as node_modules/mysql is not caught by accident.
+  "/var/lib/postgresql/**",
+  "/var/lib/mysql/**",
+  "/var/lib/mongodb/**",
+  "/var/lib/redis/**",
+  "/data/db/**",
+  "**/postgresql/data/**",
+  "**/pgdata/**",
+  "*.rdb",
+  "*.aof",
+  "*.sqlite",
+  "*.sqlite3",
 ];
 
 const globCache = new Map<string, RegExp>();
