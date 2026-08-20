@@ -5,6 +5,7 @@ import { createLogger } from "./utils/logger.js";
 import { redactSecretAssignmentsDeep, redactSensitive } from "./utils/redactSensitive.js";
 import { ResponseFormatter } from "./utils/responseFormatter.js";
 import { getGuardedPath, isSensitivePath } from "./utils/secretPaths.js";
+import { redactSecretShapesDeep } from "./utils/secretShapes.js";
 
 const logger = createLogger("ToolHandler");
 
@@ -15,13 +16,23 @@ export function createHandler(tool: ToolDefinition) {
 
     const redact = <T>(value: T): T => {
       if (!redactEnv) return value;
-      const byFieldName = redactSensitive(value, redactFields);
+
+      let result = redactSensitive(value, redactFields);
+
+      // Log output has neither a field name nor a path to key off, so the only
+      // remaining handle is the shape of the secret itself. Applied to every
+      // response rather than just the log tools: a PEM block or a URI with
+      // credentials in it is a secret whichever endpoint returned it.
+      result = redactSecretShapesDeep(result);
+
       // A tool that takes a path returns file contents, where secrets live
       // inside the string rather than in a tell-tale field name. Only those
       // responses get the extra pass, so ordinary payloads stay untouched.
-      return guardedPath === null
-        ? byFieldName
-        : redactSecretAssignmentsDeep(byFieldName, redactFields);
+      if (guardedPath !== null) {
+        result = redactSecretAssignmentsDeep(result, redactFields);
+      }
+
+      return result;
     };
 
     // Name-based redaction cannot protect file contents: they come back as an

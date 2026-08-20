@@ -37,6 +37,14 @@ const listProjectsTool = {
   path: "/project.all",
 } as Parameters<typeof createHandler>[0];
 
+const readLogsTool = {
+  name: "deployment-readLogs",
+  description: "Read deployment logs",
+  tag: "deployment",
+  method: "GET",
+  path: "/deployment.readLogs",
+} as Parameters<typeof createHandler>[0];
+
 /** Unwraps the JSON payload that ResponseFormatter packs into a text block. */
 function payloadOf(response: { content: { text: string }[] }): Record<string, unknown> {
   return JSON.parse(response.content[0]?.text ?? "{}");
@@ -150,6 +158,48 @@ describe("createHandler — secrets inside returned file contents", () => {
 
     const data = payloadOf(response).data as { content: string };
     expect(data.content).toBe("DB_PASSWORD=hunter2");
+  });
+
+  it("masks secret shapes in log output, which has no field name to key off", async () => {
+    mocks.apiGet.mockResolvedValue({
+      data: {
+        logs: [
+          "INFO  connecting to postgres://payroll:hunter2@db.internal:5432/app",
+          `INFO  pushing with token ghp_${"a".repeat(36)}`,
+          "INFO  migration complete",
+        ].join("\n"),
+      },
+    });
+
+    const response = await createHandler(readLogsTool)({ deploymentId: "abc" });
+    const data = payloadOf(response).data as { logs: string };
+
+    expect(data.logs).toBe(
+      [
+        "INFO  connecting to postgres://payroll:[REDACTED]@db.internal:5432/app",
+        "INFO  pushing with token [REDACTED]",
+        "INFO  migration complete",
+      ].join("\n"),
+    );
+  });
+
+  it("does not disturb log lines that hold no secret", async () => {
+    const logs = "INFO  server listening on port 3000\nWARN  slow query took 1200ms";
+    mocks.apiGet.mockResolvedValue({ data: { logs } });
+
+    const response = await createHandler(readLogsTool)({ deploymentId: "abc" });
+
+    expect((payloadOf(response).data as { logs: string }).logs).toBe(logs);
+  });
+
+  it("follows DOKPLOY_REDACT_ENV=false for shape redaction too", async () => {
+    mocks.config.redactEnv = false;
+    const logs = "db=postgres://payroll:hunter2@db.internal/app";
+    mocks.apiGet.mockResolvedValue({ data: { logs } });
+
+    const response = await createHandler(readLogsTool)({ deploymentId: "abc" });
+
+    expect((payloadOf(response).data as { logs: string }).logs).toBe(logs);
   });
 
   it("keeps redacting by field name as before", async () => {

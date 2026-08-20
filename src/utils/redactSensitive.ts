@@ -40,7 +40,7 @@ export const DEFAULT_REDACTED_FIELDS = [
   "dockerAuth",
 ];
 
-const REDACTED_PLACEHOLDER = "[REDACTED]";
+export const REDACTED_PLACEHOLDER = "[REDACTED]";
 
 export function redactSensitive<T>(data: T, fields: string[]): T {
   if (fields.length === 0) return data;
@@ -113,16 +113,29 @@ export function redactSecretAssignments(text: string, fields: string[]): string 
  */
 export function redactSecretAssignmentsDeep<T>(data: T, fields: string[]): T {
   if (fields.length === 0) return data;
-  return walkStrings(data, fields, new WeakSet()) as T;
+  return mapStrings(data, (text) => redactSecretAssignments(text, fields));
 }
 
-function walkStrings(value: unknown, fields: string[], seen: WeakSet<object>): unknown {
-  if (typeof value === "string") return redactSecretAssignments(value, fields);
+/**
+ * Applies `transform` to every string in a structure, leaving everything else
+ * as it is. Shared by the content-level redaction passes so they all inherit
+ * the same cycle and prototype-pollution handling.
+ */
+export function mapStrings<T>(data: T, transform: (text: string) => string): T {
+  return walkStrings(data, transform, new WeakSet()) as T;
+}
+
+function walkStrings(
+  value: unknown,
+  transform: (text: string) => string,
+  seen: WeakSet<object>,
+): unknown {
+  if (typeof value === "string") return transform(value);
 
   if (Array.isArray(value)) {
     if (seen.has(value)) return value;
     seen.add(value);
-    return value.map((item) => walkStrings(item, fields, seen));
+    return value.map((item) => walkStrings(item, transform, seen));
   }
 
   if (isPlainObject(value)) {
@@ -131,7 +144,7 @@ function walkStrings(value: unknown, fields: string[], seen: WeakSet<object>): u
     const out: Record<string, unknown> = Object.create(null);
     for (const [key, val] of Object.entries(value)) {
       if (key === "__proto__" || key === "constructor" || key === "prototype") continue;
-      out[key] = walkStrings(val, fields, seen);
+      out[key] = walkStrings(val, transform, seen);
     }
     return out;
   }
