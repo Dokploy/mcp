@@ -19,7 +19,12 @@ function countByTags(tags: string[]): number {
 }
 
 describe("MCP server tools/list", () => {
-  const toolsetEnvVars = ["DOKPLOY_ENABLED_TAGS", "DOKPLOY_DISABLED_TAGS", "DOKPLOY_TOOL_PRESET"];
+  const toolsetEnvVars = [
+    "DOKPLOY_ENABLED_TAGS",
+    "DOKPLOY_DISABLED_TAGS",
+    "DOKPLOY_DISABLED_TOOLS",
+    "DOKPLOY_TOOL_PRESET",
+  ];
 
   afterEach(() => {
     for (const envVar of toolsetEnvVars) {
@@ -91,6 +96,50 @@ describe("MCP server tools/list", () => {
     );
     expect(tags.has("domain")).toBe(false);
     expect(tags.has("deployment")).toBe(false);
+  });
+
+  it("excludes individual tools named in DOKPLOY_DISABLED_TOOLS", async () => {
+    process.env.DOKPLOY_DISABLED_TOOLS = "docker-readContainerFile,docker-writeContainerFile";
+
+    const tools = await getToolList();
+    const names = new Set(tools.map((tool) => tool.name));
+
+    expect(tools).toHaveLength(generatedTools.length - 2);
+    expect(names.has("docker-readContainerFile")).toBe(false);
+    expect(names.has("docker-writeContainerFile")).toBe(false);
+    // The rest of the docker category survives — that is the point of
+    // disabling by tool name instead of by tag.
+    expect(names.has("docker-getContainers")).toBe(true);
+    expect(names.has("docker-restartContainer")).toBe(true);
+  });
+
+  it("matches DOKPLOY_DISABLED_TOOLS case-insensitively and ignores spacing", async () => {
+    process.env.DOKPLOY_DISABLED_TOOLS = " DOCKER-READCONTAINERFILE , ";
+
+    const tools = await getToolList();
+    const names = new Set(tools.map((tool) => tool.name));
+
+    expect(tools).toHaveLength(generatedTools.length - 1);
+    expect(names.has("docker-readContainerFile")).toBe(false);
+  });
+
+  it("ignores unknown names in DOKPLOY_DISABLED_TOOLS", async () => {
+    process.env.DOKPLOY_DISABLED_TOOLS = "does-notExist";
+
+    const tools = await getToolList();
+
+    expect(tools).toHaveLength(generatedTools.length);
+  });
+
+  it("applies DOKPLOY_DISABLED_TOOLS on top of a preset", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+    process.env.DOKPLOY_DISABLED_TOOLS = "project-remove";
+
+    const tools = await getToolList();
+    const names = new Set(tools.map((tool) => tool.name));
+
+    expect(tools).toHaveLength(countByTags(["project", "application"]) - 1);
+    expect(names.has("project-remove")).toBe(false);
   });
 
   it("falls back to all tools for an unknown preset", async () => {
