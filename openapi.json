@@ -18740,7 +18740,7 @@
                   "domain": {
                     "type": "string"
                   },
-                  "serverIp": {
+                  "serverId": {
                     "type": "string"
                   }
                 },
