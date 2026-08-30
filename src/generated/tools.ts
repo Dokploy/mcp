@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-08-18
+// Generated from openapi.json on 2026-08-30
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
