@@ -2,7 +2,7 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 597
+- **Total Tools**: 598
 - **Categories**: 57
 
 ## Categories
@@ -37,7 +37,7 @@
 - [mongo](#mongo) (16 tools)
 - [mounts](#mounts) (6 tools)
 - [mysql](#mysql) (16 tools)
-- [network](#network) (8 tools)
+- [network](#network) (9 tools)
 - [notification](#notification) (41 tools)
 - [organization](#organization) (11 tools)
 - [overview](#overview) (3 tools)
@@ -333,7 +333,7 @@
 | `domain-toggleEnable` | POST | `domainId` (string) |
 | `domain-one` | GET | `domainId` (string) |
 | `domain-delete` | POST | `domainId` (string) |
-| `domain-validateDomain` | POST | `domain` (string), `serverIp`? |
+| `domain-validateDomain` | POST | `domain` (string), `serverId`? |
 
 ## environment
 
@@ -522,6 +522,7 @@
 | `network-import` | POST | `names` (string[]), `serverId`? |
 | `network-inspect` | GET | `networkId` (string) |
 | `network-recreate` | POST | `networkId` (string) |
+| `network-resync` | POST | `networkId` (string) |
 | `network-remove` | POST | `networkId` (string) |
 
 ## notification

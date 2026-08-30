@@ -703,6 +703,18 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "network-resync",
+    description: "POST /network.resync",
+    tag: "network",
+    method: "POST",
+    path: "/network.resync",
+    schema: z.object({ "networkId": z.string().min(1) }),
+    annotations: {
+      title: "Network Resync",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "network-remove",
     description: "POST /network.remove",
     tag: "network",
@@ -2097,7 +2109,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "domain",
     method: "POST",
     path: "/domain.validateDomain",
-    schema: z.object({ "domain": z.string(), "serverIp": z.string().optional() }),
+    schema: z.object({ "domain": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Domain ValidateDomain",
       ...{"idempotentHint":true,"openWorldHint":true},
