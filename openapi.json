@@ -32661,6 +32661,9 @@
                   "dockerCleanup": {
                     "type": "boolean"
                   },
+                  "serverThreshold": {
+                    "type": "boolean"
+                  },
                   "serverUrl": {
                     "type": "string",
                     "minLength": 1
@@ -32686,6 +32689,7 @@
                   "name",
                   "appDeploy",
                   "dockerCleanup",
+                  "serverThreshold",
                   "serverUrl",
                   "appToken",
                   "priority",
@@ -32792,6 +32796,9 @@
                     "type": "boolean"
                   },
                   "dockerCleanup": {
+                    "type": "boolean"
+                  },
+                  "serverThreshold": {
                     "type": "boolean"
                   },
                   "serverUrl": {
@@ -33028,6 +33035,9 @@
                   "dockerCleanup": {
                     "type": "boolean"
                   },
+                  "serverThreshold": {
+                    "type": "boolean"
+                  },
                   "serverUrl": {
                     "type": "string",
                     "minLength": 1
@@ -33053,6 +33063,7 @@
                   "name",
                   "appDeploy",
                   "dockerCleanup",
+                  "serverThreshold",
                   "serverUrl",
                   "topic",
                   "accessToken",
@@ -33159,6 +33170,9 @@
                     "type": "boolean"
                   },
                   "dockerCleanup": {
+                    "type": "boolean"
+                  },
+                  "serverThreshold": {
                     "type": "boolean"
                   },
                   "serverUrl": {
