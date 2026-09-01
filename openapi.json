@@ -52903,6 +52903,42 @@
                           "projectId",
                           "secretKey"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "phase"
+                          },
+                          "token": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "appId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "env": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "path": {
+                            "default": "/",
+                            "type": "string"
+                          },
+                          "apiUrl": {
+                            "default": "https://api.phase.dev",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "token",
+                          "appId",
+                          "env"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -53214,6 +53250,42 @@
                           "providerType",
                           "projectId",
                           "secretKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "phase"
+                          },
+                          "token": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "appId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "env": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "path": {
+                            "default": "/",
+                            "type": "string"
+                          },
+                          "apiUrl": {
+                            "default": "https://api.phase.dev",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "token",
+                          "appId",
+                          "env"
                         ]
                       }
                     ],
@@ -53773,6 +53845,42 @@
                           "providerType",
                           "projectId",
                           "secretKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "phase"
+                          },
+                          "token": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "appId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "env": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "path": {
+                            "default": "/",
+                            "type": "string"
+                          },
+                          "apiUrl": {
+                            "default": "https://api.phase.dev",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "token",
+                          "appId",
+                          "env"
                         ]
                       }
                     ],
