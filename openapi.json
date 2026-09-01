@@ -13519,6 +13519,28 @@
                           "accessKeyId",
                           "secretAccessKey"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "porkbun"
+                          },
+                          "apiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretApiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiKey",
+                          "secretApiKey"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -13656,6 +13678,28 @@
                           "providerType",
                           "accessKeyId",
                           "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "porkbun"
+                          },
+                          "apiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretApiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiKey",
+                          "secretApiKey"
                         ]
                       }
                     ],
@@ -14041,6 +14085,28 @@
                           "providerType",
                           "accessKeyId",
                           "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "porkbun"
+                          },
+                          "apiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretApiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiKey",
+                          "secretApiKey"
                         ]
                       }
                     ],
