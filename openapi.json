@@ -14381,7 +14381,14 @@
                     "type": "string",
                     "enum": [
                       "A",
-                      "CNAME"
+                      "AAAA",
+                      "CNAME",
+                      "MX",
+                      "TXT",
+                      "NS",
+                      "SRV",
+                      "CAA",
+                      "PTR"
                     ]
                   },
                   "name": {
@@ -14396,6 +14403,9 @@
                     "type": "integer",
                     "exclusiveMinimum": 0,
                     "maximum": 9007199254740991
+                  },
+                  "proxied": {
+                    "type": "boolean"
                   },
                   "dnsProviderId": {
                     "type": "string",
@@ -14496,7 +14506,14 @@
                     "type": "string",
                     "enum": [
                       "A",
-                      "CNAME"
+                      "AAAA",
+                      "CNAME",
+                      "MX",
+                      "TXT",
+                      "NS",
+                      "SRV",
+                      "CAA",
+                      "PTR"
                     ]
                   },
                   "name": {
@@ -14511,6 +14528,9 @@
                     "type": "integer",
                     "exclusiveMinimum": 0,
                     "maximum": 9007199254740991
+                  },
+                  "proxied": {
+                    "type": "boolean"
                   },
                   "dnsProviderId": {
                     "type": "string",
