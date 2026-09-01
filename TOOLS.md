@@ -2,7 +2,7 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 598
+- **Total Tools**: 599
 - **Categories**: 57
 
 ## Categories
@@ -53,7 +53,7 @@
 - [schedule](#schedule) (6 tools)
 - [scim](#scim) (3 tools)
 - [security](#security) (4 tools)
-- [server](#server) (18 tools)
+- [server](#server) (19 tools)
 - [settings](#settings) (52 tools)
 - [sshKey](#sshKey) (7 tools)
 - [sso](#sso) (11 tools)
@@ -264,8 +264,8 @@
 | `dnsProvider-testConnection` | POST | `dnsProviderId`?, `config`? |
 | `dnsProvider-listZones` | GET | `dnsProviderId` (string) |
 | `dnsProvider-listRecords` | GET | `dnsProviderId` (string), `zoneId` (string) |
-| `dnsProvider-createRecord` | POST | `type` ("A" | "CNAME"), `name` (string), `content` (string), `dnsProviderId` (string), `zoneId` (string), `ttl`? |
-| `dnsProvider-updateRecord` | POST | `type` ("A" | "CNAME"), `name` (string), `content` (string), `dnsProviderId` (string), `zoneId` (string), `recordId` (string), `ttl`? |
+| `dnsProvider-createRecord` | POST | `type` ("A" | "AAAA" | "CNAME" | "MX" | "TXT" | "NS" | "SRV" | "CAA" | "PTR"), `name` (string), `content` (string), `dnsProviderId` (string), `zoneId` (string), `ttl`?, `proxied`? |
+| `dnsProvider-updateRecord` | POST | `type` ("A" | "AAAA" | "CNAME" | "MX" | "TXT" | "NS" | "SRV" | "CAA" | "PTR"), `name` (string), `content` (string), `dnsProviderId` (string), `zoneId` (string), `recordId` (string), `ttl`?, `proxied`? |
 | `dnsProvider-deleteRecord` | POST | `dnsProviderId` (string), `zoneId` (string), `recordId` (string) |
 
 ## docker
@@ -548,11 +548,11 @@
 | `notification-one` | GET | `notificationId` (string) |
 | `notification-all` | GET | None |
 | `notification-receiveNotification` | POST | `Type` ("Memory" | "CPU"), `Value` (number), `Threshold` (number), `Message` (string), `Timestamp` (string), `Token` (string), `ServerType`? |
-| `notification-createGotify` | POST | `appBuildError` (boolean), `databaseBackup` (boolean), `dokployBackup` (boolean), `volumeBackup` (boolean), `dokployRestart` (boolean), `name` (string), `appDeploy` (boolean), `dockerCleanup` (boolean), `serverUrl` (string), `appToken` (string), `priority` (number), `decoration` (boolean) |
-| `notification-updateGotify` | POST | `notificationId` (string), `gotifyId` (string), +13 optional |
+| `notification-createGotify` | POST | `appBuildError` (boolean), `databaseBackup` (boolean), `dokployBackup` (boolean), `volumeBackup` (boolean), `dokployRestart` (boolean), `name` (string), `appDeploy` (boolean), `dockerCleanup` (boolean), `serverThreshold` (boolean), `serverUrl` (string), `appToken` (string), `priority` (number), `decoration` (boolean) |
+| `notification-updateGotify` | POST | `notificationId` (string), `gotifyId` (string), +14 optional |
 | `notification-testGotifyConnection` | POST | `serverUrl` (string), `appToken` (string), `priority` (number), `decoration`? |
-| `notification-createNtfy` | POST | `appBuildError` (boolean), `databaseBackup` (boolean), `dokployBackup` (boolean), `volumeBackup` (boolean), `dokployRestart` (boolean), `name` (string), `appDeploy` (boolean), `dockerCleanup` (boolean), `serverUrl` (string), `topic` (string), `accessToken` (string), `priority` (number) |
-| `notification-updateNtfy` | POST | `notificationId` (string), `ntfyId` (string), +13 optional |
+| `notification-createNtfy` | POST | `appBuildError` (boolean), `databaseBackup` (boolean), `dokployBackup` (boolean), `volumeBackup` (boolean), `dokployRestart` (boolean), `name` (string), `appDeploy` (boolean), `dockerCleanup` (boolean), `serverThreshold` (boolean), `serverUrl` (string), `topic` (string), `accessToken` (string), `priority` (number) |
+| `notification-updateNtfy` | POST | `notificationId` (string), `ntfyId` (string), +14 optional |
 | `notification-testNtfyConnection` | POST | `serverUrl` (string), `topic` (string), `accessToken` (string), `priority` (number) |
 | `notification-createMattermost` | POST | `appBuildError` (boolean), `databaseBackup` (boolean), `dokployBackup` (boolean), `volumeBackup` (boolean), `dokployRestart` (boolean), `name` (string), `appDeploy` (boolean), `dockerCleanup` (boolean), `serverThreshold` (boolean), `webhookUrl` (string), `channel`?, `username`? |
 | `notification-updateMattermost` | POST | `notificationId` (string), `mattermostId` (string), +13 optional |
@@ -749,6 +749,7 @@
 | `server-create` | POST | `name` (string), `description` (string | null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`? |
 | `server-one` | GET | `serverId` (string) |
 | `server-getDefaultCommand` | GET | `serverId` (string) |
+| `server-getServices` | GET | `serverId` (string) |
 | `server-all` | GET | None |
 | `server-allForPermissions` | GET | None |
 | `server-count` | GET | None |

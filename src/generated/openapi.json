@@ -13519,6 +13519,28 @@
                           "accessKeyId",
                           "secretAccessKey"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "porkbun"
+                          },
+                          "apiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretApiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiKey",
+                          "secretApiKey"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -13656,6 +13678,28 @@
                           "providerType",
                           "accessKeyId",
                           "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "porkbun"
+                          },
+                          "apiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretApiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiKey",
+                          "secretApiKey"
                         ]
                       }
                     ],
@@ -14042,6 +14086,28 @@
                           "accessKeyId",
                           "secretAccessKey"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "porkbun"
+                          },
+                          "apiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretApiKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiKey",
+                          "secretApiKey"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -14315,7 +14381,14 @@
                     "type": "string",
                     "enum": [
                       "A",
-                      "CNAME"
+                      "AAAA",
+                      "CNAME",
+                      "MX",
+                      "TXT",
+                      "NS",
+                      "SRV",
+                      "CAA",
+                      "PTR"
                     ]
                   },
                   "name": {
@@ -14330,6 +14403,9 @@
                     "type": "integer",
                     "exclusiveMinimum": 0,
                     "maximum": 9007199254740991
+                  },
+                  "proxied": {
+                    "type": "boolean"
                   },
                   "dnsProviderId": {
                     "type": "string",
@@ -14430,7 +14506,14 @@
                     "type": "string",
                     "enum": [
                       "A",
-                      "CNAME"
+                      "AAAA",
+                      "CNAME",
+                      "MX",
+                      "TXT",
+                      "NS",
+                      "SRV",
+                      "CAA",
+                      "PTR"
                     ]
                   },
                   "name": {
@@ -14445,6 +14528,9 @@
                     "type": "integer",
                     "exclusiveMinimum": 0,
                     "maximum": 9007199254740991
+                  },
+                  "proxied": {
+                    "type": "boolean"
                   },
                   "dnsProviderId": {
                     "type": "string",
@@ -32661,6 +32747,9 @@
                   "dockerCleanup": {
                     "type": "boolean"
                   },
+                  "serverThreshold": {
+                    "type": "boolean"
+                  },
                   "serverUrl": {
                     "type": "string",
                     "minLength": 1
@@ -32686,6 +32775,7 @@
                   "name",
                   "appDeploy",
                   "dockerCleanup",
+                  "serverThreshold",
                   "serverUrl",
                   "appToken",
                   "priority",
@@ -32792,6 +32882,9 @@
                     "type": "boolean"
                   },
                   "dockerCleanup": {
+                    "type": "boolean"
+                  },
+                  "serverThreshold": {
                     "type": "boolean"
                   },
                   "serverUrl": {
@@ -33028,6 +33121,9 @@
                   "dockerCleanup": {
                     "type": "boolean"
                   },
+                  "serverThreshold": {
+                    "type": "boolean"
+                  },
                   "serverUrl": {
                     "type": "string",
                     "minLength": 1
@@ -33053,6 +33149,7 @@
                   "name",
                   "appDeploy",
                   "dockerCleanup",
+                  "serverThreshold",
                   "serverUrl",
                   "topic",
                   "accessToken",
@@ -33159,6 +33256,9 @@
                     "type": "boolean"
                   },
                   "dockerCleanup": {
+                    "type": "boolean"
+                  },
+                  "serverThreshold": {
                     "type": "boolean"
                   },
                   "serverUrl": {
@@ -42836,6 +42936,94 @@
     "/server.getDefaultCommand": {
       "get": {
         "operationId": "server-getDefaultCommand",
+        "tags": [
+          "server"
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "serverId",
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.BAD_REQUEST"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Insufficient access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.FORBIDDEN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.NOT_FOUND"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error.INTERNAL_SERVER_ERROR"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/server.getServices": {
+      "get": {
+        "operationId": "server-getServices",
         "tags": [
           "server"
         ],
@@ -52889,6 +53077,42 @@
                           "projectId",
                           "secretKey"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "phase"
+                          },
+                          "token": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "appId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "env": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "path": {
+                            "default": "/",
+                            "type": "string"
+                          },
+                          "apiUrl": {
+                            "default": "https://api.phase.dev",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "token",
+                          "appId",
+                          "env"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -53200,6 +53424,42 @@
                           "providerType",
                           "projectId",
                           "secretKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "phase"
+                          },
+                          "token": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "appId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "env": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "path": {
+                            "default": "/",
+                            "type": "string"
+                          },
+                          "apiUrl": {
+                            "default": "https://api.phase.dev",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "token",
+                          "appId",
+                          "env"
                         ]
                       }
                     ],
@@ -53759,6 +54019,42 @@
                           "providerType",
                           "projectId",
                           "secretKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "phase"
+                          },
+                          "token": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "appId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "env": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "path": {
+                            "default": "/",
+                            "type": "string"
+                          },
+                          "apiUrl": {
+                            "default": "https://api.phase.dev",
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "token",
+                          "appId",
+                          "env"
                         ]
                       }
                     ],

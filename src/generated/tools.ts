@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-08-30
+// Generated from openapi.json on 2026-09-01
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -1393,7 +1393,7 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/dnsProvider.create",
     schema: z.object({ "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.any()).and(z.any().superRefine((x, ctx) => {
-    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) })];
+    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) }), z.object({ "providerType": z.literal("porkbun"), "apiKey": z.string().min(1), "secretApiKey": z.string().min(1) })];
     const { errors, failed } = schemas.reduce<{
       errors: z.ZodError[];
       failed: number;
@@ -1436,7 +1436,7 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/dnsProvider.update",
     schema: z.object({ "dnsProviderId": z.string().min(1), "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.any()).and(z.any().superRefine((x, ctx) => {
-    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) })];
+    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) }), z.object({ "providerType": z.literal("porkbun"), "apiKey": z.string().min(1), "secretApiKey": z.string().min(1) })];
     const { errors, failed } = schemas.reduce<{
       errors: z.ZodError[];
       failed: number;
@@ -1515,7 +1515,7 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/dnsProvider.testConnection",
     schema: z.object({ "dnsProviderId": z.string().min(1).optional(), "config": z.record(z.any()).and(z.any().superRefine((x, ctx) => {
-    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) })];
+    const schemas = [z.object({ "providerType": z.literal("cloudflare"), "apiToken": z.string().min(1) }), z.object({ "providerType": z.literal("route53"), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1) }), z.object({ "providerType": z.literal("porkbun"), "apiKey": z.string().min(1), "secretApiKey": z.string().min(1) })];
     const { errors, failed } = schemas.reduce<{
       errors: z.ZodError[];
       failed: number;
@@ -1581,7 +1581,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.createRecord",
-    schema: z.object({ "type": z.enum(["A","CNAME"]), "name": z.string().min(1), "content": z.string().min(1), "ttl": z.number().int().gt(0).lte(9007199254740991).optional(), "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1) }),
+    schema: z.object({ "type": z.enum(["A","AAAA","CNAME","MX","TXT","NS","SRV","CAA","PTR"]), "name": z.string().min(1), "content": z.string().min(1), "ttl": z.number().int().gt(0).lte(9007199254740991).optional(), "proxied": z.boolean().optional(), "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1) }),
     annotations: {
       title: "DnsProvider CreateRecord",
       ...{"openWorldHint":true},
@@ -1593,7 +1593,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.updateRecord",
-    schema: z.object({ "type": z.enum(["A","CNAME"]), "name": z.string().min(1), "content": z.string().min(1), "ttl": z.number().int().gt(0).lte(9007199254740991).optional(), "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1), "recordId": z.string().min(1) }),
+    schema: z.object({ "type": z.enum(["A","AAAA","CNAME","MX","TXT","NS","SRV","CAA","PTR"]), "name": z.string().min(1), "content": z.string().min(1), "ttl": z.number().int().gt(0).lte(9007199254740991).optional(), "proxied": z.boolean().optional(), "dnsProviderId": z.string().min(1), "zoneId": z.string().min(1), "recordId": z.string().min(1) }),
     annotations: {
       title: "DnsProvider UpdateRecord",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3465,7 +3465,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createGotify",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean() }),
+    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean() }),
     annotations: {
       title: "Notification CreateGotify",
       ...{"openWorldHint":true},
@@ -3477,7 +3477,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateGotify",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "appToken": z.string().min(1).optional(), "priority": z.number().gte(1).optional(), "decoration": z.boolean().optional(), "notificationId": z.string().min(1), "gotifyId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "appToken": z.string().min(1).optional(), "priority": z.number().gte(1).optional(), "decoration": z.boolean().optional(), "notificationId": z.string().min(1), "gotifyId": z.string().min(1), "organizationId": z.string().optional() }),
     annotations: {
       title: "Notification UpdateGotify",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -3501,7 +3501,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.createNtfy",
-    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) }),
+    schema: z.object({ "appBuildError": z.boolean(), "databaseBackup": z.boolean(), "dokployBackup": z.boolean(), "volumeBackup": z.boolean(), "dokployRestart": z.boolean(), "name": z.string(), "appDeploy": z.boolean(), "dockerCleanup": z.boolean(), "serverThreshold": z.boolean(), "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) }),
     annotations: {
       title: "Notification CreateNtfy",
       ...{"openWorldHint":true},
@@ -3513,7 +3513,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "notification",
     method: "POST",
     path: "/notification.updateNtfy",
-    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "topic": z.string().min(1).optional(), "accessToken": z.string().optional(), "priority": z.number().gte(1).optional(), "notificationId": z.string().min(1), "ntfyId": z.string().min(1), "organizationId": z.string().optional() }),
+    schema: z.object({ "appBuildError": z.boolean().optional(), "databaseBackup": z.boolean().optional(), "dokployBackup": z.boolean().optional(), "volumeBackup": z.boolean().optional(), "dokployRestart": z.boolean().optional(), "name": z.string().optional(), "appDeploy": z.boolean().optional(), "dockerCleanup": z.boolean().optional(), "serverThreshold": z.boolean().optional(), "serverUrl": z.string().min(1).optional(), "topic": z.string().min(1).optional(), "accessToken": z.string().optional(), "priority": z.number().gte(1).optional(), "notificationId": z.string().min(1), "ntfyId": z.string().min(1), "organizationId": z.string().optional() }),
     annotations: {
       title: "Notification UpdateNtfy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4524,6 +4524,18 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().min(1) }),
     annotations: {
       title: "Server GetDefaultCommand",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "server-getServices",
+    description: "GET /server.getServices",
+    tag: "server",
+    method: "GET",
+    path: "/server.getServices",
+    schema: z.object({ "serverId": z.string().min(1) }),
+    annotations: {
+      title: "Server GetServices",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
     },
   },
@@ -5878,7 +5890,7 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/vaultProvider.create",
     schema: z.object({ "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.any()).and(z.any().superRefine((x, ctx) => {
-    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") })];
+    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") }), z.object({ "providerType": z.literal("phase"), "token": z.string().min(1), "appId": z.string().min(1), "env": z.string().min(1), "path": z.string().default("/"), "apiUrl": z.string().url().default("https://api.phase.dev") })];
     const { errors, failed } = schemas.reduce<{
       errors: z.ZodError[];
       failed: number;
@@ -5921,7 +5933,7 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/vaultProvider.update",
     schema: z.object({ "vaultProviderId": z.string().min(1), "name": z.string().regex(new RegExp("^[a-zA-Z0-9_-]+$")).min(1).max(64), "config": z.record(z.any()).and(z.any().superRefine((x, ctx) => {
-    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") })];
+    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") }), z.object({ "providerType": z.literal("phase"), "token": z.string().min(1), "appId": z.string().min(1), "env": z.string().min(1), "path": z.string().default("/"), "apiUrl": z.string().url().default("https://api.phase.dev") })];
     const { errors, failed } = schemas.reduce<{
       errors: z.ZodError[];
       failed: number;
@@ -6000,7 +6012,7 @@ export const generatedTools: ToolDefinition[] = [
     method: "POST",
     path: "/vaultProvider.testConnection",
     schema: z.object({ "vaultProviderId": z.string().min(1).optional(), "config": z.record(z.any()).and(z.any().superRefine((x, ctx) => {
-    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") })];
+    const schemas = [z.object({ "providerType": z.literal("hashicorp"), "url": z.string().url(), "token": z.string().min(1), "namespace": z.string().optional(), "mount": z.string().min(1).default("secret") }), z.object({ "providerType": z.literal("infisical"), "siteUrl": z.string().url().default("https://app.infisical.com"), "clientId": z.string().min(1), "clientSecret": z.string().min(1), "projectId": z.string().min(1), "environmentSlug": z.string().min(1), "secretPath": z.string().default("/") }), z.object({ "providerType": z.literal("aws"), "region": z.string().min(1), "accessKeyId": z.string().min(1), "secretAccessKey": z.string().min(1), "endpoint": z.string().url().optional() }), z.object({ "providerType": z.literal("doppler"), "serviceToken": z.string().min(1), "project": z.string().optional(), "config": z.string().optional() }), z.object({ "providerType": z.literal("azure"), "vaultUri": z.string().url(), "tenantId": z.string().min(1), "clientId": z.string().min(1), "clientSecret": z.string().min(1) }), z.object({ "providerType": z.literal("scaleway"), "region": z.string().min(1).default("fr-par"), "projectId": z.string().min(1), "secretKey": z.string().min(1), "apiUrl": z.string().url().default("https://api.scaleway.com") }), z.object({ "providerType": z.literal("phase"), "token": z.string().min(1), "appId": z.string().min(1), "env": z.string().min(1), "path": z.string().default("/"), "apiUrl": z.string().url().default("https://api.phase.dev") })];
     const { errors, failed } = schemas.reduce<{
       errors: z.ZodError[];
       failed: number;
