@@ -10505,6 +10505,9 @@
                   },
                   "description": {
                     "type": "string"
+                  },
+                  "freshVolumes": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
@@ -10598,6 +10601,9 @@
                   },
                   "description": {
                     "type": "string"
+                  },
+                  "freshVolumes": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
