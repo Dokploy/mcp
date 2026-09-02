@@ -2,14 +2,14 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 599
+- **Total Tools**: 604
 - **Categories**: 57
 
 ## Categories
 
 - [admin](#admin) (1 tools)
 - [ai](#ai) (14 tools)
-- [application](#application) (31 tools)
+- [application](#application) (32 tools)
 - [auditLog](#auditLog) (1 tools)
 - [backup](#backup) (12 tools)
 - [bitbucket](#bitbucket) (7 tools)
@@ -45,7 +45,7 @@
 - [port](#port) (4 tools)
 - [postgres](#postgres) (16 tools)
 - [previewDeployment](#previewDeployment) (4 tools)
-- [project](#project) (9 tools)
+- [project](#project) (11 tools)
 - [redirects](#redirects) (4 tools)
 - [redis](#redis) (16 tools)
 - [registry](#registry) (7 tools)
@@ -57,7 +57,7 @@
 - [settings](#settings) (52 tools)
 - [sshKey](#sshKey) (7 tools)
 - [sso](#sso) (11 tools)
-- [stripe](#stripe) (8 tools)
+- [stripe](#stripe) (10 tools)
 - [swarm](#swarm) (4 tools)
 - [tag](#tag) (8 tools)
 - [user](#user) (26 tools)
@@ -95,6 +95,7 @@
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `application-create` | POST | `name` (string), `environmentId` (string), +4 optional |
+| `application-deployNginxQuickstart` | POST | `environmentId` (string), `serverId`? |
 | `application-one` | GET | `applicationId` (string) |
 | `application-reload` | POST | `appName` (string), `applicationId` (string) |
 | `application-delete` | POST | `applicationId` (string) |
@@ -198,8 +199,8 @@
 | `compose-randomizeCompose` | POST | `composeId` (string), `suffix`? |
 | `compose-isolatedDeployment` | POST | `composeId` (string), `suffix`? |
 | `compose-getConvertedCompose` | GET | `composeId` (string) |
-| `compose-deploy` | POST | `composeId` (string), `title`?, `description`? |
-| `compose-redeploy` | POST | `composeId` (string), `title`?, `description`? |
+| `compose-deploy` | POST | `composeId` (string), `title`?, `description`?, `freshVolumes`? |
+| `compose-redeploy` | POST | `composeId` (string), `title`?, `description`?, `freshVolumes`? |
 | `compose-stop` | POST | `composeId` (string) |
 | `compose-start` | POST | `composeId` (string) |
 | `compose-getDefaultCommand` | GET | `composeId` (string) |
@@ -660,6 +661,8 @@
 | `project-all` | GET | None |
 | `project-allForPermissions` | GET | None |
 | `project-homeStats` | GET | None |
+| `project-onboardingStatus` | GET | None |
+| `project-completeOnboarding` | POST | None |
 | `project-search` | GET | +5 optional |
 | `project-remove` | POST | `projectId` (string) |
 | `project-update` | POST | `projectId` (string), +5 optional |
@@ -856,6 +859,8 @@
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `stripe-getCurrentPlan` | GET | None |
+| `stripe-getBillingStatus` | GET | None |
+| `stripe-startFreeTrial` | POST | None |
 | `stripe-getProducts` | GET | None |
 | `stripe-createCheckoutSession` | POST | `tier` ("legacy" | "hobby" | "startup"), `productId` (string), `serverQuantity` (number), `isAnnual` (boolean) |
 | `stripe-createCustomerPortalSession` | POST | None |

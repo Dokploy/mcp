@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-09-01
+// Generated from openapi.json on 2026-09-02
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -28,6 +28,18 @@ export const generatedTools: ToolDefinition[] = [
     annotations: {
       title: "Application Create",
       ...{"openWorldHint":true},
+    },
+  },
+  {
+    name: "application-deployNginxQuickstart",
+    description: "POST /application.deployNginxQuickstart",
+    tag: "application",
+    method: "POST",
+    path: "/application.deployNginxQuickstart",
+    schema: z.object({ "environmentId": z.string().min(1), "serverId": z.string().min(1).optional() }),
+    annotations: {
+      title: "Application DeployNginxQuickstart",
+      ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
   {
@@ -1008,7 +1020,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.deploy",
-    schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional(), "freshVolumes": z.boolean().optional() }),
     annotations: {
       title: "Compose Deploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -1020,7 +1032,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "compose",
     method: "POST",
     path: "/compose.redeploy",
-    schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
+    schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional(), "freshVolumes": z.boolean().optional() }),
     annotations: {
       title: "Compose Redeploy",
       ...{"idempotentHint":true,"openWorldHint":true},
@@ -4072,6 +4084,30 @@ export const generatedTools: ToolDefinition[] = [
     },
   },
   {
+    name: "project-onboardingStatus",
+    description: "GET /project.onboardingStatus",
+    tag: "project",
+    method: "GET",
+    path: "/project.onboardingStatus",
+    schema: z.object({}),
+    annotations: {
+      title: "Project OnboardingStatus",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "project-completeOnboarding",
+    description: "POST /project.completeOnboarding",
+    tag: "project",
+    method: "POST",
+    path: "/project.completeOnboarding",
+    schema: z.object({}),
+    annotations: {
+      title: "Project CompleteOnboarding",
+      ...{"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
     name: "project-search",
     description: "GET /project.search",
     tag: "project",
@@ -5437,6 +5473,30 @@ export const generatedTools: ToolDefinition[] = [
     annotations: {
       title: "Stripe GetCurrentPlan",
       ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "stripe-getBillingStatus",
+    description: "GET /stripe.getBillingStatus",
+    tag: "stripe",
+    method: "GET",
+    path: "/stripe.getBillingStatus",
+    schema: z.object({}),
+    annotations: {
+      title: "Stripe GetBillingStatus",
+      ...{"readOnlyHint":true,"idempotentHint":true,"openWorldHint":true},
+    },
+  },
+  {
+    name: "stripe-startFreeTrial",
+    description: "POST /stripe.startFreeTrial",
+    tag: "stripe",
+    method: "POST",
+    path: "/stripe.startFreeTrial",
+    schema: z.object({}),
+    annotations: {
+      title: "Stripe StartFreeTrial",
+      ...{"idempotentHint":true,"openWorldHint":true},
     },
   },
   {
