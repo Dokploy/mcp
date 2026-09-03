@@ -31,6 +31,22 @@ function parseTagList(value: string | undefined): Set<string> {
   );
 }
 
+/**
+ * Reports names in `DOKPLOY_DISABLED_TOOLS` that match no known tool. A typo
+ * would otherwise silently leave the tool enabled — the opposite of what an
+ * operator writing a deny-list intends.
+ */
+function warnAboutUnknownToolNames(disabledTools: Set<string>): void {
+  if (disabledTools.size === 0) return;
+
+  const knownNames = new Set(generatedTools.map((tool) => tool.name.toLowerCase()));
+  const unknown = [...disabledTools].filter((name) => !knownNames.has(name));
+
+  if (unknown.length > 0) {
+    logger.warn("Ignoring unknown entries in DOKPLOY_DISABLED_TOOLS", { unknown });
+  }
+}
+
 function isToolPreset(value: string): value is ToolPreset {
   return Object.hasOwn(TOOL_PRESETS, value);
 }
@@ -38,6 +54,7 @@ function isToolPreset(value: string): value is ToolPreset {
 function getEnabledTools() {
   const enabledTags = process.env.DOKPLOY_ENABLED_TAGS;
   const disabledTags = parseTagList(process.env.DOKPLOY_DISABLED_TAGS);
+  const disabledTools = parseTagList(process.env.DOKPLOY_DISABLED_TOOLS);
   const requestedPreset = process.env.DOKPLOY_TOOL_PRESET?.trim().toLowerCase() || "all";
   const preset: ToolPreset = isToolPreset(requestedPreset) ? requestedPreset : "all";
 
@@ -64,6 +81,13 @@ function getEnabledTools() {
     filtered = filtered.filter((tool) => !disabledTags.has(tool.tag.toLowerCase()));
   }
 
+  // Applied last, and by tool name rather than tag, so a single risky tool can
+  // be dropped without losing the rest of its category.
+  if (disabledTools.size > 0) {
+    warnAboutUnknownToolNames(disabledTools);
+    filtered = filtered.filter((tool) => !disabledTools.has(tool.name.toLowerCase()));
+  }
+
   const context = {
     total: generatedTools.length,
     loaded: filtered.length,
@@ -71,6 +95,7 @@ function getEnabledTools() {
     preset,
     enabledTags: [...selectedTags],
     disabledTags: [...disabledTags],
+    disabledTools: [...disabledTools],
   };
 
   logger.info("Loaded tools", context);
