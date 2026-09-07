@@ -13655,6 +13655,46 @@
                           "providerType",
                           "apiToken"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "ovh"
+                          },
+                          "endpoint": {
+                            "default": "ovh-eu",
+                            "type": "string",
+                            "enum": [
+                              "ovh-eu",
+                              "ovh-ca",
+                              "ovh-us",
+                              "kimsufi-eu",
+                              "kimsufi-ca",
+                              "soyoustart-eu",
+                              "soyoustart-ca"
+                            ]
+                          },
+                          "applicationKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "applicationSecret": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "consumerKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "applicationKey",
+                          "applicationSecret",
+                          "consumerKey"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -13831,6 +13871,46 @@
                         "required": [
                           "providerType",
                           "apiToken"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "ovh"
+                          },
+                          "endpoint": {
+                            "default": "ovh-eu",
+                            "type": "string",
+                            "enum": [
+                              "ovh-eu",
+                              "ovh-ca",
+                              "ovh-us",
+                              "kimsufi-eu",
+                              "kimsufi-ca",
+                              "soyoustart-eu",
+                              "soyoustart-ca"
+                            ]
+                          },
+                          "applicationKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "applicationSecret": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "consumerKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "applicationKey",
+                          "applicationSecret",
+                          "consumerKey"
                         ]
                       }
                     ],
@@ -14255,6 +14335,46 @@
                         "required": [
                           "providerType",
                           "apiToken"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "ovh"
+                          },
+                          "endpoint": {
+                            "default": "ovh-eu",
+                            "type": "string",
+                            "enum": [
+                              "ovh-eu",
+                              "ovh-ca",
+                              "ovh-us",
+                              "kimsufi-eu",
+                              "kimsufi-ca",
+                              "soyoustart-eu",
+                              "soyoustart-ca"
+                            ]
+                          },
+                          "applicationKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "applicationSecret": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "consumerKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "applicationKey",
+                          "applicationSecret",
+                          "consumerKey"
                         ]
                       }
                     ],
