@@ -60453,7 +60453,7 @@
                           }
                         ]
                       },
-                      "metaTitle": {
+                      "footerText": {
                         "anyOf": [
                           {
                             "type": "string"
@@ -60463,7 +60463,7 @@
                           }
                         ]
                       },
-                      "footerText": {
+                      "ogImageUrl": {
                         "anyOf": [
                           {
                             "type": "string"
@@ -60485,8 +60485,8 @@
                       "docsUrl",
                       "errorPageTitle",
                       "errorPageDescription",
-                      "metaTitle",
-                      "footerText"
+                      "footerText",
+                      "ogImageUrl"
                     ]
                   }
                 },
