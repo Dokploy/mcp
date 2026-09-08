@@ -13638,6 +13638,63 @@
                           "apiKey",
                           "secretApiKey"
                         ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "infomaniak"
+                          },
+                          "apiToken": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiToken"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "ovh"
+                          },
+                          "endpoint": {
+                            "default": "ovh-eu",
+                            "type": "string",
+                            "enum": [
+                              "ovh-eu",
+                              "ovh-ca",
+                              "ovh-us",
+                              "kimsufi-eu",
+                              "kimsufi-ca",
+                              "soyoustart-eu",
+                              "soyoustart-ca"
+                            ]
+                          },
+                          "applicationKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "applicationSecret": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "consumerKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "applicationKey",
+                          "applicationSecret",
+                          "consumerKey"
+                        ]
                       }
                     ],
                     "type": "object"
@@ -13797,6 +13854,63 @@
                           "providerType",
                           "apiKey",
                           "secretApiKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "infomaniak"
+                          },
+                          "apiToken": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiToken"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "ovh"
+                          },
+                          "endpoint": {
+                            "default": "ovh-eu",
+                            "type": "string",
+                            "enum": [
+                              "ovh-eu",
+                              "ovh-ca",
+                              "ovh-us",
+                              "kimsufi-eu",
+                              "kimsufi-ca",
+                              "soyoustart-eu",
+                              "soyoustart-ca"
+                            ]
+                          },
+                          "applicationKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "applicationSecret": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "consumerKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "applicationKey",
+                          "applicationSecret",
+                          "consumerKey"
                         ]
                       }
                     ],
@@ -14204,6 +14318,63 @@
                           "providerType",
                           "apiKey",
                           "secretApiKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "infomaniak"
+                          },
+                          "apiToken": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "apiToken"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "ovh"
+                          },
+                          "endpoint": {
+                            "default": "ovh-eu",
+                            "type": "string",
+                            "enum": [
+                              "ovh-eu",
+                              "ovh-ca",
+                              "ovh-us",
+                              "kimsufi-eu",
+                              "kimsufi-ca",
+                              "soyoustart-eu",
+                              "soyoustart-ca"
+                            ]
+                          },
+                          "applicationKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "applicationSecret": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "consumerKey": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "applicationKey",
+                          "applicationSecret",
+                          "consumerKey"
                         ]
                       }
                     ],
@@ -53381,6 +53552,40 @@
                         "properties": {
                           "providerType": {
                             "type": "string",
+                            "const": "aws-parameter-store"
+                          },
+                          "region": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "accessKeyId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretAccessKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "parameterPath": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "region",
+                          "accessKeyId",
+                          "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
                             "const": "doppler"
                           },
                           "serviceToken": {
@@ -53715,6 +53920,40 @@
                           "endpoint": {
                             "type": "string",
                             "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "region",
+                          "accessKeyId",
+                          "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "aws-parameter-store"
+                          },
+                          "region": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "accessKeyId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretAccessKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "parameterPath": {
+                            "type": "string"
                           }
                         },
                         "required": [
@@ -54310,6 +54549,40 @@
                           "endpoint": {
                             "type": "string",
                             "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "region",
+                          "accessKeyId",
+                          "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "aws-parameter-store"
+                          },
+                          "region": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "accessKeyId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretAccessKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "parameterPath": {
+                            "type": "string"
                           }
                         },
                         "required": [
@@ -55980,7 +56253,8 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1
                   },
                   "logo": {
                     "type": "string"
@@ -56236,7 +56510,8 @@
                     "type": "string"
                   },
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 1
                   },
                   "logo": {
                     "type": "string"
@@ -60178,7 +60453,7 @@
                           }
                         ]
                       },
-                      "metaTitle": {
+                      "footerText": {
                         "anyOf": [
                           {
                             "type": "string"
@@ -60188,7 +60463,7 @@
                           }
                         ]
                       },
-                      "footerText": {
+                      "ogImageUrl": {
                         "anyOf": [
                           {
                             "type": "string"
@@ -60210,8 +60485,8 @@
                       "docsUrl",
                       "errorPageTitle",
                       "errorPageDescription",
-                      "metaTitle",
-                      "footerText"
+                      "footerText",
+                      "ogImageUrl"
                     ]
                   }
                 },
