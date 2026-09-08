@@ -142,7 +142,12 @@ function stripUnsupportedRegexPatterns(value: unknown): void {
 // See https://github.com/Dokploy/mcp/issues/32
 function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string, unknown> {
   const result = zodToJsonSchema(schema, {
-    target: "jsonSchema2019-09",
+    // zod-to-json-schema emits numeric exclusiveMinimum/exclusiveMaximum only
+    // for the jsonSchema7 target; every other target uses the draft-4 boolean
+    // form, which draft 2020-12 rejects. The targets are otherwise identical
+    // for these schemas, and $schema is replaced below anyway.
+    // See https://github.com/Dokploy/mcp/issues/74
+    target: "jsonSchema7",
     strictUnions: true,
   }) as Record<string, unknown>;
 
