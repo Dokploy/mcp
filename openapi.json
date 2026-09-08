@@ -53552,6 +53552,40 @@
                         "properties": {
                           "providerType": {
                             "type": "string",
+                            "const": "aws-parameter-store"
+                          },
+                          "region": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "accessKeyId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretAccessKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "parameterPath": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "region",
+                          "accessKeyId",
+                          "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
                             "const": "doppler"
                           },
                           "serviceToken": {
@@ -53886,6 +53920,40 @@
                           "endpoint": {
                             "type": "string",
                             "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "region",
+                          "accessKeyId",
+                          "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "aws-parameter-store"
+                          },
+                          "region": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "accessKeyId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretAccessKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "parameterPath": {
+                            "type": "string"
                           }
                         },
                         "required": [
@@ -54481,6 +54549,40 @@
                           "endpoint": {
                             "type": "string",
                             "format": "uri"
+                          }
+                        },
+                        "required": [
+                          "providerType",
+                          "region",
+                          "accessKeyId",
+                          "secretAccessKey"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "providerType": {
+                            "type": "string",
+                            "const": "aws-parameter-store"
+                          },
+                          "region": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "accessKeyId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "secretAccessKey": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "endpoint": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "parameterPath": {
+                            "type": "string"
                           }
                         },
                         "required": [
