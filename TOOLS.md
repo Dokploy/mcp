@@ -860,7 +860,7 @@
 |------|--------|------------|
 | `stripe-getCurrentPlan` | GET | None |
 | `stripe-getBillingStatus` | GET | None |
-| `stripe-startFreeTrial` | POST | None |
+| `stripe-startFreeTrial` | POST | `tier` ("hobby" | "startup") |
 | `stripe-getProducts` | GET | None |
 | `stripe-createCheckoutSession` | POST | `tier` ("legacy" | "hobby" | "startup"), `productId` (string), `serverQuantity` (number), `isAnnual` (boolean) |
 | `stripe-createCustomerPortalSession` | POST | None |

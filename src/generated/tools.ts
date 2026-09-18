@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-09-08
+// Generated from openapi.json on 2026-09-18
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -5493,7 +5493,7 @@ export const generatedTools: ToolDefinition[] = [
     tag: "stripe",
     method: "POST",
     path: "/stripe.startFreeTrial",
-    schema: z.object({}),
+    schema: z.object({ "tier": z.enum(["hobby","startup"]) }),
     annotations: {
       title: "Stripe StartFreeTrial",
       ...{"idempotentHint":true,"openWorldHint":true},
