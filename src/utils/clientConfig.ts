@@ -1,4 +1,8 @@
+import { createLogger } from "./logger.js";
 import { DEFAULT_REDACTED_FIELDS } from "./redactSensitive.js";
+import { DEFAULT_SECRET_PATH_PATTERNS } from "./secretPaths.js";
+
+const logger = createLogger("ClientConfig");
 
 export interface Config {
   dokployUrl: string;
@@ -9,6 +13,8 @@ export interface Config {
   retryDelay: number;
   redactEnv: boolean;
   redactFields: string[];
+  blockSecretPaths: boolean;
+  secretPathPatterns: string[];
 }
 
 const RESERVED_CUSTOM_HEADER_NAMES = new Set(["x-api-key", "content-type", "accept"]);
@@ -89,13 +95,6 @@ class ConfigManager {
       throw new Error("Environment variable DOKPLOY_API_KEY is not defined");
     }
 
-    const redactEnv = parseBoolean(process.env.DOKPLOY_REDACT_ENV, true);
-    const parsedFields =
-      process.env.DOKPLOY_REDACT_FIELDS?.split(",")
-        .map((f) => f.trim())
-        .filter((f) => f.length > 0) ?? [];
-    const redactFields = parsedFields.length > 0 ? parsedFields : DEFAULT_REDACTED_FIELDS;
-
     return {
       dokployUrl,
       authToken,
@@ -103,14 +102,72 @@ class ConfigManager {
       timeout: parseInt(process.env.DOKPLOY_TIMEOUT || "30000", 10),
       retryAttempts: parseInt(process.env.DOKPLOY_RETRY_ATTEMPTS || "3", 10),
       retryDelay: parseInt(process.env.DOKPLOY_RETRY_DELAY || "1000", 10),
-      redactEnv,
-      redactFields,
+      redactEnv: parseBoolean(process.env.DOKPLOY_REDACT_ENV, true),
+      redactFields: resolveList(
+        { override: "DOKPLOY_REDACT_FIELDS", extra: "DOKPLOY_EXTRA_REDACT_FIELDS" },
+        process.env.DOKPLOY_REDACT_FIELDS,
+        process.env.DOKPLOY_EXTRA_REDACT_FIELDS,
+        DEFAULT_REDACTED_FIELDS,
+      ),
+      blockSecretPaths: parseBoolean(process.env.DOKPLOY_BLOCK_SECRET_PATHS, true),
+      secretPathPatterns: resolveList(
+        { override: "DOKPLOY_SECRET_PATH_PATTERNS", extra: "DOKPLOY_EXTRA_SECRET_PATHS" },
+        process.env.DOKPLOY_SECRET_PATH_PATTERNS,
+        process.env.DOKPLOY_EXTRA_SECRET_PATHS,
+        DEFAULT_SECRET_PATH_PATTERNS,
+      ),
     };
   }
 }
 
 export function getClientConfig(): Config {
   return ConfigManager.getInstance().getConfig();
+}
+
+/**
+ * Resolves a security list from an optional full override plus an optional
+ * additive extension.
+ *
+ * Overriding replaces the built-in defaults wholesale, which is easy to reach
+ * for by accident: an operator who only wants one more entry writes out the
+ * whole list, copies an outdated version of it, and silently drops protections
+ * they never meant to touch. The `EXTRA_` variable exists so that the common
+ * case — "the defaults, plus this" — never has that failure mode. An override
+ * is still honoured, but it is logged, because weakening the defaults should
+ * not happen quietly.
+ */
+export function resolveList(
+  names: { override: string; extra: string },
+  override: string | undefined,
+  extra: string | undefined,
+  defaults: string[],
+): string[] {
+  const base = parseList(override, defaults);
+  const additions = parseList(extra, []);
+
+  if (base !== defaults) {
+    logger.warn(`${names.override} replaces the built-in defaults rather than extending them`, {
+      defaultEntries: defaults.length,
+      configuredEntries: base.length,
+      hint: `Use ${names.extra} to keep the defaults and add to them`,
+    });
+  }
+
+  return additions.length > 0 ? [...new Set([...base, ...additions])] : base;
+}
+
+/**
+ * Parses a comma-separated environment variable, falling back to `fallback`
+ * when the variable is unset or contains no usable entries.
+ */
+function parseList(value: string | undefined, fallback: string[]): string[] {
+  const parsed =
+    value
+      ?.split(",")
+      .map((entry) => entry.trim())
+      .filter((entry) => entry.length > 0) ?? [];
+
+  return parsed.length > 0 ? parsed : fallback;
 }
 
 function parseBoolean(value: string | undefined, fallback: boolean): boolean {

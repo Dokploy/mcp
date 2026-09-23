@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseCustomHeaders } from "./clientConfig.js";
+import { parseCustomHeaders, resolveList } from "./clientConfig.js";
 
 describe("parseCustomHeaders", () => {
   it("returns no custom headers when unset", () => {
@@ -56,6 +56,42 @@ describe("parseCustomHeaders", () => {
     expect(() => parseCustomHeaders(JSON.stringify({ ACCEPT: "text/plain" }))).toThrow(
       /cannot override reserved header/,
     );
+  });
+});
+
+describe("resolveList", () => {
+  const NAMES = { override: "DOKPLOY_THING", extra: "DOKPLOY_EXTRA_THING" };
+  const DEFAULTS = ["alpha", "beta"];
+  const resolve = (override?: string, extra?: string) =>
+    resolveList(NAMES, override, extra, DEFAULTS);
+
+  it("returns the defaults when neither variable is set", () => {
+    expect(resolve()).toEqual(DEFAULTS);
+  });
+
+  it("adds to the defaults instead of replacing them", () => {
+    expect(resolve(undefined, "gamma")).toEqual(["alpha", "beta", "gamma"]);
+  });
+
+  it("replaces the defaults when the override is set", () => {
+    expect(resolve("gamma")).toEqual(["gamma"]);
+  });
+
+  it("adds to an explicit override as well", () => {
+    expect(resolve("gamma", "delta")).toEqual(["gamma", "delta"]);
+  });
+
+  it("ignores blank entries and surrounding whitespace", () => {
+    expect(resolve(undefined, " gamma , , delta ")).toEqual(["alpha", "beta", "gamma", "delta"]);
+  });
+
+  it("does not duplicate an addition that is already a default", () => {
+    expect(resolve(undefined, "beta,gamma")).toEqual(["alpha", "beta", "gamma"]);
+  });
+
+  it("treats an empty override as unset rather than as an empty list", () => {
+    expect(resolve("")).toEqual(DEFAULTS);
+    expect(resolve("  ,  ")).toEqual(DEFAULTS);
   });
 });
 
