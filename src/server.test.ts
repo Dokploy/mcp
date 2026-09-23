@@ -202,6 +202,39 @@ describe("MCP server tools/list", () => {
     }
   });
 
+  it("no tool inputSchema contains boolean exclusiveMinimum/exclusiveMaximum", async () => {
+    const tools = await getToolList();
+
+    function findBooleanExclusiveBounds(obj: unknown, path = ""): string[] {
+      if (obj === null || typeof obj !== "object") return [];
+      if (Array.isArray(obj)) {
+        return obj.flatMap((item, i) => findBooleanExclusiveBounds(item, `${path}[${i}]`));
+      }
+
+      const record = obj as Record<string, unknown>;
+      const found: string[] = [];
+      for (const [key, value] of Object.entries(record)) {
+        const currentPath = path ? `${path}.${key}` : key;
+        if (
+          (key === "exclusiveMinimum" || key === "exclusiveMaximum") &&
+          typeof value === "boolean"
+        ) {
+          found.push(currentPath);
+        }
+        found.push(...findBooleanExclusiveBounds(value, currentPath));
+      }
+      return found;
+    }
+
+    for (const tool of tools) {
+      const found = findBooleanExclusiveBounds(tool.inputSchema);
+      expect(
+        found,
+        `Tool "${tool.name}" has draft-4 boolean exclusive bounds at: ${found.join(", ")}`,
+      ).toHaveLength(0);
+    }
+  });
+
   it("all tools have name, inputSchema with type=object", async () => {
     const tools = await getToolList();
     for (const tool of tools) {
