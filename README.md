@@ -1,8 +1,50 @@
 # Dokploy MCP Server
 
+> **Fork note.** This is a fork of [Dokploy/mcp](https://github.com/Dokploy/mcp) that adds an opt-in shared-secret gate on the HTTP transport so the server can be safely exposed to Claude / Cowork over the public internet. See [HTTP endpoint authentication](#http-endpoint-authentication-fork-addition) for details. Everything else is unchanged from upstream.
+
 [![npm version](https://img.shields.io/npm/v/@dokploy/mcp.svg)](https://www.npmjs.com/package/@dokploy/mcp) [<img alt="Install in VS Code (npx)" src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Dokploy%20MCP&color=0098FF">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%7B%22name%22%3A%22dokploy-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40dokploy%2Fmcp%40latest%22%5D%7D)
 
 Dokploy MCP Server exposes **all Dokploy API endpoints** as tools consumable via the Model Context Protocol (MCP). It allows MCP-compatible clients (e.g., AI models, other applications) to interact with your Dokploy server programmatically.
+
+## HTTP endpoint authentication (fork addition)
+
+The upstream project ships the HTTP/SSE transports with **no authentication** on `/mcp`, `/sse`, or `/messages`. That's fine when they're bound to `localhost`, but exposing them publicly (Cowork, Claude Desktop's URL-based custom connectors, remote CLI) means anyone who can reach the URL can call every tool against your Dokploy instance.
+
+This fork adds an optional shared-secret gate. Set the env var:
+
+```bash
+MCP_AUTH_TOKEN=$(openssl rand -hex 32)
+```
+
+Callers then present the token in one of two ways:
+
+**Header (preferred, RFC 6750-clean)** — works with the Claude CLI and anything else that lets you attach headers:
+
+```bash
+claude mcp add --transport http dokploy https://mcp.yourdomain.tld/mcp \
+  --header "Authorization: Bearer $MCP_AUTH_TOKEN"
+```
+
+**Query string** — works with UIs that only take a URL (Cowork's "Add custom connector" dialog, etc.):
+
+```
+https://mcp.yourdomain.tld/mcp?token=<your-MCP_AUTH_TOKEN>
+```
+
+Both paths use the same timing-safe comparison. Requests presenting neither (or a wrong value) get `401 Unauthorized` with a `WWW-Authenticate: Bearer` header. The `/health` endpoint is intentionally left open for container orchestrators.
+
+If `MCP_AUTH_TOKEN` is unset, behavior matches upstream (endpoints open) and the process logs a warning at startup.
+
+**Why offer the query-string form at all?** RFC 6750 discourages tokens in URLs because they can leak via server access logs, referer headers, or browser history. None of those apply here: this URL is only ever POST'd by an MCP client (never navigated in a browser), and this process doesn't log request URLs. Prefer the header when your client supports it.
+
+For Cowork's "Add custom connector" dialog:
+
+- **Name:** anything (e.g. `Dokploy`)
+- **URL:** `https://mcp.yourdomain.tld/mcp?token=<your-MCP_AUTH_TOKEN>` — note the `/mcp` path *and* the `?token=` query param
+- Leave OAuth Client ID / Client Secret blank — this server uses a static shared secret, not OAuth 2.0.
+
+---
+
 
 With **508 tools** across **49 categories**, this server provides complete coverage of the Dokploy API — from project and application management to databases, notifications, SSO, Docker, backups, and more.
 
