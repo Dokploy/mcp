@@ -316,6 +316,45 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
 | `DOKPLOY_REDACT_ENV` | No | Redacts secret-bearing fields (env vars, compose files, passwords, tokens, keys) from API responses before they reach the MCP client (default: `true`). Set to `false` only if you explicitly need raw secret values in LLM context. |
 | `DOKPLOY_REDACT_FIELDS` | No | Comma-separated list of response field names to redact when `DOKPLOY_REDACT_ENV=true`. Matched case-insensitively at any nesting depth. Defaults to: `env`, `buildArgs`, `composeFile`, `dockerCompose`, `environment`, `buildSecrets`, `previewBuildSecrets`, `password`, `currentPassword`, `appPassword`, `databasePassword`, `databaseRootPassword`, `redisPassword`, `mariadbPassword`, `mongoPassword`, `mysqlPassword`, `postgresPassword`, `registryPassword`, `token`, `accessToken`, `appToken`, `apiToken`, `botToken`, `refreshToken`, `secret`, `clientSecret`, `apiKey`, `secretAccessKey`, `accessKey`, `licenseKey`, `userKey`, `privateKey`, `privateKeyPass`, `encPrivateKey`, `encPrivateKeyPass`, `sshKey`, `sshPrivateKey`, `customGitSSHKey`, `dockerAuth`. |
+| `DOKPLOY_EXTRA_REDACT_FIELDS` | No | Comma-separated field names to redact **in addition to** the defaults. Prefer this over `DOKPLOY_REDACT_FIELDS` when you only want to add entries. |
+| `DOKPLOY_BLOCK_SECRET_PATHS` | No | Refuses file-access tools when the requested `path` looks secret-bearing (default: `true`). See [Secret path guard](#secret-path-guard). Set to `false` to disable. |
+| `DOKPLOY_EXTRA_SECRET_PATHS` | No | Comma-separated glob patterns to block **in addition to** the defaults. Prefer this over `DOKPLOY_SECRET_PATH_PATTERNS` when you only want to add entries. |
+| `DOKPLOY_SECRET_PATH_PATTERNS` | No | Comma-separated glob patterns overriding the blocked paths. A pattern containing `/` is matched against the whole normalized path, any other pattern against the file name only. Defaults to: `.env`, `.env.*`, `*.env`, `/run/secrets/**`, `**/secrets/**`, `*.pem`, `*.key`, `*.p12`, `*.pfx`, `id_rsa*`, `id_dsa*`, `id_ecdsa*`, `id_ed25519*`, `.npmrc`, `.netrc`, `.pgpass`, `.git-credentials`, `.htpasswd`, `credentials`, `credentials.*`, `**/.ssh/**`, `**/.aws/**`, `**/.gnupg/**`, `**/.docker/config.json`, `**/.kube/config`, `/var/lib/postgresql/**`, `/var/lib/mysql/**`, `/var/lib/mongodb/**`, `/var/lib/redis/**`, `/data/db/**`, `**/postgresql/data/**`, `**/pgdata/**`, `*.rdb`, `*.aof`, `*.sqlite`, `*.sqlite3`. |
+
+### Secret path guard
+
+`DOKPLOY_REDACT_ENV` masks secret-bearing fields by matching the *field name* of an API response. That works for structured responses such as application or compose configuration, but it cannot protect the tools that return raw file contents:
+
+- `docker-readContainerFile`, `docker-listContainerFiles`, `docker-writeContainerFile`, `docker-deleteContainerFile`
+- `dockerVolume-readVolumeFile`, `dockerVolume-listVolumeFiles`, `dockerVolume-writeVolumeFile`, `dockerVolume-deleteVolumeFile`
+- `settings-readTraefikFile`, `settings-updateTraefikFile`
+
+For these, the secret arrives as an opaque string whose field name reveals nothing, so name-based redaction never fires — reading `/app/.env` would hand every variable straight to the model.
+
+`DOKPLOY_BLOCK_SECRET_PATHS` closes that gap on the request side. Before such a tool runs, its `path` argument is normalized (traversal segments and percent-encoding are resolved) and matched against `DOKPLOY_SECRET_PATH_PATTERNS`. On a match the call is refused; everything else about the tool stays available, so reading `/app/logs/error.log` continues to work while `/app/.env` does not.
+
+The guard is derived from the presence of a `path` argument rather than from a hardcoded list of tool names, so newly added file-access tools are covered automatically.
+
+**Second layer — assignments inside file contents.** A deny-list only covers the paths someone thought of. When a file-access tool does return contents, those contents are additionally scanned for `KEY=value` assignments, and the value is masked whenever the key names a secret according to the very same `DOKPLOY_REDACT_FIELDS` list. So a stray `DB_PASSWORD=hunter2` inside `/app/config/local.conf` is masked, while `PORT=3000` in the same file stays readable. This pass runs only on responses from tools that take a `path`, so ordinary API payloads are unaffected, and it is disabled together with `DOKPLOY_REDACT_ENV=false`.
+
+**Third layer — recognisable secret formats, everywhere.** Log tools (`deployment-readLogs`, `application-readLogs`, `compose-readLogs`, …) return prose: there is no field name and no path to key off, so neither of the passes above can help. Every response is therefore also scanned for secret *shapes* — credentials inside a URI, `Authorization` headers, PEM blocks, JWTs, and the token formats of GitHub, GitLab, AWS, OpenAI, Slack and Stripe. A connection string keeps everything but its password, so `postgres://appuser:hunter2@db:5432/app` becomes `postgres://appuser:[REDACTED]@db:5432/app` and stays useful for debugging. This runs on all responses, not just log tools, because a PEM block is a secret whichever endpoint returned it, and it follows `DOKPLOY_REDACT_ENV`.
+
+**File contents arrive base64-encoded.** `docker-readContainerFile` and its siblings return a file as base64, not as plain text, so both content passes above are given a decoding step: a payload that decodes cleanly to UTF-8 text is masked in its decoded form and re-encoded, and returned byte-identical when nothing was masked. Without this the assignment pass never fired for the very tool it was written for — a secret in an uncovered file travelled through merely encoded, which stops nobody. Binary payloads and strings that only coincidentally fit the base64 alphabet are rejected by a round-trip check.
+
+This layer is deliberately narrow. It recognises formats a human could pick out of a log line unaided; it does **not** detect `Connecting as admin with password hunter2`, and no entropy-based guessing is attempted — a log shredded by false positives is useless exactly when it is needed.
+
+**Add to the lists, don't replace them.** `DOKPLOY_REDACT_FIELDS` and `DOKPLOY_SECRET_PATH_PATTERNS` replace the built-in defaults wholesale. That is rarely what you want: to add a single entry you have to write out the whole list, and a list copied from an older README quietly drops protections you never intended to remove. Use `DOKPLOY_EXTRA_REDACT_FIELDS` and `DOKPLOY_EXTRA_SECRET_PATHS` instead — they keep the defaults and append to them:
+
+```bash
+DOKPLOY_EXTRA_SECRET_PATHS='/opt/myapp/secrets.conf,**/*.backup'
+DOKPLOY_EXTRA_REDACT_FIELDS='internalSigningKey'
+```
+
+Setting a full override still works, but the server logs a warning at startup, because silently weakening a security default should be visible.
+
+**Database storage counts as a secret.** The deny-list covers more than credential files: relational engines keep row data unencrypted on disk, so reading `/var/lib/postgresql/data/base/16384/2619` returns the contents of a table in the clear — without SQL, without a password, and without the server even running. Locations like `/var/lib/mysql/**`, `/data/db/**` and `*.sqlite3` are blocked for the same reason. These entries are anchored to absolute paths or to distinctive directory names so that an unrelated `node_modules/mysql` is not caught by accident.
+
+> **Scope:** this is a guard on what reaches the MCP client, not a server-side permission boundary. Anyone holding the same `DOKPLOY_API_KEY` can still call the Dokploy API directly.
 
 For Dokploy instances behind Cloudflare Access or a similar reverse proxy, pass service-token headers with placeholder values like this:
 
