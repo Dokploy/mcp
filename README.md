@@ -311,6 +311,7 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_TOOL_PRESET` | No | Predefined toolset to load: `all` (default), `minimal`, `core`, `deploy`, `databases`, or `git`. Useful for clients/providers that struggle with very large tool lists. |
 | `DOKPLOY_ENABLED_TAGS` | No | Comma-separated list of tags to filter which tools are loaded (e.g., `project,application,postgres`) |
 | `DOKPLOY_DISABLED_TAGS` | No | Comma-separated list of tags to exclude from the selected toolset. Applied after `DOKPLOY_TOOL_PRESET` or `DOKPLOY_ENABLED_TAGS`. |
+| `DOKPLOY_DISABLED_TOOLS` | No | Comma-separated list of individual tool names to exclude (e.g. `docker-writeContainerFile,docker-deleteContainerFile`). Matched case-insensitively and applied last, so a single tool can be dropped without losing the rest of its tag. Unknown names are logged and ignored. |
 | `DOKPLOY_TIMEOUT` | No | Request timeout in milliseconds (default: `30000`) |
 | `DOKPLOY_RETRY_ATTEMPTS` | No | Number of retry attempts (default: `3`) |
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
