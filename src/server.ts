@@ -3,10 +3,23 @@ import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import type { ZodObject, ZodRawShape } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { generatedTools } from "./generated/tools.js";
-import { createHandler } from "./handler.js";
+import { createHandler, createWorkflowHandler } from "./handler.js";
+import type { ToolDefinition } from "./types.js";
 import { createLogger } from "./utils/logger.js";
+import { workflowTools } from "./workflows/index.js";
+import type { WorkflowToolDefinition } from "./workflows/types.js";
 
 const logger = createLogger("MCP-Server");
+
+type AnyTool = ToolDefinition | WorkflowToolDefinition;
+
+// Generated tools mirror the API one-to-one; workflow tools are hand-written
+// and combine several calls. Both go through the same preset and tag filters.
+const allTools: AnyTool[] = [...generatedTools, ...workflowTools];
+
+function isWorkflowTool(tool: AnyTool): tool is WorkflowToolDefinition {
+  return "run" in tool;
+}
 
 const JSON_SCHEMA_2020_12 = "https://json-schema.org/draft/2020-12/schema";
 const LARGE_TOOLSET_WARNING_THRESHOLD = 150;
@@ -57,15 +70,15 @@ function getEnabledTools() {
 
   let filtered =
     selectedTags.size > 0
-      ? generatedTools.filter((tool) => selectedTags.has(tool.tag.toLowerCase()))
-      : generatedTools;
+      ? allTools.filter((tool) => selectedTags.has(tool.tag.toLowerCase()))
+      : allTools;
 
   if (disabledTags.size > 0) {
     filtered = filtered.filter((tool) => !disabledTags.has(tool.tag.toLowerCase()));
   }
 
   const context = {
-    total: generatedTools.length,
+    total: allTools.length,
     loaded: filtered.length,
     source,
     preset,
@@ -166,7 +179,7 @@ export function createServer() {
       tool.description,
       tool.schema.shape,
       tool.annotations ?? {},
-      createHandler(tool),
+      isWorkflowTool(tool) ? createWorkflowHandler(tool) : createHandler(tool),
     );
   }
 

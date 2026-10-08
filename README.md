@@ -481,6 +481,17 @@ If `DOKPLOY_ENABLED_TAGS` is set, it takes precedence over `DOKPLOY_TOOL_PRESET`
 
 All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior and safety characteristics.
 
+### Workflow Tools
+
+Most tools map one-to-one to a Dokploy API endpoint. A small number of hand-written workflow tools combine several calls for tasks that otherwise take a model multiple steps and some polling:
+
+| Tool | What it does |
+|------|--------------|
+| `deployment-deployAndWait` | Deploys (or redeploys) an application or Docker Compose service, waits until the deployment finishes or `waitSeconds` elapses (default `120`, max `900`), and returns the final status with the end of the build log. |
+| `deployment-latest` | Returns the most recent deployment of an application or Docker Compose service with its status, error message, and the end of its build log. Read-only. |
+
+Both take either `applicationId` or `composeId`. They carry the `deployment` tag, so they follow the same preset and tag filters as the generated tools. Keep `waitSeconds` below your MCP client's tool timeout; if a deployment outlasts it, the tool returns status `running` and you can follow up with `deployment-latest`.
+
 ## Architecture
 
 Built with **@modelcontextprotocol/sdk**, **TypeScript**, and **Zod** for type-safe schema validation:

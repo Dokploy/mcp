@@ -4,6 +4,7 @@ import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
 import { redactSensitive } from "./utils/redactSensitive.js";
 import { ResponseFormatter } from "./utils/responseFormatter.js";
+import type { WorkflowToolDefinition } from "./workflows/types.js";
 
 const logger = createLogger("ToolHandler");
 
@@ -43,6 +44,30 @@ export function createHandler(tool: ToolDefinition) {
           );
         }
       }
+
+      return ResponseFormatter.error(
+        `Failed to execute ${tool.name}`,
+        `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    }
+  };
+}
+
+export function createWorkflowHandler(tool: WorkflowToolDefinition) {
+  return async (input: Record<string, unknown>) => {
+    const { redactEnv, redactFields } = getClientConfig();
+    const redact = <T>(value: T): T => (redactEnv ? redactSensitive(value, redactFields) : value);
+
+    try {
+      logger.info(`Executing workflow tool: ${tool.name}`, { input: redact(input) });
+
+      const result = await tool.run(input, apiClient);
+
+      return ResponseFormatter.success(result.message, redact(result.data));
+    } catch (error) {
+      logger.error(`Workflow tool execution failed: ${tool.name}`, {
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
 
       return ResponseFormatter.error(
         `Failed to execute ${tool.name}`,

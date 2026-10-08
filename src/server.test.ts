@@ -12,10 +12,14 @@ vi.mock("./utils/apiClient.js", () => ({
 
 const { createServer } = await import("./server.js");
 const { generatedTools } = await import("./generated/tools.js");
+const { workflowTools } = await import("./workflows/index.js");
+const apiClient = (await import("./utils/apiClient.js")).default;
+
+const allTools = [...generatedTools, ...workflowTools];
 
 function countByTags(tags: string[]): number {
   const wanted = new Set(tags.map((tag) => tag.toLowerCase()));
-  return generatedTools.filter((tool) => wanted.has(tool.tag.toLowerCase())).length;
+  return allTools.filter((tool) => wanted.has(tool.tag.toLowerCase())).length;
 }
 
 describe("MCP server tools/list", () => {
@@ -45,7 +49,7 @@ describe("MCP server tools/list", () => {
 
   it("returns all tools by default", async () => {
     const tools = await getToolList();
-    expect(tools).toHaveLength(generatedTools.length);
+    expect(tools).toHaveLength(allTools.length);
   });
 
   it("supports DOKPLOY_TOOL_PRESET=minimal for clients sensitive to large toolsets", async () => {
@@ -98,7 +102,58 @@ describe("MCP server tools/list", () => {
 
     const tools = await getToolList();
 
-    expect(tools).toHaveLength(generatedTools.length);
+    expect(tools).toHaveLength(allTools.length);
+  });
+
+  it("lists workflow tools alongside generated tools without name collisions", async () => {
+    const tools = await getToolList();
+    const names = tools.map((tool) => tool.name);
+
+    expect(names).toContain("deployment-deployAndWait");
+    expect(names).toContain("deployment-latest");
+    expect(new Set(names).size).toBe(names.length);
+  });
+
+  it("filters workflow tools by tag like generated tools", async () => {
+    process.env.DOKPLOY_ENABLED_TAGS = "project";
+
+    const names = (await getToolList()).map((tool) => tool.name);
+
+    expect(names).not.toContain("deployment-deployAndWait");
+  });
+
+  it("runs a workflow tool end to end through the MCP server", async () => {
+    // The handler reads the client config for redaction settings.
+    process.env.DOKPLOY_URL = "https://dokploy.example.com";
+    process.env.DOKPLOY_API_KEY = "test-key";
+    vi.mocked(apiClient.get).mockImplementation(async (path: string) =>
+      path === "/deployment.readLogs"
+        ? { data: "log tail" }
+        : { data: [{ deploymentId: "dep-1", status: "error", errorMessage: "build failed" }] },
+    );
+
+    const server = createServer();
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    await server.connect(serverTransport);
+    const client = new Client({ name: "test-client", version: "1.0.0" });
+    await client.connect(clientTransport);
+
+    const result = await client.callTool({
+      name: "deployment-latest",
+      arguments: { applicationId: "app-1" },
+    });
+    await client.close();
+
+    const payload = JSON.parse((result.content as { text: string }[])[0]?.text ?? "{}");
+    expect(result.isError).toBeFalsy();
+    expect(payload.data).toMatchObject({
+      status: "error",
+      deployment: { deploymentId: "dep-1", errorMessage: "build failed" },
+      logs: "log tail",
+    });
+    expect(apiClient.get).toHaveBeenCalledWith("/deployment.readLogs", {
+      params: { deploymentId: "dep-1", tail: 50 },
+    });
   });
 
   it("every tool inputSchema has $schema set to draft 2020-12", async () => {
