@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-09-18
+// Generated from openapi.json on 2026-10-08
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -8,7 +8,7 @@ import type { ToolDefinition } from "../types.js";
 export const generatedTools: ToolDefinition[] = [
   {
     name: "admin-setupMonitoring",
-    description: "POST /admin.setupMonitoring",
+    description: "Setup monitoring (admin). Requires: metricsConfig. [POST /admin.setupMonitoring]",
     tag: "admin",
     method: "POST",
     path: "/admin.setupMonitoring",
@@ -20,7 +20,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-create",
-    description: "POST /application.create",
+    description: "Create an application. Requires: name, environmentId. [POST /application.create]",
     tag: "application",
     method: "POST",
     path: "/application.create",
@@ -32,7 +32,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-deployNginxQuickstart",
-    description: "POST /application.deployNginxQuickstart",
+    description: "Deploy Nginx quickstart (application). Requires: environmentId. [POST /application.deployNginxQuickstart]",
     tag: "application",
     method: "POST",
     path: "/application.deployNginxQuickstart",
@@ -44,7 +44,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-one",
-    description: "GET /application.one",
+    description: "Get an application by ID. Requires: applicationId. [GET /application.one]",
     tag: "application",
     method: "GET",
     path: "/application.one",
@@ -56,7 +56,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-reload",
-    description: "POST /application.reload",
+    description: "Reload an application. Requires: appName, applicationId. [POST /application.reload]",
     tag: "application",
     method: "POST",
     path: "/application.reload",
@@ -68,7 +68,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-delete",
-    description: "POST /application.delete",
+    description: "Delete an application. Requires: applicationId. [POST /application.delete]",
     tag: "application",
     method: "POST",
     path: "/application.delete",
@@ -80,7 +80,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-stop",
-    description: "POST /application.stop",
+    description: "Stop an application. Requires: applicationId. [POST /application.stop]",
     tag: "application",
     method: "POST",
     path: "/application.stop",
@@ -92,7 +92,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-start",
-    description: "POST /application.start",
+    description: "Start an application. Requires: applicationId. [POST /application.start]",
     tag: "application",
     method: "POST",
     path: "/application.start",
@@ -104,7 +104,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-redeploy",
-    description: "POST /application.redeploy",
+    description: "Queue a redeployment of an application. Returns before the build finishes; use deployment-all to check its status. Requires: applicationId. [POST /application.redeploy]",
     tag: "application",
     method: "POST",
     path: "/application.redeploy",
@@ -116,7 +116,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveEnvironment",
-    description: "POST /application.saveEnvironment",
+    description: "Replace the environment variables of an application. Overwrites the whole block, so send the complete set of variables. Requires: applicationId, env, buildArgs, buildSecrets, createEnvFile. [POST /application.saveEnvironment]",
     tag: "application",
     method: "POST",
     path: "/application.saveEnvironment",
@@ -128,7 +128,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveBuildType",
-    description: "POST /application.saveBuildType",
+    description: "Save build type (application). Requires: applicationId, buildType, dockerfile, dockerContextPath, dockerBuildStage, herokuVersion, railpackVersion. [POST /application.saveBuildType]",
     tag: "application",
     method: "POST",
     path: "/application.saveBuildType",
@@ -140,7 +140,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveGithubProvider",
-    description: "POST /application.saveGithubProvider",
+    description: "Save GitHub provider (application). Requires: applicationId, repository, owner, buildPath, githubId, branch, triggerType. [POST /application.saveGithubProvider]",
     tag: "application",
     method: "POST",
     path: "/application.saveGithubProvider",
@@ -152,7 +152,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveGitlabProvider",
-    description: "POST /application.saveGitlabProvider",
+    description: "Save GitLab provider (application). Requires: applicationId, gitlabBuildPath, gitlabOwner, gitlabRepository, gitlabId, gitlabProjectId, gitlabPathNamespace, gitlabBranch. [POST /application.saveGitlabProvider]",
     tag: "application",
     method: "POST",
     path: "/application.saveGitlabProvider",
@@ -164,7 +164,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveBitbucketProvider",
-    description: "POST /application.saveBitbucketProvider",
+    description: "Save Bitbucket provider (application). Requires: bitbucketBuildPath, bitbucketOwner, bitbucketRepository, bitbucketRepositorySlug, bitbucketId, applicationId, bitbucketBranch. [POST /application.saveBitbucketProvider]",
     tag: "application",
     method: "POST",
     path: "/application.saveBitbucketProvider",
@@ -176,7 +176,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveGiteaProvider",
-    description: "POST /application.saveGiteaProvider",
+    description: "Save Gitea provider (application). Requires: applicationId, giteaBuildPath, giteaOwner, giteaRepository, giteaId, giteaBranch. [POST /application.saveGiteaProvider]",
     tag: "application",
     method: "POST",
     path: "/application.saveGiteaProvider",
@@ -188,7 +188,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveDockerProvider",
-    description: "POST /application.saveDockerProvider",
+    description: "Save Docker provider (application). Requires: dockerImage, applicationId, username, password, registryUrl. [POST /application.saveDockerProvider]",
     tag: "application",
     method: "POST",
     path: "/application.saveDockerProvider",
@@ -200,7 +200,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-saveGitProvider",
-    description: "POST /application.saveGitProvider",
+    description: "Save git provider (application). Requires: applicationId, customGitBuildPath, customGitUrl, watchPaths, customGitBranch. [POST /application.saveGitProvider]",
     tag: "application",
     method: "POST",
     path: "/application.saveGitProvider",
@@ -212,7 +212,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-disconnectGitProvider",
-    description: "POST /application.disconnectGitProvider",
+    description: "Disconnect git provider (application). Requires: applicationId. [POST /application.disconnectGitProvider]",
     tag: "application",
     method: "POST",
     path: "/application.disconnectGitProvider",
@@ -224,7 +224,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-markRunning",
-    description: "POST /application.markRunning",
+    description: "Mark running (application). Requires: applicationId. [POST /application.markRunning]",
     tag: "application",
     method: "POST",
     path: "/application.markRunning",
@@ -236,7 +236,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-update",
-    description: "POST /application.update",
+    description: "Update an application. Requires: applicationId. [POST /application.update]",
     tag: "application",
     method: "POST",
     path: "/application.update",
@@ -248,7 +248,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-refreshToken",
-    description: "POST /application.refreshToken",
+    description: "Refresh token (application). Requires: applicationId. [POST /application.refreshToken]",
     tag: "application",
     method: "POST",
     path: "/application.refreshToken",
@@ -260,7 +260,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-deploy",
-    description: "POST /application.deploy",
+    description: "Queue a deployment of an application. Returns before the build finishes; use deployment-all to check its status. Requires: applicationId. [POST /application.deploy]",
     tag: "application",
     method: "POST",
     path: "/application.deploy",
@@ -272,7 +272,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-cleanQueues",
-    description: "POST /application.cleanQueues",
+    description: "Clean queues (application). Requires: applicationId. [POST /application.cleanQueues]",
     tag: "application",
     method: "POST",
     path: "/application.cleanQueues",
@@ -284,7 +284,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-clearDeployments",
-    description: "POST /application.clearDeployments",
+    description: "Clear deployments (application). Requires: applicationId. [POST /application.clearDeployments]",
     tag: "application",
     method: "POST",
     path: "/application.clearDeployments",
@@ -296,7 +296,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-killBuild",
-    description: "POST /application.killBuild",
+    description: "Kill build (application). Requires: applicationId. [POST /application.killBuild]",
     tag: "application",
     method: "POST",
     path: "/application.killBuild",
@@ -308,7 +308,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-readTraefikConfig",
-    description: "GET /application.readTraefikConfig",
+    description: "Read Traefik config (application). Requires: applicationId. [GET /application.readTraefikConfig]",
     tag: "application",
     method: "GET",
     path: "/application.readTraefikConfig",
@@ -320,7 +320,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-dropDeployment",
-    description: "POST /application.dropDeployment",
+    description: "Deploy an application from an uploaded zip archive (drag-and-drop deployment). [POST /application.dropDeployment]",
     tag: "application",
     method: "POST",
     path: "/application.dropDeployment",
@@ -332,7 +332,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-updateTraefikConfig",
-    description: "POST /application.updateTraefikConfig",
+    description: "Update Traefik config (application). Requires: applicationId, traefikConfig. [POST /application.updateTraefikConfig]",
     tag: "application",
     method: "POST",
     path: "/application.updateTraefikConfig",
@@ -344,7 +344,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-readAppMonitoring",
-    description: "GET /application.readAppMonitoring",
+    description: "Read app monitoring (application). Requires: appName. [GET /application.readAppMonitoring]",
     tag: "application",
     method: "GET",
     path: "/application.readAppMonitoring",
@@ -356,7 +356,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-move",
-    description: "POST /application.move",
+    description: "Move an application to another environment. Requires: applicationId, targetEnvironmentId. [POST /application.move]",
     tag: "application",
     method: "POST",
     path: "/application.move",
@@ -368,7 +368,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-cancelDeployment",
-    description: "POST /application.cancelDeployment",
+    description: "Cancel deployment (application). Requires: applicationId. [POST /application.cancelDeployment]",
     tag: "application",
     method: "POST",
     path: "/application.cancelDeployment",
@@ -380,7 +380,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-search",
-    description: "GET /application.search",
+    description: "Search applications. [GET /application.search]",
     tag: "application",
     method: "GET",
     path: "/application.search",
@@ -392,7 +392,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "application-readLogs",
-    description: "GET /application.readLogs",
+    description: "Read the logs of an application. Requires: applicationId. [GET /application.readLogs]",
     tag: "application",
     method: "GET",
     path: "/application.readLogs",
@@ -404,7 +404,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-create",
-    description: "POST /backup.create",
+    description: "Create a backup configuration. Requires: schedule, prefix, destinationId, database, databaseType. [POST /backup.create]",
     tag: "backup",
     method: "POST",
     path: "/backup.create",
@@ -416,7 +416,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-one",
-    description: "GET /backup.one",
+    description: "Get a backup configuration by ID. Requires: backupId. [GET /backup.one]",
     tag: "backup",
     method: "GET",
     path: "/backup.one",
@@ -428,7 +428,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-update",
-    description: "POST /backup.update",
+    description: "Update a backup configuration. Requires: schedule, enabled, prefix, backupId, destinationId, database, keepLatestCount, serviceName, metadata, databaseType. [POST /backup.update]",
     tag: "backup",
     method: "POST",
     path: "/backup.update",
@@ -440,7 +440,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-remove",
-    description: "POST /backup.remove",
+    description: "Delete a backup configuration. Requires: backupId. [POST /backup.remove]",
     tag: "backup",
     method: "POST",
     path: "/backup.remove",
@@ -452,7 +452,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupPostgres",
-    description: "POST /backup.manualBackupPostgres",
+    description: "Manual backup PostgreSQL (backup configuration). Requires: backupId. [POST /backup.manualBackupPostgres]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupPostgres",
@@ -464,7 +464,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupMySql",
-    description: "POST /backup.manualBackupMySql",
+    description: "Manual backup my sql (backup configuration). Requires: backupId. [POST /backup.manualBackupMySql]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupMySql",
@@ -476,7 +476,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupMariadb",
-    description: "POST /backup.manualBackupMariadb",
+    description: "Manual backup MariaDB (backup configuration). Requires: backupId. [POST /backup.manualBackupMariadb]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupMariadb",
@@ -488,7 +488,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupCompose",
-    description: "POST /backup.manualBackupCompose",
+    description: "Manual backup compose (backup configuration). Requires: backupId. [POST /backup.manualBackupCompose]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupCompose",
@@ -500,7 +500,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupMongo",
-    description: "POST /backup.manualBackupMongo",
+    description: "Manual backup MongoDB (backup configuration). Requires: backupId. [POST /backup.manualBackupMongo]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupMongo",
@@ -512,7 +512,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupLibsql",
-    description: "POST /backup.manualBackupLibsql",
+    description: "Manual backup libSQL (backup configuration). Requires: backupId. [POST /backup.manualBackupLibsql]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupLibsql",
@@ -524,7 +524,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-manualBackupWebServer",
-    description: "POST /backup.manualBackupWebServer",
+    description: "Manual backup web server (backup configuration). Requires: backupId. [POST /backup.manualBackupWebServer]",
     tag: "backup",
     method: "POST",
     path: "/backup.manualBackupWebServer",
@@ -536,7 +536,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "backup-listBackupFiles",
-    description: "GET /backup.listBackupFiles",
+    description: "List backup files (backup configuration). Requires: destinationId, search. [GET /backup.listBackupFiles]",
     tag: "backup",
     method: "GET",
     path: "/backup.listBackupFiles",
@@ -548,7 +548,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-create",
-    description: "POST /bitbucket.create",
+    description: "Create a Bitbucket provider. Requires: authId, name. [POST /bitbucket.create]",
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.create",
@@ -560,7 +560,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-one",
-    description: "GET /bitbucket.one",
+    description: "Get a Bitbucket provider by ID. Requires: bitbucketId. [GET /bitbucket.one]",
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.one",
@@ -572,7 +572,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-bitbucketProviders",
-    description: "GET /bitbucket.bitbucketProviders",
+    description: "Bitbucket providers (Bitbucket provider). [GET /bitbucket.bitbucketProviders]",
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.bitbucketProviders",
@@ -584,7 +584,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-getBitbucketRepositories",
-    description: "GET /bitbucket.getBitbucketRepositories",
+    description: "Get Bitbucket repositories (Bitbucket provider). Requires: bitbucketId. [GET /bitbucket.getBitbucketRepositories]",
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.getBitbucketRepositories",
@@ -596,7 +596,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-getBitbucketBranches",
-    description: "GET /bitbucket.getBitbucketBranches",
+    description: "Get Bitbucket branches (Bitbucket provider). Requires: owner, repo. [GET /bitbucket.getBitbucketBranches]",
     tag: "bitbucket",
     method: "GET",
     path: "/bitbucket.getBitbucketBranches",
@@ -608,7 +608,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-testConnection",
-    description: "POST /bitbucket.testConnection",
+    description: "Test the connection to a Bitbucket provider. Requires: bitbucketId. [POST /bitbucket.testConnection]",
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.testConnection",
@@ -620,7 +620,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "bitbucket-update",
-    description: "POST /bitbucket.update",
+    description: "Update a Bitbucket provider. Requires: bitbucketId, gitProviderId, name. [POST /bitbucket.update]",
     tag: "bitbucket",
     method: "POST",
     path: "/bitbucket.update",
@@ -632,7 +632,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-all",
-    description: "GET /network.all",
+    description: "List Docker networks. [GET /network.all]",
     tag: "network",
     method: "GET",
     path: "/network.all",
@@ -644,7 +644,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-one",
-    description: "GET /network.one",
+    description: "Get a Docker network by ID. Requires: networkId. [GET /network.one]",
     tag: "network",
     method: "GET",
     path: "/network.one",
@@ -656,7 +656,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-create",
-    description: "POST /network.create",
+    description: "Create a Docker network. Requires: name. [POST /network.create]",
     tag: "network",
     method: "POST",
     path: "/network.create",
@@ -668,7 +668,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-networksToSync",
-    description: "GET /network.networksToSync",
+    description: "Networks to sync (Docker network). [GET /network.networksToSync]",
     tag: "network",
     method: "GET",
     path: "/network.networksToSync",
@@ -680,7 +680,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-import",
-    description: "POST /network.import",
+    description: "Import (Docker network). Requires: names. [POST /network.import]",
     tag: "network",
     method: "POST",
     path: "/network.import",
@@ -692,7 +692,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-inspect",
-    description: "GET /network.inspect",
+    description: "Inspect (Docker network). Requires: networkId. [GET /network.inspect]",
     tag: "network",
     method: "GET",
     path: "/network.inspect",
@@ -704,7 +704,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-recreate",
-    description: "POST /network.recreate",
+    description: "Recreate (Docker network). Requires: networkId. [POST /network.recreate]",
     tag: "network",
     method: "POST",
     path: "/network.recreate",
@@ -716,7 +716,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-resync",
-    description: "POST /network.resync",
+    description: "Resync (Docker network). Requires: networkId. [POST /network.resync]",
     tag: "network",
     method: "POST",
     path: "/network.resync",
@@ -728,7 +728,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "network-remove",
-    description: "POST /network.remove",
+    description: "Delete a Docker network. Requires: networkId. [POST /network.remove]",
     tag: "network",
     method: "POST",
     path: "/network.remove",
@@ -740,7 +740,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "certificates-create",
-    description: "POST /certificates.create",
+    description: "Create a certificate. Requires: name, certificateData, privateKey, organizationId. [POST /certificates.create]",
     tag: "certificates",
     method: "POST",
     path: "/certificates.create",
@@ -752,7 +752,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "certificates-one",
-    description: "GET /certificates.one",
+    description: "Get a certificate by ID. Requires: certificateId. [GET /certificates.one]",
     tag: "certificates",
     method: "GET",
     path: "/certificates.one",
@@ -764,7 +764,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "certificates-remove",
-    description: "POST /certificates.remove",
+    description: "Delete a certificate. Requires: certificateId. [POST /certificates.remove]",
     tag: "certificates",
     method: "POST",
     path: "/certificates.remove",
@@ -776,7 +776,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "certificates-all",
-    description: "GET /certificates.all",
+    description: "List certificates. [GET /certificates.all]",
     tag: "certificates",
     method: "GET",
     path: "/certificates.all",
@@ -788,7 +788,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "certificates-update",
-    description: "POST /certificates.update",
+    description: "Update a certificate. Requires: certificateId. [POST /certificates.update]",
     tag: "certificates",
     method: "POST",
     path: "/certificates.update",
@@ -800,7 +800,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "cluster-getNodes",
-    description: "GET /cluster.getNodes",
+    description: "Get nodes (cluster). [GET /cluster.getNodes]",
     tag: "cluster",
     method: "GET",
     path: "/cluster.getNodes",
@@ -812,7 +812,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "cluster-removeWorker",
-    description: "POST /cluster.removeWorker",
+    description: "Remove worker (cluster). Requires: nodeId. [POST /cluster.removeWorker]",
     tag: "cluster",
     method: "POST",
     path: "/cluster.removeWorker",
@@ -824,7 +824,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "cluster-addWorker",
-    description: "GET /cluster.addWorker",
+    description: "Add worker (cluster). [GET /cluster.addWorker]",
     tag: "cluster",
     method: "GET",
     path: "/cluster.addWorker",
@@ -836,7 +836,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "cluster-addManager",
-    description: "GET /cluster.addManager",
+    description: "Add manager (cluster). [GET /cluster.addManager]",
     tag: "cluster",
     method: "GET",
     path: "/cluster.addManager",
@@ -848,7 +848,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-create",
-    description: "POST /compose.create",
+    description: "Create a Docker Compose service. Requires: name, environmentId. [POST /compose.create]",
     tag: "compose",
     method: "POST",
     path: "/compose.create",
@@ -860,7 +860,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-one",
-    description: "GET /compose.one",
+    description: "Get a Docker Compose service by ID. Requires: composeId. [GET /compose.one]",
     tag: "compose",
     method: "GET",
     path: "/compose.one",
@@ -872,7 +872,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-update",
-    description: "POST /compose.update",
+    description: "Update a Docker Compose service. Requires: composeId. [POST /compose.update]",
     tag: "compose",
     method: "POST",
     path: "/compose.update",
@@ -884,7 +884,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-saveEnvironment",
-    description: "POST /compose.saveEnvironment",
+    description: "Replace the environment variables of a Docker Compose service. Overwrites the whole block, so send the complete set of variables. Requires: composeId, env. [POST /compose.saveEnvironment]",
     tag: "compose",
     method: "POST",
     path: "/compose.saveEnvironment",
@@ -896,7 +896,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-delete",
-    description: "POST /compose.delete",
+    description: "Delete a Docker Compose service. Requires: composeId, deleteVolumes. [POST /compose.delete]",
     tag: "compose",
     method: "POST",
     path: "/compose.delete",
@@ -908,7 +908,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-cleanQueues",
-    description: "POST /compose.cleanQueues",
+    description: "Clean queues (Docker Compose service). Requires: composeId. [POST /compose.cleanQueues]",
     tag: "compose",
     method: "POST",
     path: "/compose.cleanQueues",
@@ -920,7 +920,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-clearDeployments",
-    description: "POST /compose.clearDeployments",
+    description: "Clear deployments (Docker Compose service). Requires: composeId. [POST /compose.clearDeployments]",
     tag: "compose",
     method: "POST",
     path: "/compose.clearDeployments",
@@ -932,7 +932,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-killBuild",
-    description: "POST /compose.killBuild",
+    description: "Kill build (Docker Compose service). Requires: composeId. [POST /compose.killBuild]",
     tag: "compose",
     method: "POST",
     path: "/compose.killBuild",
@@ -944,7 +944,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-loadServices",
-    description: "GET /compose.loadServices",
+    description: "Load services (Docker Compose service). Requires: composeId. [GET /compose.loadServices]",
     tag: "compose",
     method: "GET",
     path: "/compose.loadServices",
@@ -956,7 +956,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-loadMountsByService",
-    description: "GET /compose.loadMountsByService",
+    description: "Load mounts by service (Docker Compose service). Requires: composeId, serviceName. [GET /compose.loadMountsByService]",
     tag: "compose",
     method: "GET",
     path: "/compose.loadMountsByService",
@@ -968,7 +968,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-fetchSourceType",
-    description: "POST /compose.fetchSourceType",
+    description: "Fetch source type (Docker Compose service). Requires: composeId. [POST /compose.fetchSourceType]",
     tag: "compose",
     method: "POST",
     path: "/compose.fetchSourceType",
@@ -980,7 +980,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-randomizeCompose",
-    description: "POST /compose.randomizeCompose",
+    description: "Randomize compose (Docker Compose service). Requires: composeId. [POST /compose.randomizeCompose]",
     tag: "compose",
     method: "POST",
     path: "/compose.randomizeCompose",
@@ -992,7 +992,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-isolatedDeployment",
-    description: "POST /compose.isolatedDeployment",
+    description: "Isolated deployment (Docker Compose service). Requires: composeId. [POST /compose.isolatedDeployment]",
     tag: "compose",
     method: "POST",
     path: "/compose.isolatedDeployment",
@@ -1004,7 +1004,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-getConvertedCompose",
-    description: "GET /compose.getConvertedCompose",
+    description: "Get converted compose (Docker Compose service). Requires: composeId. [GET /compose.getConvertedCompose]",
     tag: "compose",
     method: "GET",
     path: "/compose.getConvertedCompose",
@@ -1016,7 +1016,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-deploy",
-    description: "POST /compose.deploy",
+    description: "Queue a deployment of a Docker Compose service. Returns before it finishes; use deployment-allByCompose to check its status. Requires: composeId. [POST /compose.deploy]",
     tag: "compose",
     method: "POST",
     path: "/compose.deploy",
@@ -1028,7 +1028,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-redeploy",
-    description: "POST /compose.redeploy",
+    description: "Queue a redeployment of a Docker Compose service. Returns before it finishes; use deployment-allByCompose to check its status. Requires: composeId. [POST /compose.redeploy]",
     tag: "compose",
     method: "POST",
     path: "/compose.redeploy",
@@ -1040,7 +1040,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-stop",
-    description: "POST /compose.stop",
+    description: "Stop a Docker Compose service. Requires: composeId. [POST /compose.stop]",
     tag: "compose",
     method: "POST",
     path: "/compose.stop",
@@ -1052,7 +1052,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-start",
-    description: "POST /compose.start",
+    description: "Start a Docker Compose service. Requires: composeId. [POST /compose.start]",
     tag: "compose",
     method: "POST",
     path: "/compose.start",
@@ -1064,7 +1064,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-getDefaultCommand",
-    description: "GET /compose.getDefaultCommand",
+    description: "Get default command (Docker Compose service). Requires: composeId. [GET /compose.getDefaultCommand]",
     tag: "compose",
     method: "GET",
     path: "/compose.getDefaultCommand",
@@ -1076,7 +1076,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-refreshToken",
-    description: "POST /compose.refreshToken",
+    description: "Refresh token (Docker Compose service). Requires: composeId. [POST /compose.refreshToken]",
     tag: "compose",
     method: "POST",
     path: "/compose.refreshToken",
@@ -1088,7 +1088,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-deployTemplate",
-    description: "POST /compose.deployTemplate",
+    description: "Deploy template (Docker Compose service). Requires: environmentId, id. [POST /compose.deployTemplate]",
     tag: "compose",
     method: "POST",
     path: "/compose.deployTemplate",
@@ -1100,7 +1100,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-templates",
-    description: "GET /compose.templates",
+    description: "Templates (Docker Compose service). [GET /compose.templates]",
     tag: "compose",
     method: "GET",
     path: "/compose.templates",
@@ -1112,7 +1112,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-getTags",
-    description: "GET /compose.getTags",
+    description: "Get tags (Docker Compose service). [GET /compose.getTags]",
     tag: "compose",
     method: "GET",
     path: "/compose.getTags",
@@ -1124,7 +1124,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-disconnectGitProvider",
-    description: "POST /compose.disconnectGitProvider",
+    description: "Disconnect git provider (Docker Compose service). Requires: composeId. [POST /compose.disconnectGitProvider]",
     tag: "compose",
     method: "POST",
     path: "/compose.disconnectGitProvider",
@@ -1136,7 +1136,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-move",
-    description: "POST /compose.move",
+    description: "Move a Docker Compose service to another environment. Requires: composeId, targetEnvironmentId. [POST /compose.move]",
     tag: "compose",
     method: "POST",
     path: "/compose.move",
@@ -1148,7 +1148,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-processTemplate",
-    description: "POST /compose.processTemplate",
+    description: "Process template (Docker Compose service). Requires: base64, composeId. [POST /compose.processTemplate]",
     tag: "compose",
     method: "POST",
     path: "/compose.processTemplate",
@@ -1160,7 +1160,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-previewTemplate",
-    description: "POST /compose.previewTemplate",
+    description: "Preview template (Docker Compose service). Requires: base64, appName. [POST /compose.previewTemplate]",
     tag: "compose",
     method: "POST",
     path: "/compose.previewTemplate",
@@ -1172,7 +1172,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-import",
-    description: "POST /compose.import",
+    description: "Import (Docker Compose service). Requires: base64, composeId. [POST /compose.import]",
     tag: "compose",
     method: "POST",
     path: "/compose.import",
@@ -1184,7 +1184,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-cancelDeployment",
-    description: "POST /compose.cancelDeployment",
+    description: "Cancel deployment (Docker Compose service). Requires: composeId. [POST /compose.cancelDeployment]",
     tag: "compose",
     method: "POST",
     path: "/compose.cancelDeployment",
@@ -1196,7 +1196,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-search",
-    description: "GET /compose.search",
+    description: "Search Docker Compose services. [GET /compose.search]",
     tag: "compose",
     method: "GET",
     path: "/compose.search",
@@ -1208,7 +1208,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "compose-readLogs",
-    description: "GET /compose.readLogs",
+    description: "Read the logs of a Docker Compose service. Requires: composeId, containerId. [GET /compose.readLogs]",
     tag: "compose",
     method: "GET",
     path: "/compose.readLogs",
@@ -1220,7 +1220,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-all",
-    description: "GET /deployment.all",
+    description: "List the deployments of an application, newest first, with their status (running, done, error, cancelled). Requires: applicationId. [GET /deployment.all]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.all",
@@ -1232,7 +1232,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-allByCompose",
-    description: "GET /deployment.allByCompose",
+    description: "List the deployments of a Docker Compose service, newest first, with their status (running, done, error, cancelled). Requires: composeId. [GET /deployment.allByCompose]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.allByCompose",
@@ -1244,7 +1244,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-allByServer",
-    description: "GET /deployment.allByServer",
+    description: "All by server (deployment). Requires: serverId. [GET /deployment.allByServer]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.allByServer",
@@ -1256,7 +1256,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-allCentralized",
-    description: "GET /deployment.allCentralized",
+    description: "All centralized (deployment). [GET /deployment.allCentralized]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.allCentralized",
@@ -1268,7 +1268,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-queueList",
-    description: "GET /deployment.queueList",
+    description: "Queue list (deployment). [GET /deployment.queueList]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.queueList",
@@ -1280,7 +1280,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-allByType",
-    description: "GET /deployment.allByType",
+    description: "All by type (deployment). Requires: id, type. [GET /deployment.allByType]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.allByType",
@@ -1292,7 +1292,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-killProcess",
-    description: "POST /deployment.killProcess",
+    description: "Kill process (deployment). Requires: deploymentId. [POST /deployment.killProcess]",
     tag: "deployment",
     method: "POST",
     path: "/deployment.killProcess",
@@ -1304,7 +1304,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-removeDeployment",
-    description: "POST /deployment.removeDeployment",
+    description: "Remove deployment (deployment). Requires: deploymentId. [POST /deployment.removeDeployment]",
     tag: "deployment",
     method: "POST",
     path: "/deployment.removeDeployment",
@@ -1316,7 +1316,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "deployment-readLogs",
-    description: "GET /deployment.readLogs",
+    description: "Read the last lines of a deployment's build log. 'tail' sets the number of lines (default 100). Requires: deploymentId. [GET /deployment.readLogs]",
     tag: "deployment",
     method: "GET",
     path: "/deployment.readLogs",
@@ -1328,7 +1328,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "destination-create",
-    description: "POST /destination.create",
+    description: "Create a backup destination. Requires: name, provider, accessKey, bucket, region, endpoint, secretAccessKey, additionalFlags. [POST /destination.create]",
     tag: "destination",
     method: "POST",
     path: "/destination.create",
@@ -1340,7 +1340,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "destination-testConnection",
-    description: "POST /destination.testConnection",
+    description: "Test the connection to a backup destination. Requires: name, provider, accessKey, bucket, region, endpoint, secretAccessKey, additionalFlags. [POST /destination.testConnection]",
     tag: "destination",
     method: "POST",
     path: "/destination.testConnection",
@@ -1352,7 +1352,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "destination-one",
-    description: "GET /destination.one",
+    description: "Get a backup destination by ID. Requires: destinationId. [GET /destination.one]",
     tag: "destination",
     method: "GET",
     path: "/destination.one",
@@ -1364,7 +1364,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "destination-all",
-    description: "GET /destination.all",
+    description: "List backup destinations. [GET /destination.all]",
     tag: "destination",
     method: "GET",
     path: "/destination.all",
@@ -1376,7 +1376,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "destination-remove",
-    description: "POST /destination.remove",
+    description: "Delete a backup destination. Requires: destinationId. [POST /destination.remove]",
     tag: "destination",
     method: "POST",
     path: "/destination.remove",
@@ -1388,7 +1388,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "destination-update",
-    description: "POST /destination.update",
+    description: "Update a backup destination. Requires: name, accessKey, bucket, region, endpoint, secretAccessKey, destinationId, provider, additionalFlags. [POST /destination.update]",
     tag: "destination",
     method: "POST",
     path: "/destination.update",
@@ -1400,7 +1400,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-create",
-    description: "POST /dnsProvider.create",
+    description: "Create a DNS provider. Requires: name, config. [POST /dnsProvider.create]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.create",
@@ -1443,7 +1443,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-update",
-    description: "POST /dnsProvider.update",
+    description: "Update a DNS provider. Requires: dnsProviderId, name, config. [POST /dnsProvider.update]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.update",
@@ -1486,7 +1486,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-remove",
-    description: "POST /dnsProvider.remove",
+    description: "Delete a DNS provider. Requires: dnsProviderId. [POST /dnsProvider.remove]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.remove",
@@ -1498,7 +1498,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-all",
-    description: "GET /dnsProvider.all",
+    description: "List DNS providers. [GET /dnsProvider.all]",
     tag: "dnsProvider",
     method: "GET",
     path: "/dnsProvider.all",
@@ -1510,7 +1510,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-one",
-    description: "GET /dnsProvider.one",
+    description: "Get a DNS provider by ID. Requires: dnsProviderId. [GET /dnsProvider.one]",
     tag: "dnsProvider",
     method: "GET",
     path: "/dnsProvider.one",
@@ -1522,7 +1522,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-testConnection",
-    description: "POST /dnsProvider.testConnection",
+    description: "Test the connection to a DNS provider. [POST /dnsProvider.testConnection]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.testConnection",
@@ -1565,7 +1565,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-listZones",
-    description: "GET /dnsProvider.listZones",
+    description: "List zones (DNS provider). Requires: dnsProviderId. [GET /dnsProvider.listZones]",
     tag: "dnsProvider",
     method: "GET",
     path: "/dnsProvider.listZones",
@@ -1577,7 +1577,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-listRecords",
-    description: "GET /dnsProvider.listRecords",
+    description: "List records (DNS provider). Requires: dnsProviderId, zoneId. [GET /dnsProvider.listRecords]",
     tag: "dnsProvider",
     method: "GET",
     path: "/dnsProvider.listRecords",
@@ -1589,7 +1589,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-createRecord",
-    description: "POST /dnsProvider.createRecord",
+    description: "Create record (DNS provider). Requires: type, name, content, dnsProviderId, zoneId. [POST /dnsProvider.createRecord]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.createRecord",
@@ -1601,7 +1601,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-updateRecord",
-    description: "POST /dnsProvider.updateRecord",
+    description: "Update record (DNS provider). Requires: type, name, content, dnsProviderId, zoneId, recordId. [POST /dnsProvider.updateRecord]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.updateRecord",
@@ -1613,7 +1613,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dnsProvider-deleteRecord",
-    description: "POST /dnsProvider.deleteRecord",
+    description: "Delete record (DNS provider). Requires: dnsProviderId, zoneId, recordId. [POST /dnsProvider.deleteRecord]",
     tag: "dnsProvider",
     method: "POST",
     path: "/dnsProvider.deleteRecord",
@@ -1625,7 +1625,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getContainers",
-    description: "GET /docker.getContainers",
+    description: "Get containers (Docker). [GET /docker.getContainers]",
     tag: "docker",
     method: "GET",
     path: "/docker.getContainers",
@@ -1637,7 +1637,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getServerHealth",
-    description: "GET /docker.getServerHealth",
+    description: "Get server health (Docker). [GET /docker.getServerHealth]",
     tag: "docker",
     method: "GET",
     path: "/docker.getServerHealth",
@@ -1649,7 +1649,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-restartContainer",
-    description: "POST /docker.restartContainer",
+    description: "Restart container (Docker). Requires: containerId. [POST /docker.restartContainer]",
     tag: "docker",
     method: "POST",
     path: "/docker.restartContainer",
@@ -1661,7 +1661,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-startContainer",
-    description: "POST /docker.startContainer",
+    description: "Start container (Docker). Requires: containerId. [POST /docker.startContainer]",
     tag: "docker",
     method: "POST",
     path: "/docker.startContainer",
@@ -1673,7 +1673,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-stopContainer",
-    description: "POST /docker.stopContainer",
+    description: "Stop container (Docker). Requires: containerId. [POST /docker.stopContainer]",
     tag: "docker",
     method: "POST",
     path: "/docker.stopContainer",
@@ -1685,7 +1685,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-killContainer",
-    description: "POST /docker.killContainer",
+    description: "Kill container (Docker). Requires: containerId. [POST /docker.killContainer]",
     tag: "docker",
     method: "POST",
     path: "/docker.killContainer",
@@ -1697,7 +1697,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-removeContainer",
-    description: "POST /docker.removeContainer",
+    description: "Remove container (Docker). Requires: containerId. [POST /docker.removeContainer]",
     tag: "docker",
     method: "POST",
     path: "/docker.removeContainer",
@@ -1709,7 +1709,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getConfig",
-    description: "GET /docker.getConfig",
+    description: "Get config (Docker). Requires: containerId. [GET /docker.getConfig]",
     tag: "docker",
     method: "GET",
     path: "/docker.getConfig",
@@ -1721,7 +1721,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getContainersByAppNameMatch",
-    description: "GET /docker.getContainersByAppNameMatch",
+    description: "Get containers by app name match (Docker). Requires: appName. [GET /docker.getContainersByAppNameMatch]",
     tag: "docker",
     method: "GET",
     path: "/docker.getContainersByAppNameMatch",
@@ -1733,7 +1733,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getContainersByAppLabel",
-    description: "GET /docker.getContainersByAppLabel",
+    description: "Get containers by app label (Docker). Requires: appName, type. [GET /docker.getContainersByAppLabel]",
     tag: "docker",
     method: "GET",
     path: "/docker.getContainersByAppLabel",
@@ -1745,7 +1745,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getStackContainersByAppName",
-    description: "GET /docker.getStackContainersByAppName",
+    description: "Get stack containers by app name (Docker). Requires: appName. [GET /docker.getStackContainersByAppName]",
     tag: "docker",
     method: "GET",
     path: "/docker.getStackContainersByAppName",
@@ -1757,7 +1757,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getServiceContainersByAppName",
-    description: "GET /docker.getServiceContainersByAppName",
+    description: "Get service containers by app name (Docker). Requires: appName. [GET /docker.getServiceContainersByAppName]",
     tag: "docker",
     method: "GET",
     path: "/docker.getServiceContainersByAppName",
@@ -1769,7 +1769,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-uploadFileToContainer",
-    description: "POST /docker.uploadFileToContainer",
+    description: "Upload file to container (Docker). [POST /docker.uploadFileToContainer]",
     tag: "docker",
     method: "POST",
     path: "/docker.uploadFileToContainer",
@@ -1781,7 +1781,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-listContainerFiles",
-    description: "GET /docker.listContainerFiles",
+    description: "List container files (Docker). Requires: containerId, path. [GET /docker.listContainerFiles]",
     tag: "docker",
     method: "GET",
     path: "/docker.listContainerFiles",
@@ -1793,7 +1793,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-readContainerFile",
-    description: "GET /docker.readContainerFile",
+    description: "Read container file (Docker). Requires: containerId, path. [GET /docker.readContainerFile]",
     tag: "docker",
     method: "GET",
     path: "/docker.readContainerFile",
@@ -1805,7 +1805,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-writeContainerFile",
-    description: "POST /docker.writeContainerFile",
+    description: "Write container file (Docker). Requires: containerId, path, content. [POST /docker.writeContainerFile]",
     tag: "docker",
     method: "POST",
     path: "/docker.writeContainerFile",
@@ -1817,7 +1817,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-deleteContainerFile",
-    description: "POST /docker.deleteContainerFile",
+    description: "Delete container file (Docker). Requires: containerId, path. [POST /docker.deleteContainerFile]",
     tag: "docker",
     method: "POST",
     path: "/docker.deleteContainerFile",
@@ -1829,7 +1829,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "docker-getEvents",
-    description: "GET /docker.getEvents",
+    description: "Get events (Docker). [GET /docker.getEvents]",
     tag: "docker",
     method: "GET",
     path: "/docker.getEvents",
@@ -1841,7 +1841,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerDiskUsage-getDiskUsage",
-    description: "GET /dockerDiskUsage.getDiskUsage",
+    description: "Get disk usage (Docker disk usage). [GET /dockerDiskUsage.getDiskUsage]",
     tag: "dockerDiskUsage",
     method: "GET",
     path: "/dockerDiskUsage.getDiskUsage",
@@ -1853,7 +1853,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerDiskUsage-getBuildCache",
-    description: "GET /dockerDiskUsage.getBuildCache",
+    description: "Get build cache (Docker disk usage). [GET /dockerDiskUsage.getBuildCache]",
     tag: "dockerDiskUsage",
     method: "GET",
     path: "/dockerDiskUsage.getBuildCache",
@@ -1865,7 +1865,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerDiskUsage-pruneBuildCache",
-    description: "POST /dockerDiskUsage.pruneBuildCache",
+    description: "Prune build cache (Docker disk usage). [POST /dockerDiskUsage.pruneBuildCache]",
     tag: "dockerDiskUsage",
     method: "POST",
     path: "/dockerDiskUsage.pruneBuildCache",
@@ -1877,7 +1877,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerImage-getImages",
-    description: "GET /dockerImage.getImages",
+    description: "Get images (Docker image). [GET /dockerImage.getImages]",
     tag: "dockerImage",
     method: "GET",
     path: "/dockerImage.getImages",
@@ -1889,7 +1889,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerImage-getImageConfig",
-    description: "GET /dockerImage.getImageConfig",
+    description: "Get image config (Docker image). Requires: imageRef. [GET /dockerImage.getImageConfig]",
     tag: "dockerImage",
     method: "GET",
     path: "/dockerImage.getImageConfig",
@@ -1901,7 +1901,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerImage-removeImage",
-    description: "POST /dockerImage.removeImage",
+    description: "Remove image (Docker image). Requires: repository, tag, id. [POST /dockerImage.removeImage]",
     tag: "dockerImage",
     method: "POST",
     path: "/dockerImage.removeImage",
@@ -1913,7 +1913,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-getVolumes",
-    description: "GET /dockerVolume.getVolumes",
+    description: "Get volumes (Docker volume). [GET /dockerVolume.getVolumes]",
     tag: "dockerVolume",
     method: "GET",
     path: "/dockerVolume.getVolumes",
@@ -1925,7 +1925,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-getVolumesSize",
-    description: "GET /dockerVolume.getVolumesSize",
+    description: "Get volumes size (Docker volume). [GET /dockerVolume.getVolumesSize]",
     tag: "dockerVolume",
     method: "GET",
     path: "/dockerVolume.getVolumesSize",
@@ -1937,7 +1937,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-listVolumeFiles",
-    description: "GET /dockerVolume.listVolumeFiles",
+    description: "List volume files (Docker volume). Requires: volumeName, path. [GET /dockerVolume.listVolumeFiles]",
     tag: "dockerVolume",
     method: "GET",
     path: "/dockerVolume.listVolumeFiles",
@@ -1949,7 +1949,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-readVolumeFile",
-    description: "GET /dockerVolume.readVolumeFile",
+    description: "Read volume file (Docker volume). Requires: volumeName, path. [GET /dockerVolume.readVolumeFile]",
     tag: "dockerVolume",
     method: "GET",
     path: "/dockerVolume.readVolumeFile",
@@ -1961,7 +1961,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-writeVolumeFile",
-    description: "POST /dockerVolume.writeVolumeFile",
+    description: "Write volume file (Docker volume). Requires: volumeName, path, content. [POST /dockerVolume.writeVolumeFile]",
     tag: "dockerVolume",
     method: "POST",
     path: "/dockerVolume.writeVolumeFile",
@@ -1973,7 +1973,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-deleteVolumeFile",
-    description: "POST /dockerVolume.deleteVolumeFile",
+    description: "Delete volume file (Docker volume). Requires: volumeName, path. [POST /dockerVolume.deleteVolumeFile]",
     tag: "dockerVolume",
     method: "POST",
     path: "/dockerVolume.deleteVolumeFile",
@@ -1985,7 +1985,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-getVolumeConfig",
-    description: "GET /dockerVolume.getVolumeConfig",
+    description: "Get volume config (Docker volume). Requires: volumeName. [GET /dockerVolume.getVolumeConfig]",
     tag: "dockerVolume",
     method: "GET",
     path: "/dockerVolume.getVolumeConfig",
@@ -1997,7 +1997,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "dockerVolume-removeVolume",
-    description: "POST /dockerVolume.removeVolume",
+    description: "Remove volume (Docker volume). Requires: volumeName. [POST /dockerVolume.removeVolume]",
     tag: "dockerVolume",
     method: "POST",
     path: "/dockerVolume.removeVolume",
@@ -2009,7 +2009,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-create",
-    description: "POST /domain.create",
+    description: "Create a domain. Requires: host. [POST /domain.create]",
     tag: "domain",
     method: "POST",
     path: "/domain.create",
@@ -2021,7 +2021,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-byApplicationId",
-    description: "GET /domain.byApplicationId",
+    description: "By application ID (domain). Requires: applicationId. [GET /domain.byApplicationId]",
     tag: "domain",
     method: "GET",
     path: "/domain.byApplicationId",
@@ -2033,7 +2033,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-byComposeId",
-    description: "GET /domain.byComposeId",
+    description: "By compose ID (domain). Requires: composeId. [GET /domain.byComposeId]",
     tag: "domain",
     method: "GET",
     path: "/domain.byComposeId",
@@ -2045,7 +2045,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-generateDomain",
-    description: "POST /domain.generateDomain",
+    description: "Generate domain (domain). Requires: appName. [POST /domain.generateDomain]",
     tag: "domain",
     method: "POST",
     path: "/domain.generateDomain",
@@ -2057,7 +2057,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-canGenerateTraefikMeDomains",
-    description: "GET /domain.canGenerateTraefikMeDomains",
+    description: "Can generate Traefik me domains (domain). Requires: serverId. [GET /domain.canGenerateTraefikMeDomains]",
     tag: "domain",
     method: "GET",
     path: "/domain.canGenerateTraefikMeDomains",
@@ -2069,7 +2069,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-update",
-    description: "POST /domain.update",
+    description: "Update a domain. Requires: host, domainId. [POST /domain.update]",
     tag: "domain",
     method: "POST",
     path: "/domain.update",
@@ -2081,7 +2081,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-toggleEnable",
-    description: "POST /domain.toggleEnable",
+    description: "Toggle enable (domain). Requires: domainId. [POST /domain.toggleEnable]",
     tag: "domain",
     method: "POST",
     path: "/domain.toggleEnable",
@@ -2093,7 +2093,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-one",
-    description: "GET /domain.one",
+    description: "Get a domain by ID. Requires: domainId. [GET /domain.one]",
     tag: "domain",
     method: "GET",
     path: "/domain.one",
@@ -2105,7 +2105,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-delete",
-    description: "POST /domain.delete",
+    description: "Delete a domain. Requires: domainId. [POST /domain.delete]",
     tag: "domain",
     method: "POST",
     path: "/domain.delete",
@@ -2117,7 +2117,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "domain-validateDomain",
-    description: "POST /domain.validateDomain",
+    description: "Validate domain (domain). Requires: domain. [POST /domain.validateDomain]",
     tag: "domain",
     method: "POST",
     path: "/domain.validateDomain",
@@ -2129,7 +2129,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-create",
-    description: "POST /gitea.create",
+    description: "Create a Gitea provider. Requires: giteaUrl, name. [POST /gitea.create]",
     tag: "gitea",
     method: "POST",
     path: "/gitea.create",
@@ -2141,7 +2141,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-one",
-    description: "GET /gitea.one",
+    description: "Get a Gitea provider by ID. Requires: giteaId. [GET /gitea.one]",
     tag: "gitea",
     method: "GET",
     path: "/gitea.one",
@@ -2153,7 +2153,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-giteaProviders",
-    description: "GET /gitea.giteaProviders",
+    description: "Gitea providers (Gitea provider). [GET /gitea.giteaProviders]",
     tag: "gitea",
     method: "GET",
     path: "/gitea.giteaProviders",
@@ -2165,7 +2165,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-getGiteaRepositories",
-    description: "GET /gitea.getGiteaRepositories",
+    description: "Get Gitea repositories (Gitea provider). Requires: giteaId. [GET /gitea.getGiteaRepositories]",
     tag: "gitea",
     method: "GET",
     path: "/gitea.getGiteaRepositories",
@@ -2177,7 +2177,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-getGiteaBranches",
-    description: "GET /gitea.getGiteaBranches",
+    description: "Get Gitea branches (Gitea provider). Requires: owner, repositoryName. [GET /gitea.getGiteaBranches]",
     tag: "gitea",
     method: "GET",
     path: "/gitea.getGiteaBranches",
@@ -2189,7 +2189,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-testConnection",
-    description: "POST /gitea.testConnection",
+    description: "Test the connection to a Gitea provider. [POST /gitea.testConnection]",
     tag: "gitea",
     method: "POST",
     path: "/gitea.testConnection",
@@ -2201,7 +2201,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-update",
-    description: "POST /gitea.update",
+    description: "Update a Gitea provider. Requires: giteaId, giteaUrl, gitProviderId, name. [POST /gitea.update]",
     tag: "gitea",
     method: "POST",
     path: "/gitea.update",
@@ -2213,7 +2213,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitea-getGiteaUrl",
-    description: "GET /gitea.getGiteaUrl",
+    description: "Get Gitea URL (Gitea provider). Requires: giteaId. [GET /gitea.getGiteaUrl]",
     tag: "gitea",
     method: "GET",
     path: "/gitea.getGiteaUrl",
@@ -2225,7 +2225,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitProvider-getAll",
-    description: "GET /gitProvider.getAll",
+    description: "Get all (Git provider). [GET /gitProvider.getAll]",
     tag: "gitProvider",
     method: "GET",
     path: "/gitProvider.getAll",
@@ -2237,7 +2237,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitProvider-toggleShare",
-    description: "POST /gitProvider.toggleShare",
+    description: "Toggle share (Git provider). Requires: gitProviderId, sharedWithOrganization. [POST /gitProvider.toggleShare]",
     tag: "gitProvider",
     method: "POST",
     path: "/gitProvider.toggleShare",
@@ -2249,7 +2249,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitProvider-allForPermissions",
-    description: "GET /gitProvider.allForPermissions",
+    description: "All for permissions (Git provider). [GET /gitProvider.allForPermissions]",
     tag: "gitProvider",
     method: "GET",
     path: "/gitProvider.allForPermissions",
@@ -2261,7 +2261,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitProvider-remove",
-    description: "POST /gitProvider.remove",
+    description: "Delete a Git provider. Requires: gitProviderId. [POST /gitProvider.remove]",
     tag: "gitProvider",
     method: "POST",
     path: "/gitProvider.remove",
@@ -2273,7 +2273,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "github-one",
-    description: "GET /github.one",
+    description: "Get a GitHub provider by ID. Requires: githubId. [GET /github.one]",
     tag: "github",
     method: "GET",
     path: "/github.one",
@@ -2285,7 +2285,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "github-getGithubRepositories",
-    description: "GET /github.getGithubRepositories",
+    description: "Get GitHub repositories (GitHub provider). Requires: githubId. [GET /github.getGithubRepositories]",
     tag: "github",
     method: "GET",
     path: "/github.getGithubRepositories",
@@ -2297,7 +2297,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "github-getGithubBranches",
-    description: "GET /github.getGithubBranches",
+    description: "Get GitHub branches (GitHub provider). Requires: repo, owner. [GET /github.getGithubBranches]",
     tag: "github",
     method: "GET",
     path: "/github.getGithubBranches",
@@ -2309,7 +2309,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "github-githubProviders",
-    description: "GET /github.githubProviders",
+    description: "GitHub providers (GitHub provider). [GET /github.githubProviders]",
     tag: "github",
     method: "GET",
     path: "/github.githubProviders",
@@ -2321,7 +2321,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "github-testConnection",
-    description: "POST /github.testConnection",
+    description: "Test the connection to a GitHub provider. Requires: githubId. [POST /github.testConnection]",
     tag: "github",
     method: "POST",
     path: "/github.testConnection",
@@ -2333,7 +2333,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "github-update",
-    description: "POST /github.update",
+    description: "Update a GitHub provider. Requires: githubId, name, gitProviderId, githubAppName. [POST /github.update]",
     tag: "github",
     method: "POST",
     path: "/github.update",
@@ -2345,7 +2345,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-create",
-    description: "POST /gitlab.create",
+    description: "Create a GitLab provider. Requires: authId, name, gitlabUrl. [POST /gitlab.create]",
     tag: "gitlab",
     method: "POST",
     path: "/gitlab.create",
@@ -2357,7 +2357,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-one",
-    description: "GET /gitlab.one",
+    description: "Get a GitLab provider by ID. Requires: gitlabId. [GET /gitlab.one]",
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.one",
@@ -2369,7 +2369,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-gitlabProviders",
-    description: "GET /gitlab.gitlabProviders",
+    description: "GitLab providers (GitLab provider). [GET /gitlab.gitlabProviders]",
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.gitlabProviders",
@@ -2381,7 +2381,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-getGitlabRepositories",
-    description: "GET /gitlab.getGitlabRepositories",
+    description: "Get GitLab repositories (GitLab provider). Requires: gitlabId. [GET /gitlab.getGitlabRepositories]",
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.getGitlabRepositories",
@@ -2393,7 +2393,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-getGitlabBranches",
-    description: "GET /gitlab.getGitlabBranches",
+    description: "Get GitLab branches (GitLab provider). Requires: owner, repo. [GET /gitlab.getGitlabBranches]",
     tag: "gitlab",
     method: "GET",
     path: "/gitlab.getGitlabBranches",
@@ -2405,7 +2405,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-testConnection",
-    description: "POST /gitlab.testConnection",
+    description: "Test the connection to a GitLab provider. Requires: gitlabId. [POST /gitlab.testConnection]",
     tag: "gitlab",
     method: "POST",
     path: "/gitlab.testConnection",
@@ -2417,7 +2417,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "gitlab-update",
-    description: "POST /gitlab.update",
+    description: "Update a GitLab provider. Requires: name, gitlabId, gitlabUrl, gitProviderId. [POST /gitlab.update]",
     tag: "gitlab",
     method: "POST",
     path: "/gitlab.update",
@@ -2429,7 +2429,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-create",
-    description: "POST /libsql.create",
+    description: "Create a libSQL database. Requires: name, appName, dockerImage, environmentId, description, databaseUser, databasePassword, sqldNode, sqldPrimaryUrl, enableNamespaces, serverId. [POST /libsql.create]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.create",
@@ -2441,7 +2441,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-one",
-    description: "GET /libsql.one",
+    description: "Get a libSQL database by ID. Requires: libsqlId. [GET /libsql.one]",
     tag: "libsql",
     method: "GET",
     path: "/libsql.one",
@@ -2453,7 +2453,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-start",
-    description: "POST /libsql.start",
+    description: "Start a libSQL database. Requires: libsqlId. [POST /libsql.start]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.start",
@@ -2465,7 +2465,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-stop",
-    description: "POST /libsql.stop",
+    description: "Stop a libSQL database. Requires: libsqlId. [POST /libsql.stop]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.stop",
@@ -2477,7 +2477,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-saveExternalPorts",
-    description: "POST /libsql.saveExternalPorts",
+    description: "Save external ports (libSQL database). Requires: libsqlId. [POST /libsql.saveExternalPorts]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.saveExternalPorts",
@@ -2489,7 +2489,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-deploy",
-    description: "POST /libsql.deploy",
+    description: "Deploy a libSQL database. Requires: libsqlId. [POST /libsql.deploy]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.deploy",
@@ -2501,7 +2501,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-changeStatus",
-    description: "POST /libsql.changeStatus",
+    description: "Set the status of a libSQL database. Requires: libsqlId, applicationStatus. [POST /libsql.changeStatus]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.changeStatus",
@@ -2513,7 +2513,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-remove",
-    description: "POST /libsql.remove",
+    description: "Delete a libSQL database. Requires: libsqlId. [POST /libsql.remove]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.remove",
@@ -2525,7 +2525,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-saveEnvironment",
-    description: "POST /libsql.saveEnvironment",
+    description: "Replace the environment variables of a libSQL database. Overwrites the whole block, so send the complete set of variables. Requires: libsqlId, env. [POST /libsql.saveEnvironment]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.saveEnvironment",
@@ -2537,7 +2537,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-reload",
-    description: "POST /libsql.reload",
+    description: "Reload a libSQL database. Requires: libsqlId, appName. [POST /libsql.reload]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.reload",
@@ -2549,7 +2549,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-update",
-    description: "POST /libsql.update",
+    description: "Update a libSQL database. Requires: libsqlId. [POST /libsql.update]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.update",
@@ -2561,7 +2561,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-move",
-    description: "POST /libsql.move",
+    description: "Move a libSQL database to another environment. Requires: libsqlId, targetEnvironmentId. [POST /libsql.move]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.move",
@@ -2573,7 +2573,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-rebuild",
-    description: "POST /libsql.rebuild",
+    description: "Rebuild a libSQL database. Requires: libsqlId. [POST /libsql.rebuild]",
     tag: "libsql",
     method: "POST",
     path: "/libsql.rebuild",
@@ -2585,7 +2585,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "libsql-readLogs",
-    description: "GET /libsql.readLogs",
+    description: "Read the logs of a libSQL database. Requires: libsqlId. [GET /libsql.readLogs]",
     tag: "libsql",
     method: "GET",
     path: "/libsql.readLogs",
@@ -2597,7 +2597,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-create",
-    description: "POST /mariadb.create",
+    description: "Create a MariaDB database. Requires: name, environmentId, databaseName, databaseUser, databasePassword. [POST /mariadb.create]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.create",
@@ -2609,7 +2609,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-one",
-    description: "GET /mariadb.one",
+    description: "Get a MariaDB database by ID. Requires: mariadbId. [GET /mariadb.one]",
     tag: "mariadb",
     method: "GET",
     path: "/mariadb.one",
@@ -2621,7 +2621,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-start",
-    description: "POST /mariadb.start",
+    description: "Start a MariaDB database. Requires: mariadbId. [POST /mariadb.start]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.start",
@@ -2633,7 +2633,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-stop",
-    description: "POST /mariadb.stop",
+    description: "Stop a MariaDB database. Requires: mariadbId. [POST /mariadb.stop]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.stop",
@@ -2645,7 +2645,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-saveExternalPort",
-    description: "POST /mariadb.saveExternalPort",
+    description: "Set the external port of a MariaDB database. Requires: mariadbId, externalPort. [POST /mariadb.saveExternalPort]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.saveExternalPort",
@@ -2657,7 +2657,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-deploy",
-    description: "POST /mariadb.deploy",
+    description: "Deploy a MariaDB database. Requires: mariadbId. [POST /mariadb.deploy]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.deploy",
@@ -2669,7 +2669,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-changeStatus",
-    description: "POST /mariadb.changeStatus",
+    description: "Set the status of a MariaDB database. Requires: mariadbId, applicationStatus. [POST /mariadb.changeStatus]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.changeStatus",
@@ -2681,7 +2681,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-remove",
-    description: "POST /mariadb.remove",
+    description: "Delete a MariaDB database. Requires: mariadbId. [POST /mariadb.remove]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.remove",
@@ -2693,7 +2693,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-saveEnvironment",
-    description: "POST /mariadb.saveEnvironment",
+    description: "Replace the environment variables of a MariaDB database. Overwrites the whole block, so send the complete set of variables. Requires: mariadbId, env. [POST /mariadb.saveEnvironment]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.saveEnvironment",
@@ -2705,7 +2705,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-reload",
-    description: "POST /mariadb.reload",
+    description: "Reload a MariaDB database. Requires: mariadbId, appName. [POST /mariadb.reload]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.reload",
@@ -2717,7 +2717,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-update",
-    description: "POST /mariadb.update",
+    description: "Update a MariaDB database. Requires: mariadbId. [POST /mariadb.update]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.update",
@@ -2729,7 +2729,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-changePassword",
-    description: "POST /mariadb.changePassword",
+    description: "Change the password of a MariaDB database. Requires: mariadbId, password. [POST /mariadb.changePassword]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.changePassword",
@@ -2741,7 +2741,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-move",
-    description: "POST /mariadb.move",
+    description: "Move a MariaDB database to another environment. Requires: mariadbId, targetEnvironmentId. [POST /mariadb.move]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.move",
@@ -2753,7 +2753,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-rebuild",
-    description: "POST /mariadb.rebuild",
+    description: "Rebuild a MariaDB database. Requires: mariadbId. [POST /mariadb.rebuild]",
     tag: "mariadb",
     method: "POST",
     path: "/mariadb.rebuild",
@@ -2765,7 +2765,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-search",
-    description: "GET /mariadb.search",
+    description: "Search MariaDB databases. [GET /mariadb.search]",
     tag: "mariadb",
     method: "GET",
     path: "/mariadb.search",
@@ -2777,7 +2777,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mariadb-readLogs",
-    description: "GET /mariadb.readLogs",
+    description: "Read the logs of a MariaDB database. Requires: mariadbId. [GET /mariadb.readLogs]",
     tag: "mariadb",
     method: "GET",
     path: "/mariadb.readLogs",
@@ -2789,7 +2789,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-create",
-    description: "POST /mongo.create",
+    description: "Create a MongoDB database. Requires: name, environmentId, databaseUser, databasePassword. [POST /mongo.create]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.create",
@@ -2801,7 +2801,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-one",
-    description: "GET /mongo.one",
+    description: "Get a MongoDB database by ID. Requires: mongoId. [GET /mongo.one]",
     tag: "mongo",
     method: "GET",
     path: "/mongo.one",
@@ -2813,7 +2813,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-start",
-    description: "POST /mongo.start",
+    description: "Start a MongoDB database. Requires: mongoId. [POST /mongo.start]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.start",
@@ -2825,7 +2825,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-stop",
-    description: "POST /mongo.stop",
+    description: "Stop a MongoDB database. Requires: mongoId. [POST /mongo.stop]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.stop",
@@ -2837,7 +2837,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-saveExternalPort",
-    description: "POST /mongo.saveExternalPort",
+    description: "Set the external port of a MongoDB database. Requires: mongoId, externalPort. [POST /mongo.saveExternalPort]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.saveExternalPort",
@@ -2849,7 +2849,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-deploy",
-    description: "POST /mongo.deploy",
+    description: "Deploy a MongoDB database. Requires: mongoId. [POST /mongo.deploy]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.deploy",
@@ -2861,7 +2861,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-changeStatus",
-    description: "POST /mongo.changeStatus",
+    description: "Set the status of a MongoDB database. Requires: mongoId, applicationStatus. [POST /mongo.changeStatus]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.changeStatus",
@@ -2873,7 +2873,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-reload",
-    description: "POST /mongo.reload",
+    description: "Reload a MongoDB database. Requires: mongoId, appName. [POST /mongo.reload]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.reload",
@@ -2885,7 +2885,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-remove",
-    description: "POST /mongo.remove",
+    description: "Delete a MongoDB database. Requires: mongoId. [POST /mongo.remove]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.remove",
@@ -2897,7 +2897,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-saveEnvironment",
-    description: "POST /mongo.saveEnvironment",
+    description: "Replace the environment variables of a MongoDB database. Overwrites the whole block, so send the complete set of variables. Requires: mongoId, env. [POST /mongo.saveEnvironment]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.saveEnvironment",
@@ -2909,7 +2909,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-update",
-    description: "POST /mongo.update",
+    description: "Update a MongoDB database. Requires: mongoId. [POST /mongo.update]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.update",
@@ -2921,7 +2921,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-changePassword",
-    description: "POST /mongo.changePassword",
+    description: "Change the password of a MongoDB database. Requires: mongoId, password. [POST /mongo.changePassword]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.changePassword",
@@ -2933,7 +2933,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-move",
-    description: "POST /mongo.move",
+    description: "Move a MongoDB database to another environment. Requires: mongoId, targetEnvironmentId. [POST /mongo.move]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.move",
@@ -2945,7 +2945,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-rebuild",
-    description: "POST /mongo.rebuild",
+    description: "Rebuild a MongoDB database. Requires: mongoId. [POST /mongo.rebuild]",
     tag: "mongo",
     method: "POST",
     path: "/mongo.rebuild",
@@ -2957,7 +2957,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-search",
-    description: "GET /mongo.search",
+    description: "Search MongoDB databases. [GET /mongo.search]",
     tag: "mongo",
     method: "GET",
     path: "/mongo.search",
@@ -2969,7 +2969,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mongo-readLogs",
-    description: "GET /mongo.readLogs",
+    description: "Read the logs of a MongoDB database. Requires: mongoId. [GET /mongo.readLogs]",
     tag: "mongo",
     method: "GET",
     path: "/mongo.readLogs",
@@ -2981,7 +2981,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mounts-create",
-    description: "POST /mounts.create",
+    description: "Create a mount. Requires: type, mountPath, serviceId. [POST /mounts.create]",
     tag: "mounts",
     method: "POST",
     path: "/mounts.create",
@@ -2993,7 +2993,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mounts-remove",
-    description: "POST /mounts.remove",
+    description: "Delete a mount. Requires: mountId. [POST /mounts.remove]",
     tag: "mounts",
     method: "POST",
     path: "/mounts.remove",
@@ -3005,7 +3005,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mounts-one",
-    description: "GET /mounts.one",
+    description: "Get a mount by ID. Requires: mountId. [GET /mounts.one]",
     tag: "mounts",
     method: "GET",
     path: "/mounts.one",
@@ -3017,7 +3017,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mounts-update",
-    description: "POST /mounts.update",
+    description: "Update a mount. Requires: mountId. [POST /mounts.update]",
     tag: "mounts",
     method: "POST",
     path: "/mounts.update",
@@ -3029,7 +3029,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mounts-allNamedByApplicationId",
-    description: "GET /mounts.allNamedByApplicationId",
+    description: "All named by application ID (mount). Requires: applicationId. [GET /mounts.allNamedByApplicationId]",
     tag: "mounts",
     method: "GET",
     path: "/mounts.allNamedByApplicationId",
@@ -3041,7 +3041,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mounts-listByServiceId",
-    description: "GET /mounts.listByServiceId",
+    description: "List by service ID (mount). Requires: serviceType, serviceId. [GET /mounts.listByServiceId]",
     tag: "mounts",
     method: "GET",
     path: "/mounts.listByServiceId",
@@ -3053,7 +3053,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-create",
-    description: "POST /mysql.create",
+    description: "Create a MySQL database. Requires: name, environmentId, databaseName, databaseUser, databasePassword. [POST /mysql.create]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.create",
@@ -3065,7 +3065,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-one",
-    description: "GET /mysql.one",
+    description: "Get a MySQL database by ID. Requires: mysqlId. [GET /mysql.one]",
     tag: "mysql",
     method: "GET",
     path: "/mysql.one",
@@ -3077,7 +3077,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-start",
-    description: "POST /mysql.start",
+    description: "Start a MySQL database. Requires: mysqlId. [POST /mysql.start]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.start",
@@ -3089,7 +3089,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-stop",
-    description: "POST /mysql.stop",
+    description: "Stop a MySQL database. Requires: mysqlId. [POST /mysql.stop]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.stop",
@@ -3101,7 +3101,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-saveExternalPort",
-    description: "POST /mysql.saveExternalPort",
+    description: "Set the external port of a MySQL database. Requires: mysqlId, externalPort. [POST /mysql.saveExternalPort]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.saveExternalPort",
@@ -3113,7 +3113,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-deploy",
-    description: "POST /mysql.deploy",
+    description: "Deploy a MySQL database. Requires: mysqlId. [POST /mysql.deploy]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.deploy",
@@ -3125,7 +3125,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-changeStatus",
-    description: "POST /mysql.changeStatus",
+    description: "Set the status of a MySQL database. Requires: mysqlId, applicationStatus. [POST /mysql.changeStatus]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.changeStatus",
@@ -3137,7 +3137,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-reload",
-    description: "POST /mysql.reload",
+    description: "Reload a MySQL database. Requires: mysqlId, appName. [POST /mysql.reload]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.reload",
@@ -3149,7 +3149,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-remove",
-    description: "POST /mysql.remove",
+    description: "Delete a MySQL database. Requires: mysqlId. [POST /mysql.remove]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.remove",
@@ -3161,7 +3161,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-saveEnvironment",
-    description: "POST /mysql.saveEnvironment",
+    description: "Replace the environment variables of a MySQL database. Overwrites the whole block, so send the complete set of variables. Requires: mysqlId, env. [POST /mysql.saveEnvironment]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.saveEnvironment",
@@ -3173,7 +3173,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-update",
-    description: "POST /mysql.update",
+    description: "Update a MySQL database. Requires: mysqlId. [POST /mysql.update]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.update",
@@ -3185,7 +3185,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-changePassword",
-    description: "POST /mysql.changePassword",
+    description: "Change the password of a MySQL database. Requires: mysqlId, password. [POST /mysql.changePassword]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.changePassword",
@@ -3197,7 +3197,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-move",
-    description: "POST /mysql.move",
+    description: "Move a MySQL database to another environment. Requires: mysqlId, targetEnvironmentId. [POST /mysql.move]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.move",
@@ -3209,7 +3209,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-rebuild",
-    description: "POST /mysql.rebuild",
+    description: "Rebuild a MySQL database. Requires: mysqlId. [POST /mysql.rebuild]",
     tag: "mysql",
     method: "POST",
     path: "/mysql.rebuild",
@@ -3221,7 +3221,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-search",
-    description: "GET /mysql.search",
+    description: "Search MySQL databases. [GET /mysql.search]",
     tag: "mysql",
     method: "GET",
     path: "/mysql.search",
@@ -3233,7 +3233,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "mysql-readLogs",
-    description: "GET /mysql.readLogs",
+    description: "Read the logs of a MySQL database. Requires: mysqlId. [GET /mysql.readLogs]",
     tag: "mysql",
     method: "GET",
     path: "/mysql.readLogs",
@@ -3245,7 +3245,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createSlack",
-    description: "POST /notification.createSlack",
+    description: "Create slack (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, webhookUrl, channel. [POST /notification.createSlack]",
     tag: "notification",
     method: "POST",
     path: "/notification.createSlack",
@@ -3257,7 +3257,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateSlack",
-    description: "POST /notification.updateSlack",
+    description: "Update slack (notification provider). Requires: notificationId, slackId. [POST /notification.updateSlack]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateSlack",
@@ -3269,7 +3269,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testSlackConnection",
-    description: "POST /notification.testSlackConnection",
+    description: "Test slack connection (notification provider). Requires: webhookUrl, channel. [POST /notification.testSlackConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testSlackConnection",
@@ -3281,7 +3281,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createTelegram",
-    description: "POST /notification.createTelegram",
+    description: "Create telegram (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, botToken, chatId, messageThreadId. [POST /notification.createTelegram]",
     tag: "notification",
     method: "POST",
     path: "/notification.createTelegram",
@@ -3293,7 +3293,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateTelegram",
-    description: "POST /notification.updateTelegram",
+    description: "Update telegram (notification provider). Requires: notificationId, telegramId. [POST /notification.updateTelegram]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateTelegram",
@@ -3305,7 +3305,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testTelegramConnection",
-    description: "POST /notification.testTelegramConnection",
+    description: "Test telegram connection (notification provider). Requires: botToken, chatId, messageThreadId. [POST /notification.testTelegramConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testTelegramConnection",
@@ -3317,7 +3317,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createDiscord",
-    description: "POST /notification.createDiscord",
+    description: "Create discord (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, webhookUrl, decoration. [POST /notification.createDiscord]",
     tag: "notification",
     method: "POST",
     path: "/notification.createDiscord",
@@ -3329,7 +3329,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateDiscord",
-    description: "POST /notification.updateDiscord",
+    description: "Update discord (notification provider). Requires: notificationId, discordId. [POST /notification.updateDiscord]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateDiscord",
@@ -3341,7 +3341,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testDiscordConnection",
-    description: "POST /notification.testDiscordConnection",
+    description: "Test discord connection (notification provider). Requires: webhookUrl. [POST /notification.testDiscordConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testDiscordConnection",
@@ -3353,7 +3353,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createEmail",
-    description: "POST /notification.createEmail",
+    description: "Create email (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, smtpServer, smtpPort, username, password, fromAddress, toAddresses. [POST /notification.createEmail]",
     tag: "notification",
     method: "POST",
     path: "/notification.createEmail",
@@ -3365,7 +3365,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateEmail",
-    description: "POST /notification.updateEmail",
+    description: "Update email (notification provider). Requires: notificationId, emailId. [POST /notification.updateEmail]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateEmail",
@@ -3377,7 +3377,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testEmailConnection",
-    description: "POST /notification.testEmailConnection",
+    description: "Test email connection (notification provider). Requires: smtpServer, smtpPort, username, password, toAddresses, fromAddress. [POST /notification.testEmailConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testEmailConnection",
@@ -3389,7 +3389,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createResend",
-    description: "POST /notification.createResend",
+    description: "Create resend (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, apiKey, fromAddress, toAddresses. [POST /notification.createResend]",
     tag: "notification",
     method: "POST",
     path: "/notification.createResend",
@@ -3401,7 +3401,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateResend",
-    description: "POST /notification.updateResend",
+    description: "Update resend (notification provider). Requires: notificationId, resendId. [POST /notification.updateResend]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateResend",
@@ -3413,7 +3413,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testResendConnection",
-    description: "POST /notification.testResendConnection",
+    description: "Test resend connection (notification provider). Requires: apiKey, fromAddress, toAddresses. [POST /notification.testResendConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testResendConnection",
@@ -3425,7 +3425,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-remove",
-    description: "POST /notification.remove",
+    description: "Delete a notification provider. Requires: notificationId. [POST /notification.remove]",
     tag: "notification",
     method: "POST",
     path: "/notification.remove",
@@ -3437,7 +3437,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-one",
-    description: "GET /notification.one",
+    description: "Get a notification provider by ID. Requires: notificationId. [GET /notification.one]",
     tag: "notification",
     method: "GET",
     path: "/notification.one",
@@ -3449,7 +3449,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-all",
-    description: "GET /notification.all",
+    description: "List notification providers. [GET /notification.all]",
     tag: "notification",
     method: "GET",
     path: "/notification.all",
@@ -3461,7 +3461,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-receiveNotification",
-    description: "POST /notification.receiveNotification",
+    description: "Receive notification (notification provider). Requires: Type, Value, Threshold, Message, Timestamp, Token. [POST /notification.receiveNotification]",
     tag: "notification",
     method: "POST",
     path: "/notification.receiveNotification",
@@ -3473,7 +3473,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createGotify",
-    description: "POST /notification.createGotify",
+    description: "Create gotify (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, serverUrl, appToken, priority, decoration. [POST /notification.createGotify]",
     tag: "notification",
     method: "POST",
     path: "/notification.createGotify",
@@ -3485,7 +3485,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateGotify",
-    description: "POST /notification.updateGotify",
+    description: "Update gotify (notification provider). Requires: notificationId, gotifyId. [POST /notification.updateGotify]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateGotify",
@@ -3497,7 +3497,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testGotifyConnection",
-    description: "POST /notification.testGotifyConnection",
+    description: "Test gotify connection (notification provider). Requires: serverUrl, appToken, priority. [POST /notification.testGotifyConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testGotifyConnection",
@@ -3509,7 +3509,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createNtfy",
-    description: "POST /notification.createNtfy",
+    description: "Create ntfy (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, serverUrl, topic, accessToken, priority. [POST /notification.createNtfy]",
     tag: "notification",
     method: "POST",
     path: "/notification.createNtfy",
@@ -3521,7 +3521,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateNtfy",
-    description: "POST /notification.updateNtfy",
+    description: "Update ntfy (notification provider). Requires: notificationId, ntfyId. [POST /notification.updateNtfy]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateNtfy",
@@ -3533,7 +3533,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testNtfyConnection",
-    description: "POST /notification.testNtfyConnection",
+    description: "Test ntfy connection (notification provider). Requires: serverUrl, topic, accessToken, priority. [POST /notification.testNtfyConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testNtfyConnection",
@@ -3545,7 +3545,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createMattermost",
-    description: "POST /notification.createMattermost",
+    description: "Create mattermost (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, webhookUrl. [POST /notification.createMattermost]",
     tag: "notification",
     method: "POST",
     path: "/notification.createMattermost",
@@ -3557,7 +3557,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateMattermost",
-    description: "POST /notification.updateMattermost",
+    description: "Update mattermost (notification provider). Requires: notificationId, mattermostId. [POST /notification.updateMattermost]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateMattermost",
@@ -3569,7 +3569,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testMattermostConnection",
-    description: "POST /notification.testMattermostConnection",
+    description: "Test mattermost connection (notification provider). Requires: webhookUrl. [POST /notification.testMattermostConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testMattermostConnection",
@@ -3581,7 +3581,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createCustom",
-    description: "POST /notification.createCustom",
+    description: "Create custom (notification provider). Requires: name, endpoint. [POST /notification.createCustom]",
     tag: "notification",
     method: "POST",
     path: "/notification.createCustom",
@@ -3593,7 +3593,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateCustom",
-    description: "POST /notification.updateCustom",
+    description: "Update custom (notification provider). Requires: notificationId, customId. [POST /notification.updateCustom]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateCustom",
@@ -3605,7 +3605,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testCustomConnection",
-    description: "POST /notification.testCustomConnection",
+    description: "Test custom connection (notification provider). Requires: endpoint. [POST /notification.testCustomConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testCustomConnection",
@@ -3617,7 +3617,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createLark",
-    description: "POST /notification.createLark",
+    description: "Create lark (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, webhookUrl. [POST /notification.createLark]",
     tag: "notification",
     method: "POST",
     path: "/notification.createLark",
@@ -3629,7 +3629,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateLark",
-    description: "POST /notification.updateLark",
+    description: "Update lark (notification provider). Requires: notificationId, larkId. [POST /notification.updateLark]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateLark",
@@ -3641,7 +3641,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testLarkConnection",
-    description: "POST /notification.testLarkConnection",
+    description: "Test lark connection (notification provider). Requires: webhookUrl. [POST /notification.testLarkConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testLarkConnection",
@@ -3653,7 +3653,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createTeams",
-    description: "POST /notification.createTeams",
+    description: "Create teams (notification provider). Requires: appBuildError, databaseBackup, dokployBackup, volumeBackup, dokployRestart, name, appDeploy, dockerCleanup, serverThreshold, webhookUrl. [POST /notification.createTeams]",
     tag: "notification",
     method: "POST",
     path: "/notification.createTeams",
@@ -3665,7 +3665,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updateTeams",
-    description: "POST /notification.updateTeams",
+    description: "Update teams (notification provider). Requires: notificationId, teamsId. [POST /notification.updateTeams]",
     tag: "notification",
     method: "POST",
     path: "/notification.updateTeams",
@@ -3677,7 +3677,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testTeamsConnection",
-    description: "POST /notification.testTeamsConnection",
+    description: "Test teams connection (notification provider). Requires: webhookUrl. [POST /notification.testTeamsConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testTeamsConnection",
@@ -3689,7 +3689,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-createPushover",
-    description: "POST /notification.createPushover",
+    description: "Create pushover (notification provider). Requires: name, userKey, apiToken. [POST /notification.createPushover]",
     tag: "notification",
     method: "POST",
     path: "/notification.createPushover",
@@ -3701,7 +3701,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-updatePushover",
-    description: "POST /notification.updatePushover",
+    description: "Update pushover (notification provider). Requires: notificationId, pushoverId. [POST /notification.updatePushover]",
     tag: "notification",
     method: "POST",
     path: "/notification.updatePushover",
@@ -3713,7 +3713,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-testPushoverConnection",
-    description: "POST /notification.testPushoverConnection",
+    description: "Test pushover connection (notification provider). Requires: userKey, apiToken, priority. [POST /notification.testPushoverConnection]",
     tag: "notification",
     method: "POST",
     path: "/notification.testPushoverConnection",
@@ -3725,7 +3725,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "notification-getEmailProviders",
-    description: "GET /notification.getEmailProviders",
+    description: "Get email providers (notification provider). [GET /notification.getEmailProviders]",
     tag: "notification",
     method: "GET",
     path: "/notification.getEmailProviders",
@@ -3737,7 +3737,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "port-create",
-    description: "POST /port.create",
+    description: "Create a port mapping. Requires: publishedPort, publishMode, targetPort, protocol, applicationId. [POST /port.create]",
     tag: "port",
     method: "POST",
     path: "/port.create",
@@ -3749,7 +3749,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "port-one",
-    description: "GET /port.one",
+    description: "Get a port mapping by ID. Requires: portId. [GET /port.one]",
     tag: "port",
     method: "GET",
     path: "/port.one",
@@ -3761,7 +3761,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "port-delete",
-    description: "POST /port.delete",
+    description: "Delete a port mapping. Requires: portId. [POST /port.delete]",
     tag: "port",
     method: "POST",
     path: "/port.delete",
@@ -3773,7 +3773,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "port-update",
-    description: "POST /port.update",
+    description: "Update a port mapping. Requires: portId, publishedPort, publishMode, targetPort, protocol. [POST /port.update]",
     tag: "port",
     method: "POST",
     path: "/port.update",
@@ -3785,7 +3785,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-create",
-    description: "POST /postgres.create",
+    description: "Create a PostgreSQL database. Requires: name, databaseName, databaseUser, databasePassword, environmentId. [POST /postgres.create]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.create",
@@ -3797,7 +3797,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-one",
-    description: "GET /postgres.one",
+    description: "Get a PostgreSQL database by ID. Requires: postgresId. [GET /postgres.one]",
     tag: "postgres",
     method: "GET",
     path: "/postgres.one",
@@ -3809,7 +3809,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-start",
-    description: "POST /postgres.start",
+    description: "Start a PostgreSQL database. Requires: postgresId. [POST /postgres.start]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.start",
@@ -3821,7 +3821,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-stop",
-    description: "POST /postgres.stop",
+    description: "Stop a PostgreSQL database. Requires: postgresId. [POST /postgres.stop]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.stop",
@@ -3833,7 +3833,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-saveExternalPort",
-    description: "POST /postgres.saveExternalPort",
+    description: "Set the external port of a PostgreSQL database. Requires: postgresId, externalPort. [POST /postgres.saveExternalPort]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.saveExternalPort",
@@ -3845,7 +3845,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-deploy",
-    description: "POST /postgres.deploy",
+    description: "Deploy a PostgreSQL database. Requires: postgresId. [POST /postgres.deploy]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.deploy",
@@ -3857,7 +3857,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-changeStatus",
-    description: "POST /postgres.changeStatus",
+    description: "Set the status of a PostgreSQL database. Requires: postgresId, applicationStatus. [POST /postgres.changeStatus]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.changeStatus",
@@ -3869,7 +3869,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-remove",
-    description: "POST /postgres.remove",
+    description: "Delete a PostgreSQL database. Requires: postgresId. [POST /postgres.remove]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.remove",
@@ -3881,7 +3881,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-saveEnvironment",
-    description: "POST /postgres.saveEnvironment",
+    description: "Replace the environment variables of a PostgreSQL database. Overwrites the whole block, so send the complete set of variables. Requires: postgresId, env. [POST /postgres.saveEnvironment]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.saveEnvironment",
@@ -3893,7 +3893,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-reload",
-    description: "POST /postgres.reload",
+    description: "Reload a PostgreSQL database. Requires: postgresId, appName. [POST /postgres.reload]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.reload",
@@ -3905,7 +3905,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-update",
-    description: "POST /postgres.update",
+    description: "Update a PostgreSQL database. Requires: postgresId. [POST /postgres.update]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.update",
@@ -3917,7 +3917,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-changePassword",
-    description: "POST /postgres.changePassword",
+    description: "Change the password of a PostgreSQL database. Requires: postgresId, password. [POST /postgres.changePassword]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.changePassword",
@@ -3929,7 +3929,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-move",
-    description: "POST /postgres.move",
+    description: "Move a PostgreSQL database to another environment. Requires: postgresId, targetEnvironmentId. [POST /postgres.move]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.move",
@@ -3941,7 +3941,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-rebuild",
-    description: "POST /postgres.rebuild",
+    description: "Rebuild a PostgreSQL database. Requires: postgresId. [POST /postgres.rebuild]",
     tag: "postgres",
     method: "POST",
     path: "/postgres.rebuild",
@@ -3953,7 +3953,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-search",
-    description: "GET /postgres.search",
+    description: "Search PostgreSQL databases. [GET /postgres.search]",
     tag: "postgres",
     method: "GET",
     path: "/postgres.search",
@@ -3965,7 +3965,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "postgres-readLogs",
-    description: "GET /postgres.readLogs",
+    description: "Read the logs of a PostgreSQL database. Requires: postgresId. [GET /postgres.readLogs]",
     tag: "postgres",
     method: "GET",
     path: "/postgres.readLogs",
@@ -3977,7 +3977,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "previewDeployment-all",
-    description: "GET /previewDeployment.all",
+    description: "List preview deployments. Requires: applicationId. [GET /previewDeployment.all]",
     tag: "previewDeployment",
     method: "GET",
     path: "/previewDeployment.all",
@@ -3989,7 +3989,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "previewDeployment-one",
-    description: "GET /previewDeployment.one",
+    description: "Get a preview deployment by ID. Requires: previewDeploymentId. [GET /previewDeployment.one]",
     tag: "previewDeployment",
     method: "GET",
     path: "/previewDeployment.one",
@@ -4001,7 +4001,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "previewDeployment-delete",
-    description: "POST /previewDeployment.delete",
+    description: "Delete a preview deployment. Requires: previewDeploymentId. [POST /previewDeployment.delete]",
     tag: "previewDeployment",
     method: "POST",
     path: "/previewDeployment.delete",
@@ -4013,7 +4013,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "previewDeployment-redeploy",
-    description: "POST /previewDeployment.redeploy",
+    description: "Redeploy a preview deployment. Requires: previewDeploymentId. [POST /previewDeployment.redeploy]",
     tag: "previewDeployment",
     method: "POST",
     path: "/previewDeployment.redeploy",
@@ -4025,7 +4025,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-create",
-    description: "POST /project.create",
+    description: "Create a project. Requires: name. [POST /project.create]",
     tag: "project",
     method: "POST",
     path: "/project.create",
@@ -4037,7 +4037,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-one",
-    description: "GET /project.one",
+    description: "Get a project by ID. Requires: projectId. [GET /project.one]",
     tag: "project",
     method: "GET",
     path: "/project.one",
@@ -4049,7 +4049,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-all",
-    description: "GET /project.all",
+    description: "List projects, including their environments and services. [GET /project.all]",
     tag: "project",
     method: "GET",
     path: "/project.all",
@@ -4061,7 +4061,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-allForPermissions",
-    description: "GET /project.allForPermissions",
+    description: "All for permissions (project). [GET /project.allForPermissions]",
     tag: "project",
     method: "GET",
     path: "/project.allForPermissions",
@@ -4073,7 +4073,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-homeStats",
-    description: "GET /project.homeStats",
+    description: "Home stats (project). [GET /project.homeStats]",
     tag: "project",
     method: "GET",
     path: "/project.homeStats",
@@ -4085,7 +4085,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-onboardingStatus",
-    description: "GET /project.onboardingStatus",
+    description: "Onboarding status (project). [GET /project.onboardingStatus]",
     tag: "project",
     method: "GET",
     path: "/project.onboardingStatus",
@@ -4097,7 +4097,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-completeOnboarding",
-    description: "POST /project.completeOnboarding",
+    description: "Complete onboarding (project). [POST /project.completeOnboarding]",
     tag: "project",
     method: "POST",
     path: "/project.completeOnboarding",
@@ -4109,7 +4109,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-search",
-    description: "GET /project.search",
+    description: "Search projects. [GET /project.search]",
     tag: "project",
     method: "GET",
     path: "/project.search",
@@ -4121,7 +4121,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-remove",
-    description: "POST /project.remove",
+    description: "Delete a project. Requires: projectId. [POST /project.remove]",
     tag: "project",
     method: "POST",
     path: "/project.remove",
@@ -4133,7 +4133,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-update",
-    description: "POST /project.update",
+    description: "Update a project. Requires: projectId. [POST /project.update]",
     tag: "project",
     method: "POST",
     path: "/project.update",
@@ -4145,7 +4145,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "project-duplicate",
-    description: "POST /project.duplicate",
+    description: "Duplicate a project. Requires: sourceEnvironmentId, name. [POST /project.duplicate]",
     tag: "project",
     method: "POST",
     path: "/project.duplicate",
@@ -4157,7 +4157,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redirects-create",
-    description: "POST /redirects.create",
+    description: "Create a redirect rule. Requires: regex, replacement, permanent, applicationId. [POST /redirects.create]",
     tag: "redirects",
     method: "POST",
     path: "/redirects.create",
@@ -4169,7 +4169,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redirects-one",
-    description: "GET /redirects.one",
+    description: "Get a redirect rule by ID. Requires: redirectId. [GET /redirects.one]",
     tag: "redirects",
     method: "GET",
     path: "/redirects.one",
@@ -4181,7 +4181,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redirects-delete",
-    description: "POST /redirects.delete",
+    description: "Delete a redirect rule. Requires: redirectId. [POST /redirects.delete]",
     tag: "redirects",
     method: "POST",
     path: "/redirects.delete",
@@ -4193,7 +4193,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redirects-update",
-    description: "POST /redirects.update",
+    description: "Update a redirect rule. Requires: redirectId, regex, replacement, permanent. [POST /redirects.update]",
     tag: "redirects",
     method: "POST",
     path: "/redirects.update",
@@ -4205,7 +4205,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-create",
-    description: "POST /redis.create",
+    description: "Create a Redis database. Requires: name, databasePassword, environmentId. [POST /redis.create]",
     tag: "redis",
     method: "POST",
     path: "/redis.create",
@@ -4217,7 +4217,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-one",
-    description: "GET /redis.one",
+    description: "Get a Redis database by ID. Requires: redisId. [GET /redis.one]",
     tag: "redis",
     method: "GET",
     path: "/redis.one",
@@ -4229,7 +4229,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-start",
-    description: "POST /redis.start",
+    description: "Start a Redis database. Requires: redisId. [POST /redis.start]",
     tag: "redis",
     method: "POST",
     path: "/redis.start",
@@ -4241,7 +4241,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-reload",
-    description: "POST /redis.reload",
+    description: "Reload a Redis database. Requires: redisId, appName. [POST /redis.reload]",
     tag: "redis",
     method: "POST",
     path: "/redis.reload",
@@ -4253,7 +4253,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-stop",
-    description: "POST /redis.stop",
+    description: "Stop a Redis database. Requires: redisId. [POST /redis.stop]",
     tag: "redis",
     method: "POST",
     path: "/redis.stop",
@@ -4265,7 +4265,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-saveExternalPort",
-    description: "POST /redis.saveExternalPort",
+    description: "Set the external port of a Redis database. Requires: redisId, externalPort. [POST /redis.saveExternalPort]",
     tag: "redis",
     method: "POST",
     path: "/redis.saveExternalPort",
@@ -4277,7 +4277,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-deploy",
-    description: "POST /redis.deploy",
+    description: "Deploy a Redis database. Requires: redisId. [POST /redis.deploy]",
     tag: "redis",
     method: "POST",
     path: "/redis.deploy",
@@ -4289,7 +4289,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-changeStatus",
-    description: "POST /redis.changeStatus",
+    description: "Set the status of a Redis database. Requires: redisId, applicationStatus. [POST /redis.changeStatus]",
     tag: "redis",
     method: "POST",
     path: "/redis.changeStatus",
@@ -4301,7 +4301,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-remove",
-    description: "POST /redis.remove",
+    description: "Delete a Redis database. Requires: redisId. [POST /redis.remove]",
     tag: "redis",
     method: "POST",
     path: "/redis.remove",
@@ -4313,7 +4313,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-saveEnvironment",
-    description: "POST /redis.saveEnvironment",
+    description: "Replace the environment variables of a Redis database. Overwrites the whole block, so send the complete set of variables. Requires: redisId, env. [POST /redis.saveEnvironment]",
     tag: "redis",
     method: "POST",
     path: "/redis.saveEnvironment",
@@ -4325,7 +4325,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-update",
-    description: "POST /redis.update",
+    description: "Update a Redis database. Requires: redisId. [POST /redis.update]",
     tag: "redis",
     method: "POST",
     path: "/redis.update",
@@ -4337,7 +4337,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-changePassword",
-    description: "POST /redis.changePassword",
+    description: "Change the password of a Redis database. Requires: redisId, password. [POST /redis.changePassword]",
     tag: "redis",
     method: "POST",
     path: "/redis.changePassword",
@@ -4349,7 +4349,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-move",
-    description: "POST /redis.move",
+    description: "Move a Redis database to another environment. Requires: redisId, targetEnvironmentId. [POST /redis.move]",
     tag: "redis",
     method: "POST",
     path: "/redis.move",
@@ -4361,7 +4361,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-rebuild",
-    description: "POST /redis.rebuild",
+    description: "Rebuild a Redis database. Requires: redisId. [POST /redis.rebuild]",
     tag: "redis",
     method: "POST",
     path: "/redis.rebuild",
@@ -4373,7 +4373,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-search",
-    description: "GET /redis.search",
+    description: "Search Redis databases. [GET /redis.search]",
     tag: "redis",
     method: "GET",
     path: "/redis.search",
@@ -4385,7 +4385,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "redis-readLogs",
-    description: "GET /redis.readLogs",
+    description: "Read the logs of a Redis database. Requires: redisId. [GET /redis.readLogs]",
     tag: "redis",
     method: "GET",
     path: "/redis.readLogs",
@@ -4397,7 +4397,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-create",
-    description: "POST /registry.create",
+    description: "Create a Docker registry. Requires: registryName, username, password, registryUrl, registryType, imagePrefix. [POST /registry.create]",
     tag: "registry",
     method: "POST",
     path: "/registry.create",
@@ -4409,7 +4409,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-remove",
-    description: "POST /registry.remove",
+    description: "Delete a Docker registry. Requires: registryId. [POST /registry.remove]",
     tag: "registry",
     method: "POST",
     path: "/registry.remove",
@@ -4421,7 +4421,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-update",
-    description: "POST /registry.update",
+    description: "Update a Docker registry. Requires: registryId. [POST /registry.update]",
     tag: "registry",
     method: "POST",
     path: "/registry.update",
@@ -4433,7 +4433,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-all",
-    description: "GET /registry.all",
+    description: "List Docker registries. [GET /registry.all]",
     tag: "registry",
     method: "GET",
     path: "/registry.all",
@@ -4445,7 +4445,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-one",
-    description: "GET /registry.one",
+    description: "Get a Docker registry by ID. Requires: registryId. [GET /registry.one]",
     tag: "registry",
     method: "GET",
     path: "/registry.one",
@@ -4457,7 +4457,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-testRegistry",
-    description: "POST /registry.testRegistry",
+    description: "Test registry (Docker registry). Requires: username, password, registryUrl, registryType. [POST /registry.testRegistry]",
     tag: "registry",
     method: "POST",
     path: "/registry.testRegistry",
@@ -4469,7 +4469,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "registry-testRegistryById",
-    description: "POST /registry.testRegistryById",
+    description: "Test registry by ID (Docker registry). [POST /registry.testRegistryById]",
     tag: "registry",
     method: "POST",
     path: "/registry.testRegistryById",
@@ -4481,7 +4481,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "security-create",
-    description: "POST /security.create",
+    description: "Create a basic-auth credential. Requires: applicationId, username, password. [POST /security.create]",
     tag: "security",
     method: "POST",
     path: "/security.create",
@@ -4493,7 +4493,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "security-one",
-    description: "GET /security.one",
+    description: "Get a basic-auth credential by ID. Requires: securityId. [GET /security.one]",
     tag: "security",
     method: "GET",
     path: "/security.one",
@@ -4505,7 +4505,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "security-delete",
-    description: "POST /security.delete",
+    description: "Delete a basic-auth credential. Requires: securityId. [POST /security.delete]",
     tag: "security",
     method: "POST",
     path: "/security.delete",
@@ -4517,7 +4517,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "security-update",
-    description: "POST /security.update",
+    description: "Update a basic-auth credential. Requires: securityId, username, password. [POST /security.update]",
     tag: "security",
     method: "POST",
     path: "/security.update",
@@ -4529,7 +4529,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-create",
-    description: "POST /server.create",
+    description: "Create a server. Requires: name, description, ipAddress, port, username, sshKeyId, serverType. [POST /server.create]",
     tag: "server",
     method: "POST",
     path: "/server.create",
@@ -4541,7 +4541,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-one",
-    description: "GET /server.one",
+    description: "Get a server by ID. Requires: serverId. [GET /server.one]",
     tag: "server",
     method: "GET",
     path: "/server.one",
@@ -4553,7 +4553,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-getDefaultCommand",
-    description: "GET /server.getDefaultCommand",
+    description: "Get default command (server). Requires: serverId. [GET /server.getDefaultCommand]",
     tag: "server",
     method: "GET",
     path: "/server.getDefaultCommand",
@@ -4565,7 +4565,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-getServices",
-    description: "GET /server.getServices",
+    description: "Get services (server). Requires: serverId. [GET /server.getServices]",
     tag: "server",
     method: "GET",
     path: "/server.getServices",
@@ -4577,7 +4577,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-all",
-    description: "GET /server.all",
+    description: "List servers. [GET /server.all]",
     tag: "server",
     method: "GET",
     path: "/server.all",
@@ -4589,7 +4589,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-allForPermissions",
-    description: "GET /server.allForPermissions",
+    description: "All for permissions (server). [GET /server.allForPermissions]",
     tag: "server",
     method: "GET",
     path: "/server.allForPermissions",
@@ -4601,7 +4601,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-count",
-    description: "GET /server.count",
+    description: "Count (server). [GET /server.count]",
     tag: "server",
     method: "GET",
     path: "/server.count",
@@ -4613,7 +4613,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-withSSHKey",
-    description: "GET /server.withSSHKey",
+    description: "With SSH key (server). [GET /server.withSSHKey]",
     tag: "server",
     method: "GET",
     path: "/server.withSSHKey",
@@ -4625,7 +4625,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-buildServers",
-    description: "GET /server.buildServers",
+    description: "Build servers (server). [GET /server.buildServers]",
     tag: "server",
     method: "GET",
     path: "/server.buildServers",
@@ -4637,7 +4637,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-setup",
-    description: "POST /server.setup",
+    description: "Setup (server). Requires: serverId. [POST /server.setup]",
     tag: "server",
     method: "POST",
     path: "/server.setup",
@@ -4649,7 +4649,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-validate",
-    description: "GET /server.validate",
+    description: "Validate (server). Requires: serverId. [GET /server.validate]",
     tag: "server",
     method: "GET",
     path: "/server.validate",
@@ -4661,7 +4661,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-security",
-    description: "GET /server.security",
+    description: "Security (server). Requires: serverId. [GET /server.security]",
     tag: "server",
     method: "GET",
     path: "/server.security",
@@ -4673,7 +4673,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-setupMonitoring",
-    description: "POST /server.setupMonitoring",
+    description: "Setup monitoring (server). Requires: serverId, metricsConfig. [POST /server.setupMonitoring]",
     tag: "server",
     method: "POST",
     path: "/server.setupMonitoring",
@@ -4685,7 +4685,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-remove",
-    description: "POST /server.remove",
+    description: "Delete a server. Requires: serverId. [POST /server.remove]",
     tag: "server",
     method: "POST",
     path: "/server.remove",
@@ -4697,7 +4697,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-update",
-    description: "POST /server.update",
+    description: "Update a server. Requires: name, description, serverId, ipAddress, port, username, sshKeyId, serverType. [POST /server.update]",
     tag: "server",
     method: "POST",
     path: "/server.update",
@@ -4709,7 +4709,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-updateBuildsConcurrency",
-    description: "POST /server.updateBuildsConcurrency",
+    description: "Update builds concurrency (server). Requires: serverId, buildsConcurrency. [POST /server.updateBuildsConcurrency]",
     tag: "server",
     method: "POST",
     path: "/server.updateBuildsConcurrency",
@@ -4721,7 +4721,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-publicIp",
-    description: "GET /server.publicIp",
+    description: "Public IP (server). [GET /server.publicIp]",
     tag: "server",
     method: "GET",
     path: "/server.publicIp",
@@ -4733,7 +4733,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-getServerTime",
-    description: "GET /server.getServerTime",
+    description: "Get server time (server). [GET /server.getServerTime]",
     tag: "server",
     method: "GET",
     path: "/server.getServerTime",
@@ -4745,7 +4745,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "server-getServerMetrics",
-    description: "GET /server.getServerMetrics",
+    description: "Get server metrics (server). Requires: url, token, dataPoints. [GET /server.getServerMetrics]",
     tag: "server",
     method: "GET",
     path: "/server.getServerMetrics",
@@ -4757,7 +4757,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getWebServerSettings",
-    description: "GET /settings.getWebServerSettings",
+    description: "Get web server settings (settings). [GET /settings.getWebServerSettings]",
     tag: "settings",
     method: "GET",
     path: "/settings.getWebServerSettings",
@@ -4769,7 +4769,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-reloadServer",
-    description: "POST /settings.reloadServer",
+    description: "Reload server (settings). [POST /settings.reloadServer]",
     tag: "settings",
     method: "POST",
     path: "/settings.reloadServer",
@@ -4781,7 +4781,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanAllDeploymentQueue",
-    description: "POST /settings.cleanAllDeploymentQueue",
+    description: "Clean all deployment queue (settings). [POST /settings.cleanAllDeploymentQueue]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanAllDeploymentQueue",
@@ -4793,7 +4793,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-reloadTraefik",
-    description: "POST /settings.reloadTraefik",
+    description: "Reload Traefik (settings). [POST /settings.reloadTraefik]",
     tag: "settings",
     method: "POST",
     path: "/settings.reloadTraefik",
@@ -4805,7 +4805,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-toggleDashboard",
-    description: "POST /settings.toggleDashboard",
+    description: "Toggle dashboard (settings). [POST /settings.toggleDashboard]",
     tag: "settings",
     method: "POST",
     path: "/settings.toggleDashboard",
@@ -4817,7 +4817,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanUnusedImages",
-    description: "POST /settings.cleanUnusedImages",
+    description: "Clean unused images (settings). [POST /settings.cleanUnusedImages]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanUnusedImages",
@@ -4829,7 +4829,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanUnusedVolumes",
-    description: "POST /settings.cleanUnusedVolumes",
+    description: "Clean unused volumes (settings). [POST /settings.cleanUnusedVolumes]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanUnusedVolumes",
@@ -4841,7 +4841,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanStoppedContainers",
-    description: "POST /settings.cleanStoppedContainers",
+    description: "Clean stopped containers (settings). [POST /settings.cleanStoppedContainers]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanStoppedContainers",
@@ -4853,7 +4853,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanDockerBuilder",
-    description: "POST /settings.cleanDockerBuilder",
+    description: "Clean Docker builder (settings). [POST /settings.cleanDockerBuilder]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanDockerBuilder",
@@ -4865,7 +4865,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanDockerPrune",
-    description: "POST /settings.cleanDockerPrune",
+    description: "Clean Docker prune (settings). [POST /settings.cleanDockerPrune]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanDockerPrune",
@@ -4877,7 +4877,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanAll",
-    description: "POST /settings.cleanAll",
+    description: "Clean all (settings). [POST /settings.cleanAll]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanAll",
@@ -4889,7 +4889,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanMonitoring",
-    description: "POST /settings.cleanMonitoring",
+    description: "Clean monitoring (settings). [POST /settings.cleanMonitoring]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanMonitoring",
@@ -4901,7 +4901,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getDockerDiskUsage",
-    description: "GET /settings.getDockerDiskUsage",
+    description: "Get Docker disk usage (settings). [GET /settings.getDockerDiskUsage]",
     tag: "settings",
     method: "GET",
     path: "/settings.getDockerDiskUsage",
@@ -4913,7 +4913,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-saveSSHPrivateKey",
-    description: "POST /settings.saveSSHPrivateKey",
+    description: "Save SSH private key (settings). Requires: sshPrivateKey. [POST /settings.saveSSHPrivateKey]",
     tag: "settings",
     method: "POST",
     path: "/settings.saveSSHPrivateKey",
@@ -4925,7 +4925,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-assignDomainServer",
-    description: "POST /settings.assignDomainServer",
+    description: "Assign domain server (settings). Requires: host, certificateType. [POST /settings.assignDomainServer]",
     tag: "settings",
     method: "POST",
     path: "/settings.assignDomainServer",
@@ -4937,7 +4937,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-cleanSSHPrivateKey",
-    description: "POST /settings.cleanSSHPrivateKey",
+    description: "Clean SSH private key (settings). [POST /settings.cleanSSHPrivateKey]",
     tag: "settings",
     method: "POST",
     path: "/settings.cleanSSHPrivateKey",
@@ -4949,7 +4949,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateDockerCleanup",
-    description: "POST /settings.updateDockerCleanup",
+    description: "Update Docker cleanup (settings). Requires: enableDockerCleanup. [POST /settings.updateDockerCleanup]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateDockerCleanup",
@@ -4961,7 +4961,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateRemoteServersOnly",
-    description: "POST /settings.updateRemoteServersOnly",
+    description: "Update remote servers only (settings). Requires: remoteServersOnly. [POST /settings.updateRemoteServersOnly]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateRemoteServersOnly",
@@ -4973,7 +4973,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateBuildsConcurrency",
-    description: "POST /settings.updateBuildsConcurrency",
+    description: "Update builds concurrency (settings). Requires: buildsConcurrency. [POST /settings.updateBuildsConcurrency]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateBuildsConcurrency",
@@ -4985,7 +4985,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateEnforceSSO",
-    description: "POST /settings.updateEnforceSSO",
+    description: "Update enforce SSO (settings). Requires: enforceSSO. [POST /settings.updateEnforceSSO]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateEnforceSSO",
@@ -4997,7 +4997,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-readTraefikConfig",
-    description: "GET /settings.readTraefikConfig",
+    description: "Read Traefik config (settings). [GET /settings.readTraefikConfig]",
     tag: "settings",
     method: "GET",
     path: "/settings.readTraefikConfig",
@@ -5009,7 +5009,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateTraefikConfig",
-    description: "POST /settings.updateTraefikConfig",
+    description: "Update Traefik config (settings). Requires: traefikConfig. [POST /settings.updateTraefikConfig]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateTraefikConfig",
@@ -5021,7 +5021,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-readWebServerTraefikConfig",
-    description: "GET /settings.readWebServerTraefikConfig",
+    description: "Read web server Traefik config (settings). [GET /settings.readWebServerTraefikConfig]",
     tag: "settings",
     method: "GET",
     path: "/settings.readWebServerTraefikConfig",
@@ -5033,7 +5033,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateWebServerTraefikConfig",
-    description: "POST /settings.updateWebServerTraefikConfig",
+    description: "Update web server Traefik config (settings). Requires: traefikConfig. [POST /settings.updateWebServerTraefikConfig]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateWebServerTraefikConfig",
@@ -5045,7 +5045,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-readMiddlewareTraefikConfig",
-    description: "GET /settings.readMiddlewareTraefikConfig",
+    description: "Read middleware Traefik config (settings). [GET /settings.readMiddlewareTraefikConfig]",
     tag: "settings",
     method: "GET",
     path: "/settings.readMiddlewareTraefikConfig",
@@ -5057,7 +5057,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateMiddlewareTraefikConfig",
-    description: "POST /settings.updateMiddlewareTraefikConfig",
+    description: "Update middleware Traefik config (settings). Requires: traefikConfig. [POST /settings.updateMiddlewareTraefikConfig]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateMiddlewareTraefikConfig",
@@ -5069,7 +5069,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getUpdateData",
-    description: "POST /settings.getUpdateData",
+    description: "Get update data (settings). [POST /settings.getUpdateData]",
     tag: "settings",
     method: "POST",
     path: "/settings.getUpdateData",
@@ -5081,7 +5081,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateServer",
-    description: "POST /settings.updateServer",
+    description: "Update server (settings). [POST /settings.updateServer]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateServer",
@@ -5093,7 +5093,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getDokployVersion",
-    description: "GET /settings.getDokployVersion",
+    description: "Get dokploy version (settings). [GET /settings.getDokployVersion]",
     tag: "settings",
     method: "GET",
     path: "/settings.getDokployVersion",
@@ -5105,7 +5105,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getReleaseTag",
-    description: "GET /settings.getReleaseTag",
+    description: "Get release tag (settings). [GET /settings.getReleaseTag]",
     tag: "settings",
     method: "GET",
     path: "/settings.getReleaseTag",
@@ -5117,7 +5117,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-readDirectories",
-    description: "GET /settings.readDirectories",
+    description: "Read directories (settings). [GET /settings.readDirectories]",
     tag: "settings",
     method: "GET",
     path: "/settings.readDirectories",
@@ -5129,7 +5129,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateTraefikFile",
-    description: "POST /settings.updateTraefikFile",
+    description: "Update Traefik file (settings). Requires: path, traefikConfig. [POST /settings.updateTraefikFile]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateTraefikFile",
@@ -5141,7 +5141,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-readTraefikFile",
-    description: "GET /settings.readTraefikFile",
+    description: "Read Traefik file (settings). Requires: path. [GET /settings.readTraefikFile]",
     tag: "settings",
     method: "GET",
     path: "/settings.readTraefikFile",
@@ -5153,7 +5153,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getIp",
-    description: "GET /settings.getIp",
+    description: "Get IP (settings). [GET /settings.getIp]",
     tag: "settings",
     method: "GET",
     path: "/settings.getIp",
@@ -5165,7 +5165,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateServerIp",
-    description: "POST /settings.updateServerIp",
+    description: "Update server IP (settings). Requires: serverIp. [POST /settings.updateServerIp]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateServerIp",
@@ -5177,7 +5177,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getOpenApiDocument",
-    description: "GET /settings.getOpenApiDocument",
+    description: "Get open API document (settings). [GET /settings.getOpenApiDocument]",
     tag: "settings",
     method: "GET",
     path: "/settings.getOpenApiDocument",
@@ -5189,7 +5189,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-readTraefikEnv",
-    description: "GET /settings.readTraefikEnv",
+    description: "Read Traefik env (settings). [GET /settings.readTraefikEnv]",
     tag: "settings",
     method: "GET",
     path: "/settings.readTraefikEnv",
@@ -5201,7 +5201,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-writeTraefikEnv",
-    description: "POST /settings.writeTraefikEnv",
+    description: "Write Traefik env (settings). Requires: env. [POST /settings.writeTraefikEnv]",
     tag: "settings",
     method: "POST",
     path: "/settings.writeTraefikEnv",
@@ -5213,7 +5213,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-haveTraefikDashboardPortEnabled",
-    description: "GET /settings.haveTraefikDashboardPortEnabled",
+    description: "Have Traefik dashboard port enabled (settings). [GET /settings.haveTraefikDashboardPortEnabled]",
     tag: "settings",
     method: "GET",
     path: "/settings.haveTraefikDashboardPortEnabled",
@@ -5225,7 +5225,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-haveActivateRequests",
-    description: "GET /settings.haveActivateRequests",
+    description: "Have activate requests (settings). [GET /settings.haveActivateRequests]",
     tag: "settings",
     method: "GET",
     path: "/settings.haveActivateRequests",
@@ -5237,7 +5237,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-toggleRequests",
-    description: "POST /settings.toggleRequests",
+    description: "Toggle requests (settings). Requires: enable. [POST /settings.toggleRequests]",
     tag: "settings",
     method: "POST",
     path: "/settings.toggleRequests",
@@ -5249,7 +5249,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-isCloud",
-    description: "GET /settings.isCloud",
+    description: "Is cloud (settings). [GET /settings.isCloud]",
     tag: "settings",
     method: "GET",
     path: "/settings.isCloud",
@@ -5261,7 +5261,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-isUserSubscribed",
-    description: "GET /settings.isUserSubscribed",
+    description: "Is user subscribed (settings). [GET /settings.isUserSubscribed]",
     tag: "settings",
     method: "GET",
     path: "/settings.isUserSubscribed",
@@ -5273,7 +5273,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-health",
-    description: "GET /settings.health",
+    description: "Health (settings). [GET /settings.health]",
     tag: "settings",
     method: "GET",
     path: "/settings.health",
@@ -5285,7 +5285,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-checkInfrastructureHealth",
-    description: "GET /settings.checkInfrastructureHealth",
+    description: "Check infrastructure health (settings). [GET /settings.checkInfrastructureHealth]",
     tag: "settings",
     method: "GET",
     path: "/settings.checkInfrastructureHealth",
@@ -5297,7 +5297,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-setupGPU",
-    description: "POST /settings.setupGPU",
+    description: "Setup GPU (settings). [POST /settings.setupGPU]",
     tag: "settings",
     method: "POST",
     path: "/settings.setupGPU",
@@ -5309,7 +5309,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-checkGPUStatus",
-    description: "GET /settings.checkGPUStatus",
+    description: "Check GPU status (settings). [GET /settings.checkGPUStatus]",
     tag: "settings",
     method: "GET",
     path: "/settings.checkGPUStatus",
@@ -5321,7 +5321,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateTraefikPorts",
-    description: "POST /settings.updateTraefikPorts",
+    description: "Update Traefik ports (settings). Requires: additionalPorts. [POST /settings.updateTraefikPorts]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateTraefikPorts",
@@ -5333,7 +5333,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getTraefikPorts",
-    description: "GET /settings.getTraefikPorts",
+    description: "Get Traefik ports (settings). [GET /settings.getTraefikPorts]",
     tag: "settings",
     method: "GET",
     path: "/settings.getTraefikPorts",
@@ -5345,7 +5345,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-updateLogCleanup",
-    description: "POST /settings.updateLogCleanup",
+    description: "Update log cleanup (settings). Requires: cronExpression. [POST /settings.updateLogCleanup]",
     tag: "settings",
     method: "POST",
     path: "/settings.updateLogCleanup",
@@ -5357,7 +5357,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getLogCleanupStatus",
-    description: "GET /settings.getLogCleanupStatus",
+    description: "Get log cleanup status (settings). [GET /settings.getLogCleanupStatus]",
     tag: "settings",
     method: "GET",
     path: "/settings.getLogCleanupStatus",
@@ -5369,7 +5369,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "settings-getDokployCloudIps",
-    description: "GET /settings.getDokployCloudIps",
+    description: "Get dokploy cloud ips (settings). [GET /settings.getDokployCloudIps]",
     tag: "settings",
     method: "GET",
     path: "/settings.getDokployCloudIps",
@@ -5381,7 +5381,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-create",
-    description: "POST /sshKey.create",
+    description: "Create an SSH key. Requires: name, privateKey, publicKey, organizationId. [POST /sshKey.create]",
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.create",
@@ -5393,7 +5393,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-remove",
-    description: "POST /sshKey.remove",
+    description: "Delete an SSH key. Requires: sshKeyId. [POST /sshKey.remove]",
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.remove",
@@ -5405,7 +5405,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-one",
-    description: "GET /sshKey.one",
+    description: "Get an SSH key by ID. Requires: sshKeyId. [GET /sshKey.one]",
     tag: "sshKey",
     method: "GET",
     path: "/sshKey.one",
@@ -5417,7 +5417,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-all",
-    description: "GET /sshKey.all",
+    description: "List SSH keys. [GET /sshKey.all]",
     tag: "sshKey",
     method: "GET",
     path: "/sshKey.all",
@@ -5429,7 +5429,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-allForApps",
-    description: "GET /sshKey.allForApps",
+    description: "All for apps (SSH key). [GET /sshKey.allForApps]",
     tag: "sshKey",
     method: "GET",
     path: "/sshKey.allForApps",
@@ -5441,7 +5441,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-generate",
-    description: "POST /sshKey.generate",
+    description: "Generate (SSH key). [POST /sshKey.generate]",
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.generate",
@@ -5453,7 +5453,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sshKey-update",
-    description: "POST /sshKey.update",
+    description: "Update an SSH key. Requires: sshKeyId. [POST /sshKey.update]",
     tag: "sshKey",
     method: "POST",
     path: "/sshKey.update",
@@ -5465,7 +5465,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-getCurrentPlan",
-    description: "GET /stripe.getCurrentPlan",
+    description: "Get current plan (stripe). [GET /stripe.getCurrentPlan]",
     tag: "stripe",
     method: "GET",
     path: "/stripe.getCurrentPlan",
@@ -5477,7 +5477,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-getBillingStatus",
-    description: "GET /stripe.getBillingStatus",
+    description: "Get billing status (stripe). [GET /stripe.getBillingStatus]",
     tag: "stripe",
     method: "GET",
     path: "/stripe.getBillingStatus",
@@ -5489,7 +5489,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-startFreeTrial",
-    description: "POST /stripe.startFreeTrial",
+    description: "Start free trial (stripe). Requires: tier. [POST /stripe.startFreeTrial]",
     tag: "stripe",
     method: "POST",
     path: "/stripe.startFreeTrial",
@@ -5501,7 +5501,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-getProducts",
-    description: "GET /stripe.getProducts",
+    description: "Get products (stripe). [GET /stripe.getProducts]",
     tag: "stripe",
     method: "GET",
     path: "/stripe.getProducts",
@@ -5513,7 +5513,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-createCheckoutSession",
-    description: "POST /stripe.createCheckoutSession",
+    description: "Create checkout session (stripe). Requires: tier, productId, serverQuantity, isAnnual. [POST /stripe.createCheckoutSession]",
     tag: "stripe",
     method: "POST",
     path: "/stripe.createCheckoutSession",
@@ -5525,7 +5525,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-createCustomerPortalSession",
-    description: "POST /stripe.createCustomerPortalSession",
+    description: "Create customer portal session (stripe). [POST /stripe.createCustomerPortalSession]",
     tag: "stripe",
     method: "POST",
     path: "/stripe.createCustomerPortalSession",
@@ -5537,7 +5537,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-upgradeSubscription",
-    description: "POST /stripe.upgradeSubscription",
+    description: "Upgrade subscription (stripe). Requires: tier, serverQuantity, isAnnual. [POST /stripe.upgradeSubscription]",
     tag: "stripe",
     method: "POST",
     path: "/stripe.upgradeSubscription",
@@ -5549,7 +5549,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-canCreateMoreServers",
-    description: "GET /stripe.canCreateMoreServers",
+    description: "Can create more servers (stripe). [GET /stripe.canCreateMoreServers]",
     tag: "stripe",
     method: "GET",
     path: "/stripe.canCreateMoreServers",
@@ -5561,7 +5561,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-updateInvoiceNotifications",
-    description: "POST /stripe.updateInvoiceNotifications",
+    description: "Update invoice notifications (stripe). Requires: enabled. [POST /stripe.updateInvoiceNotifications]",
     tag: "stripe",
     method: "POST",
     path: "/stripe.updateInvoiceNotifications",
@@ -5573,7 +5573,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "stripe-getInvoices",
-    description: "GET /stripe.getInvoices",
+    description: "Get invoices (stripe). [GET /stripe.getInvoices]",
     tag: "stripe",
     method: "GET",
     path: "/stripe.getInvoices",
@@ -5585,7 +5585,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "swarm-getNodes",
-    description: "GET /swarm.getNodes",
+    description: "Get nodes (swarm). [GET /swarm.getNodes]",
     tag: "swarm",
     method: "GET",
     path: "/swarm.getNodes",
@@ -5597,7 +5597,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "swarm-getNodeInfo",
-    description: "GET /swarm.getNodeInfo",
+    description: "Get node info (swarm). Requires: nodeId. [GET /swarm.getNodeInfo]",
     tag: "swarm",
     method: "GET",
     path: "/swarm.getNodeInfo",
@@ -5609,7 +5609,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "swarm-getNodeApps",
-    description: "GET /swarm.getNodeApps",
+    description: "Get node apps (swarm). [GET /swarm.getNodeApps]",
     tag: "swarm",
     method: "GET",
     path: "/swarm.getNodeApps",
@@ -5621,7 +5621,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "swarm-getContainerStats",
-    description: "GET /swarm.getContainerStats",
+    description: "Get container stats (swarm). [GET /swarm.getContainerStats]",
     tag: "swarm",
     method: "GET",
     path: "/swarm.getContainerStats",
@@ -5633,7 +5633,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-all",
-    description: "GET /user.all",
+    description: "List users. [GET /user.all]",
     tag: "user",
     method: "GET",
     path: "/user.all",
@@ -5645,7 +5645,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-one",
-    description: "GET /user.one",
+    description: "Get a user by ID. Requires: userId. [GET /user.one]",
     tag: "user",
     method: "GET",
     path: "/user.one",
@@ -5657,7 +5657,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-session",
-    description: "GET /user.session",
+    description: "Session (user). [GET /user.session]",
     tag: "user",
     method: "GET",
     path: "/user.session",
@@ -5669,7 +5669,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-get",
-    description: "GET /user.get",
+    description: "Get (user). [GET /user.get]",
     tag: "user",
     method: "GET",
     path: "/user.get",
@@ -5681,7 +5681,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getPermissions",
-    description: "GET /user.getPermissions",
+    description: "Get permissions (user). [GET /user.getPermissions]",
     tag: "user",
     method: "GET",
     path: "/user.getPermissions",
@@ -5693,7 +5693,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-listPasskeys",
-    description: "GET /user.listPasskeys",
+    description: "List passkeys (user). [GET /user.listPasskeys]",
     tag: "user",
     method: "GET",
     path: "/user.listPasskeys",
@@ -5705,7 +5705,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-haveRootAccess",
-    description: "GET /user.haveRootAccess",
+    description: "Have root access (user). [GET /user.haveRootAccess]",
     tag: "user",
     method: "GET",
     path: "/user.haveRootAccess",
@@ -5717,7 +5717,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getBackups",
-    description: "GET /user.getBackups",
+    description: "Get backups (user). [GET /user.getBackups]",
     tag: "user",
     method: "GET",
     path: "/user.getBackups",
@@ -5729,7 +5729,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getServerMetrics",
-    description: "GET /user.getServerMetrics",
+    description: "Get server metrics (user). [GET /user.getServerMetrics]",
     tag: "user",
     method: "GET",
     path: "/user.getServerMetrics",
@@ -5741,7 +5741,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-update",
-    description: "POST /user.update",
+    description: "Update a user. [POST /user.update]",
     tag: "user",
     method: "POST",
     path: "/user.update",
@@ -5753,7 +5753,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-listSessions",
-    description: "GET /user.listSessions",
+    description: "List sessions (user). [GET /user.listSessions]",
     tag: "user",
     method: "GET",
     path: "/user.listSessions",
@@ -5765,7 +5765,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-revokeSession",
-    description: "POST /user.revokeSession",
+    description: "Revoke session (user). Requires: sessionId. [POST /user.revokeSession]",
     tag: "user",
     method: "POST",
     path: "/user.revokeSession",
@@ -5777,7 +5777,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getUserByToken",
-    description: "GET /user.getUserByToken",
+    description: "Get user by token (user). Requires: token. [GET /user.getUserByToken]",
     tag: "user",
     method: "GET",
     path: "/user.getUserByToken",
@@ -5789,7 +5789,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getMetricsToken",
-    description: "GET /user.getMetricsToken",
+    description: "Get metrics token (user). [GET /user.getMetricsToken]",
     tag: "user",
     method: "GET",
     path: "/user.getMetricsToken",
@@ -5801,7 +5801,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-remove",
-    description: "POST /user.remove",
+    description: "Delete a user. Requires: userId. [POST /user.remove]",
     tag: "user",
     method: "POST",
     path: "/user.remove",
@@ -5813,7 +5813,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-assignPermissions",
-    description: "POST /user.assignPermissions",
+    description: "Assign permissions (user). Requires: id, accessedProjects, accessedEnvironments, accessedServices, accessedGitProviders, accessedServers, canCreateProjects, canCreateServices, canDeleteProjects, canDeleteServices, canAccessToDocker, canAccessToTraefikFiles, canAccessToAPI, canAccessToSSHKeys, canAccessToGitProviders, canDeleteEnvironments, canCreateEnvironments. [POST /user.assignPermissions]",
     tag: "user",
     method: "POST",
     path: "/user.assignPermissions",
@@ -5825,7 +5825,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getInvitations",
-    description: "GET /user.getInvitations",
+    description: "Get invitations (user). [GET /user.getInvitations]",
     tag: "user",
     method: "GET",
     path: "/user.getInvitations",
@@ -5837,7 +5837,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getContainerMetrics",
-    description: "GET /user.getContainerMetrics",
+    description: "Get container metrics (user). Requires: url, token, appName, dataPoints. [GET /user.getContainerMetrics]",
     tag: "user",
     method: "GET",
     path: "/user.getContainerMetrics",
@@ -5849,7 +5849,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-generateToken",
-    description: "POST /user.generateToken",
+    description: "Generate token (user). [POST /user.generateToken]",
     tag: "user",
     method: "POST",
     path: "/user.generateToken",
@@ -5861,7 +5861,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-deleteApiKey",
-    description: "POST /user.deleteApiKey",
+    description: "Delete API key (user). Requires: apiKeyId. [POST /user.deleteApiKey]",
     tag: "user",
     method: "POST",
     path: "/user.deleteApiKey",
@@ -5873,7 +5873,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-createApiKey",
-    description: "POST /user.createApiKey",
+    description: "Create API key (user). Requires: name, metadata. [POST /user.createApiKey]",
     tag: "user",
     method: "POST",
     path: "/user.createApiKey",
@@ -5885,7 +5885,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-checkUserOrganizations",
-    description: "GET /user.checkUserOrganizations",
+    description: "Check user organizations (user). Requires: userId. [GET /user.checkUserOrganizations]",
     tag: "user",
     method: "GET",
     path: "/user.checkUserOrganizations",
@@ -5897,7 +5897,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-createUserWithCredentials",
-    description: "POST /user.createUserWithCredentials",
+    description: "Create user with credentials (user). Requires: email, password, role. [POST /user.createUserWithCredentials]",
     tag: "user",
     method: "POST",
     path: "/user.createUserWithCredentials",
@@ -5909,7 +5909,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-sendInvitation",
-    description: "POST /user.sendInvitation",
+    description: "Send invitation (user). Requires: invitationId, notificationId. [POST /user.sendInvitation]",
     tag: "user",
     method: "POST",
     path: "/user.sendInvitation",
@@ -5921,7 +5921,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-getBookmarkedTemplates",
-    description: "GET /user.getBookmarkedTemplates",
+    description: "Get bookmarked templates (user). [GET /user.getBookmarkedTemplates]",
     tag: "user",
     method: "GET",
     path: "/user.getBookmarkedTemplates",
@@ -5933,7 +5933,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "user-toggleTemplateBookmark",
-    description: "POST /user.toggleTemplateBookmark",
+    description: "Toggle template bookmark (user). Requires: templateId. [POST /user.toggleTemplateBookmark]",
     tag: "user",
     method: "POST",
     path: "/user.toggleTemplateBookmark",
@@ -5945,7 +5945,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-create",
-    description: "POST /vaultProvider.create",
+    description: "Create a vault provider. Requires: name, config, assignments. [POST /vaultProvider.create]",
     tag: "vaultProvider",
     method: "POST",
     path: "/vaultProvider.create",
@@ -5988,7 +5988,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-update",
-    description: "POST /vaultProvider.update",
+    description: "Update a vault provider. Requires: vaultProviderId, name, config, assignments. [POST /vaultProvider.update]",
     tag: "vaultProvider",
     method: "POST",
     path: "/vaultProvider.update",
@@ -6031,7 +6031,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-remove",
-    description: "POST /vaultProvider.remove",
+    description: "Delete a vault provider. Requires: vaultProviderId. [POST /vaultProvider.remove]",
     tag: "vaultProvider",
     method: "POST",
     path: "/vaultProvider.remove",
@@ -6043,7 +6043,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-all",
-    description: "GET /vaultProvider.all",
+    description: "List vault providers. [GET /vaultProvider.all]",
     tag: "vaultProvider",
     method: "GET",
     path: "/vaultProvider.all",
@@ -6055,7 +6055,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-one",
-    description: "GET /vaultProvider.one",
+    description: "Get a vault provider by ID. Requires: vaultProviderId. [GET /vaultProvider.one]",
     tag: "vaultProvider",
     method: "GET",
     path: "/vaultProvider.one",
@@ -6067,7 +6067,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-testConnection",
-    description: "POST /vaultProvider.testConnection",
+    description: "Test the connection to a vault provider. [POST /vaultProvider.testConnection]",
     tag: "vaultProvider",
     method: "POST",
     path: "/vaultProvider.testConnection",
@@ -6110,7 +6110,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "vaultProvider-listSecretNames",
-    description: "GET /vaultProvider.listSecretNames",
+    description: "List secret names (vault provider). Requires: vaultProviderId, projectId. [GET /vaultProvider.listSecretNames]",
     tag: "vaultProvider",
     method: "GET",
     path: "/vaultProvider.listSecretNames",
@@ -6122,7 +6122,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-one",
-    description: "GET /ai.one",
+    description: "Get an AI provider configuration by ID. Requires: aiId. [GET /ai.one]",
     tag: "ai",
     method: "GET",
     path: "/ai.one",
@@ -6134,7 +6134,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-getModels",
-    description: "GET /ai.getModels",
+    description: "Get models (AI provider configuration). Requires: apiUrl, apiKey. [GET /ai.getModels]",
     tag: "ai",
     method: "GET",
     path: "/ai.getModels",
@@ -6146,7 +6146,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-create",
-    description: "POST /ai.create",
+    description: "Create an AI provider configuration. Requires: name, apiUrl, apiKey, model, isEnabled. [POST /ai.create]",
     tag: "ai",
     method: "POST",
     path: "/ai.create",
@@ -6158,7 +6158,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-update",
-    description: "POST /ai.update",
+    description: "Update an AI provider configuration. Requires: aiId. [POST /ai.update]",
     tag: "ai",
     method: "POST",
     path: "/ai.update",
@@ -6170,7 +6170,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-getAll",
-    description: "GET /ai.getAll",
+    description: "Get all (AI provider configuration). [GET /ai.getAll]",
     tag: "ai",
     method: "GET",
     path: "/ai.getAll",
@@ -6182,7 +6182,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-get",
-    description: "GET /ai.get",
+    description: "Get (AI provider configuration). Requires: aiId. [GET /ai.get]",
     tag: "ai",
     method: "GET",
     path: "/ai.get",
@@ -6194,7 +6194,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-delete",
-    description: "POST /ai.delete",
+    description: "Delete an AI provider configuration. Requires: aiId. [POST /ai.delete]",
     tag: "ai",
     method: "POST",
     path: "/ai.delete",
@@ -6206,7 +6206,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-getCustomProviders",
-    description: "GET /ai.getCustomProviders",
+    description: "Get custom providers (AI provider configuration). [GET /ai.getCustomProviders]",
     tag: "ai",
     method: "GET",
     path: "/ai.getCustomProviders",
@@ -6218,7 +6218,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-saveCustomProviders",
-    description: "POST /ai.saveCustomProviders",
+    description: "Save custom providers (AI provider configuration). Requires: providers. [POST /ai.saveCustomProviders]",
     tag: "ai",
     method: "POST",
     path: "/ai.saveCustomProviders",
@@ -6230,7 +6230,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-getEnabledProviders",
-    description: "GET /ai.getEnabledProviders",
+    description: "Get enabled providers (AI provider configuration). [GET /ai.getEnabledProviders]",
     tag: "ai",
     method: "GET",
     path: "/ai.getEnabledProviders",
@@ -6242,7 +6242,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-analyzeLogs",
-    description: "POST /ai.analyzeLogs",
+    description: "Analyze logs (AI provider configuration). Requires: aiId, logs, context. [POST /ai.analyzeLogs]",
     tag: "ai",
     method: "POST",
     path: "/ai.analyzeLogs",
@@ -6254,7 +6254,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-testConnection",
-    description: "POST /ai.testConnection",
+    description: "Test the connection to an AI provider configuration. Requires: apiUrl, apiKey, model. [POST /ai.testConnection]",
     tag: "ai",
     method: "POST",
     path: "/ai.testConnection",
@@ -6266,7 +6266,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-suggest",
-    description: "POST /ai.suggest",
+    description: "Suggest (AI provider configuration). Requires: aiId, input. [POST /ai.suggest]",
     tag: "ai",
     method: "POST",
     path: "/ai.suggest",
@@ -6278,7 +6278,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "ai-deploy",
-    description: "POST /ai.deploy",
+    description: "Deploy an AI provider configuration. Requires: environmentId, id, dockerCompose, envVariables, name, description. [POST /ai.deploy]",
     tag: "ai",
     method: "POST",
     path: "/ai.deploy",
@@ -6290,7 +6290,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-create",
-    description: "POST /organization.create",
+    description: "Create an organization. Requires: name. [POST /organization.create]",
     tag: "organization",
     method: "POST",
     path: "/organization.create",
@@ -6302,7 +6302,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-all",
-    description: "GET /organization.all",
+    description: "List organizations. [GET /organization.all]",
     tag: "organization",
     method: "GET",
     path: "/organization.all",
@@ -6314,7 +6314,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-one",
-    description: "GET /organization.one",
+    description: "Get an organization by ID. Requires: organizationId. [GET /organization.one]",
     tag: "organization",
     method: "GET",
     path: "/organization.one",
@@ -6326,7 +6326,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-update",
-    description: "POST /organization.update",
+    description: "Update an organization. Requires: organizationId, name. [POST /organization.update]",
     tag: "organization",
     method: "POST",
     path: "/organization.update",
@@ -6338,7 +6338,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-delete",
-    description: "POST /organization.delete",
+    description: "Delete an organization. Requires: organizationId. [POST /organization.delete]",
     tag: "organization",
     method: "POST",
     path: "/organization.delete",
@@ -6350,7 +6350,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-inviteMember",
-    description: "POST /organization.inviteMember",
+    description: "Invite member (organization). Requires: email, role. [POST /organization.inviteMember]",
     tag: "organization",
     method: "POST",
     path: "/organization.inviteMember",
@@ -6362,7 +6362,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-allInvitations",
-    description: "GET /organization.allInvitations",
+    description: "All invitations (organization). [GET /organization.allInvitations]",
     tag: "organization",
     method: "GET",
     path: "/organization.allInvitations",
@@ -6374,7 +6374,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-removeInvitation",
-    description: "POST /organization.removeInvitation",
+    description: "Remove invitation (organization). Requires: invitationId. [POST /organization.removeInvitation]",
     tag: "organization",
     method: "POST",
     path: "/organization.removeInvitation",
@@ -6386,7 +6386,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-updateMemberRole",
-    description: "POST /organization.updateMemberRole",
+    description: "Update member role (organization). Requires: memberId, role. [POST /organization.updateMemberRole]",
     tag: "organization",
     method: "POST",
     path: "/organization.updateMemberRole",
@@ -6398,7 +6398,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-setDefault",
-    description: "POST /organization.setDefault",
+    description: "Set default (organization). Requires: organizationId. [POST /organization.setDefault]",
     tag: "organization",
     method: "POST",
     path: "/organization.setDefault",
@@ -6410,7 +6410,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "organization-active",
-    description: "GET /organization.active",
+    description: "Active (organization). [GET /organization.active]",
     tag: "organization",
     method: "GET",
     path: "/organization.active",
@@ -6422,7 +6422,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "licenseKey-activate",
-    description: "POST /licenseKey.activate",
+    description: "Activate (license key). Requires: licenseKey. [POST /licenseKey.activate]",
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.activate",
@@ -6434,7 +6434,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "licenseKey-validate",
-    description: "POST /licenseKey.validate",
+    description: "Validate (license key). [POST /licenseKey.validate]",
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.validate",
@@ -6446,7 +6446,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "licenseKey-deactivate",
-    description: "POST /licenseKey.deactivate",
+    description: "Deactivate (license key). [POST /licenseKey.deactivate]",
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.deactivate",
@@ -6458,7 +6458,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "licenseKey-getEnterpriseSettings",
-    description: "GET /licenseKey.getEnterpriseSettings",
+    description: "Get enterprise settings (license key). [GET /licenseKey.getEnterpriseSettings]",
     tag: "licenseKey",
     method: "GET",
     path: "/licenseKey.getEnterpriseSettings",
@@ -6470,7 +6470,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "licenseKey-haveValidLicenseKey",
-    description: "GET /licenseKey.haveValidLicenseKey",
+    description: "Have valid license key (license key). [GET /licenseKey.haveValidLicenseKey]",
     tag: "licenseKey",
     method: "GET",
     path: "/licenseKey.haveValidLicenseKey",
@@ -6482,7 +6482,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "licenseKey-updateEnterpriseSettings",
-    description: "POST /licenseKey.updateEnterpriseSettings",
+    description: "Update enterprise settings (license key). [POST /licenseKey.updateEnterpriseSettings]",
     tag: "licenseKey",
     method: "POST",
     path: "/licenseKey.updateEnterpriseSettings",
@@ -6494,7 +6494,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-showSignInWithSSO",
-    description: "GET /sso.showSignInWithSSO",
+    description: "Show sign in with SSO (SSO). [GET /sso.showSignInWithSSO]",
     tag: "sso",
     method: "GET",
     path: "/sso.showSignInWithSSO",
@@ -6506,7 +6506,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-enforceSSO",
-    description: "GET /sso.enforceSSO",
+    description: "Enforce SSO (SSO). [GET /sso.enforceSSO]",
     tag: "sso",
     method: "GET",
     path: "/sso.enforceSSO",
@@ -6518,7 +6518,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-listProviders",
-    description: "GET /sso.listProviders",
+    description: "List providers (SSO). [GET /sso.listProviders]",
     tag: "sso",
     method: "GET",
     path: "/sso.listProviders",
@@ -6530,7 +6530,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-getTrustedOrigins",
-    description: "GET /sso.getTrustedOrigins",
+    description: "Get trusted origins (SSO). [GET /sso.getTrustedOrigins]",
     tag: "sso",
     method: "GET",
     path: "/sso.getTrustedOrigins",
@@ -6542,7 +6542,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-one",
-    description: "GET /sso.one",
+    description: "Get an SSO by ID. Requires: providerId. [GET /sso.one]",
     tag: "sso",
     method: "GET",
     path: "/sso.one",
@@ -6554,7 +6554,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-update",
-    description: "POST /sso.update",
+    description: "Update an SSO. Requires: providerId, issuer, domains. [POST /sso.update]",
     tag: "sso",
     method: "POST",
     path: "/sso.update",
@@ -6566,7 +6566,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-deleteProvider",
-    description: "POST /sso.deleteProvider",
+    description: "Delete provider (SSO). Requires: providerId. [POST /sso.deleteProvider]",
     tag: "sso",
     method: "POST",
     path: "/sso.deleteProvider",
@@ -6578,7 +6578,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-register",
-    description: "POST /sso.register",
+    description: "Register (SSO). Requires: providerId, issuer, domains. [POST /sso.register]",
     tag: "sso",
     method: "POST",
     path: "/sso.register",
@@ -6590,7 +6590,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-addTrustedOrigin",
-    description: "POST /sso.addTrustedOrigin",
+    description: "Add trusted origin (SSO). Requires: origin. [POST /sso.addTrustedOrigin]",
     tag: "sso",
     method: "POST",
     path: "/sso.addTrustedOrigin",
@@ -6602,7 +6602,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-removeTrustedOrigin",
-    description: "POST /sso.removeTrustedOrigin",
+    description: "Remove trusted origin (SSO). Requires: origin. [POST /sso.removeTrustedOrigin]",
     tag: "sso",
     method: "POST",
     path: "/sso.removeTrustedOrigin",
@@ -6614,7 +6614,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "sso-updateTrustedOrigin",
-    description: "POST /sso.updateTrustedOrigin",
+    description: "Update trusted origin (SSO). Requires: oldOrigin, newOrigin. [POST /sso.updateTrustedOrigin]",
     tag: "sso",
     method: "POST",
     path: "/sso.updateTrustedOrigin",
@@ -6626,7 +6626,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "scim-listProviders",
-    description: "GET /scim.listProviders",
+    description: "List providers (SCIM). [GET /scim.listProviders]",
     tag: "scim",
     method: "GET",
     path: "/scim.listProviders",
@@ -6638,7 +6638,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "scim-generateToken",
-    description: "POST /scim.generateToken",
+    description: "Generate token (SCIM). Requires: providerId. [POST /scim.generateToken]",
     tag: "scim",
     method: "POST",
     path: "/scim.generateToken",
@@ -6650,7 +6650,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "scim-deleteProvider",
-    description: "POST /scim.deleteProvider",
+    description: "Delete provider (SCIM). Requires: providerId. [POST /scim.deleteProvider]",
     tag: "scim",
     method: "POST",
     path: "/scim.deleteProvider",
@@ -6662,7 +6662,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-getAuthDomain",
-    description: "GET /forwardAuth.getAuthDomain",
+    description: "Get auth domain (forward-auth configuration). Requires: serverId. [GET /forwardAuth.getAuthDomain]",
     tag: "forwardAuth",
     method: "GET",
     path: "/forwardAuth.getAuthDomain",
@@ -6674,7 +6674,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-setAuthDomain",
-    description: "POST /forwardAuth.setAuthDomain",
+    description: "Set auth domain (forward-auth configuration). Requires: serverId, authDomain. [POST /forwardAuth.setAuthDomain]",
     tag: "forwardAuth",
     method: "POST",
     path: "/forwardAuth.setAuthDomain",
@@ -6686,7 +6686,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-removeAuthDomain",
-    description: "POST /forwardAuth.removeAuthDomain",
+    description: "Remove auth domain (forward-auth configuration). Requires: serverId. [POST /forwardAuth.removeAuthDomain]",
     tag: "forwardAuth",
     method: "POST",
     path: "/forwardAuth.removeAuthDomain",
@@ -6698,7 +6698,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-listProviders",
-    description: "GET /forwardAuth.listProviders",
+    description: "List providers (forward-auth configuration). [GET /forwardAuth.listProviders]",
     tag: "forwardAuth",
     method: "GET",
     path: "/forwardAuth.listProviders",
@@ -6710,7 +6710,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-serverStatus",
-    description: "GET /forwardAuth.serverStatus",
+    description: "Server status (forward-auth configuration). [GET /forwardAuth.serverStatus]",
     tag: "forwardAuth",
     method: "GET",
     path: "/forwardAuth.serverStatus",
@@ -6722,7 +6722,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-deployOnServer",
-    description: "POST /forwardAuth.deployOnServer",
+    description: "Deploy on server (forward-auth configuration). Requires: serverId, providerId. [POST /forwardAuth.deployOnServer]",
     tag: "forwardAuth",
     method: "POST",
     path: "/forwardAuth.deployOnServer",
@@ -6734,7 +6734,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-removeOnServer",
-    description: "POST /forwardAuth.removeOnServer",
+    description: "Remove on server (forward-auth configuration). Requires: serverId. [POST /forwardAuth.removeOnServer]",
     tag: "forwardAuth",
     method: "POST",
     path: "/forwardAuth.removeOnServer",
@@ -6746,7 +6746,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-status",
-    description: "GET /forwardAuth.status",
+    description: "Status (forward-auth configuration). Requires: domainId. [GET /forwardAuth.status]",
     tag: "forwardAuth",
     method: "GET",
     path: "/forwardAuth.status",
@@ -6758,7 +6758,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-enable",
-    description: "POST /forwardAuth.enable",
+    description: "Enable (forward-auth configuration). Requires: domainId. [POST /forwardAuth.enable]",
     tag: "forwardAuth",
     method: "POST",
     path: "/forwardAuth.enable",
@@ -6770,7 +6770,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "forwardAuth-disable",
-    description: "POST /forwardAuth.disable",
+    description: "Disable (forward-auth configuration). Requires: domainId. [POST /forwardAuth.disable]",
     tag: "forwardAuth",
     method: "POST",
     path: "/forwardAuth.disable",
@@ -6782,7 +6782,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "whitelabeling-get",
-    description: "GET /whitelabeling.get",
+    description: "Get (whitelabeling). [GET /whitelabeling.get]",
     tag: "whitelabeling",
     method: "GET",
     path: "/whitelabeling.get",
@@ -6794,7 +6794,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "whitelabeling-update",
-    description: "POST /whitelabeling.update",
+    description: "Update a whitelabeling. Requires: whitelabelingConfig. [POST /whitelabeling.update]",
     tag: "whitelabeling",
     method: "POST",
     path: "/whitelabeling.update",
@@ -6806,7 +6806,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "whitelabeling-reset",
-    description: "POST /whitelabeling.reset",
+    description: "Reset (whitelabeling). [POST /whitelabeling.reset]",
     tag: "whitelabeling",
     method: "POST",
     path: "/whitelabeling.reset",
@@ -6818,7 +6818,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "whitelabeling-getPublic",
-    description: "GET /whitelabeling.getPublic",
+    description: "Get public (whitelabeling). [GET /whitelabeling.getPublic]",
     tag: "whitelabeling",
     method: "GET",
     path: "/whitelabeling.getPublic",
@@ -6830,7 +6830,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "customRole-all",
-    description: "GET /customRole.all",
+    description: "List custom roles. [GET /customRole.all]",
     tag: "customRole",
     method: "GET",
     path: "/customRole.all",
@@ -6842,7 +6842,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "customRole-create",
-    description: "POST /customRole.create",
+    description: "Create a custom role. Requires: roleName, permissions. [POST /customRole.create]",
     tag: "customRole",
     method: "POST",
     path: "/customRole.create",
@@ -6854,7 +6854,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "customRole-update",
-    description: "POST /customRole.update",
+    description: "Update a custom role. Requires: roleName, permissions. [POST /customRole.update]",
     tag: "customRole",
     method: "POST",
     path: "/customRole.update",
@@ -6866,7 +6866,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "customRole-remove",
-    description: "POST /customRole.remove",
+    description: "Delete a custom role. Requires: roleName. [POST /customRole.remove]",
     tag: "customRole",
     method: "POST",
     path: "/customRole.remove",
@@ -6878,7 +6878,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "customRole-membersByRole",
-    description: "GET /customRole.membersByRole",
+    description: "Members by role (custom role). Requires: roleName. [GET /customRole.membersByRole]",
     tag: "customRole",
     method: "GET",
     path: "/customRole.membersByRole",
@@ -6890,7 +6890,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "customRole-getStatements",
-    description: "GET /customRole.getStatements",
+    description: "Get statements (custom role). [GET /customRole.getStatements]",
     tag: "customRole",
     method: "GET",
     path: "/customRole.getStatements",
@@ -6902,7 +6902,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "auditLog-all",
-    description: "GET /auditLog.all",
+    description: "List audit log entries. [GET /auditLog.all]",
     tag: "auditLog",
     method: "GET",
     path: "/auditLog.all",
@@ -6914,7 +6914,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "schedule-create",
-    description: "POST /schedule.create",
+    description: "Create a scheduled job. Requires: name, cronExpression, command. [POST /schedule.create]",
     tag: "schedule",
     method: "POST",
     path: "/schedule.create",
@@ -6926,7 +6926,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "schedule-update",
-    description: "POST /schedule.update",
+    description: "Update a scheduled job. Requires: scheduleId, name, cronExpression, command. [POST /schedule.update]",
     tag: "schedule",
     method: "POST",
     path: "/schedule.update",
@@ -6938,7 +6938,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "schedule-delete",
-    description: "POST /schedule.delete",
+    description: "Delete a scheduled job. Requires: scheduleId. [POST /schedule.delete]",
     tag: "schedule",
     method: "POST",
     path: "/schedule.delete",
@@ -6950,7 +6950,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "schedule-list",
-    description: "GET /schedule.list",
+    description: "List scheduled jobs. Requires: id, scheduleType. [GET /schedule.list]",
     tag: "schedule",
     method: "GET",
     path: "/schedule.list",
@@ -6962,7 +6962,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "schedule-one",
-    description: "GET /schedule.one",
+    description: "Get a scheduled job by ID. Requires: scheduleId. [GET /schedule.one]",
     tag: "schedule",
     method: "GET",
     path: "/schedule.one",
@@ -6974,7 +6974,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "schedule-runManually",
-    description: "POST /schedule.runManually",
+    description: "Run manually (scheduled job). Requires: scheduleId. [POST /schedule.runManually]",
     tag: "schedule",
     method: "POST",
     path: "/schedule.runManually",
@@ -6986,7 +6986,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "rollback-delete",
-    description: "POST /rollback.delete",
+    description: "Delete a rollback. Requires: rollbackId. [POST /rollback.delete]",
     tag: "rollback",
     method: "POST",
     path: "/rollback.delete",
@@ -6998,7 +6998,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "rollback-rollback",
-    description: "POST /rollback.rollback",
+    description: "Rollback (rollback). Requires: rollbackId. [POST /rollback.rollback]",
     tag: "rollback",
     method: "POST",
     path: "/rollback.rollback",
@@ -7010,7 +7010,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "volumeBackups-list",
-    description: "GET /volumeBackups.list",
+    description: "List volume backups. Requires: id, volumeBackupType. [GET /volumeBackups.list]",
     tag: "volumeBackups",
     method: "GET",
     path: "/volumeBackups.list",
@@ -7022,7 +7022,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "volumeBackups-create",
-    description: "POST /volumeBackups.create",
+    description: "Create a volume backup. Requires: name, volumeName, prefix, cronExpression, destinationId. [POST /volumeBackups.create]",
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.create",
@@ -7034,7 +7034,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "volumeBackups-one",
-    description: "GET /volumeBackups.one",
+    description: "Get a volume backup by ID. Requires: volumeBackupId. [GET /volumeBackups.one]",
     tag: "volumeBackups",
     method: "GET",
     path: "/volumeBackups.one",
@@ -7046,7 +7046,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "volumeBackups-delete",
-    description: "POST /volumeBackups.delete",
+    description: "Delete a volume backup. Requires: volumeBackupId. [POST /volumeBackups.delete]",
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.delete",
@@ -7058,7 +7058,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "volumeBackups-update",
-    description: "POST /volumeBackups.update",
+    description: "Update a volume backup. Requires: name, volumeName, prefix, cronExpression, destinationId, volumeBackupId. [POST /volumeBackups.update]",
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.update",
@@ -7070,7 +7070,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "volumeBackups-runManually",
-    description: "POST /volumeBackups.runManually",
+    description: "Run manually (volume backup). Requires: volumeBackupId. [POST /volumeBackups.runManually]",
     tag: "volumeBackups",
     method: "POST",
     path: "/volumeBackups.runManually",
@@ -7082,7 +7082,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-create",
-    description: "POST /environment.create",
+    description: "Create an environment. Requires: name, projectId. [POST /environment.create]",
     tag: "environment",
     method: "POST",
     path: "/environment.create",
@@ -7094,7 +7094,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-one",
-    description: "GET /environment.one",
+    description: "Get an environment by ID. Requires: environmentId. [GET /environment.one]",
     tag: "environment",
     method: "GET",
     path: "/environment.one",
@@ -7106,7 +7106,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-byProjectId",
-    description: "GET /environment.byProjectId",
+    description: "By project ID (environment). Requires: projectId. [GET /environment.byProjectId]",
     tag: "environment",
     method: "GET",
     path: "/environment.byProjectId",
@@ -7118,7 +7118,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-remove",
-    description: "POST /environment.remove",
+    description: "Delete an environment. Requires: environmentId. [POST /environment.remove]",
     tag: "environment",
     method: "POST",
     path: "/environment.remove",
@@ -7130,7 +7130,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-update",
-    description: "POST /environment.update",
+    description: "Update an environment. Requires: environmentId. [POST /environment.update]",
     tag: "environment",
     method: "POST",
     path: "/environment.update",
@@ -7142,7 +7142,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-duplicate",
-    description: "POST /environment.duplicate",
+    description: "Duplicate an environment. Requires: environmentId, name. [POST /environment.duplicate]",
     tag: "environment",
     method: "POST",
     path: "/environment.duplicate",
@@ -7154,7 +7154,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "environment-search",
-    description: "GET /environment.search",
+    description: "Search environments. [GET /environment.search]",
     tag: "environment",
     method: "GET",
     path: "/environment.search",
@@ -7166,7 +7166,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-create",
-    description: "POST /tag.create",
+    description: "Create a tag. Requires: name. [POST /tag.create]",
     tag: "tag",
     method: "POST",
     path: "/tag.create",
@@ -7178,7 +7178,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-all",
-    description: "GET /tag.all",
+    description: "List tags. [GET /tag.all]",
     tag: "tag",
     method: "GET",
     path: "/tag.all",
@@ -7190,7 +7190,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-one",
-    description: "GET /tag.one",
+    description: "Get a tag by ID. Requires: tagId. [GET /tag.one]",
     tag: "tag",
     method: "GET",
     path: "/tag.one",
@@ -7202,7 +7202,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-update",
-    description: "POST /tag.update",
+    description: "Update a tag. Requires: tagId. [POST /tag.update]",
     tag: "tag",
     method: "POST",
     path: "/tag.update",
@@ -7214,7 +7214,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-remove",
-    description: "POST /tag.remove",
+    description: "Delete a tag. Requires: tagId. [POST /tag.remove]",
     tag: "tag",
     method: "POST",
     path: "/tag.remove",
@@ -7226,7 +7226,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-assignToProject",
-    description: "POST /tag.assignToProject",
+    description: "Assign to project (tag). Requires: projectId, tagId. [POST /tag.assignToProject]",
     tag: "tag",
     method: "POST",
     path: "/tag.assignToProject",
@@ -7238,7 +7238,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-removeFromProject",
-    description: "POST /tag.removeFromProject",
+    description: "Remove from project (tag). Requires: projectId, tagId. [POST /tag.removeFromProject]",
     tag: "tag",
     method: "POST",
     path: "/tag.removeFromProject",
@@ -7250,7 +7250,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "tag-bulkAssign",
-    description: "POST /tag.bulkAssign",
+    description: "Bulk assign (tag). Requires: projectId, tagIds. [POST /tag.bulkAssign]",
     tag: "tag",
     method: "POST",
     path: "/tag.bulkAssign",
@@ -7262,7 +7262,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-create",
-    description: "POST /patch.create",
+    description: "Create a patch. Requires: filePath, content. [POST /patch.create]",
     tag: "patch",
     method: "POST",
     path: "/patch.create",
@@ -7274,7 +7274,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-one",
-    description: "GET /patch.one",
+    description: "Get a patch by ID. Requires: patchId. [GET /patch.one]",
     tag: "patch",
     method: "GET",
     path: "/patch.one",
@@ -7286,7 +7286,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-byEntityId",
-    description: "GET /patch.byEntityId",
+    description: "By entity ID (patch). Requires: id, type. [GET /patch.byEntityId]",
     tag: "patch",
     method: "GET",
     path: "/patch.byEntityId",
@@ -7298,7 +7298,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-update",
-    description: "POST /patch.update",
+    description: "Update a patch. Requires: patchId. [POST /patch.update]",
     tag: "patch",
     method: "POST",
     path: "/patch.update",
@@ -7310,7 +7310,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-delete",
-    description: "POST /patch.delete",
+    description: "Delete a patch. Requires: patchId. [POST /patch.delete]",
     tag: "patch",
     method: "POST",
     path: "/patch.delete",
@@ -7322,7 +7322,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-toggleEnabled",
-    description: "POST /patch.toggleEnabled",
+    description: "Toggle enabled (patch). Requires: patchId, enabled. [POST /patch.toggleEnabled]",
     tag: "patch",
     method: "POST",
     path: "/patch.toggleEnabled",
@@ -7334,7 +7334,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-ensureRepo",
-    description: "POST /patch.ensureRepo",
+    description: "Ensure repo (patch). Requires: id, type. [POST /patch.ensureRepo]",
     tag: "patch",
     method: "POST",
     path: "/patch.ensureRepo",
@@ -7346,7 +7346,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-readRepoDirectories",
-    description: "GET /patch.readRepoDirectories",
+    description: "Read repo directories (patch). Requires: id, type, repoPath. [GET /patch.readRepoDirectories]",
     tag: "patch",
     method: "GET",
     path: "/patch.readRepoDirectories",
@@ -7358,7 +7358,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-readRepoFile",
-    description: "GET /patch.readRepoFile",
+    description: "Read repo file (patch). Requires: id, type, filePath. [GET /patch.readRepoFile]",
     tag: "patch",
     method: "GET",
     path: "/patch.readRepoFile",
@@ -7370,7 +7370,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-saveFileAsPatch",
-    description: "POST /patch.saveFileAsPatch",
+    description: "Save file as patch (patch). Requires: id, type, filePath, content. [POST /patch.saveFileAsPatch]",
     tag: "patch",
     method: "POST",
     path: "/patch.saveFileAsPatch",
@@ -7382,7 +7382,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-markFileForDeletion",
-    description: "POST /patch.markFileForDeletion",
+    description: "Mark file for deletion (patch). Requires: id, type, filePath. [POST /patch.markFileForDeletion]",
     tag: "patch",
     method: "POST",
     path: "/patch.markFileForDeletion",
@@ -7394,7 +7394,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "patch-cleanPatchRepos",
-    description: "POST /patch.cleanPatchRepos",
+    description: "Clean patch repos (patch). [POST /patch.cleanPatchRepos]",
     tag: "patch",
     method: "POST",
     path: "/patch.cleanPatchRepos",
@@ -7406,7 +7406,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "overview-services",
-    description: "GET /overview.services",
+    description: "Services (overview). [GET /overview.services]",
     tag: "overview",
     method: "GET",
     path: "/overview.services",
@@ -7418,7 +7418,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "overview-backups",
-    description: "GET /overview.backups",
+    description: "Backups (overview). [GET /overview.backups]",
     tag: "overview",
     method: "GET",
     path: "/overview.backups",
@@ -7430,7 +7430,7 @@ export const generatedTools: ToolDefinition[] = [
   },
   {
     name: "overview-domains",
-    description: "GET /overview.domains",
+    description: "Domains (overview). [GET /overview.domains]",
     tag: "overview",
     method: "GET",
     path: "/overview.domains",

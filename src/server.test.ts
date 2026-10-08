@@ -202,6 +202,18 @@ describe("MCP server tools/list", () => {
     }
   });
 
+  it("describes every tool in words, not only by its route", async () => {
+    const tools = await getToolList();
+    for (const tool of tools) {
+      expect(tool.description, `Tool "${tool.name}" has a bare route description`).not.toMatch(
+        /^(GET|POST) \//,
+      );
+      expect(tool.description, `Tool "${tool.name}" description lost its route`).toMatch(
+        /\[(GET|POST) \/[\w.]+\]$/,
+      );
+    }
+  });
+
   it("all tools have name, inputSchema with type=object", async () => {
     const tools = await getToolList();
     for (const tool of tools) {

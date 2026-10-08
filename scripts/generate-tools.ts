@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { type JsonSchema, jsonSchemaToZod } from "json-schema-to-zod";
+import { describeOperation } from "./describe-operation.js";
 
 interface OpenAPISpec {
   paths: Record<string, Record<string, OperationObject>>;
@@ -252,7 +253,17 @@ function main() {
 
       try {
         const zodSchema = getZodSchema(op, method);
-        const description = (op.summary || op.description || `${method.toUpperCase()} ${path}`)
+        const params = extractParams(op, method);
+        const description = (
+          op.summary ||
+          op.description ||
+          describeOperation({
+            operationId,
+            method,
+            path,
+            requiredParams: params.filter((p) => p.required).map((p) => p.name),
+          })
+        )
           .replace(/`/g, "'")
           .replace(/\\/g, "\\\\");
         const title = formatTitle(operationId);
@@ -277,7 +288,7 @@ function main() {
           method: method.toUpperCase(),
           tag,
           description,
-          params: extractParams(op, method),
+          params,
         });
       } catch (err) {
         errorCount++;
