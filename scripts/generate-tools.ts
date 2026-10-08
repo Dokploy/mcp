@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { type JsonSchema, jsonSchemaToZod } from "json-schema-to-zod";
+import { deriveAnnotations } from "./derive-annotations.js";
 
 interface OpenAPISpec {
   paths: Record<string, Record<string, OperationObject>>;
@@ -32,28 +33,6 @@ interface ParameterObject {
 const SPEC_PATH = resolve(import.meta.dirname, "../src/generated/openapi.json");
 const OUTPUT_PATH = resolve(import.meta.dirname, "../src/generated/tools.ts");
 const TOOLS_MD_PATH = resolve(import.meta.dirname, "../TOOLS.md");
-
-function deriveAnnotations(method: string, operationId: string): string {
-  const id = operationId.toLowerCase();
-  const isRead = method === "get";
-  const isDelete = id.includes("delete") || id.includes("remove");
-  const isCreate = id.includes("create");
-
-  const annotations: Record<string, boolean> = {};
-
-  if (isRead) {
-    annotations.readOnlyHint = true;
-  }
-  if (isDelete) {
-    annotations.destructiveHint = true;
-  }
-  if (isRead || (!isCreate && !isDelete)) {
-    annotations.idempotentHint = true;
-  }
-  annotations.openWorldHint = true;
-
-  return JSON.stringify(annotations);
-}
 
 function formatTitle(operationId: string): string {
   // "application-create" -> "Application Create"
@@ -223,8 +202,8 @@ function generateToolsMd(entries: ToolMdEntry[]): string {
     "All tools include semantic annotations to help MCP clients understand their behavior:",
     "",
     "- **readOnlyHint**: GET endpoints that only retrieve data",
-    "- **destructiveHint**: Operations that delete or remove resources",
-    "- **idempotentHint**: Safe to repeat without side effects",
+    "- **destructiveHint**: Operations that delete data or forcibly end something (delete, remove, clean, clear, prune, kill, reset, revoke)",
+    "- **idempotentHint**: Reads, and writes that set a value (update, save, set, change); repeating them gives the same result",
     "- **openWorldHint**: All tools interact with the external Dokploy API",
     "",
   );
@@ -256,7 +235,7 @@ function main() {
           .replace(/`/g, "'")
           .replace(/\\/g, "\\\\");
         const title = formatTitle(operationId);
-        const annotations = deriveAnnotations(method, operationId);
+        const annotations = JSON.stringify(deriveAnnotations(method, operationId));
         const tag = op.tags?.[0] || "unknown";
 
         tools.push(`  {

@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-09-18
+// Generated from openapi.json on 2026-10-08
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -15,7 +15,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "metricsConfig": z.object({ "server": z.object({ "refreshRate": z.number().gte(2), "port": z.number().gte(1), "token": z.string(), "urlCallback": z.string().url(), "retentionDays": z.number().gte(1), "cronJob": z.string().min(1), "thresholds": z.object({ "cpu": z.number().gte(0), "memory": z.number().gte(0) }) }), "containers": z.object({ "refreshRate": z.number().gte(2), "services": z.object({ "include": z.array(z.string()).optional(), "exclude": z.array(z.string()).optional() }) }) }) }),
     annotations: {
       title: "Admin SetupMonitoring",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -39,7 +39,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "environmentId": z.string().min(1), "serverId": z.string().min(1).optional() }),
     annotations: {
       title: "Application DeployNginxQuickstart",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -63,7 +63,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63), "applicationId": z.string() }),
     annotations: {
       title: "Application Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -87,7 +87,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -99,7 +99,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -111,7 +111,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
     annotations: {
       title: "Application Redeploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -219,7 +219,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application DisconnectGitProvider",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -231,7 +231,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application MarkRunning",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -255,7 +255,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application RefreshToken",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -267,7 +267,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional() }),
     annotations: {
       title: "Application Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -279,7 +279,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application CleanQueues",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -291,7 +291,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application ClearDeployments",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -303,7 +303,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application KillBuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -327,7 +327,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Application DropDeployment",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -363,7 +363,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Application Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -375,7 +375,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "applicationId": z.string().min(1) }),
     annotations: {
       title: "Application CancelDeployment",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -459,7 +459,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupPostgres",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -471,7 +471,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupMySql",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -483,7 +483,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupMariadb",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -495,7 +495,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupCompose",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -507,7 +507,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupMongo",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -519,7 +519,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupLibsql",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -531,7 +531,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "backupId": z.string().min(1) }),
     annotations: {
       title: "Backup ManualBackupWebServer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -615,7 +615,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "bitbucketId": z.string().min(1), "bitbucketUsername": z.string().optional(), "bitbucketEmail": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")).optional(), "workspaceName": z.string().optional(), "apiToken": z.string().optional(), "appPassword": z.string().optional() }),
     annotations: {
       title: "Bitbucket TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -687,7 +687,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional(), "names": z.array(z.string().min(1)).min(1) }),
     annotations: {
       title: "Network Import",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -723,7 +723,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "networkId": z.string().min(1) }),
     annotations: {
       title: "Network Resync",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -915,7 +915,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose CleanQueues",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -927,7 +927,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose ClearDeployments",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -939,7 +939,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose KillBuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -975,7 +975,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose FetchSourceType",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -987,7 +987,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1), "suffix": z.string().optional() }),
     annotations: {
       title: "Compose RandomizeCompose",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -999,7 +999,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1), "suffix": z.string().optional() }),
     annotations: {
       title: "Compose IsolatedDeployment",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1023,7 +1023,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional(), "freshVolumes": z.boolean().optional() }),
     annotations: {
       title: "Compose Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1035,7 +1035,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1), "title": z.string().optional(), "description": z.string().optional(), "freshVolumes": z.boolean().optional() }),
     annotations: {
       title: "Compose Redeploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1047,7 +1047,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1059,7 +1059,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1083,7 +1083,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose RefreshToken",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1095,7 +1095,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "environmentId": z.string(), "serverId": z.string().optional(), "id": z.string(), "baseUrl": z.string().optional() }),
     annotations: {
       title: "Compose DeployTemplate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1131,7 +1131,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose DisconnectGitProvider",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1143,7 +1143,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Compose Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1155,7 +1155,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "base64": z.string(), "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose ProcessTemplate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1167,7 +1167,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "base64": z.string(), "appName": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Compose PreviewTemplate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1179,7 +1179,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "base64": z.string(), "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose Import",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1191,7 +1191,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "composeId": z.string().min(1) }),
     annotations: {
       title: "Compose CancelDeployment",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1299,7 +1299,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "deploymentId": z.string().min(1) }),
     annotations: {
       title: "Deployment KillProcess",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -1347,7 +1347,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "name": z.string().min(1), "provider": z.union([z.string(), z.null()]), "accessKey": z.string(), "bucket": z.string(), "region": z.string(), "endpoint": z.string(), "secretAccessKey": z.string(), "additionalFlags": z.union([z.array(z.string().regex(new RegExp("^--[a-zA-Z0-9-]+(=[a-zA-Z0-9._:/@-]+)?$"))).default([]), z.null()]), "serverId": z.string().optional() }),
     annotations: {
       title: "Destination TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1560,7 +1560,7 @@ export const generatedTools: ToolDefinition[] = [
   })).optional() }),
     annotations: {
       title: "DnsProvider TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1656,7 +1656,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
     annotations: {
       title: "Docker RestartContainer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1668,7 +1668,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
     annotations: {
       title: "Docker StartContainer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1680,7 +1680,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
     annotations: {
       title: "Docker StopContainer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1692,7 +1692,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "serverId": z.string().optional() }),
     annotations: {
       title: "Docker KillContainer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -1776,7 +1776,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Docker UploadFileToContainer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1812,7 +1812,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "content": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Docker WriteContainerFile",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -1872,7 +1872,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "DockerDiskUsage PruneBuildCache",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -1968,7 +1968,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "volumeName": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "path": z.string().min(1).max(4096), "content": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "DockerVolume WriteVolumeFile",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2052,7 +2052,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "appName": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Domain GenerateDomain",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2088,7 +2088,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "domainId": z.string().min(1) }),
     annotations: {
       title: "Domain ToggleEnable",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2124,7 +2124,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "domain": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Domain ValidateDomain",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2196,7 +2196,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "giteaId": z.string().optional(), "organizationName": z.string().optional() }),
     annotations: {
       title: "Gitea TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2244,7 +2244,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "gitProviderId": z.string().min(1), "sharedWithOrganization": z.boolean() }),
     annotations: {
       title: "GitProvider ToggleShare",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2328,7 +2328,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "githubId": z.string().min(1) }),
     annotations: {
       title: "Github TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2412,7 +2412,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "gitlabId": z.string().min(1), "groupName": z.string().optional() }),
     annotations: {
       title: "Gitlab TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2460,7 +2460,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "libsqlId": z.string().min(1) }),
     annotations: {
       title: "Libsql Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2472,7 +2472,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "libsqlId": z.string().min(1) }),
     annotations: {
       title: "Libsql Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2496,7 +2496,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "libsqlId": z.string() }),
     annotations: {
       title: "Libsql Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2544,7 +2544,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "libsqlId": z.string(), "appName": z.string().min(1) }),
     annotations: {
       title: "Libsql Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2568,7 +2568,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "libsqlId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Libsql Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2580,7 +2580,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "libsqlId": z.string() }),
     annotations: {
       title: "Libsql Rebuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2628,7 +2628,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mariadbId": z.string().min(1) }),
     annotations: {
       title: "Mariadb Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2640,7 +2640,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mariadbId": z.string().min(1) }),
     annotations: {
       title: "Mariadb Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2664,7 +2664,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mariadbId": z.string() }),
     annotations: {
       title: "Mariadb Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2712,7 +2712,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mariadbId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
     annotations: {
       title: "Mariadb Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2748,7 +2748,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mariadbId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Mariadb Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2760,7 +2760,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mariadbId": z.string() }),
     annotations: {
       title: "Mariadb Rebuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2820,7 +2820,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mongoId": z.string().min(1) }),
     annotations: {
       title: "Mongo Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2832,7 +2832,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mongoId": z.string().min(1) }),
     annotations: {
       title: "Mongo Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2856,7 +2856,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mongoId": z.string() }),
     annotations: {
       title: "Mongo Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2880,7 +2880,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mongoId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
     annotations: {
       title: "Mongo Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2940,7 +2940,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mongoId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Mongo Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -2952,7 +2952,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mongoId": z.string() }),
     annotations: {
       title: "Mongo Rebuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3084,7 +3084,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mysqlId": z.string().min(1) }),
     annotations: {
       title: "Mysql Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3096,7 +3096,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mysqlId": z.string().min(1) }),
     annotations: {
       title: "Mysql Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3120,7 +3120,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mysqlId": z.string() }),
     annotations: {
       title: "Mysql Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3144,7 +3144,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mysqlId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
     annotations: {
       title: "Mysql Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3204,7 +3204,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mysqlId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Mysql Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3216,7 +3216,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "mysqlId": z.string() }),
     annotations: {
       title: "Mysql Rebuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3276,7 +3276,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "webhookUrl": z.string().min(1), "channel": z.string() }),
     annotations: {
       title: "Notification TestSlackConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3312,7 +3312,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "botToken": z.string().min(1), "chatId": z.string().min(1), "messageThreadId": z.string() }),
     annotations: {
       title: "Notification TestTelegramConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3348,7 +3348,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "webhookUrl": z.string().min(1), "decoration": z.boolean().optional() }),
     annotations: {
       title: "Notification TestDiscordConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3384,7 +3384,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "smtpServer": z.string().min(1), "smtpPort": z.number().gte(1), "username": z.string().min(1), "password": z.string().min(1), "toAddresses": z.array(z.string()).min(1), "fromAddress": z.string().min(1) }),
     annotations: {
       title: "Notification TestEmailConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3420,7 +3420,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "apiKey": z.string().min(1), "fromAddress": z.string().min(1), "toAddresses": z.array(z.string()).min(1) }),
     annotations: {
       title: "Notification TestResendConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3468,7 +3468,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "ServerType": z.enum(["Dokploy","Remote"]).default("Dokploy"), "Type": z.enum(["Memory","CPU"]), "Value": z.number(), "Threshold": z.number(), "Message": z.string(), "Timestamp": z.string(), "Token": z.string() }),
     annotations: {
       title: "Notification ReceiveNotification",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3504,7 +3504,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverUrl": z.string().min(1), "appToken": z.string().min(1), "priority": z.number().gte(1), "decoration": z.boolean().optional() }),
     annotations: {
       title: "Notification TestGotifyConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3540,7 +3540,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverUrl": z.string().min(1), "topic": z.string().min(1), "accessToken": z.string(), "priority": z.number().gte(1) }),
     annotations: {
       title: "Notification TestNtfyConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3576,7 +3576,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "webhookUrl": z.string().url(), "channel": z.string().optional(), "username": z.string().optional() }),
     annotations: {
       title: "Notification TestMattermostConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3612,7 +3612,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "endpoint": z.string().min(1), "headers": z.record(z.string()).optional() }),
     annotations: {
       title: "Notification TestCustomConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3648,7 +3648,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "webhookUrl": z.string().min(1) }),
     annotations: {
       title: "Notification TestLarkConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3684,7 +3684,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "webhookUrl": z.string().min(1) }),
     annotations: {
       title: "Notification TestTeamsConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3720,7 +3720,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "userKey": z.string().min(1), "apiToken": z.string().min(1), "priority": z.number().gte(-2).lte(2), "retry": z.union([z.number().gte(30), z.null()]).optional(), "expire": z.union([z.number().gte(1).lte(10800), z.null()]).optional() }),
     annotations: {
       title: "Notification TestPushoverConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3816,7 +3816,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "postgresId": z.string().min(1) }),
     annotations: {
       title: "Postgres Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3828,7 +3828,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "postgresId": z.string().min(1) }),
     annotations: {
       title: "Postgres Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3852,7 +3852,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "postgresId": z.string() }),
     annotations: {
       title: "Postgres Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3900,7 +3900,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "postgresId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
     annotations: {
       title: "Postgres Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3936,7 +3936,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "postgresId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Postgres Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -3948,7 +3948,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "postgresId": z.string() }),
     annotations: {
       title: "Postgres Rebuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4020,7 +4020,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "previewDeploymentId": z.string(), "title": z.string().optional(), "description": z.string().optional() }),
     annotations: {
       title: "PreviewDeployment Redeploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4104,7 +4104,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Project CompleteOnboarding",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4152,7 +4152,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "sourceEnvironmentId": z.string(), "name": z.string(), "description": z.string().optional(), "includeServices": z.boolean().default(true), "selectedServices": z.array(z.object({ "id": z.string(), "type": z.enum(["application","compose","libsql","mariadb","mongo","mysql","postgres","redis"]) })).optional(), "duplicateInSameProject": z.boolean().default(false) }),
     annotations: {
       title: "Project Duplicate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4236,7 +4236,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "redisId": z.string().min(1) }),
     annotations: {
       title: "Redis Start",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4248,7 +4248,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "redisId": z.string(), "appName": z.string().regex(new RegExp("^[a-zA-Z0-9._-]+$")).min(1).max(63) }),
     annotations: {
       title: "Redis Reload",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4260,7 +4260,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "redisId": z.string().min(1) }),
     annotations: {
       title: "Redis Stop",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4284,7 +4284,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "redisId": z.string() }),
     annotations: {
       title: "Redis Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4356,7 +4356,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "redisId": z.string(), "targetEnvironmentId": z.string() }),
     annotations: {
       title: "Redis Move",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4368,7 +4368,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "redisId": z.string() }),
     annotations: {
       title: "Redis Rebuild",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4464,7 +4464,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "registryName": z.string().optional(), "username": z.string().min(1), "password": z.string().min(1), "registryUrl": z.string(), "registryType": z.literal("cloud"), "imagePrefix": z.union([z.string(), z.null()]).optional(), "serverId": z.string().optional() }),
     annotations: {
       title: "Registry TestRegistry",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4476,7 +4476,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "registryId": z.string().min(1).optional(), "serverId": z.string().optional() }),
     annotations: {
       title: "Registry TestRegistryById",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4644,7 +4644,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().min(1) }),
     annotations: {
       title: "Server Setup",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4680,7 +4680,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().min(1), "metricsConfig": z.object({ "server": z.object({ "refreshRate": z.number().gte(2), "port": z.number().gte(1), "token": z.string(), "urlCallback": z.string().url(), "retentionDays": z.number().gte(1), "cronJob": z.string().min(1), "thresholds": z.object({ "cpu": z.number().gte(0), "memory": z.number().gte(0) }) }), "containers": z.object({ "refreshRate": z.number().gte(2), "services": z.object({ "include": z.array(z.string()).optional(), "exclude": z.array(z.string()).optional() }) }) }) }),
     annotations: {
       title: "Server SetupMonitoring",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4776,7 +4776,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Settings ReloadServer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4788,7 +4788,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Settings CleanAllDeploymentQueue",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4800,7 +4800,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings ReloadTraefik",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4812,7 +4812,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "enableDashboard": z.boolean().optional(), "serverId": z.string().optional() }),
     annotations: {
       title: "Settings ToggleDashboard",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4824,7 +4824,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings CleanUnusedImages",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4836,7 +4836,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings CleanUnusedVolumes",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4848,7 +4848,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings CleanStoppedContainers",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4860,7 +4860,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings CleanDockerBuilder",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4872,7 +4872,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings CleanDockerPrune",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4884,7 +4884,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings CleanAll",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4896,7 +4896,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Settings CleanMonitoring",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -4932,7 +4932,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "host": z.string(), "certificateType": z.enum(["letsencrypt","none","custom"]), "letsEncryptEmail": z.union([z.union([z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), z.literal("")]), z.null()]).optional(), "https": z.boolean().optional() }),
     annotations: {
       title: "Settings AssignDomainServer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -4944,7 +4944,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Settings CleanSSHPrivateKey",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -5076,7 +5076,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Settings GetUpdateData",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5208,7 +5208,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "env": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Settings WriteTraefikEnv",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5244,7 +5244,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "enable": z.boolean() }),
     annotations: {
       title: "Settings ToggleRequests",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5304,7 +5304,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Settings SetupGPU",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5448,7 +5448,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "type": z.enum(["rsa","ed25519"]).optional() }),
     annotations: {
       title: "SshKey Generate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5496,7 +5496,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "tier": z.enum(["hobby","startup"]) }),
     annotations: {
       title: "Stripe StartFreeTrial",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5544,7 +5544,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "tier": z.enum(["hobby","startup"]), "serverQuantity": z.number().gte(1), "isAnnual": z.boolean() }),
     annotations: {
       title: "Stripe UpgradeSubscription",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5772,7 +5772,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "sessionId": z.string() }),
     annotations: {
       title: "User RevokeSession",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -5820,7 +5820,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "id": z.string().min(1), "accessedProjects": z.array(z.string()), "accessedEnvironments": z.array(z.string()), "accessedServices": z.array(z.string()), "accessedGitProviders": z.array(z.string()), "accessedServers": z.array(z.string()), "canCreateProjects": z.boolean(), "canCreateServices": z.boolean(), "canDeleteProjects": z.boolean(), "canDeleteServices": z.boolean(), "canAccessToDocker": z.boolean(), "canAccessToTraefikFiles": z.boolean(), "canAccessToAPI": z.boolean(), "canAccessToSSHKeys": z.boolean(), "canAccessToGitProviders": z.boolean(), "canDeleteEnvironments": z.boolean(), "canCreateEnvironments": z.boolean() }),
     annotations: {
       title: "User AssignPermissions",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5856,7 +5856,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "User GenerateToken",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5916,7 +5916,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "invitationId": z.string().min(1), "notificationId": z.string().min(1) }),
     annotations: {
       title: "User SendInvitation",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -5940,7 +5940,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "templateId": z.string().min(1) }),
     annotations: {
       title: "User ToggleTemplateBookmark",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6105,7 +6105,7 @@ export const generatedTools: ToolDefinition[] = [
   })).optional() }),
     annotations: {
       title: "VaultProvider TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6249,7 +6249,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "aiId": z.string().min(1), "logs": z.string().min(1), "context": z.enum(["build","runtime"]) }),
     annotations: {
       title: "Ai AnalyzeLogs",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6261,7 +6261,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "apiUrl": z.string().min(1), "apiKey": z.string(), "model": z.string().min(1) }),
     annotations: {
       title: "Ai TestConnection",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6273,7 +6273,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "aiId": z.string(), "input": z.string(), "serverId": z.string().optional() }),
     annotations: {
       title: "Ai Suggest",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6285,7 +6285,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "environmentId": z.string().min(1), "id": z.string().min(1), "dockerCompose": z.string().min(1), "envVariables": z.string(), "serverId": z.string().optional(), "name": z.string().min(1), "description": z.string(), "domains": z.array(z.object({ "host": z.string().min(1), "port": z.number().gte(1), "serviceName": z.string().min(1) })).optional(), "configFiles": z.array(z.object({ "filePath": z.string().min(1), "content": z.string().min(1) })).optional() }),
     annotations: {
       title: "Ai Deploy",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6357,7 +6357,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "email": z.string().email().regex(new RegExp("^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$")), "role": z.string().min(1) }),
     annotations: {
       title: "Organization InviteMember",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6429,7 +6429,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "licenseKey": z.string().min(1) }),
     annotations: {
       title: "LicenseKey Activate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6441,7 +6441,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "LicenseKey Validate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6453,7 +6453,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "LicenseKey Deactivate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6585,7 +6585,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "providerId": z.string(), "issuer": z.string(), "domains": z.array(z.string()), "oidcConfig": z.object({ "clientId": z.string(), "clientSecret": z.string(), "authorizationEndpoint": z.string().optional(), "tokenEndpoint": z.string().optional(), "userInfoEndpoint": z.string().optional(), "tokenEndpointAuthentication": z.enum(["client_secret_post","client_secret_basic"]).optional(), "jwksEndpoint": z.string().optional(), "discoveryEndpoint": z.string().optional(), "skipDiscovery": z.boolean().optional(), "scopes": z.array(z.string()).optional(), "pkce": z.boolean().default(true), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "image": z.string().optional(), "extraFields": z.record(z.any()).optional() }).optional() }).optional(), "samlConfig": z.object({ "entryPoint": z.string(), "cert": z.string(), "callbackUrl": z.string(), "audience": z.string().optional(), "idpMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "cert": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional(), "singleSignOnService": z.array(z.object({ "Binding": z.string(), "Location": z.string() })).optional() }).optional(), "spMetadata": z.object({ "metadata": z.string().optional(), "entityID": z.string().optional(), "binding": z.string().optional(), "privateKey": z.string().optional(), "privateKeyPass": z.string().optional(), "isAssertionEncrypted": z.boolean().optional(), "encPrivateKey": z.string().optional(), "encPrivateKeyPass": z.string().optional() }), "wantAssertionsSigned": z.boolean().optional(), "authnRequestsSigned": z.boolean().optional(), "signatureAlgorithm": z.string().optional(), "digestAlgorithm": z.string().optional(), "identifierFormat": z.string().optional(), "privateKey": z.string().optional(), "decryptionPvk": z.string().optional(), "additionalParams": z.record(z.any()).optional(), "mapping": z.object({ "id": z.string(), "email": z.string(), "emailVerified": z.string().optional(), "name": z.string(), "firstName": z.string().optional(), "lastName": z.string().optional(), "extraFields": z.record(z.any()).optional() }).optional() }).optional(), "organizationId": z.string().optional(), "overrideUserInfo": z.boolean().default(false) }),
     annotations: {
       title: "Sso Register",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6597,7 +6597,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "origin": z.string().min(1) }),
     annotations: {
       title: "Sso AddTrustedOrigin",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6645,7 +6645,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "providerId": z.string().regex(new RegExp("^[a-z0-9][a-z0-9-]*$")).min(1).max(64) }),
     annotations: {
       title: "Scim GenerateToken",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6729,7 +6729,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.union([z.string(), z.null()]), "providerId": z.string().min(1) }),
     annotations: {
       title: "ForwardAuth DeployOnServer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6765,7 +6765,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "domainId": z.string().min(1) }),
     annotations: {
       title: "ForwardAuth Enable",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6777,7 +6777,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "domainId": z.string().min(1) }),
     annotations: {
       title: "ForwardAuth Disable",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -6813,7 +6813,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({}),
     annotations: {
       title: "Whitelabeling Reset",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {
@@ -6981,7 +6981,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "scheduleId": z.string().min(1) }),
     annotations: {
       title: "Schedule RunManually",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7005,7 +7005,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "rollbackId": z.string().min(1) }),
     annotations: {
       title: "Rollback Rollback",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7077,7 +7077,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "volumeBackupId": z.string().min(1) }),
     annotations: {
       title: "VolumeBackups RunManually",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7149,7 +7149,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "environmentId": z.string().min(1), "name": z.string().min(1), "description": z.string().optional() }),
     annotations: {
       title: "Environment Duplicate",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7233,7 +7233,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "projectId": z.string().min(1), "tagId": z.string().min(1) }),
     annotations: {
       title: "Tag AssignToProject",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7257,7 +7257,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "projectId": z.string().min(1), "tagIds": z.array(z.string().min(1)) }),
     annotations: {
       title: "Tag BulkAssign",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7329,7 +7329,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "patchId": z.string().min(1), "enabled": z.boolean() }),
     annotations: {
       title: "Patch ToggleEnabled",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7341,7 +7341,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "id": z.string(), "type": z.enum(["application","compose"]) }),
     annotations: {
       title: "Patch EnsureRepo",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7389,7 +7389,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "id": z.string().min(1), "type": z.enum(["application","compose"]), "filePath": z.string() }),
     annotations: {
       title: "Patch MarkFileForDeletion",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"openWorldHint":true},
     },
   },
   {
@@ -7401,7 +7401,7 @@ export const generatedTools: ToolDefinition[] = [
     schema: z.object({ "serverId": z.string().optional() }),
     annotations: {
       title: "Patch CleanPatchRepos",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"destructiveHint":true,"openWorldHint":true},
     },
   },
   {

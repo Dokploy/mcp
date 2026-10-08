@@ -959,6 +959,6 @@
 All tools include semantic annotations to help MCP clients understand their behavior:
 
 - **readOnlyHint**: GET endpoints that only retrieve data
-- **destructiveHint**: Operations that delete or remove resources
-- **idempotentHint**: Safe to repeat without side effects
+- **destructiveHint**: Operations that delete data or forcibly end something (delete, remove, clean, clear, prune, kill, reset, revoke)
+- **idempotentHint**: Reads, and writes that set a value (update, save, set, change); repeating them gives the same result
 - **openWorldHint**: All tools interact with the external Dokploy API
