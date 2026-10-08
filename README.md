@@ -311,6 +311,7 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_TOOL_PRESET` | No | Predefined toolset to load: `all` (default), `minimal`, `core`, `deploy`, `databases`, or `git`. Useful for clients/providers that struggle with very large tool lists. |
 | `DOKPLOY_ENABLED_TAGS` | No | Comma-separated list of tags to filter which tools are loaded (e.g., `project,application,postgres`) |
 | `DOKPLOY_DISABLED_TAGS` | No | Comma-separated list of tags to exclude from the selected toolset. Applied after `DOKPLOY_TOOL_PRESET` or `DOKPLOY_ENABLED_TAGS`. |
+| `DOKPLOY_READ_ONLY` | No | Set to `true` to expose only read-only tools (Dokploy `GET` endpoints). Create, update, deploy, and delete tools are not registered, so the model cannot call them. Combines with the preset and tag filters (default: `false`). |
 | `DOKPLOY_TIMEOUT` | No | Request timeout in milliseconds (default: `30000`) |
 | `DOKPLOY_RETRY_ATTEMPTS` | No | Number of retry attempts (default: `3`) |
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
@@ -478,6 +479,18 @@ DOKPLOY_DISABLED_TAGS=postgres,redis
 ```
 
 If `DOKPLOY_ENABLED_TAGS` is set, it takes precedence over `DOKPLOY_TOOL_PRESET`. `DOKPLOY_DISABLED_TAGS` is applied last.
+
+#### Read-only mode
+
+To let an agent inspect your Dokploy instance without being able to change it, set `DOKPLOY_READ_ONLY`:
+
+```bash
+DOKPLOY_READ_ONLY=true
+```
+
+Only tools backed by `GET` endpoints are registered; every tool that creates, updates, deploys, stops, or deletes a resource is left out and cannot be called. The filter is applied after presets and tag filters, so `DOKPLOY_TOOL_PRESET=deploy` with `DOKPLOY_READ_ONLY=true` gives the read-only subset of the deploy tools. Any value other than `false`, `0`, `no`, `off`, or empty enables it.
+
+Read-only mode limits what the MCP server exposes; it does not restrict the API key itself.
 
 All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior and safety characteristics.
 

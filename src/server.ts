@@ -31,6 +31,14 @@ function parseTagList(value: string | undefined): Set<string> {
   );
 }
 
+// A safety switch should fail closed: any value other than an explicit
+// "false" (or unset) turns read-only mode on, so a typo cannot silently leave
+// write tools exposed.
+function isReadOnlyMode(): boolean {
+  const value = process.env.DOKPLOY_READ_ONLY?.trim().toLowerCase();
+  return value !== undefined && !["", "false", "0", "no", "off"].includes(value);
+}
+
 function isToolPreset(value: string): value is ToolPreset {
   return Object.hasOwn(TOOL_PRESETS, value);
 }
@@ -38,6 +46,7 @@ function isToolPreset(value: string): value is ToolPreset {
 function getEnabledTools() {
   const enabledTags = process.env.DOKPLOY_ENABLED_TAGS;
   const disabledTags = parseTagList(process.env.DOKPLOY_DISABLED_TAGS);
+  const readOnly = isReadOnlyMode();
   const requestedPreset = process.env.DOKPLOY_TOOL_PRESET?.trim().toLowerCase() || "all";
   const preset: ToolPreset = isToolPreset(requestedPreset) ? requestedPreset : "all";
 
@@ -64,6 +73,10 @@ function getEnabledTools() {
     filtered = filtered.filter((tool) => !disabledTags.has(tool.tag.toLowerCase()));
   }
 
+  if (readOnly) {
+    filtered = filtered.filter((tool) => tool.method === "GET");
+  }
+
   const context = {
     total: generatedTools.length,
     loaded: filtered.length,
@@ -71,6 +84,7 @@ function getEnabledTools() {
     preset,
     enabledTags: [...selectedTags],
     disabledTags: [...disabledTags],
+    readOnly,
   };
 
   logger.info("Loaded tools", context);

@@ -19,7 +19,12 @@ function countByTags(tags: string[]): number {
 }
 
 describe("MCP server tools/list", () => {
-  const toolsetEnvVars = ["DOKPLOY_ENABLED_TAGS", "DOKPLOY_DISABLED_TAGS", "DOKPLOY_TOOL_PRESET"];
+  const toolsetEnvVars = [
+    "DOKPLOY_ENABLED_TAGS",
+    "DOKPLOY_DISABLED_TAGS",
+    "DOKPLOY_TOOL_PRESET",
+    "DOKPLOY_READ_ONLY",
+  ];
 
   afterEach(() => {
     for (const envVar of toolsetEnvVars) {
@@ -99,6 +104,73 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
 
     expect(tools).toHaveLength(generatedTools.length);
+  });
+
+  it("exposes only read-only tools when DOKPLOY_READ_ONLY=true", async () => {
+    process.env.DOKPLOY_READ_ONLY = "true";
+
+    const tools = await getToolList();
+    const readOnlyTools = generatedTools.filter((tool) => tool.method === "GET");
+
+    expect(tools).toHaveLength(readOnlyTools.length);
+    expect(tools.length).toBeLessThan(generatedTools.length);
+    for (const tool of tools) {
+      expect(tool.annotations?.readOnlyHint, `Tool "${tool.name}" is not read-only`).toBe(true);
+    }
+    expect(tools.map((tool) => tool.name)).not.toContain("application-delete");
+    expect(tools.map((tool) => tool.name)).toContain("application-one");
+  });
+
+  it("rejects calls to write tools in read-only mode", async () => {
+    process.env.DOKPLOY_READ_ONLY = "true";
+
+    const server = createServer();
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    await server.connect(serverTransport);
+    const client = new Client({ name: "test-client", version: "1.0.0" });
+    await client.connect(clientTransport);
+
+    const result = await client
+      .callTool({ name: "application-delete", arguments: { applicationId: "app-1" } })
+      .catch((error: unknown) => ({ isError: true, content: String(error) }));
+    await client.close();
+
+    expect(result.isError).toBe(true);
+    expect(JSON.stringify(result.content)).toMatch(/not found/i);
+  });
+
+  it("combines DOKPLOY_READ_ONLY with presets and tag filters", async () => {
+    process.env.DOKPLOY_READ_ONLY = "true";
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+
+    const tools = await getToolList();
+    const expected = generatedTools.filter(
+      (tool) => ["project", "application"].includes(tool.tag) && tool.method === "GET",
+    );
+
+    expect(tools).toHaveLength(expected.length);
+  });
+
+  it.each([
+    "false",
+    "0",
+    "no",
+    "off",
+    "",
+  ])("keeps write tools when DOKPLOY_READ_ONLY=%j", async (value) => {
+    process.env.DOKPLOY_READ_ONLY = value;
+
+    const tools = await getToolList();
+
+    expect(tools).toHaveLength(generatedTools.length);
+  });
+
+  it("fails closed on an unrecognized DOKPLOY_READ_ONLY value", async () => {
+    process.env.DOKPLOY_READ_ONLY = "enabled";
+
+    const tools = await getToolList();
+
+    expect(tools).toHaveLength(generatedTools.filter((tool) => tool.method === "GET").length);
   });
 
   it("every tool inputSchema has $schema set to draft 2020-12", async () => {
