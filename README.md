@@ -311,6 +311,7 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_TOOL_PRESET` | No | Predefined toolset to load: `all` (default), `minimal`, `core`, `deploy`, `databases`, or `git`. Useful for clients/providers that struggle with very large tool lists. |
 | `DOKPLOY_ENABLED_TAGS` | No | Comma-separated list of tags to filter which tools are loaded (e.g., `project,application,postgres`) |
 | `DOKPLOY_DISABLED_TAGS` | No | Comma-separated list of tags to exclude from the selected toolset. Applied after `DOKPLOY_TOOL_PRESET` or `DOKPLOY_ENABLED_TAGS`. |
+| `DOKPLOY_DYNAMIC_TOOLS` | No | When a preset or tag filter leaves tools unloaded, the server adds a `dokploy-loadTools` tool that loads more tool groups during the session. Set to `false` to turn it off (default: `true`). |
 | `DOKPLOY_TIMEOUT` | No | Request timeout in milliseconds (default: `30000`) |
 | `DOKPLOY_RETRY_ATTEMPTS` | No | Number of retry attempts (default: `3`) |
 | `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
@@ -478,6 +479,22 @@ DOKPLOY_DISABLED_TAGS=postgres,redis
 ```
 
 If `DOKPLOY_ENABLED_TAGS` is set, it takes precedence over `DOKPLOY_TOOL_PRESET`. `DOKPLOY_DISABLED_TAGS` is applied last.
+
+#### Loading more tools during a session
+
+A preset or tag filter is chosen before the session starts, but you do not have to restart your client when you need something outside it. Whenever some tools are left unloaded, the server lists one extra tool, `dokploy-loadTools`:
+
+```jsonc
+// Load the backup and postgres tool groups
+{ "tags": ["backup", "postgres"] }
+
+// List the groups that can still be loaded
+{ "tags": [] }
+```
+
+The loaded tools are registered immediately and the server sends `notifications/tools/list_changed`, so clients that support it refresh their tool list. The result also lists the name and description of every tool that was loaded.
+
+Tags in `DOKPLOY_DISABLED_TAGS` can never be loaded this way. To keep the toolset fixed for the whole session, set `DOKPLOY_DYNAMIC_TOOLS=false`. With the default `all` preset nothing is left to load, so the tool is not listed.
 
 All tools include semantic annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) to help MCP clients understand their behavior and safety characteristics.
 

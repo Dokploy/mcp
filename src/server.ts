@@ -1,15 +1,18 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-import type { ZodObject, ZodRawShape } from "zod";
+import { type ZodObject, type ZodRawShape, z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { generatedTools } from "./generated/tools.js";
 import { createHandler } from "./handler.js";
+import type { ToolDefinition } from "./types.js";
 import { createLogger } from "./utils/logger.js";
+import { ResponseFormatter } from "./utils/responseFormatter.js";
 
 const logger = createLogger("MCP-Server");
 
 const JSON_SCHEMA_2020_12 = "https://json-schema.org/draft/2020-12/schema";
 const LARGE_TOOLSET_WARNING_THRESHOLD = 150;
+const LOAD_TOOLS_NAME = "dokploy-loadTools";
 
 const TOOL_PRESETS = {
   all: null,
@@ -33,6 +36,11 @@ function parseTagList(value: string | undefined): Set<string> {
 
 function isToolPreset(value: string): value is ToolPreset {
   return Object.hasOwn(TOOL_PRESETS, value);
+}
+
+function isDynamicLoadingEnabled(): boolean {
+  const value = process.env.DOKPLOY_DYNAMIC_TOOLS?.trim().toLowerCase();
+  return !["false", "0", "no", "off"].includes(value ?? "");
 }
 
 function getEnabledTools() {
@@ -83,7 +91,14 @@ function getEnabledTools() {
     });
   }
 
-  return filtered;
+  // Tools left out by the preset or enabled tags can be loaded later through
+  // dokploy-loadTools. Disabled tags are a hard exclusion and stay unavailable.
+  const enabled = new Set(filtered);
+  const loadable = generatedTools.filter(
+    (tool) => !enabled.has(tool) && !disabledTags.has(tool.tag.toLowerCase()),
+  );
+
+  return { enabled: filtered, loadable, disabledTags };
 }
 
 function stripNestedSchemaKeys(value: unknown): void {
@@ -158,9 +173,11 @@ export function createServer() {
     version: "2.0.0",
   });
 
-  const tools = getEnabledTools();
+  const { enabled, loadable, disabledTags } = getEnabledTools();
 
-  for (const tool of tools) {
+  const toolList: Record<string, unknown>[] = [];
+
+  function registerTool(tool: ToolDefinition) {
     server.tool(
       tool.name,
       tool.description,
@@ -168,18 +185,117 @@ export function createServer() {
       tool.annotations ?? {},
       createHandler(tool),
     );
+    toolList.push({
+      name: tool.name,
+      description: tool.description,
+      inputSchema: toDraft2020_12JsonSchema(tool.schema),
+      annotations: tool.annotations,
+    });
   }
 
-  const toolList = tools.map((tool) => ({
-    name: tool.name,
-    description: tool.description,
-    inputSchema: toDraft2020_12JsonSchema(tool.schema),
-    annotations: tool.annotations,
-  }));
+  for (const tool of enabled) {
+    registerTool(tool);
+  }
+
+  if (loadable.length > 0 && isDynamicLoadingEnabled()) {
+    registerLoadTools(server, loadable, disabledTags, registerTool, toolList);
+  }
 
   server.server.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: toolList,
   }));
 
   return server;
+}
+
+// Lets a session start on a small preset and add tool groups when it needs
+// them, instead of restarting the client with a wider DOKPLOY_ENABLED_TAGS.
+// See https://github.com/Dokploy/mcp/issues/81
+function registerLoadTools(
+  server: McpServer,
+  loadable: ToolDefinition[],
+  disabledTags: Set<string>,
+  registerTool: (tool: ToolDefinition) => void,
+  toolList: Record<string, unknown>[],
+) {
+  // Keyed by lowercased tag; a tag is removed once its tools are loaded.
+  const pending = new Map<string, { tag: string; tools: ToolDefinition[] }>();
+  for (const tool of loadable) {
+    const key = tool.tag.toLowerCase();
+    const group = pending.get(key) ?? { tag: tool.tag, tools: [] };
+    group.tools.push(tool);
+    pending.set(key, group);
+  }
+
+  const availableGroups = () =>
+    [...pending.values()]
+      .map((group) => ({ tag: group.tag, tools: group.tools.length }))
+      .sort((a, b) => a.tag.localeCompare(b.tag));
+
+  const shape = {
+    tags: z
+      .array(z.string().min(1))
+      .default([])
+      .describe(
+        'Tool groups to load, e.g. ["backup", "postgres"]. Leave empty to list the groups that can be loaded.',
+      ),
+  };
+  const description = `Load more Dokploy tool groups into this session. Only part of the Dokploy API is loaded at startup; call this with the tags you need and the new tools become available. Call it with no tags to list what can be loaded. Available now: ${availableGroups()
+    .map((group) => group.tag)
+    .join(", ")}.`;
+  const annotations = { title: "Dokploy Load Tools", idempotentHint: true, openWorldHint: false };
+
+  server.tool(LOAD_TOOLS_NAME, description, shape, annotations, async ({ tags }) => {
+    const loaded: { tag: string; tools: { name: string; description: string }[] }[] = [];
+    const unavailable: { tag: string; reason: string }[] = [];
+
+    // server.tool() notifies the client on every registration once connected.
+    // Hold those back so one call sends a single tools/list_changed.
+    const notify = server.sendToolListChanged.bind(server);
+    server.sendToolListChanged = () => {};
+    try {
+      for (const requested of new Set(tags.map((tag) => tag.trim().toLowerCase()))) {
+        const group = pending.get(requested);
+        if (group) {
+          for (const tool of group.tools) registerTool(tool);
+          pending.delete(requested);
+          loaded.push({
+            tag: group.tag,
+            tools: group.tools.map((tool) => ({ name: tool.name, description: tool.description })),
+          });
+        } else if (disabledTags.has(requested)) {
+          unavailable.push({ tag: requested, reason: "disabled by DOKPLOY_DISABLED_TAGS" });
+        } else if (generatedTools.some((tool) => tool.tag.toLowerCase() === requested)) {
+          unavailable.push({ tag: requested, reason: "already loaded" });
+        } else {
+          unavailable.push({ tag: requested, reason: "unknown tag" });
+        }
+      }
+    } finally {
+      server.sendToolListChanged = notify;
+    }
+
+    if (loaded.length > 0) {
+      logger.info("Loaded tool groups on demand", {
+        tags: loaded.map((group) => group.tag),
+        tools: loaded.reduce((count, group) => count + group.tools.length, 0),
+      });
+      server.sendToolListChanged();
+    }
+
+    const toolCount = loaded.reduce((count, group) => count + group.tools.length, 0);
+    return ResponseFormatter.success(
+      loaded.length > 0
+        ? `Loaded ${toolCount} tools from ${loaded.length} group(s); they are now available`
+        : "No tool groups were loaded",
+      { loaded, unavailable, available: availableGroups() },
+    );
+  });
+
+  toolList.push({
+    name: LOAD_TOOLS_NAME,
+    description,
+    inputSchema: toDraft2020_12JsonSchema(z.object(shape)),
+    annotations,
+  });
 }

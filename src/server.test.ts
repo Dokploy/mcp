@@ -1,5 +1,6 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import { ToolListChangedNotificationSchema } from "@modelcontextprotocol/sdk/types.js";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 // Mock apiClient before server.ts is imported — it calls getClientConfig() at
@@ -13,13 +14,20 @@ vi.mock("./utils/apiClient.js", () => ({
 const { createServer } = await import("./server.js");
 const { generatedTools } = await import("./generated/tools.js");
 
+const LOAD_TOOLS = "dokploy-loadTools";
+
 function countByTags(tags: string[]): number {
   const wanted = new Set(tags.map((tag) => tag.toLowerCase()));
   return generatedTools.filter((tool) => wanted.has(tool.tag.toLowerCase())).length;
 }
 
 describe("MCP server tools/list", () => {
-  const toolsetEnvVars = ["DOKPLOY_ENABLED_TAGS", "DOKPLOY_DISABLED_TAGS", "DOKPLOY_TOOL_PRESET"];
+  const toolsetEnvVars = [
+    "DOKPLOY_ENABLED_TAGS",
+    "DOKPLOY_DISABLED_TAGS",
+    "DOKPLOY_TOOL_PRESET",
+    "DOKPLOY_DYNAMIC_TOOLS",
+  ];
 
   afterEach(() => {
     for (const envVar of toolsetEnvVars) {
@@ -38,6 +46,25 @@ describe("MCP server tools/list", () => {
     return tools;
   }
 
+  // The toolset without the dokploy-loadTools meta-tool, which is listed
+  // whenever a preset or tag filter leaves tools unloaded.
+  async function getApiToolList() {
+    return (await getToolList()).filter((tool) => tool.name !== LOAD_TOOLS);
+  }
+
+  async function connect() {
+    const server = createServer();
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    await server.connect(serverTransport);
+    const client = new Client({ name: "test-client", version: "1.0.0" });
+    await client.connect(clientTransport);
+    return client;
+  }
+
+  function parseResult(result: Awaited<ReturnType<Client["callTool"]>>) {
+    return JSON.parse((result.content as { text: string }[])[0]?.text ?? "{}");
+  }
+
   it("returns tools", async () => {
     const tools = await getToolList();
     expect(tools.length).toBeGreaterThan(0);
@@ -51,7 +78,7 @@ describe("MCP server tools/list", () => {
   it("supports DOKPLOY_TOOL_PRESET=minimal for clients sensitive to large toolsets", async () => {
     process.env.DOKPLOY_TOOL_PRESET = "minimal";
 
-    const tools = await getToolList();
+    const tools = await getApiToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
     expect(tools).toHaveLength(countByTags(["project", "application"]));
@@ -61,7 +88,7 @@ describe("MCP server tools/list", () => {
   it("supports DOKPLOY_TOOL_PRESET=core for common application workflows", async () => {
     process.env.DOKPLOY_TOOL_PRESET = "core";
 
-    const tools = await getToolList();
+    const tools = await getApiToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
     expect(tools).toHaveLength(countByTags(["project", "server", "application"]));
@@ -72,7 +99,7 @@ describe("MCP server tools/list", () => {
     process.env.DOKPLOY_TOOL_PRESET = "core";
     process.env.DOKPLOY_ENABLED_TAGS = "project,application";
 
-    const tools = await getToolList();
+    const tools = await getApiToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
     expect(tools).toHaveLength(countByTags(["project", "application"]));
@@ -83,7 +110,7 @@ describe("MCP server tools/list", () => {
     process.env.DOKPLOY_TOOL_PRESET = "deploy";
     process.env.DOKPLOY_DISABLED_TAGS = "domain,deployment";
 
-    const tools = await getToolList();
+    const tools = await getApiToolList();
     const tags = new Set(tools.map((tool) => tool.name.split("-")[0]));
 
     expect(tools).toHaveLength(
@@ -99,6 +126,114 @@ describe("MCP server tools/list", () => {
     const tools = await getToolList();
 
     expect(tools).toHaveLength(generatedTools.length);
+  });
+
+  it("does not list dokploy-loadTools when every tool is already loaded", async () => {
+    const names = (await getToolList()).map((tool) => tool.name);
+
+    expect(names).not.toContain(LOAD_TOOLS);
+  });
+
+  it("lists dokploy-loadTools when a preset leaves tools unloaded", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+
+    const loader = (await getToolList()).find((tool) => tool.name === LOAD_TOOLS);
+
+    expect(loader).toBeDefined();
+    expect(loader?.description).toContain("postgres");
+    expect(loader?.description).not.toMatch(/\bapplication\b,/);
+  });
+
+  it("can be turned off with DOKPLOY_DYNAMIC_TOOLS=false", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+    process.env.DOKPLOY_DYNAMIC_TOOLS = "false";
+
+    const tools = await getToolList();
+
+    expect(tools.map((tool) => tool.name)).not.toContain(LOAD_TOOLS);
+    expect(tools).toHaveLength(countByTags(["project", "application"]));
+  });
+
+  it("loads a tool group on demand and notifies the client once", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+    const client = await connect();
+    const listChanged = vi.fn();
+    client.setNotificationHandler(ToolListChangedNotificationSchema, listChanged);
+
+    const before = (await client.listTools()).tools.map((tool) => tool.name);
+    const result = await client.callTool({
+      name: LOAD_TOOLS,
+      arguments: { tags: ["Postgres", "redis"] },
+    });
+    const after = (await client.listTools()).tools;
+    await client.close();
+
+    const payload = parseResult(result).data;
+    expect(before).not.toContain("postgres-one");
+    expect(after.map((tool) => tool.name)).toContain("postgres-one");
+    expect(after.map((tool) => tool.name)).toContain("redis-one");
+    expect(after).toHaveLength(before.length + countByTags(["postgres", "redis"]));
+    expect(payload.loaded.map((group: { tag: string }) => group.tag)).toEqual([
+      "postgres",
+      "redis",
+    ]);
+    expect(payload.loaded[0].tools).toHaveLength(countByTags(["postgres"]));
+    expect(payload.available.map((group: { tag: string }) => group.tag)).not.toContain("postgres");
+    expect(listChanged).toHaveBeenCalledTimes(1);
+
+    const loaded = after.find((tool) => tool.name === "postgres-one");
+    expect((loaded?.inputSchema as Record<string, unknown>).$schema).toBe(
+      "https://json-schema.org/draft/2020-12/schema",
+    );
+  });
+
+  it("lists loadable groups when called without tags", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+    const client = await connect();
+
+    const payload = parseResult(await client.callTool({ name: LOAD_TOOLS, arguments: {} })).data;
+    await client.close();
+
+    expect(payload.loaded).toEqual([]);
+    expect(payload.available).toContainEqual({ tag: "postgres", tools: countByTags(["postgres"]) });
+    expect(payload.available.map((group: { tag: string }) => group.tag)).not.toContain("project");
+  });
+
+  it("never loads DOKPLOY_DISABLED_TAGS and reports why a tag is unavailable", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+    process.env.DOKPLOY_DISABLED_TAGS = "settings";
+    const client = await connect();
+
+    const result = await client.callTool({
+      name: LOAD_TOOLS,
+      arguments: { tags: ["settings", "project", "nope"] },
+    });
+    const names = (await client.listTools()).tools.map((tool) => tool.name);
+    await client.close();
+
+    const payload = parseResult(result).data;
+    expect(payload.loaded).toEqual([]);
+    expect(payload.unavailable).toEqual([
+      { tag: "settings", reason: "disabled by DOKPLOY_DISABLED_TAGS" },
+      { tag: "project", reason: "already loaded" },
+      { tag: "nope", reason: "unknown tag" },
+    ]);
+    expect(names.some((name) => name.startsWith("settings-"))).toBe(false);
+  });
+
+  it("reports a group as already loaded on a second request", async () => {
+    process.env.DOKPLOY_TOOL_PRESET = "minimal";
+    const client = await connect();
+
+    await client.callTool({ name: LOAD_TOOLS, arguments: { tags: ["backup"] } });
+    const second = await client.callTool({ name: LOAD_TOOLS, arguments: { tags: ["backup"] } });
+    const tools = (await client.listTools()).tools;
+    await client.close();
+
+    expect(parseResult(second).data.unavailable).toEqual([
+      { tag: "backup", reason: "already loaded" },
+    ]);
+    expect(new Set(tools.map((tool) => tool.name)).size).toBe(tools.length);
   });
 
   it("every tool inputSchema has $schema set to draft 2020-12", async () => {
