@@ -265,7 +265,7 @@ function main() {
     tag: ${JSON.stringify(tag)},
     method: ${JSON.stringify(method.toUpperCase() as "GET" | "POST")},
     path: ${JSON.stringify(path)},
-    schema: ${zodSchema},
+    schema: () => ${zodSchema},
     annotations: {
       title: ${JSON.stringify(title)},
       ...${annotations},

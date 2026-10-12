@@ -14,6 +14,6 @@ export interface ToolDefinition {
   tag: string;
   method: "GET" | "POST";
   path: string;
-  schema: ZodObject<ZodRawShape>;
+  schema: () => ZodObject<ZodRawShape>;
   annotations?: ToolAnnotations;
 }
