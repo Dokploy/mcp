@@ -33,7 +33,7 @@ export function createHandler(tool: ToolDefinition) {
         if (error.message.includes("401") || error.message.includes("Unauthorized")) {
           return ResponseFormatter.error(
             `Authentication failed for ${tool.name}`,
-            "Please check your DOKPLOY_API_KEY configuration",
+            "Reauthorize this MCP client with a valid Dokploy account",
           );
         }
         if (error.message.includes("404") || error.message.includes("Not Found")) {

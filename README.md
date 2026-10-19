@@ -237,8 +237,8 @@ The Docker container supports both **stdio** and **HTTP** transport modes, makin
     docker run -it --rm \
       -p 8080:3000 \
       -e MCP_TRANSPORT=http \
+      -e MCP_AUTH_MODE=oauth \
       -e DOKPLOY_URL=https://your-dokploy-server.com \
-      -e DOKPLOY_API_KEY=your_token_here \
       dokploy-mcp
     ```
 
@@ -247,7 +247,7 @@ The Docker container supports both **stdio** and **HTTP** transport modes, makin
     Use the provided `docker-compose.yml` for production deployments:
 
     ```bash
-    # Start HTTP service
+    # Start HTTP service (each MCP client supplies its own Dokploy API key)
     docker-compose up -d dokploy-mcp-http
 
     # View logs
@@ -306,7 +306,9 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `DOKPLOY_URL` | Yes | Your Dokploy server URL (e.g., `https://your-dokploy-server.com`) |
-| `DOKPLOY_API_KEY` | Yes | Your Dokploy API authentication token |
+| `DOKPLOY_API_KEY` | Stdio/process mode | Your Dokploy API authentication token for local stdio or an intentionally shared process identity. OAuth HTTP mode does not use a shared key. |
+| `MCP_AUTH_MODE` | No | HTTP authentication mode: `oauth` uses the user's Dokploy OAuth authorization, `api-key` accepts a per-client API key, and `process` uses `DOKPLOY_API_KEY`. HTTP defaults to `oauth`; stdio defaults to `process`. |
+| `MCP_RESOURCE_URL` | OAuth HTTP mode | The public HTTPS resource identifier for this MCP endpoint, ending in `/mcp`. Configure the same URL as `DOKPLOY_MCP_RESOURCE_URL` on Dokploy. |
 | `DOKPLOY_CUSTOM_HEADERS` | No | JSON object of additional upstream request headers. Header names and values must be strings. Reserved headers cannot be set here: `x-api-key`, `content-type`, `accept`. |
 | `DOKPLOY_TOOL_PRESET` | No | Predefined toolset to load: `all` (default), `minimal`, `core`, `deploy`, `databases`, or `git`. Useful for clients/providers that struggle with very large tool lists. |
 | `DOKPLOY_ENABLED_TAGS` | No | Comma-separated list of tags to filter which tools are loaded (e.g., `project,application,postgres`) |
@@ -349,6 +351,10 @@ npx -y @dokploy/mcp --http
 # or via environment variable
 MCP_TRANSPORT=http npx -y @dokploy/mcp
 ```
+
+HTTP mode defaults to OAuth. Configure the MCP process with `DOKPLOY_URL`, `MCP_RESOURCE_URL`, and expose it over HTTPS. Set the same resource URL as `DOKPLOY_MCP_RESOURCE_URL` on the Dokploy server. Clients discover protected-resource metadata, register or identify an OAuth client, and authorize the requested Dokploy account and organization through the browser consent flow. Tokens are audience-bound to the MCP endpoint. The server binds each MCP session to its bearer token and forwards that token for every tool call. Dokploy revalidates the token, session, organization membership, and existing resource permissions on each API request. The OAuth flow uses authorization code with PKCE, short-lived access tokens, refresh, and revocation.
+
+For a private deployment with a trusted network boundary, `MCP_AUTH_MODE=process` and `DOKPLOY_API_KEY` remain available for a shared process identity. `MCP_AUTH_MODE=api-key` remains available for clients that explicitly manage Dokploy API keys.
 
 **Modern Streamable HTTP Endpoints:**
 
