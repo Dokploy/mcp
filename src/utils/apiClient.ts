@@ -30,7 +30,9 @@ const baseURL = `${config.dokployUrl.replace(/\/+$/, "")}/api`;
 const apiClient = axios.create({
   baseURL,
   timeout: config.timeout,
-  headers: DEFAULT_HEADERS,
+  // Keep the initial key in the same bucket used by setAuthToken/clearAuthToken.
+  // A root-level default would override headers.common during request merging.
+  headers: { common: DEFAULT_HEADERS },
 });
 
 // Request interceptor - Add request timing and logging
