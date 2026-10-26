@@ -2,6 +2,7 @@ import type { ToolDefinition } from "./types.js";
 import apiClient from "./utils/apiClient.js";
 import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
+import { withReadRetries } from "./utils/readRetry.js";
 import { redactSensitive } from "./utils/redactSensitive.js";
 import { ResponseFormatter } from "./utils/responseFormatter.js";
 
@@ -9,16 +10,19 @@ const logger = createLogger("ToolHandler");
 
 export function createHandler(tool: ToolDefinition) {
   return async (input: Record<string, unknown>) => {
-    const { redactEnv, redactFields } = getClientConfig();
+    const { redactEnv, redactFields, retryAttempts, retryDelay, timeout } = getClientConfig();
     const redact = <T>(value: T): T => (redactEnv ? redactSensitive(value, redactFields) : value);
 
     try {
       logger.info(`Executing tool: ${tool.name}`, { input: redact(input) });
 
-      const response =
-        tool.method === "GET"
-          ? await apiClient.get(tool.path, { params: input })
-          : await apiClient.post(tool.path, input);
+      const response = await withReadRetries(
+        (remaining) =>
+          tool.method === "GET"
+            ? apiClient.get(tool.path, { params: input, timeout: remaining })
+            : apiClient.post(tool.path, input, { timeout: remaining }),
+        { method: tool.method, attempts: retryAttempts, delayMs: retryDelay, budgetMs: timeout },
+      );
 
       return ResponseFormatter.success(
         `${tool.name} completed successfully`,

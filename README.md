@@ -311,9 +311,9 @@ The configuration on Windows is slightly different compared to Linux or macOS. U
 | `DOKPLOY_TOOL_PRESET` | No | Predefined toolset to load: `all` (default), `minimal`, `core`, `deploy`, `databases`, or `git`. Useful for clients/providers that struggle with very large tool lists. |
 | `DOKPLOY_ENABLED_TAGS` | No | Comma-separated list of tags to filter which tools are loaded (e.g., `project,application,postgres`) |
 | `DOKPLOY_DISABLED_TAGS` | No | Comma-separated list of tags to exclude from the selected toolset. Applied after `DOKPLOY_TOOL_PRESET` or `DOKPLOY_ENABLED_TAGS`. |
-| `DOKPLOY_TIMEOUT` | No | Request timeout in milliseconds (default: `30000`) |
-| `DOKPLOY_RETRY_ATTEMPTS` | No | Number of retry attempts (default: `3`) |
-| `DOKPLOY_RETRY_DELAY` | No | Delay between retries in milliseconds (default: `1000`) |
+| `DOKPLOY_TIMEOUT` | No | Total tool HTTP-request budget including read retries/backoff, in milliseconds (default: `30000`) |
+| `DOKPLOY_RETRY_ATTEMPTS` | No | Additional GET attempts for HTTP 429/502/503/504 (default: `3`, capped at `5`); writes are never retried |
+| `DOKPLOY_RETRY_DELAY` | No | Initial GET retry backoff in milliseconds (default: `1000`), doubled up to 30 seconds; valid Retry-After is honored within the total budget |
 | `DOKPLOY_REDACT_ENV` | No | Redacts secret-bearing fields (env vars, compose files, passwords, tokens, keys) from API responses before they reach the MCP client (default: `true`). Set to `false` only if you explicitly need raw secret values in LLM context. |
 | `DOKPLOY_REDACT_FIELDS` | No | Comma-separated list of response field names to redact when `DOKPLOY_REDACT_ENV=true`. Matched case-insensitively at any nesting depth. Defaults to: `env`, `buildArgs`, `composeFile`, `dockerCompose`, `environment`, `buildSecrets`, `previewBuildSecrets`, `password`, `currentPassword`, `appPassword`, `databasePassword`, `databaseRootPassword`, `redisPassword`, `mariadbPassword`, `mongoPassword`, `mysqlPassword`, `postgresPassword`, `registryPassword`, `token`, `accessToken`, `appToken`, `apiToken`, `botToken`, `refreshToken`, `secret`, `clientSecret`, `apiKey`, `secretAccessKey`, `accessKey`, `licenseKey`, `userKey`, `privateKey`, `privateKeyPass`, `encPrivateKey`, `encPrivateKeyPass`, `sshKey`, `sshPrivateKey`, `customGitSSHKey`, `dockerAuth`. |
 
