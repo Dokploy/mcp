@@ -286,6 +286,13 @@ function main() {
     }
   }
 
+  // Do not replace the checked-in catalog with a partial result.
+  if (errorCount > 0) {
+    throw new Error(
+      `Tool generation failed for ${errorCount} operation(s); artifacts were not written`,
+    );
+  }
+
   // Write generated tools.ts
   const output = `// AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
 // Generated from openapi.json on ${new Date().toISOString().split("T")[0]}
