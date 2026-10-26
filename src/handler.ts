@@ -1,5 +1,6 @@
 import type { ToolDefinition } from "./types.js";
 import apiClient from "./utils/apiClient.js";
+import { classifyApiError } from "./utils/apiError.js";
 import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
 import { redactSensitive } from "./utils/redactSensitive.js";
@@ -25,29 +26,9 @@ export function createHandler(tool: ToolDefinition) {
         redact(response.data),
       );
     } catch (error) {
-      logger.error(`Tool execution failed: ${tool.name}`, {
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
-
-      if (error instanceof Error) {
-        if (error.message.includes("401") || error.message.includes("Unauthorized")) {
-          return ResponseFormatter.error(
-            `Authentication failed for ${tool.name}`,
-            "Please check your DOKPLOY_API_KEY configuration",
-          );
-        }
-        if (error.message.includes("404") || error.message.includes("Not Found")) {
-          return ResponseFormatter.error(
-            "Resource not found",
-            `The requested resource for ${tool.name} could not be found`,
-          );
-        }
-      }
-
-      return ResponseFormatter.error(
-        `Failed to execute ${tool.name}`,
-        `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
+      const failure = classifyApiError(error);
+      logger.error(`Tool execution failed: ${tool.name}`, { ...failure });
+      return ResponseFormatter.error(`Failed to execute ${tool.name}`, failure.hint, failure);
     }
   };
 }

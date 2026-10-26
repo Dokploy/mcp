@@ -1,3 +1,5 @@
+import type { ApiFailure } from "./apiError.js";
+
 export interface FormattedResponse {
   [key: string]: unknown;
   content: { type: "text"; text: string }[];
@@ -22,11 +24,12 @@ export class ResponseFormatter {
     };
   }
 
-  static error(message: string, details?: string): FormattedResponse {
+  static error(message: string, details?: string, diagnostics?: ApiFailure): FormattedResponse {
     const errorData = {
       success: false,
       error: message,
       ...(details && { details }),
+      ...(diagnostics && { diagnostics }),
     };
 
     return {
