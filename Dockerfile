@@ -3,7 +3,7 @@ FROM node:lts-alpine AS builder
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
+RUN npm install --global pnpm@10.33.0
 
 # Copy package and configuration
 COPY package.json pnpm-lock.yaml tsconfig.json .npmrc ./
@@ -19,7 +19,7 @@ FROM node:lts-alpine
 WORKDIR /app
 
 # Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
+RUN npm install --global pnpm@10.33.0
 
 # Copy built artifacts
 COPY --from=builder /app/build ./build
