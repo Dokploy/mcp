@@ -1,6 +1,6 @@
 {
   "name": "@dokploy/mcp",
-  "version": "0.30.7",
+  "version": "0.31.0",
   "description": "MCP Server for Dokploy API",
   "main": "build/index.js",
   "bin": {
