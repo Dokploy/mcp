@@ -366,6 +366,8 @@ MCP_TRANSPORT=http npx -y @dokploy/mcp
 | `/sse` | GET | SSE stream initialization |
 | `/messages` | POST | Client message posting |
 
+> **Note on file upload tools (`application-dropDeployment`, `docker-uploadFileToContainer`):** Local file path arguments (`zipPath`, `filePath`) are read on the machine where the MCP server process runs, not on a remote HTTP/SSE client machine.
+
 ## Available Tools (508)
 
 This MCP server provides **508 tools** covering the entire Dokploy API, organized into **49 categories**:

@@ -14,7 +14,10 @@ interface OperationObject {
   parameters?: ParameterObject[];
   requestBody?: {
     content: {
-      "application/json": {
+      "application/json"?: {
+        schema: JsonSchema;
+      };
+      "multipart/form-data"?: {
         schema: JsonSchema;
       };
     };
@@ -33,7 +36,91 @@ const SPEC_PATH = resolve(import.meta.dirname, "../src/generated/openapi.json");
 const OUTPUT_PATH = resolve(import.meta.dirname, "../src/generated/tools.ts");
 const TOOLS_MD_PATH = resolve(import.meta.dirname, "../TOOLS.md");
 
-function deriveAnnotations(method: string, operationId: string): string {
+const FILE_FIELD_DESCRIPTION = "Absolute path to a local file, read by the MCP server";
+
+const MULTIPART_SCHEMA_OVERRIDES: Record<string, JsonSchemaObject> = {
+  "application-dropDeployment": {
+    type: "object",
+    properties: {
+      applicationId: { type: "string" },
+      zip: { type: "string", format: "binary" },
+      dropBuildPath: { type: "string" },
+    },
+    required: ["applicationId", "zip"],
+  },
+  "docker-uploadFileToContainer": {
+    type: "object",
+    properties: {
+      containerId: { type: "string", minLength: 1 },
+      file: { type: "string", format: "binary" },
+      destinationPath: { type: "string", minLength: 1 },
+      serverId: { type: "string" },
+    },
+    required: ["containerId", "file", "destinationPath"],
+  },
+};
+
+function resolveMultipartSchema(
+  op: OperationObject,
+  method: string,
+): { schema: JsonSchemaObject; fileFields: Record<string, string> } | null {
+  if (method !== "post" || op.requestBody?.content?.["application/json"]?.schema) {
+    return null;
+  }
+
+  const rawMultipart = op.requestBody?.content?.["multipart/form-data"]?.schema as
+    | JsonSchemaObject
+    | undefined;
+  const hasSpecProperties =
+    rawMultipart &&
+    typeof rawMultipart === "object" &&
+    rawMultipart.properties &&
+    Object.keys(rawMultipart.properties).length > 0;
+
+  const sourceSchema = hasSpecProperties
+    ? rawMultipart
+    : MULTIPART_SCHEMA_OVERRIDES[op.operationId];
+
+  if (!sourceSchema?.properties) {
+    return null;
+  }
+
+  const properties: Record<string, JsonSchemaObject> = {};
+  const fileFields: Record<string, string> = {};
+  const requiredSet = new Set(sourceSchema.required || []);
+  const required: string[] = [];
+
+  for (const [propName, propSchema] of Object.entries(sourceSchema.properties)) {
+    if (propSchema.type === "string" && propSchema.format === "binary") {
+      const inputName = `${propName}Path`;
+      fileFields[inputName] = propName;
+      properties[inputName] = {
+        type: "string",
+        minLength: 1,
+        description: FILE_FIELD_DESCRIPTION,
+      };
+      if (requiredSet.has(propName)) {
+        required.push(inputName);
+      }
+    } else {
+      properties[propName] = propSchema;
+      if (requiredSet.has(propName)) {
+        required.push(propName);
+      }
+    }
+  }
+
+  return {
+    schema: {
+      type: "object",
+      properties,
+      ...(required.length > 0 ? { required } : {}),
+    },
+    fileFields,
+  };
+}
+
+function deriveAnnotations(method: string, operationId: string, isMultipart = false): string {
   const id = operationId.toLowerCase();
   const isRead = method === "get";
   const isDelete = id.includes("delete") || id.includes("remove");
@@ -47,7 +134,9 @@ function deriveAnnotations(method: string, operationId: string): string {
   if (isDelete) {
     annotations.destructiveHint = true;
   }
-  if (isRead || (!isCreate && !isDelete)) {
+  if (isMultipart) {
+    annotations.idempotentHint = false;
+  } else if (isRead || (!isCreate && !isDelete)) {
     annotations.idempotentHint = true;
   }
   annotations.openWorldHint = true;
@@ -67,6 +156,11 @@ function getZodSchema(op: OperationObject, method: string): string {
   if (method === "post" && op.requestBody?.content?.["application/json"]?.schema) {
     const schema = op.requestBody.content["application/json"].schema;
     return jsonSchemaToZod(schema, { zodVersion: 3 });
+  }
+
+  const multipart = resolveMultipartSchema(op, method);
+  if (multipart) {
+    return jsonSchemaToZod(multipart.schema as JsonSchema, { zodVersion: 3 });
   }
 
   if (op.parameters && op.parameters.length > 0) {
@@ -99,6 +193,9 @@ function getZodSchema(op: OperationObject, method: string): string {
 
 interface JsonSchemaObject {
   type?: string;
+  format?: string;
+  minLength?: number;
+  description?: string;
   properties?: Record<string, JsonSchemaObject>;
   required?: string[];
   anyOf?: JsonSchemaObject[];
@@ -136,6 +233,18 @@ function extractParams(op: OperationObject, method: string): ToolMdEntry["params
       const s = schema as JsonSchemaObject;
       const requiredSet = new Set(s.required || []);
       for (const [name, propSchema] of Object.entries(s.properties || {})) {
+        params.push({
+          name,
+          type: schemaTypeToString(propSchema),
+          required: requiredSet.has(name),
+        });
+      }
+    }
+  } else {
+    const multipart = resolveMultipartSchema(op, method);
+    if (multipart?.schema.properties) {
+      const requiredSet = new Set(multipart.schema.required || []);
+      for (const [name, propSchema] of Object.entries(multipart.schema.properties)) {
         params.push({
           name,
           type: schemaTypeToString(propSchema),
@@ -251,13 +360,17 @@ function main() {
       }
 
       try {
+        const multipart = resolveMultipartSchema(op, method);
         const zodSchema = getZodSchema(op, method);
         const description = (op.summary || op.description || `${method.toUpperCase()} ${path}`)
           .replace(/`/g, "'")
           .replace(/\\/g, "\\\\");
         const title = formatTitle(operationId);
-        const annotations = deriveAnnotations(method, operationId);
+        const annotations = deriveAnnotations(method, operationId, Boolean(multipart));
         const tag = op.tags?.[0] || "unknown";
+        const multipartFields = multipart
+          ? `\n    bodyType: "multipart",\n    fileFields: ${JSON.stringify(multipart.fileFields)},`
+          : "";
 
         tools.push(`  {
     name: ${JSON.stringify(operationId)},
@@ -265,7 +378,7 @@ function main() {
     tag: ${JSON.stringify(tag)},
     method: ${JSON.stringify(method.toUpperCase() as "GET" | "POST")},
     path: ${JSON.stringify(path)},
-    schema: ${zodSchema},
+    schema: ${zodSchema},${multipartFields}
     annotations: {
       title: ${JSON.stringify(title)},
       ...${annotations},
