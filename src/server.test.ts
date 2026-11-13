@@ -213,4 +213,24 @@ describe("MCP server tools/list", () => {
       ).toBe("object");
     }
   });
+
+  it("generates multipart schema and fileFields for application-dropDeployment and docker-uploadFileToContainer", () => {
+    const dropTool = generatedTools.find((t) => t.name === "application-dropDeployment");
+    expect(dropTool).toBeDefined();
+    expect(dropTool?.bodyType).toBe("multipart");
+    expect(dropTool?.fileFields).toEqual({ zipPath: "zip" });
+    expect(dropTool?.annotations?.idempotentHint).toBe(false);
+    expect(Object.keys(dropTool?.schema.shape ?? {})).toEqual(
+      expect.arrayContaining(["applicationId", "zipPath", "dropBuildPath"]),
+    );
+
+    const uploadTool = generatedTools.find((t) => t.name === "docker-uploadFileToContainer");
+    expect(uploadTool).toBeDefined();
+    expect(uploadTool?.bodyType).toBe("multipart");
+    expect(uploadTool?.fileFields).toEqual({ filePath: "file" });
+    expect(uploadTool?.annotations?.idempotentHint).toBe(false);
+    expect(Object.keys(uploadTool?.schema.shape ?? {})).toEqual(
+      expect.arrayContaining(["containerId", "filePath", "destinationPath", "serverId"]),
+    );
+  });
 });

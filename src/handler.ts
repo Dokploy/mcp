@@ -1,3 +1,5 @@
+import { readFile, stat } from "node:fs/promises";
+import { basename } from "node:path";
 import type { ToolDefinition } from "./types.js";
 import apiClient from "./utils/apiClient.js";
 import { getClientConfig } from "./utils/clientConfig.js";
@@ -13,6 +15,86 @@ export function createHandler(tool: ToolDefinition) {
     const redact = <T>(value: T): T => (redactEnv ? redactSensitive(value, redactFields) : value);
 
     try {
+      if (tool.bodyType === "multipart") {
+        const fileFields = tool.fileFields ?? {};
+        const verifiedFiles: {
+          inputKey: string;
+          formField: string;
+          filePath: string;
+          size: number;
+        }[] = [];
+
+        for (const [inputKey, formField] of Object.entries(fileFields)) {
+          const rawPath = input[inputKey];
+          if (typeof rawPath !== "string" || rawPath.trim() === "") {
+            return ResponseFormatter.error(
+              `Failed to execute ${tool.name}`,
+              `File not found: ${String(rawPath ?? "")}`,
+            );
+          }
+
+          let fileStat: Awaited<ReturnType<typeof stat>>;
+          try {
+            fileStat = await stat(rawPath);
+          } catch {
+            return ResponseFormatter.error(
+              `Failed to execute ${tool.name}`,
+              `File not found: ${rawPath}`,
+            );
+          }
+
+          if (!fileStat.isFile()) {
+            return ResponseFormatter.error(
+              `Failed to execute ${tool.name}`,
+              `File not found: ${rawPath}`,
+            );
+          }
+
+          verifiedFiles.push({
+            inputKey,
+            formField,
+            filePath: rawPath,
+            size: fileStat.size,
+          });
+        }
+
+        const form = new FormData();
+        const fileLogMeta: Record<string, { path: string; size: number }> = {};
+
+        for (const fileInfo of verifiedFiles) {
+          const content = await readFile(fileInfo.filePath);
+          const blob = new Blob([content]);
+          form.append(fileInfo.formField, blob, basename(fileInfo.filePath));
+          fileLogMeta[fileInfo.inputKey] = {
+            path: fileInfo.filePath,
+            size: fileInfo.size,
+          };
+        }
+
+        const nonFileInput: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(input)) {
+          if (key in fileFields || value === undefined) {
+            continue;
+          }
+          form.append(key, String(value));
+          nonFileInput[key] = value;
+        }
+
+        logger.info(`Executing tool: ${tool.name}`, {
+          input: redact(nonFileInput),
+          files: fileLogMeta,
+        });
+
+        const response = await apiClient.post(tool.path, form, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+        return ResponseFormatter.success(
+          `${tool.name} completed successfully`,
+          redact(response.data),
+        );
+      }
+
       logger.info(`Executing tool: ${tool.name}`, { input: redact(input) });
 
       const response =

@@ -15,5 +15,7 @@ export interface ToolDefinition {
   method: "GET" | "POST";
   path: string;
   schema: ZodObject<ZodRawShape>;
+  bodyType?: "json" | "multipart";
+  fileFields?: Record<string, string>;
   annotations?: ToolAnnotations;
 }
