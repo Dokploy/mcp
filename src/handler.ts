@@ -1,5 +1,6 @@
 import type { ToolDefinition } from "./types.js";
 import apiClient from "./utils/apiClient.js";
+import { getServerErrorMessage } from "./utils/apiError.js";
 import { getClientConfig } from "./utils/clientConfig.js";
 import { createLogger } from "./utils/logger.js";
 import { redactSensitive } from "./utils/redactSensitive.js";
@@ -42,6 +43,11 @@ export function createHandler(tool: ToolDefinition) {
             `The requested resource for ${tool.name} could not be found`,
           );
         }
+      }
+
+      const serverMessage = getServerErrorMessage(error);
+      if (serverMessage) {
+        return ResponseFormatter.error(serverMessage);
       }
 
       return ResponseFormatter.error(
