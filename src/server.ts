@@ -1,10 +1,12 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import type { ZodObject, ZodRawShape } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { generatedTools } from "./generated/tools.js";
 import { createHandler } from "./handler.js";
+import type { ToolDefinition } from "./types.js";
 import { createLogger } from "./utils/logger.js";
+import { ResponseFormatter } from "./utils/responseFormatter.js";
 
 const logger = createLogger("MCP-Server");
 
@@ -152,6 +154,12 @@ function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string
   return result;
 }
 
+function formatIssues(error: { issues: { path: (string | number)[]; message: string }[] }): string {
+  return error.issues
+    .map((issue) => `${issue.path.join(".") || "(root)"}: ${issue.message}`)
+    .join("; ");
+}
+
 export function createServer() {
   const server = new McpServer({
     name: "dokploy",
@@ -159,27 +167,50 @@ export function createServer() {
   });
 
   const tools = getEnabledTools();
-
-  for (const tool of tools) {
-    server.tool(
-      tool.name,
-      tool.description,
-      tool.schema.shape,
-      tool.annotations ?? {},
-      createHandler(tool),
-    );
-  }
+  const toolsByName = new Map<string, ToolDefinition>(tools.map((tool) => [tool.name, tool]));
 
   const toolList = tools.map((tool) => ({
     name: tool.name,
     description: tool.description,
-    inputSchema: toDraft2020_12JsonSchema(tool.schema),
+    inputSchema: toDraft2020_12JsonSchema(tool.schema()),
     annotations: tool.annotations,
   }));
+
+  const schemaCache = new Map<string, ZodObject<ZodRawShape>>();
+  function getToolSchema(tool: ToolDefinition): ZodObject<ZodRawShape> {
+    let schema = schemaCache.get(tool.name);
+    if (!schema) {
+      schema = tool.schema();
+      schemaCache.set(tool.name, schema);
+    }
+    return schema;
+  }
+
+  server.server.registerCapabilities({ tools: { listChanged: false } });
 
   server.server.setRequestHandler(ListToolsRequestSchema, async () => ({
     tools: toolList,
   }));
+
+  server.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    const tool = toolsByName.get(request.params.name);
+    if (!tool) {
+      return ResponseFormatter.error(
+        `Unknown tool: ${request.params.name}`,
+        "The tool is not available in the current toolset",
+      );
+    }
+
+    const parsed = getToolSchema(tool).safeParse(request.params.arguments ?? {});
+    if (!parsed.success) {
+      return ResponseFormatter.error(
+        `Invalid arguments for ${tool.name}`,
+        formatIssues(parsed.error),
+      );
+    }
+
+    return createHandler(tool)(parsed.data);
+  });
 
   return server;
 }
