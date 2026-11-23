@@ -2,12 +2,24 @@ services:
   dokploy-mcp-http:
     build: .
     container_name: dokploy-mcp-http
-    ports:
-      - "${EXTERNAL_PORT:-3000}:3000"
+    # No host port mapping: when this compose is deployed behind Dokploy /
+    # Traefik / any other reverse proxy, the proxy reaches the container on
+    # its internal port over the shared Docker network — publishing to the
+    # host causes port collisions (Dokploy itself binds :3000) without
+    # adding anything. If you want to run this compose standalone without
+    # a proxy, uncomment the block below.
+    # ports:
+    #   - "${EXTERNAL_PORT:-3000}:3000"
+    expose:
+      - "3000"
     environment:
       - MCP_TRANSPORT=${MCP_TRANSPORT:-http}
       - DOKPLOY_URL=${DOKPLOY_URL:-https://your-dokploy-server.com}
       - DOKPLOY_API_KEY=${DOKPLOY_API_KEY:-your_token_here}
+      # Optional shared-secret gate on /mcp, /sse, /messages. Leave unset
+      # for open access, or set to require Authorization: Bearer <token>
+      # (or ?token=<value> for URL-only clients like Cowork).
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN:-}
     restart: unless-stopped
     networks:
       - mcp-network
