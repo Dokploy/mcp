@@ -2,16 +2,16 @@
 
 > Auto-generated from the [Dokploy OpenAPI spec](https://docs.dokploy.com/openapi.json). Run `pnpm generate` to update.
 
-- **Total Tools**: 604
-- **Categories**: 57
+- **Total Tools**: 639
+- **Categories**: 59
 
 ## Categories
 
 - [admin](#admin) (1 tools)
-- [ai](#ai) (14 tools)
+- [ai](#ai) (13 tools)
 - [application](#application) (32 tools)
-- [auditLog](#auditLog) (1 tools)
-- [backup](#backup) (12 tools)
+- [auditLog](#auditLog) (2 tools)
+- [backup](#backup) (14 tools)
 - [bitbucket](#bitbucket) (7 tools)
 - [certificates](#certificates) (5 tools)
 - [cluster](#cluster) (4 tools)
@@ -35,7 +35,7 @@
 - [licenseKey](#licenseKey) (6 tools)
 - [mariadb](#mariadb) (16 tools)
 - [mongo](#mongo) (16 tools)
-- [mounts](#mounts) (6 tools)
+- [mounts](#mounts) (7 tools)
 - [mysql](#mysql) (16 tools)
 - [network](#network) (9 tools)
 - [notification](#notification) (41 tools)
@@ -54,13 +54,15 @@
 - [scim](#scim) (3 tools)
 - [security](#security) (4 tools)
 - [server](#server) (19 tools)
-- [settings](#settings) (52 tools)
+- [serverSecurity](#serverSecurity) (12 tools)
+- [settings](#settings) (57 tools)
 - [sshKey](#sshKey) (7 tools)
 - [sso](#sso) (11 tools)
 - [stripe](#stripe) (10 tools)
 - [swarm](#swarm) (4 tools)
 - [tag](#tag) (8 tools)
-- [user](#user) (26 tools)
+- [telemetryProvider](#telemetryProvider) (11 tools)
+- [user](#user) (30 tools)
 - [vaultProvider](#vaultProvider) (7 tools)
 - [volumeBackups](#volumeBackups) (6 tools)
 - [whitelabeling](#whitelabeling) (4 tools)
@@ -76,17 +78,16 @@
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `ai-one` | GET | `aiId` (string) |
-| `ai-getModels` | GET | `apiUrl` (string), `apiKey` (string) |
+| `ai-getModels` | GET | `apiUrl` (string), `apiKey` (string), `aiId`? |
 | `ai-create` | POST | `name` (string), `apiUrl` (string), `apiKey` (string), `model` (string), `isEnabled` (boolean) |
 | `ai-update` | POST | `aiId` (string), +6 optional |
 | `ai-getAll` | GET | None |
-| `ai-get` | GET | `aiId` (string) |
 | `ai-delete` | POST | `aiId` (string) |
 | `ai-getCustomProviders` | GET | None |
 | `ai-saveCustomProviders` | POST | `providers` (object[]) |
 | `ai-getEnabledProviders` | GET | None |
 | `ai-analyzeLogs` | POST | `aiId` (string), `logs` (string), `context` ("build" | "runtime") |
-| `ai-testConnection` | POST | `apiUrl` (string), `apiKey` (string), `model` (string) |
+| `ai-testConnection` | POST | `apiUrl` (string), `apiKey` (string), `model` (string), `aiId`? |
 | `ai-suggest` | POST | `aiId` (string), `input` (string), `serverId`? |
 | `ai-deploy` | POST | `environmentId` (string), `id` (string), `dockerCompose` (string), `envVariables` (string), `name` (string), `description` (string), `serverId`?, `domains`?, `configFiles`? |
 
@@ -102,14 +103,14 @@
 | `application-stop` | POST | `applicationId` (string) |
 | `application-start` | POST | `applicationId` (string) |
 | `application-redeploy` | POST | `applicationId` (string), `title`?, `description`? |
-| `application-saveEnvironment` | POST | `applicationId` (string), `env` (string | null), `buildArgs` (string | null), `buildSecrets` (string | null), `createEnvFile` (boolean) |
-| `application-saveBuildType` | POST | `applicationId` (string), `buildType` ("dockerfile" | "heroku_buildpacks" | "paketo_buildpacks" | "nixpacks" | "static" | "railpack"), `dockerfile` (string | null), `dockerContextPath` (string | null), `dockerBuildStage` (string | null), `herokuVersion` (string | null), `railpackVersion` (string | null), `publishDirectory`?, `isStaticSpa`? |
-| `application-saveGithubProvider` | POST | `applicationId` (string), `repository` (string | null), `owner` (string | null), `buildPath` (string | null), `githubId` (string | null), `branch` (string), `triggerType` ("push" | "tag"), `enableSubmodules`?, `watchPaths`? |
-| `application-saveGitlabProvider` | POST | `applicationId` (string), `gitlabBuildPath` (string | null), `gitlabOwner` (string | null), `gitlabRepository` (string | null), `gitlabId` (string | null), `gitlabProjectId` (number | null), `gitlabPathNamespace` (string | null), `gitlabBranch` (string), `enableSubmodules`?, `watchPaths`? |
-| `application-saveBitbucketProvider` | POST | `bitbucketBuildPath` (string | null), `bitbucketOwner` (string | null), `bitbucketRepository` (string | null), `bitbucketRepositorySlug` (string | null), `bitbucketId` (string | null), `applicationId` (string), `bitbucketBranch` (string), `enableSubmodules`?, `watchPaths`? |
-| `application-saveGiteaProvider` | POST | `applicationId` (string), `giteaBuildPath` (string | null), `giteaOwner` (string | null), `giteaRepository` (string | null), `giteaId` (string | null), `giteaBranch` (string), `enableSubmodules`?, `watchPaths`? |
-| `application-saveDockerProvider` | POST | `dockerImage` (string | null), `applicationId` (string), `username` (string | null), `password` (string | null), `registryUrl` (string | null) |
-| `application-saveGitProvider` | POST | `applicationId` (string), `customGitBuildPath` (string | null), `customGitUrl` (string | null), `watchPaths` (array | null), `customGitBranch` (string), `enableSubmodules`?, `customGitSSHKeyId`? |
+| `application-saveEnvironment` | POST | `applicationId` (string), `env` (string,null), `buildArgs` (string,null), `buildSecrets` (string,null), `createEnvFile` (boolean) |
+| `application-saveBuildType` | POST | `applicationId` (string), `buildType` ("dockerfile" | "heroku_buildpacks" | "paketo_buildpacks" | "nixpacks" | "static" | "railpack"), `dockerfile` (string,null), `dockerContextPath` (string,null), `dockerBuildStage` (string,null), `herokuVersion` (string,null), `railpackVersion` (string,null), `publishDirectory`?, `isStaticSpa`? |
+| `application-saveGithubProvider` | POST | `applicationId` (string), `repository` (string,null), `owner` (string,null), `buildPath` (string,null), `githubId` (string,null), `branch` (string), `triggerType` ("push" | "tag"), `enableSubmodules`?, `watchPaths`? |
+| `application-saveGitlabProvider` | POST | `applicationId` (string), `gitlabBuildPath` (string,null), `gitlabOwner` (string,null), `gitlabRepository` (string,null), `gitlabId` (string,null), `gitlabProjectId` (number,null), `gitlabPathNamespace` (string,null), `gitlabBranch` (string), `enableSubmodules`?, `watchPaths`? |
+| `application-saveBitbucketProvider` | POST | `bitbucketBuildPath` (string,null), `bitbucketOwner` (string,null), `bitbucketRepository` (string,null), `bitbucketRepositorySlug` (string,null), `bitbucketId` (string,null), `applicationId` (string), `bitbucketBranch` (string), `enableSubmodules`?, `watchPaths`? |
+| `application-saveGiteaProvider` | POST | `applicationId` (string), `giteaBuildPath` (string,null), `giteaOwner` (string,null), `giteaRepository` (string,null), `giteaId` (string,null), `giteaBranch` (string), `enableSubmodules`?, `watchPaths`? |
+| `application-saveDockerProvider` | POST | `dockerImage` (string,null), `applicationId` (string), `username` (string,null), `password` (string,null), `registryUrl` (string,null) |
+| `application-saveGitProvider` | POST | `applicationId` (string), `customGitBuildPath` (string,null), `customGitUrl` (string,null), `watchPaths` (array | null), `customGitBranch` (string), `enableSubmodules`?, `customGitSSHKeyId`? |
 | `application-disconnectGitProvider` | POST | `applicationId` (string) |
 | `application-markRunning` | POST | `applicationId` (string) |
 | `application-update` | POST | `applicationId` (string), +99 optional |
@@ -132,14 +133,15 @@
 | Tool | Method | Parameters |
 |------|--------|------------|
 | `auditLog-all` | GET | +9 optional |
+| `auditLog-export` | GET | +7 optional |
 
 ## backup
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `backup-create` | POST | `schedule` (string), `prefix` (string), `destinationId` (string), `database` (string), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), +13 optional |
+| `backup-create` | POST | `schedule` (string), `prefix` (string), `destinationId` (string), `database` (string), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), +14 optional |
 | `backup-one` | GET | `backupId` (string) |
-| `backup-update` | POST | `schedule` (string), `enabled` (boolean | null), `prefix` (string), `backupId` (string), `destinationId` (string), `database` (string), `keepLatestCount` (number | null), `serviceName` (string | null), `metadata` (unknown | null), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), `includeEncryptionKey`? |
+| `backup-update` | POST | `schedule` (string), `enabled` (boolean,null), `prefix` (string), `backupId` (string), `destinationId` (string), `database` (string), `keepLatestCount` (number,null), `serviceName` (string,null), `metadata` (unknown | null), `databaseType` ("postgres" | "mariadb" | "mysql" | "mongo" | "web-server" | "libsql"), `includeEncryptionKey`?, `customName`? |
 | `backup-remove` | POST | `backupId` (string) |
 | `backup-manualBackupPostgres` | POST | `backupId` (string) |
 | `backup-manualBackupMySql` | POST | `backupId` (string) |
@@ -149,6 +151,8 @@
 | `backup-manualBackupLibsql` | POST | `backupId` (string) |
 | `backup-manualBackupWebServer` | POST | `backupId` (string) |
 | `backup-listBackupFiles` | GET | `destinationId` (string), `search` (string), `serverId`? |
+| `backup-listBackupFilesByBackupId` | GET | `backupId` (string) |
+| `backup-getDownloadUrl` | POST | `backupId` (string), `fileName` (string) |
 
 ## bitbucket
 
@@ -166,7 +170,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `certificates-create` | POST | `name` (string), `certificateData` (string), `privateKey` (string), `organizationId` (string), +4 optional |
+| `certificates-create` | POST | `name` (string), `certificateData` (string), `privateKey` (string), `organizationId` (string), `certificateId`?, `autoRenew`?, `serverId`? |
 | `certificates-one` | GET | `certificateId` (string) |
 | `certificates-remove` | POST | `certificateId` (string) |
 | `certificates-all` | GET | None |
@@ -187,9 +191,9 @@
 |------|--------|------------|
 | `compose-create` | POST | `name` (string), `environmentId` (string), +6 optional |
 | `compose-one` | GET | `composeId` (string) |
-| `compose-update` | POST | `composeId` (string), +46 optional |
-| `compose-saveEnvironment` | POST | `composeId` (string), `env` (string | null), `createEnvFile`? |
-| `compose-delete` | POST | `composeId` (string), `deleteVolumes` (boolean) |
+| `compose-update` | POST | `composeId` (string), +47 optional |
+| `compose-saveEnvironment` | POST | `composeId` (string), `env` (string,null), `createEnvFile`? |
+| `compose-delete` | POST | `composeId` (string), `deleteVolumes`? |
 | `compose-cleanQueues` | POST | `composeId` (string) |
 | `compose-clearDeployments` | POST | `composeId` (string) |
 | `compose-killBuild` | POST | `composeId` (string) |
@@ -246,12 +250,12 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `destination-create` | POST | `name` (string), `provider` (string | null), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `additionalFlags` (array | null), `serverId`? |
-| `destination-testConnection` | POST | `name` (string), `provider` (string | null), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `additionalFlags` (array | null), `serverId`? |
+| `destination-create` | POST | `name` (string), `provider` (string,null), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `additionalFlags` (array | null), `serverId`? |
+| `destination-testConnection` | POST | `name` (string), `provider` (string,null), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `additionalFlags` (array | null), `serverId`? |
 | `destination-one` | GET | `destinationId` (string) |
 | `destination-all` | GET | None |
 | `destination-remove` | POST | `destinationId` (string) |
-| `destination-update` | POST | `name` (string), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `destinationId` (string), `provider` (string | null), `additionalFlags` (array | null), `serverId`? |
+| `destination-update` | POST | `name` (string), `accessKey` (string), `bucket` (string), `region` (string), `endpoint` (string), `secretAccessKey` (string), `destinationId` (string), `provider` (string,null), `additionalFlags` (array | null), `serverId`? |
 
 ## dnsProvider
 
@@ -352,13 +356,13 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `forwardAuth-getAuthDomain` | GET | `serverId` (string | null) |
-| `forwardAuth-setAuthDomain` | POST | `serverId` (string | null), `authDomain` (string), `https`?, `certificateType`?, `customCertResolver`? |
-| `forwardAuth-removeAuthDomain` | POST | `serverId` (string | null) |
+| `forwardAuth-getAuthDomain` | GET | `serverId` (string,null) |
+| `forwardAuth-setAuthDomain` | POST | `serverId` (string,null), `authDomain` (string), `https`?, `certificateType`?, `customCertResolver`? |
+| `forwardAuth-removeAuthDomain` | POST | `serverId` (string,null) |
 | `forwardAuth-listProviders` | GET | None |
 | `forwardAuth-serverStatus` | GET | None |
-| `forwardAuth-deployOnServer` | POST | `serverId` (string | null), `providerId` (string) |
-| `forwardAuth-removeOnServer` | POST | `serverId` (string | null) |
+| `forwardAuth-deployOnServer` | POST | `serverId` (string,null), `providerId` (string) |
+| `forwardAuth-removeOnServer` | POST | `serverId` (string,null) |
 | `forwardAuth-status` | GET | `domainId` (string) |
 | `forwardAuth-enable` | POST | `domainId` (string) |
 | `forwardAuth-disable` | POST | `domainId` (string) |
@@ -412,7 +416,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `libsql-create` | POST | `name` (string), `appName` (string), `dockerImage` (string), `environmentId` (string), `description` (string | null), `databaseUser` (string), `databasePassword` (string), `sqldNode` ("primary" | "replica"), `sqldPrimaryUrl` (unknown | null), `enableNamespaces` (boolean), `serverId` (string | null) |
+| `libsql-create` | POST | `name` (string), `appName` (string), `dockerImage` (string), `environmentId` (string), `description` (string,null), `databaseUser` (string), `databasePassword` (string), `sqldNode` ("primary" | "replica"), `sqldPrimaryUrl` (string,null), `enableNamespaces` (boolean), `serverId` (string,null) |
 | `libsql-one` | GET | `libsqlId` (string) |
 | `libsql-start` | POST | `libsqlId` (string) |
 | `libsql-stop` | POST | `libsqlId` (string) |
@@ -420,7 +424,7 @@
 | `libsql-deploy` | POST | `libsqlId` (string) |
 | `libsql-changeStatus` | POST | `libsqlId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `libsql-remove` | POST | `libsqlId` (string) |
-| `libsql-saveEnvironment` | POST | `libsqlId` (string), `env` (string | null) |
+| `libsql-saveEnvironment` | POST | `libsqlId` (string), `env` (string,null) |
 | `libsql-reload` | POST | `libsqlId` (string), `appName` (string) |
 | `libsql-update` | POST | `libsqlId` (string), +34 optional |
 | `libsql-move` | POST | `libsqlId` (string), `targetEnvironmentId` (string) |
@@ -446,11 +450,11 @@
 | `mariadb-one` | GET | `mariadbId` (string) |
 | `mariadb-start` | POST | `mariadbId` (string) |
 | `mariadb-stop` | POST | `mariadbId` (string) |
-| `mariadb-saveExternalPort` | POST | `mariadbId` (string), `externalPort` (number | null) |
+| `mariadb-saveExternalPort` | POST | `mariadbId` (string), `externalPort` (number,null) |
 | `mariadb-deploy` | POST | `mariadbId` (string) |
 | `mariadb-changeStatus` | POST | `mariadbId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `mariadb-remove` | POST | `mariadbId` (string) |
-| `mariadb-saveEnvironment` | POST | `mariadbId` (string), `env` (string | null) |
+| `mariadb-saveEnvironment` | POST | `mariadbId` (string), `env` (string,null) |
 | `mariadb-reload` | POST | `mariadbId` (string), `appName` (string) |
 | `mariadb-update` | POST | `mariadbId` (string), +33 optional |
 | `mariadb-changePassword` | POST | `mariadbId` (string), `password` (string), `type`? |
@@ -467,12 +471,12 @@
 | `mongo-one` | GET | `mongoId` (string) |
 | `mongo-start` | POST | `mongoId` (string) |
 | `mongo-stop` | POST | `mongoId` (string) |
-| `mongo-saveExternalPort` | POST | `mongoId` (string), `externalPort` (number | null) |
+| `mongo-saveExternalPort` | POST | `mongoId` (string), `externalPort` (number,null) |
 | `mongo-deploy` | POST | `mongoId` (string) |
 | `mongo-changeStatus` | POST | `mongoId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `mongo-reload` | POST | `mongoId` (string), `appName` (string) |
 | `mongo-remove` | POST | `mongoId` (string) |
-| `mongo-saveEnvironment` | POST | `mongoId` (string), `env` (string | null) |
+| `mongo-saveEnvironment` | POST | `mongoId` (string), `env` (string,null) |
 | `mongo-update` | POST | `mongoId` (string), +32 optional |
 | `mongo-changePassword` | POST | `mongoId` (string), `password` (string) |
 | `mongo-move` | POST | `mongoId` (string), `targetEnvironmentId` (string) |
@@ -487,7 +491,8 @@
 | `mounts-create` | POST | `type` ("bind" | "volume" | "file"), `mountPath` (string), `serviceId` (string), +5 optional |
 | `mounts-remove` | POST | `mountId` (string) |
 | `mounts-one` | GET | `mountId` (string) |
-| `mounts-update` | POST | `mountId` (string), +15 optional |
+| `mounts-readFileContent` | GET | `mountId` (string) |
+| `mounts-update` | POST | `mountId` (string), +16 optional |
 | `mounts-allNamedByApplicationId` | GET | `applicationId` (string) |
 | `mounts-listByServiceId` | GET | `serviceType` (string), `serviceId` (string) |
 
@@ -499,12 +504,12 @@
 | `mysql-one` | GET | `mysqlId` (string) |
 | `mysql-start` | POST | `mysqlId` (string) |
 | `mysql-stop` | POST | `mysqlId` (string) |
-| `mysql-saveExternalPort` | POST | `mysqlId` (string), `externalPort` (number | null) |
+| `mysql-saveExternalPort` | POST | `mysqlId` (string), `externalPort` (number,null) |
 | `mysql-deploy` | POST | `mysqlId` (string) |
 | `mysql-changeStatus` | POST | `mysqlId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `mysql-reload` | POST | `mysqlId` (string), `appName` (string) |
 | `mysql-remove` | POST | `mysqlId` (string) |
-| `mysql-saveEnvironment` | POST | `mysqlId` (string), `env` (string | null) |
+| `mysql-saveEnvironment` | POST | `mysqlId` (string), `env` (string,null) |
 | `mysql-update` | POST | `mysqlId` (string), +33 optional |
 | `mysql-changePassword` | POST | `mysqlId` (string), `password` (string), `type`? |
 | `mysql-move` | POST | `mysqlId` (string), `targetEnvironmentId` (string) |
@@ -630,11 +635,11 @@
 | `postgres-one` | GET | `postgresId` (string) |
 | `postgres-start` | POST | `postgresId` (string) |
 | `postgres-stop` | POST | `postgresId` (string) |
-| `postgres-saveExternalPort` | POST | `postgresId` (string), `externalPort` (number | null) |
+| `postgres-saveExternalPort` | POST | `postgresId` (string), `externalPort` (number,null) |
 | `postgres-deploy` | POST | `postgresId` (string) |
 | `postgres-changeStatus` | POST | `postgresId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `postgres-remove` | POST | `postgresId` (string) |
-| `postgres-saveEnvironment` | POST | `postgresId` (string), `env` (string | null) |
+| `postgres-saveEnvironment` | POST | `postgresId` (string), `env` (string,null) |
 | `postgres-reload` | POST | `postgresId` (string), `appName` (string) |
 | `postgres-update` | POST | `postgresId` (string), +32 optional |
 | `postgres-changePassword` | POST | `postgresId` (string), `password` (string) |
@@ -686,11 +691,11 @@
 | `redis-start` | POST | `redisId` (string) |
 | `redis-reload` | POST | `redisId` (string), `appName` (string) |
 | `redis-stop` | POST | `redisId` (string) |
-| `redis-saveExternalPort` | POST | `redisId` (string), `externalPort` (number | null) |
+| `redis-saveExternalPort` | POST | `redisId` (string), `externalPort` (number,null) |
 | `redis-deploy` | POST | `redisId` (string) |
 | `redis-changeStatus` | POST | `redisId` (string), `applicationStatus` ("idle" | "running" | "done" | "error") |
 | `redis-remove` | POST | `redisId` (string) |
-| `redis-saveEnvironment` | POST | `redisId` (string), `env` (string | null) |
+| `redis-saveEnvironment` | POST | `redisId` (string), `env` (string,null) |
 | `redis-update` | POST | `redisId` (string), +30 optional |
 | `redis-changePassword` | POST | `redisId` (string), `password` (string) |
 | `redis-move` | POST | `redisId` (string), `targetEnvironmentId` (string) |
@@ -702,7 +707,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `registry-create` | POST | `registryName` (string), `username` (string), `password` (string), `registryUrl` (string), `registryType` ("cloud"), `imagePrefix` (string | null), `serverId`? |
+| `registry-create` | POST | `registryName` (string), `username` (string), `password` (string), `registryUrl` (string), `registryType` ("cloud"), `imagePrefix` (string,null), `serverId`? |
 | `registry-remove` | POST | `registryId` (string) |
 | `registry-update` | POST | `registryId` (string), +9 optional |
 | `registry-all` | GET | None |
@@ -749,7 +754,7 @@
 
 | Tool | Method | Parameters |
 |------|--------|------------|
-| `server-create` | POST | `name` (string), `description` (string | null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`? |
+| `server-create` | POST | `name` (string), `description` (string,null), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string,null), `serverType` ("deploy" | "build"), `enableDockerCleanup`? |
 | `server-one` | GET | `serverId` (string) |
 | `server-getDefaultCommand` | GET | `serverId` (string) |
 | `server-getServices` | GET | `serverId` (string) |
@@ -763,11 +768,28 @@
 | `server-security` | GET | `serverId` (string) |
 | `server-setupMonitoring` | POST | `serverId` (string), `metricsConfig` (object) |
 | `server-remove` | POST | `serverId` (string) |
-| `server-update` | POST | `name` (string), `description` (string | null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string | null), `serverType` ("deploy" | "build"), `enableDockerCleanup`?, `command`? |
+| `server-update` | POST | `name` (string), `description` (string,null), `serverId` (string), `ipAddress` (string), `port` (number), `username` (string), `sshKeyId` (string,null), `serverType` ("deploy" | "build"), `enableDockerCleanup`?, `command`? |
 | `server-updateBuildsConcurrency` | POST | `serverId` (string), `buildsConcurrency` (integer) |
 | `server-publicIp` | GET | None |
 | `server-getServerTime` | GET | None |
 | `server-getServerMetrics` | GET | `url` (string), `token` (string), `dataPoints` (string) |
+
+## serverSecurity
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `serverSecurity-fail2banStatus` | GET | `serverId` (string) |
+| `serverSecurity-configureFail2ban` | POST | `serverId` (string), `bantime` (number | integer), `findtime` (integer), `maxretry` (integer), `ignoreip` (string | string | string | string[]) |
+| `serverSecurity-setFail2banEnabled` | POST | `serverId` (string), `enabled` (boolean) |
+| `serverSecurity-banIp` | POST | `serverId` (string), `ip` (string | string) |
+| `serverSecurity-unbanIp` | POST | `serverId` (string), `jail` (string), `ip` (string | string) |
+| `serverSecurity-exposedPorts` | GET | `serverId` (string) |
+| `serverSecurity-sshSecurity` | GET | `serverId` (string) |
+| `serverSecurity-updateSshSettings` | POST | `serverId` (string), `passwordAuthentication` (boolean), `permitRootLogin` ("yes" | "prohibit-password" | "no"), `maxAuthTries` (integer) |
+| `serverSecurity-removeAuthorizedKey` | POST | `serverId` (string), `fingerprint` (string) |
+| `serverSecurity-pendingUpdates` | GET | `serverId` (string) |
+| `serverSecurity-disconnectSession` | POST | `serverId` (string), `terminal` (string), `banIp`? |
+| `serverSecurity-activity` | GET | `serverId` (string) |
 
 ## settings
 
@@ -811,10 +833,13 @@
 | `settings-getOpenApiDocument` | GET | None |
 | `settings-readTraefikEnv` | GET | `serverId`? |
 | `settings-writeTraefikEnv` | POST | `env` (string), `serverId`? |
+| `settings-getPanelPortStatus` | GET | None |
+| `settings-togglePanelPort` | POST | `enable` (boolean) |
 | `settings-haveTraefikDashboardPortEnabled` | GET | `serverId`? |
 | `settings-haveActivateRequests` | GET | None |
 | `settings-toggleRequests` | POST | `enable` (boolean) |
 | `settings-isCloud` | GET | None |
+| `settings-getPostHogConfig` | GET | None |
 | `settings-isUserSubscribed` | GET | None |
 | `settings-health` | GET | None |
 | `settings-checkInfrastructureHealth` | GET | None |
@@ -822,7 +847,9 @@
 | `settings-checkGPUStatus` | GET | `serverId`? |
 | `settings-updateTraefikPorts` | POST | `additionalPorts` (object[]), `serverId`? |
 | `settings-getTraefikPorts` | GET | `serverId`? |
-| `settings-updateLogCleanup` | POST | `cronExpression` (string | null) |
+| `settings-getTraefikOverview` | GET | `serverId`? |
+| `settings-updateTraefik` | POST | `serverId`? |
+| `settings-updateLogCleanup` | POST | `cronExpression` (string,null) |
 | `settings-getLogCleanupStatus` | GET | None |
 | `settings-getDokployCloudIps` | GET | None |
 
@@ -891,6 +918,22 @@
 | `tag-removeFromProject` | POST | `projectId` (string), `tagId` (string) |
 | `tag-bulkAssign` | POST | `projectId` (string), `tagIds` (string[]) |
 
+## telemetryProvider
+
+| Tool | Method | Parameters |
+|------|--------|------------|
+| `telemetryProvider-create` | POST | `name` (string), `providerType` ("loki" | "datadog" | "betterstack" | "elasticsearch" | "splunk_hec" | "aws_cloudwatch" | "prometheus_remote_write" | "new_relic" | "influxdb"), `signals` ("logs" | "metrics"[]), +5 optional |
+| `telemetryProvider-update` | POST | `telemetryProviderId` (string), +8 optional |
+| `telemetryProvider-remove` | POST | `telemetryProviderId` (string) |
+| `telemetryProvider-all` | GET | None |
+| `telemetryProvider-one` | GET | `telemetryProviderId` (string) |
+| `telemetryProvider-testConnection` | POST | `providerType` ("loki" | "datadog" | "betterstack" | "elasticsearch" | "splunk_hec" | "aws_cloudwatch" | "prometheus_remote_write" | "new_relic" | "influxdb"), `signals` ("logs" | "metrics"[]), +6 optional |
+| `telemetryProvider-testConnectionById` | POST | `telemetryProviderId` (string), `signals`? |
+| `telemetryProvider-serverStatus` | GET | None |
+| `telemetryProvider-deployOnServer` | POST | `providerIds` (string[]), `serverId`? |
+| `telemetryProvider-removeOnServer` | POST | `serverId`? |
+| `telemetryProvider-availableTypes` | GET | None |
+
 ## user
 
 | Tool | Method | Parameters |
@@ -910,6 +953,10 @@
 | `user-getUserByToken` | GET | `token` (string) |
 | `user-getMetricsToken` | GET | None |
 | `user-remove` | POST | `userId` (string) |
+| `user-hasPassword` | GET | None |
+| `user-requestAccountDeletionCode` | POST | `password`? |
+| `user-deleteAccount` | POST | `code` (string) |
+| `user-deleteAccountByEmail` | POST | `email` (string) |
 | `user-assignPermissions` | POST | `id` (string), `accessedProjects` (string[]), `accessedEnvironments` (string[]), `accessedServices` (string[]), `accessedGitProviders` (string[]), `accessedServers` (string[]), `canCreateProjects` (boolean), `canCreateServices` (boolean), `canDeleteProjects` (boolean), `canDeleteServices` (boolean), `canAccessToDocker` (boolean), `canAccessToTraefikFiles` (boolean), `canAccessToAPI` (boolean), `canAccessToSSHKeys` (boolean), `canAccessToGitProviders` (boolean), `canDeleteEnvironments` (boolean), `canCreateEnvironments` (boolean) |
 | `user-getInvitations` | GET | None |
 | `user-getContainerMetrics` | GET | `url` (string), `token` (string), `appName` (string), `dataPoints` (string) |
