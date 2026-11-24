@@ -119,7 +119,7 @@
 | `application-clearDeployments` | POST | `applicationId` (string) |
 | `application-killBuild` | POST | `applicationId` (string) |
 | `application-readTraefikConfig` | GET | `applicationId` (string) |
-| `application-dropDeployment` | POST | None |
+| `application-dropDeployment` | POST | `applicationId` (string), `zipPath` (string), `dropBuildPath`? |
 | `application-updateTraefikConfig` | POST | `applicationId` (string), `traefikConfig` (string) |
 | `application-readAppMonitoring` | GET | `appName` (string) |
 | `application-move` | POST | `applicationId` (string), `targetEnvironmentId` (string) |
@@ -285,7 +285,7 @@
 | `docker-getContainersByAppLabel` | GET | `appName` (string), `type` ("standalone" | "swarm"), `serverId`? |
 | `docker-getStackContainersByAppName` | GET | `appName` (string), `serverId`? |
 | `docker-getServiceContainersByAppName` | GET | `appName` (string), `serverId`? |
-| `docker-uploadFileToContainer` | POST | None |
+| `docker-uploadFileToContainer` | POST | `containerId` (string), `filePath` (string), `destinationPath` (string), `serverId`? |
 | `docker-listContainerFiles` | GET | `containerId` (string), `path` (string), `serverId`? |
 | `docker-readContainerFile` | GET | `containerId` (string), `path` (string), `serverId`? |
 | `docker-writeContainerFile` | POST | `containerId` (string), `path` (string), `content` (string), `serverId`? |

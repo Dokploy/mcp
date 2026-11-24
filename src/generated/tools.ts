@@ -1,5 +1,5 @@
 // AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
-// Generated from openapi.json on 2026-09-18
+// Generated from openapi.json on 2026-11-13
 // Run `pnpm generate` to regenerate
 
 import { z } from "zod";
@@ -324,10 +324,12 @@ export const generatedTools: ToolDefinition[] = [
     tag: "application",
     method: "POST",
     path: "/application.dropDeployment",
-    schema: z.object({}),
+    schema: z.object({ "applicationId": z.string(), "zipPath": z.string().min(1).describe("Absolute path to a local file, read by the MCP server"), "dropBuildPath": z.string().optional() }),
+    bodyType: "multipart",
+    fileFields: {"zipPath":"zip"},
     annotations: {
       title: "Application DropDeployment",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"idempotentHint":false,"openWorldHint":true},
     },
   },
   {
@@ -1773,10 +1775,12 @@ export const generatedTools: ToolDefinition[] = [
     tag: "docker",
     method: "POST",
     path: "/docker.uploadFileToContainer",
-    schema: z.object({}),
+    schema: z.object({ "containerId": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_]+$")).min(1), "filePath": z.string().min(1).describe("Absolute path to a local file, read by the MCP server"), "destinationPath": z.string().regex(new RegExp("^[a-zA-Z0-9.\\-_/]+$")).min(1), "serverId": z.string().optional() }),
+    bodyType: "multipart",
+    fileFields: {"filePath":"file"},
     annotations: {
       title: "Docker UploadFileToContainer",
-      ...{"idempotentHint":true,"openWorldHint":true},
+      ...{"idempotentHint":false,"openWorldHint":true},
     },
   },
   {
