@@ -135,12 +135,44 @@ function stripUnsupportedRegexPatterns(value: unknown): void {
   }
 }
 
+const EXCLUSIVE_BOUND_PAIRS = [
+  ["exclusiveMinimum", "minimum"],
+  ["exclusiveMaximum", "maximum"],
+] as const;
+
+// zod-to-json-schema emits draft-04 boolean exclusiveMinimum/exclusiveMaximum
+// flags for target "jsonSchema2019-09" (only "jsonSchema7" emits numbers).
+// Draft 2020-12 requires numeric values directly on those keywords.
+function normalizeExclusiveBounds(value: unknown): void {
+  if (value === null || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) normalizeExclusiveBounds(item);
+    return;
+  }
+
+  const record = value as Record<string, unknown>;
+  for (const [exclusiveKey, inclusiveKey] of EXCLUSIVE_BOUND_PAIRS) {
+    const flag = record[exclusiveKey];
+    if (typeof flag !== "boolean") continue;
+    if (flag && typeof record[inclusiveKey] === "number") {
+      record[exclusiveKey] = record[inclusiveKey];
+      delete record[inclusiveKey];
+    } else {
+      delete record[exclusiveKey];
+    }
+  }
+
+  for (const child of Object.values(record)) {
+    normalizeExclusiveBounds(child);
+  }
+}
+
 // Claude's API requires JSON Schema draft 2020-12. The MCP SDK's built-in
 // Zod→JSON Schema converter emits draft-07 by default, which causes a 400
 // error on tools/list. We bypass the SDK's auto-generated handler by
 // registering our own with pre-converted draft-2020-12 schemas.
 // See https://github.com/Dokploy/mcp/issues/32
-function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string, unknown> {
+export function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string, unknown> {
   const result = zodToJsonSchema(schema, {
     target: "jsonSchema2019-09",
     strictUnions: true,
@@ -148,6 +180,7 @@ function toDraft2020_12JsonSchema(schema: ZodObject<ZodRawShape>): Record<string
 
   stripNestedSchemaKeys(result);
   stripUnsupportedRegexPatterns(result);
+  normalizeExclusiveBounds(result);
   result.$schema = JSON_SCHEMA_2020_12;
   return result;
 }

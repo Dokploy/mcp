@@ -2,6 +2,8 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import { z } from "zod";
+
 // Mock apiClient before server.ts is imported — it calls getClientConfig() at
 // module level which requires DOKPLOY_URL/DOKPLOY_API_KEY env vars.
 vi.mock("./utils/apiClient.js", () => ({
@@ -10,7 +12,7 @@ vi.mock("./utils/apiClient.js", () => ({
   clearAuthToken: vi.fn(),
 }));
 
-const { createServer } = await import("./server.js");
+const { createServer, toDraft2020_12JsonSchema } = await import("./server.js");
 const { generatedTools } = await import("./generated/tools.js");
 
 function countByTags(tags: string[]): number {
@@ -212,5 +214,65 @@ describe("MCP server tools/list", () => {
         `tool "${tool.name}" inputSchema is missing type`,
       ).toBe("object");
     }
+  });
+
+  it("no tool inputSchema uses draft-04 boolean exclusiveMinimum or exclusiveMaximum", async () => {
+    const tools = await getToolList();
+
+    function findNonNumericExclusiveBounds(obj: unknown, path = ""): string[] {
+      if (obj === null || typeof obj !== "object") return [];
+      if (Array.isArray(obj)) {
+        return obj.flatMap((item, i) => findNonNumericExclusiveBounds(item, `${path}[${i}]`));
+      }
+
+      const record = obj as Record<string, unknown>;
+      const found: string[] = [];
+      for (const [key, value] of Object.entries(record)) {
+        const currentPath = path ? `${path}.${key}` : key;
+        if (
+          (key === "exclusiveMinimum" || key === "exclusiveMaximum") &&
+          typeof value !== "number"
+        ) {
+          found.push(`${currentPath}=${JSON.stringify(value)}`);
+        }
+        found.push(...findNonNumericExclusiveBounds(value, currentPath));
+      }
+      return found;
+    }
+
+    for (const tool of tools) {
+      const found = findNonNumericExclusiveBounds(tool.inputSchema);
+      expect(
+        found,
+        `Tool "${tool.name}" exposes non-numeric exclusive bounds at: ${found.join(", ")}`,
+      ).toHaveLength(0);
+    }
+
+    for (const toolName of ["dnsProvider-createRecord", "dnsProvider-updateRecord"]) {
+      const tool = tools.find((item) => item.name === toolName);
+      expect(tool, `Expected tool "${toolName}" to exist`).toBeDefined();
+      const ttl = (tool!.inputSchema as { properties?: Record<string, Record<string, unknown>> })
+        .properties?.ttl;
+      expect(ttl?.exclusiveMinimum).toBe(0);
+      expect(ttl?.minimum).toBeUndefined();
+    }
+  });
+
+  it("normalizes both exclusiveMinimum and exclusiveMaximum to numeric draft 2020-12 bounds", () => {
+    const schema = toDraft2020_12JsonSchema(
+      z.object({
+        positiveInt: z.number().int().gt(0),
+        boundedFloat: z.number().gt(1.5).lt(9.5),
+      }),
+    ) as {
+      properties: Record<string, Record<string, unknown>>;
+    };
+
+    expect(schema.properties.positiveInt.exclusiveMinimum).toBe(0);
+    expect(schema.properties.positiveInt.minimum).toBeUndefined();
+    expect(schema.properties.boundedFloat.exclusiveMinimum).toBe(1.5);
+    expect(schema.properties.boundedFloat.minimum).toBeUndefined();
+    expect(schema.properties.boundedFloat.exclusiveMaximum).toBe(9.5);
+    expect(schema.properties.boundedFloat.maximum).toBeUndefined();
   });
 });
