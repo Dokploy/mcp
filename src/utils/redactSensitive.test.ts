@@ -41,10 +41,7 @@ describe("redactSensitive", () => {
       apps: [{ name: "web", env: "SECRET=1" }, { config: { registryPassword: "p" } }],
     });
     expect(result).toEqual({
-      apps: [
-        { name: "web", env: "[REDACTED]" },
-        { config: { registryPassword: "[REDACTED]" } },
-      ],
+      apps: [{ name: "web", env: "[REDACTED]" }, { config: { registryPassword: "[REDACTED]" } }],
     });
   });
 

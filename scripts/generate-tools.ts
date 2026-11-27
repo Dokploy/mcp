@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { type JsonSchema, jsonSchemaToZod } from "json-schema-to-zod";
 
@@ -32,6 +32,14 @@ interface ParameterObject {
 const SPEC_PATH = resolve(import.meta.dirname, "../src/generated/openapi.json");
 const OUTPUT_PATH = resolve(import.meta.dirname, "../src/generated/tools.ts");
 const TOOLS_MD_PATH = resolve(import.meta.dirname, "../TOOLS.md");
+const CHECK = process.argv.includes("--check");
+const GENERATED_DATE_LINE = /^\/\/ Generated from openapi\.json on .*$/m;
+
+function isUpToDate(path: string, expected: string): boolean {
+  if (!existsSync(path)) return false;
+  const strip = (content: string) => content.replace(GENERATED_DATE_LINE, "");
+  return strip(readFileSync(path, "utf8")) === strip(expected);
+}
 
 function deriveAnnotations(method: string, operationId: string): string {
   const id = operationId.toLowerCase();
@@ -299,11 +307,29 @@ ${tools.join(",\n")},
 ];
 `;
 
+  const md = generateToolsMd(mdEntries);
+
+  if (CHECK) {
+    const files: [string, string][] = [
+      [OUTPUT_PATH, output],
+      [TOOLS_MD_PATH, md],
+    ];
+    const stale = files
+      .filter(([path, expected]) => !isUpToDate(path, expected))
+      .map(([path]) => path);
+    if (stale.length > 0) {
+      for (const path of stale) console.error(`Out of date: ${path}`);
+      console.error("Run `pnpm generate` and commit the result.");
+      process.exit(1);
+    }
+    console.log(`Generated files are up to date (${tools.length} tools)`);
+    return;
+  }
+
   writeFileSync(OUTPUT_PATH, output);
   console.log(`Generated ${tools.length} tools (${errorCount} errors) -> ${OUTPUT_PATH}`);
 
   // Write TOOLS.md
-  const md = generateToolsMd(mdEntries);
   writeFileSync(TOOLS_MD_PATH, md);
   console.log(`Generated TOOLS.md with ${mdEntries.length} tools -> ${TOOLS_MD_PATH}`);
 }
